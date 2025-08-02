@@ -3,88 +3,25 @@
 class CBMAssessment {
     constructor(userId, textId) {
         this.userId = userId;
-        this.selectedTextId = parseInt(textId) || 2;
+        this.selectedTextId = textId !== null && textId !== undefined ? parseInt(textId) : 0;
+        console.log(`CBM Constructor: userId=${userId}, textId=${textId}, selectedTextId=${this.selectedTextId}`);
         this.timeRemaining = 120; // 2 minutes in seconds
         this.timer = null;
         this.answers = {};
         this.currentTextData = null;
         this.autoSaveInterval = null;
         
-        // CBM Text Data (same as before but structured for direct display)
-        this.cbmTexts = {
-            2: {
-                id: 2,
-                title: "Nieuwe Sneakerstyle",
-                type: "cloze_test",
-                cloze_test: {
-                    text_with_blanks: `De laatste jaren zijn er veel nieuwe trends in sneakers ontstaan. Retro sneakers zijn weer helemaal [BLANK_1] geworden. Veel merken brengen oude designs terug, maar dan met moderne materialen en [BLANK_2]. Deze combinatie van nostalgie en innovatie spreekt veel jongeren aan.
-
-Daarnaast zien we een trend naar [BLANK_3] sneakers. Deze schoenen hebben eenvoudige designs en neutrale kleuren. Ze passen goed bij verschillende kledingstijlen en zijn geschikt voor verschillende [BLANK_4].
-
-Een andere belangrijke trend is [BLANK_5]. Steeds meer merken gebruiken gerecyclede materialen om hun sneakers te maken. Jongeren vinden het belangrijk dat hun kleding [BLANK_6] is.
-
-Ook tech sneakers worden steeds [BLANK_7]. Deze schoenen hebben futuristische designs en speciale functies, zoals LED-verlichting of zelfbindende veters. Ze appelleren aan jongeren die van [BLANK_8] houden.
-
-Personalisatie is ook een grote [BLANK_9]. Veel merken bieden nu de mogelijkheid om sneakers aan te passen met verschillende kleuren, materialen en designs. Dit geeft jongeren de kans om hun eigen [BLANK_10] stijl te creëren.
-
-Tot slot zijn slip-on sneakers zonder veters erg [BLANK_11] geworden. Ze zijn gemakkelijk aan en uit te trekken en hebben een casual uitstraling die goed past bij de moderne [BLANK_12].`,
-                    choices: [
-                        { blank_id: 1, options: ["populair", "duur", "moeilijk"], correct_answer: "populair" },
-                        { blank_id: 2, options: ["prijzen", "technologieën", "winkels"], correct_answer: "technologieën" },
-                        { blank_id: 3, options: ["grote", "minimalistische", "kleurrijke"], correct_answer: "minimalistische" },
-                        { blank_id: 4, options: ["gelegenheden", "mensen", "winkels"], correct_answer: "gelegenheden" },
-                        { blank_id: 5, options: ["mode", "duurzaamheid", "prijs"], correct_answer: "duurzaamheid" },
-                        { blank_id: 6, options: ["mooi", "goedkoop", "milieuvriendelijk"], correct_answer: "milieuvriendelijk" },
-                        { blank_id: 7, options: ["duurder", "populairder", "kleiner"], correct_answer: "populairder" },
-                        { blank_id: 8, options: ["sport", "mode", "technologie"], correct_answer: "technologie" },
-                        { blank_id: 9, options: ["trend", "probleem", "vraag"], correct_answer: "trend" },
-                        { blank_id: 10, options: ["dure", "unieke", "nieuwe"], correct_answer: "unieke" },
-                        { blank_id: 11, options: ["populair", "duur", "zeldzaam"], correct_answer: "populair" },
-                        { blank_id: 12, options: ["tijd", "levensstijl", "mode"], correct_answer: "levensstijl" }
-                    ]
-                }
-            },
-            3: {
-                id: 3,
-                title: "Product Launch - SneakLab",
-                type: "cloze_test",
-                cloze_test: {
-                    text_with_blanks: `Een succesvolle productlancering vereist zorgvuldige planning en [BLANK_1]. SneakLab, een populaire sneakerwinkel, heeft dit jaar verschillende nieuwe [BLANK_2] gelanceerd. Hun aanpak kan als voorbeeld dienen voor andere [BLANK_3].
-
-De eerste stap is het creëren van [BLANK_4]. SneakLab gebruikt sociale media om teasers te delen en hun volgers [BLANK_5] te maken. Ze posten mysterieuze foto's en hints over wat er komt.
-
-Vervolgens organiseren ze speciale [BLANK_6] voor de lancering. Deze evenementen zijn meer dan alleen een verkoop; ze creëren een [BLANK_7]. Klanten kunnen de nieuwe producten uitproberen, er zijn DJ's en soms zelfs kleine [BLANK_8].
-
-SneakLab werkt ook samen met influencers en lokale [BLANK_9]. Deze partnerships helpen om een bredere doelgroep te bereiken en geven de lancering meer [BLANK_10].
-
-Een ander belangrijk aspect is het [BLANK_11] achter het product. SneakLab vertelt altijd het verhaal van hoe een sneaker tot stand is gekomen, welke materialen zijn gebruikt, en wat het [BLANK_12] maakt.
-
-Tot slot besteden ze veel aandacht aan duurzaamheid en sociale [BLANK_13]. Ze laten zien hoe hun nieuwe producten bijdragen aan een betere wereld, wat belangrijk is voor hun jonge [BLANK_14].`,
-                    choices: [
-                        { blank_id: 1, options: ["voorbereiding", "verkoop", "reclame"], correct_answer: "voorbereiding" },
-                        { blank_id: 2, options: ["winkels", "collecties", "prijzen"], correct_answer: "collecties" },
-                        { blank_id: 3, options: ["bedrijven", "klanten", "producten"], correct_answer: "bedrijven" },
-                        { blank_id: 4, options: ["verwachting", "producten", "winst"], correct_answer: "verwachting" },
-                        { blank_id: 5, options: ["blij", "nieuwsgierig", "boos"], correct_answer: "nieuwsgierig" },
-                        { blank_id: 6, options: ["events", "foto's", "prijzen"], correct_answer: "events" },
-                        { blank_id: 7, options: ["probleem", "ervaring", "winkel"], correct_answer: "ervaring" },
-                        { blank_id: 8, options: ["concerten", "winkels", "problemen"], correct_answer: "concerten" },
-                        { blank_id: 9, options: ["klanten", "artiesten", "bedrijven"], correct_answer: "artiesten" },
-                        { blank_id: 10, options: ["problemen", "kosten", "authenticiteit"], correct_answer: "authenticiteit" },
-                        { blank_id: 11, options: ["verhaal", "prijs", "kleur"], correct_answer: "verhaal" },
-                        { blank_id: 12, options: ["duur", "bijzonder", "groot"], correct_answer: "bijzonder" },
-                        { blank_id: 13, options: ["media", "verantwoordelijkheid", "verkoop"], correct_answer: "verantwoordelijkheid" },
-                        { blank_id: 14, options: ["doelgroep", "wereld", "tijd"], correct_answer: "doelgroep" }
-                    ]
-                }
-            }
-        };
+        // CBM Text Data will be loaded from JSON file 
+        this.cbmTexts = {};
         
         this.init();
     }
     
-    init() {
+    async init() {
         console.log('CBM Assessment initialized for user:', this.userId, 'text:', this.selectedTextId);
+        
+        // Load CBM text data from JSON file
+        await this.loadCBMData();
         
         // Set current text data
         this.currentTextData = this.cbmTexts[this.selectedTextId];
@@ -99,6 +36,98 @@ Tot slot besteden ze veel aandacht aan duurzaamheid en sociale [BLANK_13]. Ze la
         this.startTimer();
         this.startAutoSave();
         this.setupEventListeners();
+    }
+    
+    async loadCBMData() {
+        try {
+            // Load only the specific text that's needed
+            const textFile = `/assets/data/cbm-text-${this.selectedTextId}.json?v=${Date.now()}`;
+            console.log(`Loading CBM text ${this.selectedTextId} from ${textFile}`);
+            
+            const response = await fetch(textFile);
+            console.log('Response status:', response.status, response.statusText);
+            
+            if (!response.ok) {
+                throw new Error(`Failed to load CBM text ${this.selectedTextId}: ${response.status} ${response.statusText}`);
+            }
+            
+            const textData = await response.json();
+            console.log('CBM text data loaded:', textData);
+            
+            // Convert to expected format
+            this.cbmTexts[textData.id] = {
+                id: textData.id,
+                title: textData.title,
+                type: textData.type,
+                cloze_test: this.convertExercisesToClozeTest(textData.exercises)
+            };
+            
+            console.log(`Loaded text ${textData.id}: ${textData.title} with ${textData.exercises.length} exercises`);
+            console.log('CBM text loaded successfully');
+        } catch (error) {
+            console.error('CRITICAL ERROR loading CBM data:', error);
+            alert('FOUT: Kan CBM tekst niet laden. Controleer console voor details.');
+            return;
+        }
+    }
+    
+    convertExercisesToClozeTest(exercises) {
+        // Convert the JSON exercise format to the cloze test format
+        let fullText = '';
+        const choices = [];
+        
+        exercises.forEach((exercise, index) => {
+            const blankId = index + 1;
+            
+            // Add text before the blank
+            fullText += exercise.text_before;
+            
+            // Add the blank placeholder
+            fullText += `[BLANK_${blankId}]`;
+            
+            // Add text after the blank (for the last exercise)
+            if (index === exercises.length - 1) {
+                fullText += exercise.text_after;
+            }
+            
+            // Create choice object
+            choices.push({
+                blank_id: blankId,
+                options: exercise.options,
+                correct_answer: exercise.correct_answer
+            });
+        });
+        
+        return {
+            text_with_blanks: fullText,
+            choices: choices
+        };
+    }
+    
+    loadFallbackData() {
+        // Use the correct practice text as fallback
+        this.cbmTexts = {
+            0: {
+                id: 0,
+                title: "CBM 0 - Oefentekst: Sneakers meer dan alleen schoenen",
+                type: "practice",
+                cloze_test: {
+                    text_with_blanks: "Sneakers zijn tegenwoordig super populair onder jongeren. Ze zijn niet alleen comfortabel, maar [BLANK_1] een belangrijk onderdeel van je outfit. [BLANK_2] je nu naar school gaat, met vrienden [BLANK_3] of gewoon chillt, sneakers passen altijd.\n\nEr [BLANK_4] veel verschillende soorten sneakers. Denk aan [BLANK_5] zoals Nike, Adidas, Puma en Vans. [BLANK_6] jongeren kiezen voor felle kleuren en [BLANK_7] ontwerpen, terwijl anderen liever simpele, witte [BLANK_8] dragen. Wat je stijl ook is, [BLANK_9] is altijd wel een sneaker die bij je past.",
+                    choices: [
+                        { blank_id: 1, options: ["veel", "ook", "aan"], correct_answer: "ook" },
+                        { blank_id: 2, options: ["Of", "Er", "Die"], correct_answer: "Of" },
+                        { blank_id: 3, options: ["terwijl", "stijl", "afspreekt"], correct_answer: "afspreekt" },
+                        { blank_id: 4, options: ["wat", "zijn", "alleen"], correct_answer: "zijn" },
+                        { blank_id: 5, options: ["kleuren", "merken", "dragen"], correct_answer: "merken" },
+                        { blank_id: 6, options: ["Sommige", "Sneakers", "Vrienden"], correct_answer: "Sommige" },
+                        { blank_id: 7, options: ["witte", "opvallende", "passen"], correct_answer: "opvallende" },
+                        { blank_id: 8, options: ["outfit", "sneakers", "school"], correct_answer: "sneakers" },
+                        { blank_id: 9, options: ["er", "of", "nu"], correct_answer: "er" }
+                    ]
+                }
+            }
+        };
+        console.log('Using fallback CBM data with correct practice text');
     }
     
     setupAssessmentContent() {

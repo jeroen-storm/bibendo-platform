@@ -29,7 +29,6 @@
             <div class="results-content">
                 <h2>Klaar! Goed gedaan.</h2>
                 <p class="results-instruction">Ga nu met het pijltje linksboven terug naar je berichtenlijst.</p>
-                <button class="btn btn-primary" id="closeResults">Sluiten</button>
             </div>
         </div>
     </div>
@@ -40,7 +39,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             const urlParams = new URLSearchParams(window.location.search);
             const userId = urlParams.get('userId') || 'anonymous-' + Date.now();
-            const textId = urlParams.get('textId') || '2'; // Default to text 2
+            const textId = urlParams.get('textId') || '0'; // Default to practice text
             
             window.cbmAssessment = new CBMAssessment(userId, textId);
         });

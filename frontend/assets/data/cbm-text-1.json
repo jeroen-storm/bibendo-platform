@@ -1,0 +1,797 @@
+{
+  "id": 1,
+  "title": "CBM tekst 1: Sneakers voor Jongeren",
+  "type": "main",
+  "exercises": [
+    {
+      "text_before": "Sneakers zijn al jarenlang een belangrijk onderdeel van de kledingstijl van jongeren. Of je nu naar school gaat, ",
+      "options": [
+        "voelt",
+        "met",
+        "of"
+      ],
+      "correct_answer": "met",
+      "text_after": " vrienden afspreekt of gewoon thuis chillt, "
+    },
+    {
+      "text_before": " vrienden afspreekt of gewoon thuis chillt, ",
+      "options": [
+        "sneakers",
+        "eerste",
+        "mag"
+      ],
+      "correct_answer": "sneakers",
+      "text_after": " zitten lekker en zien er vaak "
+    },
+    {
+      "text_before": " zitten lekker en zien er vaak ",
+      "options": [
+        "dat",
+        "mijn",
+        "cool"
+      ],
+      "correct_answer": "cool",
+      "text_after": " uit. Maar als je goed om "
+    },
+    {
+      "text_before": " uit. Maar als je goed om ",
+      "options": [
+        "ook",
+        "en",
+        "je"
+      ],
+      "correct_answer": "je",
+      "text_after": " heen kijkt, zie je dat er "
+    },
+    {
+      "text_before": " heen kijkt, zie je dat er ",
+      "options": [
+        "iets",
+        "paar",
+        "twee"
+      ],
+      "correct_answer": "iets",
+      "text_after": " is veranderd. Waar jongeren vroeger graag "
+    },
+    {
+      "text_before": " is veranderd. Waar jongeren vroeger graag ",
+      "options": [
+        "maar",
+        "sneakers",
+        "meeste"
+      ],
+      "correct_answer": "sneakers",
+      "text_after": " droegen met felle kleuren, opvallende prints "
+    },
+    {
+      "text_before": " droegen met felle kleuren, opvallende prints ",
+      "options": [
+        "een",
+        "en",
+        "nieuwe"
+      ],
+      "correct_answer": "en",
+      "text_after": " dikke zolen, kiezen ze nu steeds "
+    },
+    {
+      "text_before": " dikke zolen, kiezen ze nu steeds ",
+      "options": [
+        "hip",
+        "vaker",
+        "draag"
+      ],
+      "correct_answer": "vaker",
+      "text_after": " voor rustige, simpele modellen. Hoe komt "
+    },
+    {
+      "text_before": " voor rustige, simpele modellen. Hoe komt ",
+      "options": [
+        "overal",
+        "tiktok",
+        "dat"
+      ],
+      "correct_answer": "dat",
+      "text_after": " eigenlijk?\n\nEen paar jaar geleden waren "
+    },
+    {
+      "text_before": " eigenlijk?\n\nEen paar jaar geleden waren ",
+      "options": [
+        "goed",
+        "media",
+        "sneakers"
+      ],
+      "correct_answer": "sneakers",
+      "text_after": " met neonkleuren, dierenprints en glitters helemaal "
+    },
+    {
+      "text_before": " met neonkleuren, dierenprints en glitters helemaal ",
+      "options": [
+        "of",
+        "milieu",
+        "in"
+      ],
+      "correct_answer": "in",
+      "text_after": ". Merken als Nike, Adidas en Puma "
+    },
+    {
+      "text_before": ". Merken als Nike, Adidas en Puma ",
+      "options": [
+        "brachten",
+        "groot",
+        "sociale"
+      ],
+      "correct_answer": "brachten",
+      "text_after": " modellen uit die je van een "
+    },
+    {
+      "text_before": " modellen uit die je van een ",
+      "options": [
+        "waarom",
+        "kilometer",
+        "altijd"
+      ],
+      "correct_answer": "kilometer",
+      "text_after": " afstand kon zien. Jongeren wilden opvallen, "
+    },
+    {
+      "text_before": " afstand kon zien. Jongeren wilden opvallen, ",
+      "options": [
+        "nemen",
+        "kleuren",
+        "uniek"
+      ],
+      "correct_answer": "uniek",
+      "text_after": " zijn en hun persoonlijkheid laten zien "
+    },
+    {
+      "text_before": " zijn en hun persoonlijkheid laten zien ",
+      "options": [
+        "verandering",
+        "via",
+        "makkelijk"
+      ],
+      "correct_answer": "via",
+      "text_after": " hun schoenen. Hoe gekker, hoe beter. "
+    },
+    {
+      "text_before": " hun schoenen. Hoe gekker, hoe beter. ",
+      "options": [
+        "Glitters",
+        "Het",
+        "Veel"
+      ],
+      "correct_answer": "Het",
+      "text_after": " was een manier om jezelf te "
+    },
+    {
+      "text_before": " was een manier om jezelf te ",
+      "options": [
+        "uiten",
+        "zo",
+        "kleding"
+      ],
+      "correct_answer": "uiten",
+      "text_after": ". Maar mode verandert. Wat eerst hip "
+    },
+    {
+      "text_before": ". Maar mode verandert. Wat eerst hip ",
+      "options": [
+        "denk",
+        "kijken",
+        "was"
+      ],
+      "correct_answer": "was",
+      "text_after": ", kan een paar jaar later ineens \""
+    },
+    {
+      "text_before": ", kan een paar jaar later ineens \"",
+      "options": [
+        "felgekleurde",
+        "simpele",
+        "uit"
+      ],
+      "correct_answer": "uit",
+      "text_after": "\" zijn. Dat zie je nu gebeuren "
+    },
+    {
+      "text_before": "\" zijn. Dat zie je nu gebeuren ",
+      "options": [
+        "met",
+        "kun",
+        "hij"
+      ],
+      "correct_answer": "met",
+      "text_after": " sneakers. Witte sneakers, beige tinten, zachte grijstinten "
+    },
+    {
+      "text_before": " sneakers. Witte sneakers, beige tinten, zachte grijstinten ",
+      "options": [
+        "en",
+        "dus",
+        "vaak"
+      ],
+      "correct_answer": "en",
+      "text_after": " rustige ontwerpen zijn nu populair. "
+    },
+    {
+      "text_before": " rustige ontwerpen zijn nu populair. ",
+      "options": [
+        "Jongeren",
+        "Paar",
+        "Gewoon"
+      ],
+      "correct_answer": "Jongeren",
+      "text_after": " kiezen voor sneakers die makkelijk te "
+    },
+    {
+      "text_before": " kiezen voor sneakers die makkelijk te ",
+      "options": [
+        "combineren",
+        "waar",
+        "kleurrijke"
+      ],
+      "correct_answer": "combineren",
+      "text_after": " zijn met hun kleding en die "
+    },
+    {
+      "text_before": " zijn met hun kleding en die ",
+      "options": [
+        "niet",
+        "invloed",
+        "ook"
+      ],
+      "correct_answer": "niet",
+      "text_after": " te veel aandacht trekken.\n\nEr zijn "
+    },
+    {
+      "text_before": " te veel aandacht trekken.\n\nEr zijn ",
+      "options": [
+        "kopen",
+        "het",
+        "verschillende"
+      ],
+      "correct_answer": "verschillende",
+      "text_after": " redenen waarom jongeren nu liever rustige "
+    },
+    {
+      "text_before": " redenen waarom jongeren nu liever rustige ",
+      "options": [
+        "tinten",
+        "duurzamer",
+        "sneakers"
+      ],
+      "correct_answer": "sneakers",
+      "text_after": " dragen. Ten eerste is er de "
+    },
+    {
+      "text_before": " dragen. Ten eerste is er de ",
+      "options": [
+        "houden",
+        "invloed",
+        "bijna"
+      ],
+      "correct_answer": "invloed",
+      "text_after": " van sociale media. Op platforms zoals "
+    },
+    {
+      "text_before": " van sociale media. Op platforms zoals ",
+      "options": [
+        "grijstinten",
+        "moet",
+        "Instagram"
+      ],
+      "correct_answer": "Instagram",
+      "text_after": " en TikTok zie je steeds vaker "
+    },
+    {
+      "text_before": " en TikTok zie je steeds vaker ",
+      "options": [
+        "new",
+        "influencers",
+        "wel"
+      ],
+      "correct_answer": "influencers",
+      "text_after": " en beroemdheden die simple, stijlvolle outfits "
+    },
+    {
+      "text_before": " en beroemdheden die simple, stijlvolle outfits ",
+      "options": [
+        "iets",
+        "dragen",
+        "sneakers"
+      ],
+      "correct_answer": "dragen",
+      "text_after": ". Ze combineren neutrale kleuren met rustige "
+    },
+    {
+      "text_before": ". Ze combineren neutrale kleuren met rustige ",
+      "options": [
+        "deze",
+        "sneakers",
+        "ontwerpen"
+      ],
+      "correct_answer": "sneakers",
+      "text_after": ". Jongeren nemen dat over, want ze "
+    },
+    {
+      "text_before": ". Jongeren nemen dat over, want ze ",
+      "options": [
+        "outfits",
+        "willen",
+        "zo"
+      ],
+      "correct_answer": "willen",
+      "text_after": " er ook zo uitzien. Daarnaast speelt "
+    },
+    {
+      "text_before": " er ook zo uitzien. Daarnaast speelt ",
+      "options": [
+        "hun",
+        "bewust",
+        "duurzaamheid"
+      ],
+      "correct_answer": "duurzaamheid",
+      "text_after": " een rol. Veel jongeren zijn zich "
+    },
+    {
+      "text_before": " een rol. Veel jongeren zijn zich ",
+      "options": [
+        "ontdek",
+        "bewuster",
+        "leren"
+      ],
+      "correct_answer": "bewuster",
+      "text_after": " geworden van het milieu. Ze willen "
+    },
+    {
+      "text_before": " geworden van het milieu. Ze willen ",
+      "options": [
+        "blijf",
+        "minder",
+        "hoeft"
+      ],
+      "correct_answer": "minder",
+      "text_after": " kopen en kiezen voor sneakers die "
+    },
+    {
+      "text_before": " kopen en kiezen voor sneakers die ",
+      "options": [
+        "persoonlijk",
+        "lang",
+        "maar"
+      ],
+      "correct_answer": "lang",
+      "text_after": " meegaan en bij veel outfits passen. "
+    },
+    {
+      "text_before": " meegaan en bij veel outfits passen. ",
+      "options": [
+        "Een",
+        "Mode",
+        "Handig"
+      ],
+      "correct_answer": "Een",
+      "text_after": " paar witte of beige sneakers kun "
+    },
+    {
+      "text_before": " paar witte of beige sneakers kun ",
+      "options": [
+        "je",
+        "niet",
+        "vrienden"
+      ],
+      "correct_answer": "je",
+      "text_after": " bijna overal bij dragen, terwijl felgekleurde "
+    },
+    {
+      "text_before": " bijna overal bij dragen, terwijl felgekleurde ",
+      "options": [
+        "dan",
+        "schoenen",
+        "zien"
+      ],
+      "correct_answer": "schoenen",
+      "text_after": " vaak maar bij één of twee "
+    },
+    {
+      "text_before": " vaak maar bij één of twee ",
+      "options": [
+        "outfits",
+        "er",
+        "jongeren"
+      ],
+      "correct_answer": "outfits",
+      "text_after": " passen. Rustige sneakers zijn dus praktischer "
+    },
+    {
+      "text_before": " passen. Rustige sneakers zijn dus praktischer ",
+      "options": [
+        "én",
+        "Witte",
+        "Ik"
+      ],
+      "correct_answer": "én",
+      "text_after": " duurzamer.\n\nOok de invloed van streetwear "
+    },
+    {
+      "text_before": " duurzamer.\n\nOok de invloed van streetwear ",
+      "options": [
+        "populair",
+        "weggooien",
+        "is"
+      ],
+      "correct_answer": "is",
+      "text_after": " groot. Die stijl is vaak gebaseerd "
+    },
+    {
+      "text_before": " groot. Die stijl is vaak gebaseerd ",
+      "options": [
+        "je",
+        "op",
+        "in"
+      ],
+      "correct_answer": "op",
+      "text_after": " eenvoud, kwaliteit en neutrale kleuren. Merken "
+    },
+    {
+      "text_before": " eenvoud, kwaliteit en neutrale kleuren. Merken ",
+      "options": [
+        "je",
+        "zoals",
+        "kledingstijl"
+      ],
+      "correct_answer": "zoals",
+      "text_after": " New Balance en Vans maken sneakers "
+    },
+    {
+      "text_before": " New Balance en Vans maken sneakers ",
+      "options": [
+        "die",
+        "uitzien",
+        "graag"
+      ],
+      "correct_answer": "die",
+      "text_after": " perfect passen bij deze stijl. Jongeren "
+    },
+    {
+      "text_before": " perfect passen bij deze stijl. Jongeren ",
+      "options": [
+        "opvallen",
+        "vinden",
+        "waren"
+      ],
+      "correct_answer": "vinden",
+      "text_after": " het fijn om er stijlvol uit "
+    },
+    {
+      "text_before": " het fijn om er stijlvol uit ",
+      "options": [
+        "zolang",
+        "die",
+        "te"
+      ],
+      "correct_answer": "te",
+      "text_after": " zien zonder te veel poespas.\n\nSneakermerken "
+    },
+    {
+      "text_before": " zien zonder te veel poespas.\n\nSneakermerken ",
+      "options": [
+        "eerst",
+        "het",
+        "merken"
+      ],
+      "correct_answer": "merken",
+      "text_after": " deze verandering natuurlijk ook op. Ze "
+    },
+    {
+      "text_before": " deze verandering natuurlijk ook op. Ze ",
+      "options": [
+        "ok",
+        "vroeger",
+        "brengen"
+      ],
+      "correct_answer": "brengen",
+      "text_after": " steeds meer modellen uit in rustige "
+    },
+    {
+      "text_before": " steeds meer modellen uit in rustige ",
+      "options": [
+        "klein",
+        "kleuren",
+        "dikke"
+      ],
+      "correct_answer": "kleuren",
+      "text_after": " en simpele ontwerpen.\n\nDenk aan witte "
+    },
+    {
+      "text_before": " en simpele ontwerpen.\n\nDenk aan witte ",
+      "options": [
+        "uiten",
+        "zitten",
+        "leren"
+      ],
+      "correct_answer": "leren",
+      "text_after": " sneakers, eenkleurige modellen of sneakers met "
+    },
+    {
+      "text_before": " sneakers, eenkleurige modellen of sneakers met ",
+      "options": [
+        "een",
+        "speelt",
+        "neutrale"
+      ],
+      "correct_answer": "een",
+      "text_after": " klein logo. Zelfs merken die bekend "
+    },
+    {
+      "text_before": " klein logo. Zelfs merken die bekend ",
+      "options": [
+        "dierenprints",
+        "staan",
+        "nike"
+      ],
+      "correct_answer": "staan",
+      "text_after": " om hun opvallende design, zoals Nike "
+    },
+    {
+      "text_before": " om hun opvallende design, zoals Nike ",
+      "options": [
+        "en",
+        "mode",
+        "opvallen"
+      ],
+      "correct_answer": "en",
+      "text_after": " Adidas, hebben nu collecties met rustige "
+    },
+    {
+      "text_before": " Adidas, hebben nu collecties met rustige ",
+      "options": [
+        "komt",
+        "sneakers",
+        "wat"
+      ],
+      "correct_answer": "sneakers",
+      "text_after": ". Dat betekent niet dat felle kleuren "
+    },
+    {
+      "text_before": ". Dat betekent niet dat felle kleuren ",
+      "options": [
+        "helemaal",
+        "onderdeel",
+        "simpele"
+      ],
+      "correct_answer": "helemaal",
+      "text_after": " verdwenen zijn. Sommige jongeren houden nog "
+    },
+    {
+      "text_before": " verdwenen zijn. Sommige jongeren houden nog ",
+      "options": [
+        "logo",
+        "steeds",
+        "vaak"
+      ],
+      "correct_answer": "steeds",
+      "text_after": " van opvallende sneakers, en dat is "
+    },
+    {
+      "text_before": " van opvallende sneakers, en dat is ",
+      "options": [
+        "sociale",
+        "belangrijk",
+        "helemaal"
+      ],
+      "correct_answer": "helemaal",
+      "text_after": " oké. Mode is persoonlijk, en iedereen "
+    },
+    {
+      "text_before": " oké. Mode is persoonlijk, en iedereen ",
+      "options": [
+        "mag",
+        "meer",
+        "felle"
+      ],
+      "correct_answer": "mag",
+      "text_after": " dragen wat hij of zij mooi "
+    },
+    {
+      "text_before": " dragen wat hij of zij mooi ",
+      "options": [
+        "over",
+        "jongeren",
+        "vindt"
+      ],
+      "correct_answer": "vindt",
+      "text_after": ". Maar de algemene trend laat zien "
+    },
+    {
+      "text_before": ". Maar de algemene trend laat zien ",
+      "options": [
+        "dat",
+        "kiezen",
+        "verdwenen"
+      ],
+      "correct_answer": "dat",
+      "text_after": " de meeste jongeren nu kiezen voor "
+    },
+    {
+      "text_before": " de meeste jongeren nu kiezen voor ",
+      "options": [
+        "vinden",
+        "laten",
+        "eenvoud"
+      ],
+      "correct_answer": "eenvoud",
+      "text_after": ".\n\nMisschien denk je nu: \"Moet ik "
+    },
+    {
+      "text_before": ".\n\nMisschien denk je nu: \"Moet ik ",
+      "options": [
+        "trouw",
+        "van",
+        "mijn"
+      ],
+      "correct_answer": "mijn",
+      "text_after": " kleurrijke sneakers weggooien?\" Zeker niet! Als "
+    },
+    {
+      "text_before": " kleurrijke sneakers weggooien?\" Zeker niet! Als ",
+      "options": [
+        "jij",
+        "fijner",
+        "naar"
+      ],
+      "correct_answer": "jij",
+      "text_after": " ze mooi vindt, draag ze dan "
+    },
+    {
+      "text_before": " ze mooi vindt, draag ze dan ",
+      "options": [
+        "natuurlijk",
+        "gewoon",
+        "perfect"
+      ],
+      "correct_answer": "gewoon",
+      "text_after": ". Mode gaat om jezelf zijn. Maar "
+    },
+    {
+      "text_before": ". Mode gaat om jezelf zijn. Maar ",
+      "options": [
+        "als",
+        "afstand",
+        "zelfs"
+      ],
+      "correct_answer": "als",
+      "text_after": " je op zoek bent naar nieuwe "
+    },
+    {
+      "text_before": " je op zoek bent naar nieuwe ",
+      "options": [
+        "hebben",
+        "sneakers",
+        "influencers"
+      ],
+      "correct_answer": "sneakers",
+      "text_after": " en je wilt iets dat bij "
+    },
+    {
+      "text_before": " en je wilt iets dat bij ",
+      "options": [
+        "gekker",
+        "veel",
+        "willen"
+      ],
+      "correct_answer": "veel",
+      "text_after": " outfits past, dan is het slim "
+    },
+    {
+      "text_before": " outfits past, dan is het slim ",
+      "options": [
+        "ook",
+        "om",
+        "modellen"
+      ],
+      "correct_answer": "om",
+      "text_after": " te kijken naar rustige kleuren zoals "
+    },
+    {
+      "text_before": " te kijken naar rustige kleuren zoals ",
+      "options": [
+        "jou",
+        "ze",
+        "wit"
+      ],
+      "correct_answer": "wit",
+      "text_after": ", beige, grijs of zwart. Je hoeft "
+    },
+    {
+      "text_before": ", beige, grijs of zwart. Je hoeft ",
+      "options": [
+        "rustige",
+        "via",
+        "niet"
+      ],
+      "correct_answer": "niet",
+      "text_after": " altijd de nieuwste trends te volgen, "
+    },
+    {
+      "text_before": " altijd de nieuwste trends te volgen, ",
+      "options": [
+        "sneakermerken",
+        "maar",
+        "praktischer"
+      ],
+      "correct_answer": "maar",
+      "text_after": " het is wel handig om te "
+    },
+    {
+      "text_before": " het is wel handig om te ",
+      "options": [
+        "weten",
+        "past",
+        "bij"
+      ],
+      "correct_answer": "weten",
+      "text_after": " wat er speelt. Zo kun je "
+    },
+    {
+      "text_before": " wat er speelt. Zo kun je ",
+      "options": [
+        "dragen",
+        "bewust",
+        "school"
+      ],
+      "correct_answer": "bewust",
+      "text_after": " kiezen wat bij jou past. Misschien "
+    },
+    {
+      "text_before": " kiezen wat bij jou past. Misschien ",
+      "options": [
+        "ontdek",
+        "nu",
+        "grijs"
+      ],
+      "correct_answer": "ontdek",
+      "text_after": " je dat je rustige sneakers eigenlijk "
+    },
+    {
+      "text_before": " je dat je rustige sneakers eigenlijk ",
+      "options": [
+        "veel",
+        "beige",
+        "sommige"
+      ],
+      "correct_answer": "veel",
+      "text_after": " fijner vindt dan die drukke modellen. "
+    },
+    {
+      "text_before": " fijner vindt dan die drukke modellen. ",
+      "options": [
+        "Of",
+        "Fijn",
+        "Veel"
+      ],
+      "correct_answer": "Of",
+      "text_after": " misschien blijf je juist trouw aan "
+    },
+    {
+      "text_before": " misschien blijf je juist trouw aan ",
+      "options": [
+        "je",
+        "daarnaast",
+        "zoals"
+      ],
+      "correct_answer": "je",
+      "text_after": " kleurrijke stijl. Alles is goed, zolang "
+    },
+    {
+      "text_before": " kleurrijke stijl. Alles is goed, zolang ",
+      "options": [
+        "merken",
+        "poespas",
+        "jij"
+      ],
+      "correct_answer": "jij",
+      "text_after": " je er prettig bij voelt."
+    }
+  ]
+}

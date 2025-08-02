@@ -9,9 +9,20 @@ const fs = require('fs');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Database setup
+// Database setup - optimized for concurrent access
 const dbPath = path.join(__dirname, 'database', 'bibendo.db');
-const db = new sqlite3.Database(dbPath);
+const db = new sqlite3.Database(dbPath, (err) => {
+    if (err) {
+        console.error('Error opening database:', err);
+    } else {
+        console.log('Connected to SQLite database');
+        // Enable WAL mode for better concurrent access
+        db.run('PRAGMA journal_mode = WAL;');
+        db.run('PRAGMA synchronous = NORMAL;');
+        db.run('PRAGMA cache_size = 1000;');
+        db.run('PRAGMA temp_store = memory;');
+    }
+});
 
 // Initialize database
 const initSQL = fs.readFileSync(path.join(__dirname, 'database', 'init.sql'), 'utf8');
@@ -32,11 +43,15 @@ app.use(cors({
     allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
-// Rate limiting: 100 requests per 15 minutes
+// Rate limiting: Optimized for classroom use (30-50 concurrent users)
 const limiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 100,
-    message: 'Too many requests from this IP, please try again later.'
+    max: 500, // Increased from 100 to 500 for classroom use
+    message: 'Too many requests from this IP, please try again later.',
+    standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+    legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+    // Skip rate limiting for static files
+    skip: (req) => req.url.startsWith('/assets/') || req.url.startsWith('/cbm/') || req.url.includes('.css') || req.url.includes('.js') || req.url.includes('.json')
 });
 app.use(limiter);
 
@@ -45,6 +60,8 @@ app.use(express.urlencoded({ extended: true }));
 
 // Serve static files
 app.use(express.static(path.join(__dirname, '../frontend')));
+
+// CBM JSON data is now served via frontend static files
 
 // Helper function to ensure user exists
 const ensureUser = (userId, callback) => {

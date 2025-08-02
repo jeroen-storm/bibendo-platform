@@ -37,10 +37,15 @@ CREATE TABLE IF NOT EXISTS text_logs (
 CREATE TABLE IF NOT EXISTS cbm_results (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id TEXT NOT NULL,
-    test_id TEXT NOT NULL,
-    answers_json TEXT, -- JSON array of answers
-    correct_count INTEGER DEFAULT 0,
+    text_id INTEGER NOT NULL,
+    text_title TEXT,
+    total_questions INTEGER DEFAULT 0,
+    total_answered INTEGER DEFAULT 0,
+    correct_answers INTEGER DEFAULT 0,
+    accuracy INTEGER DEFAULT 0,
     time_spent INTEGER DEFAULT 0,
+    wcpm INTEGER DEFAULT 0,
+    answers TEXT, -- JSON string of answers
     completed_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users (user_id)
 );

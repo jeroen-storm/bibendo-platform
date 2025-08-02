@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CBM Tekstkeuze - Bibendo Platform</title>
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/cbm.css">
+</head>
+<body>
+    <div class="cbm-selection-container">
+        <div class="content">
+            <h1>CBM Assessment</h1>
+            <p>Kies een tekst om te starten met de CBM assessment.</p>
+            
+            <div class="text-options">
+                <div class="text-option practice" data-text-id="0">
+                    <div class="text-type">Oefentekst</div>
+                    <h3>CBM 0 - Sneakers meer dan alleen schoenen</h3>
+                    <p>Oefentekst om vertrouwd te raken met de interface</p>
+                    <div class="text-stats">9 vragen</div>
+                </div>
+                
+                <div class="text-option main" data-text-id="1">
+                    <div class="text-type">Hoofdtekst</div>
+                    <h3>CBM 1 - Sneakers voor Jongeren</h3>
+                    <p>Over de veranderende trends in sneakers bij jongeren</p>
+                    <div class="text-stats">72 vragen</div>
+                </div>
+                
+                <div class="text-option main" data-text-id="2">
+                    <div class="text-type">Hoofdtekst</div>
+                    <h3>CBM 2 - Een nieuwe sneakerstyle</h3>
+                    <p>Verschillende trends en stijlen in de sneakerwereld</p>
+                    <div class="text-stats">98 vragen</div>
+                </div>
+                
+                <div class="text-option main" data-text-id="3">
+                    <div class="text-type">Hoofdtekst</div>
+                    <h3>CBM 3 - De lancering</h3>
+                    <p>Over productlanceringen in de sneakerindustrie</p>
+                    <div class="text-stats">55 vragen</div>
+                </div>
+            </div>
+            
+            <div class="instructions">
+                <h4>Instructies:</h4>
+                <ul>
+                    <li>Je hebt 2 minuten voor elke tekst</li>
+                    <li>Klik op de juiste woorden om de zinnen aan te vullen</li>
+                    <li>Je kunt je antwoorden wijzigen door nogmaals te klikken</li>
+                    <li>Begin met de oefentekst als dit je eerste keer is</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const userId = urlParams.get('userId') || 'anonymous-' + Date.now();
+            
+            // Add click handlers to text options
+            document.querySelectorAll('.text-option').forEach(option => {
+                option.addEventListener('click', () => {
+                    const textId = option.dataset.textId;
+                    // Navigate to assessment with selected text
+                    window.location.href = `/cbm/index.html?userId=${userId}&textId=${textId}`;
+                });
+            });
+        });
+    </script>
+</body>
+</html>

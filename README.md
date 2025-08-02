@@ -20,12 +20,15 @@ A comprehensive web-based educational platform with smart notepad system, text t
 - **Real-time Analytics**: IntersectionObserver for section tracking
 
 #### CBM Assessment Tool
-- **2-Minute Timed Assessment** with real-time countdown
-- **Inline Cloze-Test Interface** with smooth animations
-- **Auto-completion Detection** with instant feedback popup
-- **Auto-save Functionality** every 10 seconds
-- **WCPM Calculation** (Words Correct Per Minute)
-- **Multiple CBM Texts** about youth-relevant topics
+- **4 Complete CBM Texts**: 1 practice text (9 exercises) + 3 main texts (72, 98, 55 exercises)
+- **234 Total Cloze-Test Exercises** about sneaker trends and youth culture
+- **2-Minute Timed Assessment** with automatic timer stop on completion
+- **Inline Options Interface** with smooth fade animations and left-aligned text
+- **Individual JSON Files** for optimized loading per text selection
+- **Auto-save Functionality** every 10 seconds with visual feedback
+- **WCPM Calculation** (Words Correct Per Minute) and accuracy tracking
+- **Completion Popup** with simple message (no close button needed)
+- **Text Selection Page** with clear categorization of practice vs main texts
 
 #### Admin Dashboard
 - **User Management**: Complete overview of all users and activity
@@ -35,9 +38,12 @@ A comprehensive web-based educational platform with smart notepad system, text t
 - **Real-time Statistics**: Active users, completion rates, performance metrics
 
 #### Backend Infrastructure
-- **Express.js API** with SQLite database
+- **Express.js API** with optimized SQLite database (WAL mode for concurrent access)
 - **RESTful Endpoints** for notes, logs, CBM, and admin functions
-- **Security Features**: Rate limiting, input sanitization, XSS prevention
+- **Classroom-Ready Scaling**: Optimized for 30-50 concurrent users
+- **Smart Rate Limiting**: 500 requests/15min with static file exemptions
+- **Security Features**: Input sanitization, XSS prevention, CORS protection
+- **Performance Optimization**: Database caching, memory temp store, efficient queries
 - **Comprehensive Logging**: All user interactions tracked and stored
 
 ## 📁 Project Structure
@@ -56,12 +62,17 @@ bibendo-platform/
 │   ├── assets/
 │   │   ├── css/
 │   │   │   ├── main.css      # Main stylesheet
-│   │   │   ├── cbm.css       # CBM-specific styles
+│   │   │   ├── cbm.css       # CBM-specific styles  
 │   │   │   └── admin.css     # Admin dashboard styles
+│   │   ├── data/
+│   │   │   ├── cbm-text-0.json # Practice text (9 exercises)
+│   │   │   ├── cbm-text-1.json # Main text 1 (72 exercises)
+│   │   │   ├── cbm-text-2.json # Main text 2 (98 exercises)
+│   │   │   └── cbm-text-3.json # Main text 3 (55 exercises)
 │   │   └── js/
 │   │       ├── notepad.js    # Notepad functionality
 │   │       ├── textTracker.js # Text page tracking
-│   │       ├── cbm.js        # CBM assessment logic
+│   │       ├── cbm.js        # CBM assessment logic (optimized)
 │   │       └── admin.js      # Admin dashboard logic
 │   ├── notepad/
 │   │   ├── level1/           # Level 1 notepad pages (4 pages)
@@ -72,6 +83,7 @@ bibendo-platform/
 │   │   ├── level2/           # Level 2 text pages (3 pages)
 │   │   └── level3/           # Level 3 text pages (3 pages)
 │   ├── cbm/
+│   │   ├── selection.html    # CBM text selection page
 │   │   └── index.html        # CBM assessment interface
 │   └── admin/
 │       ├── dashboard.html    # Main admin dashboard

@@ -1,0 +1,97 @@
+{
+  "id": 0,
+  "title": "CBM 0 - Oefentekst: Sneakers meer dan alleen schoenen",
+  "type": "practice",
+  "exercises": [
+    {
+      "text_before": "Sneakers zijn tegenwoordig super populair onder jongeren. Ze zijn niet alleen comfortabel, maar ",
+      "options": [
+        "veel",
+        "ook",
+        "aan"
+      ],
+      "correct_answer": "ook",
+      "text_after": " een belangrijk onderdeel van je outfit. "
+    },
+    {
+      "text_before": " een belangrijk onderdeel van je outfit. ",
+      "options": [
+        "Of",
+        "Er",
+        "Die"
+      ],
+      "correct_answer": "Of",
+      "text_after": " je nu naar school gaat, met vrienden "
+    },
+    {
+      "text_before": " je nu naar school gaat, met vrienden ",
+      "options": [
+        "terwijl",
+        "stijl",
+        "afspreekt"
+      ],
+      "correct_answer": "afspreekt",
+      "text_after": " of gewoon chillt, sneakers passen altijd.\n\nEr "
+    },
+    {
+      "text_before": " of gewoon chillt, sneakers passen altijd.\n\nEr ",
+      "options": [
+        "wat",
+        "zijn",
+        "alleen"
+      ],
+      "correct_answer": "zijn",
+      "text_after": " veel verschillende soorten sneakers. Denk aan "
+    },
+    {
+      "text_before": " veel verschillende soorten sneakers. Denk aan ",
+      "options": [
+        "kleuren",
+        "merken",
+        "dragen"
+      ],
+      "correct_answer": "merken",
+      "text_after": " zoals Nike, Adidas, Puma en Vans. "
+    },
+    {
+      "text_before": " zoals Nike, Adidas, Puma en Vans. ",
+      "options": [
+        "Sommige",
+        "Sneakers",
+        "Vrienden"
+      ],
+      "correct_answer": "Sommige",
+      "text_after": " jongeren kiezen voor felle kleuren en "
+    },
+    {
+      "text_before": " jongeren kiezen voor felle kleuren en ",
+      "options": [
+        "witte",
+        "opvallende",
+        "passen"
+      ],
+      "correct_answer": "opvallende",
+      "text_after": " ontwerpen, terwijl anderen liever simpele, witte "
+    },
+    {
+      "text_before": " ontwerpen, terwijl anderen liever simpele, witte ",
+      "options": [
+        "outfit",
+        "sneakers",
+        "school"
+      ],
+      "correct_answer": "sneakers",
+      "text_after": " dragen. Wat je stijl ook is, "
+    },
+    {
+      "text_before": " dragen. Wat je stijl ook is, ",
+      "options": [
+        "er",
+        "of",
+        "nu"
+      ],
+      "correct_answer": "er",
+      "text_after": " is altijd wel een sneaker die bij je past."
+    }
+  ]
+}
