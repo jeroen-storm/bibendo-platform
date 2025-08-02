@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Bibendo Platform</title>
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/admin.css">
+</head>
+<body>
+    <div class="admin-container">
+        <header class="admin-header">
+            <h1 class="admin-title">📊 Bibendo Platform</h1>
+            <p class="admin-subtitle">Admin Dashboard - Gebruikers Data & Analytics</p>
+        </header>
+
+        <!-- Dashboard Statistics -->
+        <section class="dashboard-grid">
+            <div class="dashboard-card" id="totalUsers">
+                <div class="card-header">
+                    <span class="card-icon">👥</span>
+                    <h3 class="card-title">Totaal Gebruikers</h3>
+                </div>
+                <div class="card-value">0</div>
+                <div class="card-description">Geregistreerde gebruikers</div>
+            </div>
+
+            <div class="dashboard-card" id="activeUsers">
+                <div class="card-header">
+                    <span class="card-icon">🟢</span>
+                    <h3 class="card-title">Actieve Gebruikers</h3>
+                </div>
+                <div class="card-value">0</div>
+                <div class="card-description">Actief in laatste 24u</div>
+            </div>
+
+            <div class="dashboard-card" id="totalNotes">
+                <div class="card-header">
+                    <span class="card-icon">📝</span>
+                    <h3 class="card-title">Notities</h3>
+                </div>
+                <div class="card-value">~</div>
+                <div class="card-description">Opgeslagen notities</div>
+            </div>
+
+            <div class="dashboard-card" id="totalSessions">
+                <div class="card-header">
+                    <span class="card-icon">📈</span>
+                    <h3 class="card-title">Sessies</h3>
+                </div>
+                <div class="card-value">~</div>
+                <div class="card-description">Totaal sessies</div>
+            </div>
+        </section>
+
+        <!-- Users Overview -->
+        <section class="users-section">
+            <div class="section-header">
+                <h2 class="section-title">👥 Gebruikers Overzicht</h2>
+                <div class="export-controls">
+                    <button class="btn-export csv" id="exportCSV">
+                        📊 Export CSV
+                    </button>
+                    <button class="btn-export" id="exportJSON">
+                        📋 Export JSON
+                    </button>
+                </div>
+            </div>
+
+            <!-- Loading state -->
+            <div id="usersLoading" class="loading" style="display: none;">
+                <div class="loading-spinner"></div>
+                <p>Gebruikers laden...</p>
+            </div>
+
+            <!-- Users table container -->
+            <div id="usersTableContainer">
+                <!-- Table will be populated by JavaScript -->
+            </div>
+        </section>
+
+        <!-- Quick Actions -->
+        <section class="users-section">
+            <div class="section-header">
+                <h2 class="section-title">⚡ Snelle Acties</h2>
+            </div>
+            
+            <div class="dashboard-grid">
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <span class="card-icon">📝</span>
+                        <h3 class="card-title">Notities Systeem</h3>
+                    </div>
+                    <p style="margin-bottom: 15px; color: #666;">Test het notities systeem</p>
+                    <a href="../notepad/level1/note1_level1.html?userId=admin-test" class="btn" style="display: inline-block; text-decoration: none;">
+                        Test Notepad
+                    </a>
+                </div>
+
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <span class="card-icon">📖</span>
+                        <h3 class="card-title">Tekst Systeem</h3>
+                    </div>
+                    <p style="margin-bottom: 15px; color: #666;">Test het tekst tracking systeem</p>
+                    <a href="../texts/level1/oefentekst_level1.html?userId=admin-test" class="btn" style="display: inline-block; text-decoration: none;">
+                        Test Tekstpagina
+                    </a>
+                </div>
+
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <span class="card-icon">⏱️</span>
+                        <h3 class="card-title">CBM Tool</h3>
+                    </div>
+                    <p style="margin-bottom: 15px; color: #666;">Test het CBM assessment systeem</p>
+                    <a href="../cbm/index.html?userId=admin-test&textId=2" class="btn" style="display: inline-block; text-decoration: none;">
+                        Test CBM Assessment
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- System Info -->
+        <section class="users-section">
+            <div class="section-header">
+                <h2 class="section-title">ℹ️ Systeem Informatie</h2>
+            </div>
+            
+            <div class="dashboard-grid">
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <span class="card-icon">🗄️</span>
+                        <h3 class="card-title">Database</h3>
+                    </div>
+                    <p style="color: #666; margin-bottom: 8px;">
+                        <strong>Type:</strong> SQLite<br>
+                        <strong>Tabellen:</strong> users, notes, text_logs, time_logs, cbm_results<br>
+                        <strong>Status:</strong> <span style="color: #28a745;">Actief</span>
+                    </p>
+                </div>
+
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <span class="card-icon">🔒</span>
+                        <h3 class="card-title">Beveiliging</h3>
+                    </div>
+                    <p style="color: #666; margin-bottom: 8px;">
+                        <strong>Rate Limiting:</strong> 100 req/15min<br>
+                        <strong>Input Sanitization:</strong> Actief<br>
+                        <strong>CORS:</strong> Geconfigureerd
+                    </p>
+                </div>
+
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <span class="card-icon">📊</span>
+                        <h3 class="card-title">Tracking</h3>
+                    </div>
+                    <p style="color: #666; margin-bottom: 8px;">
+                        <strong>Scroll Tracking:</strong> ✅<br>
+                        <strong>Click Tracking:</strong> ✅<br>
+                        <strong>Time Tracking:</strong> ✅<br>
+                        <strong>Notes Tracking:</strong> ✅
+                    </p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="../assets/js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plan - Level 3</title>
+    <link rel="stylesheet" href="../../assets/css/main.css">
+</head>
+<body>
+    <div class="container">
+        <div class="status-message" id="statusMessage"></div>
+        
+        <div id="aggregatedContent" class="aggregated-content">
+            <!-- Aggregated content will be loaded here -->
+        </div>
+        
+        <div class="question">
+            <p>Ontwikkel een concreet actieplan met duidelijke stappen en tijdslijnen.</p>
+        </div>
+        
+        <div class="form-group">
+            <label for="noteTextarea">Actieplan:</label>
+            <textarea 
+                id="noteTextarea" 
+                placeholder="Beschrijf je actieplan met concrete stappen..."
+                maxlength="2000"
+            ></textarea>
+            <div class="char-counter">0/2000</div>
+        </div>
+        
+        <div class="question">
+            <p>Welke resources en ondersteuning heb je nodig voor uitvoering?</p>
+        </div>
+        
+        <div class="form-group">
+            <label for="resourcesTextarea">Benodigde resources:</label>
+            <textarea 
+                id="resourcesTextarea" 
+                placeholder="Lijst de benodigde resources op..."
+                maxlength="2000"
+            ></textarea>
+            <div class="char-counter">0/2000</div>
+        </div>
+        
+        <div class="question">
+            <p>Hoe ga je de voortgang monitoren en evalueren?</p>
+        </div>
+        
+        <div class="form-group">
+            <label for="monitoringTextarea">Monitoring en evaluatie:</label>
+            <textarea 
+                id="monitoringTextarea" 
+                placeholder="Beschrijf je monitoring strategie..."
+                maxlength="2000"
+            ></textarea>
+            <div class="char-counter">0/2000</div>
+        </div>
+        
+        <div class="nav-buttons">
+            <button type="button" class="btn" id="saveButton" style="width: 100%;">
+                Opslaan
+            </button>
+        </div>
+    </div>
+    
+    <script src="../../assets/js/notepad.js"></script>
+    <script>
+        
+        // Custom save functionality for multiple textareas
+        document.getElementById('saveButton').addEventListener('click', async () => {
+            const manager = new NotepadManager();
+            const textareas = ['noteTextarea', 'resourcesTextarea', 'monitoringTextarea'];
+            const content = {};
+            
+            textareas.forEach(id => {
+                const textarea = document.getElementById(id);
+                if (textarea) {
+                    content[id] = textarea.value;
+                }
+            });
+            
+            try {
+                const response = await fetch('/api/notes/save', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        userId: manager.userId,
+                        pageId: 'plan_level3',
+                        content: JSON.stringify(content),
+                        editCount: manager.editCount,
+                        timeSpent: manager.calculateTimeSpent()
+                    })
+                });
+                
+                if (response.ok) {
+                    manager.showStatusMessage('Plan succesvol opgeslagen!', 'success');
+                } else {
+                    throw new Error('Failed to save plan');
+                }
+            } catch (error) {
+                console.error('Error saving plan:', error);
+                manager.showStatusMessage('Er is een fout opgetreden bij het opslaan.', 'error');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Klantrecensies SneakSpot - Level 1</title>
+    <link rel="stylesheet" href="../../assets/css/main.css">
+    <link rel="stylesheet" href="../../assets/css/textPages.css">
+</head>
+<body>
+    <!-- Reading progress indicator -->
+    <div class="reading-progress">
+        <div class="reading-progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="text-container">
+        <header class="text-header">
+            <h1 class="text-title">💬 @SneakSpot_Bergveen</h1>
+            <div class="text-meta">Level 1 - Klantrecensies</div>
+        </header>
+
+        <main class="text-content">
+            <section class="text-section trackable-section" id="social-post">
+                <div class="dm-container">
+                    <div class="section-content">
+                        <p><strong>Laat je stijl spreken bij SneakSpot!</strong></p>
+                        <p>Ben jij klaar om op te vallen? Bij SneakSpot vind je sneakers met lef: felle kleuren, unieke prints en limited editions die je nergens anders ziet. Kom langs aan de Handelsweg en ontdek jouw nieuwe favoriete paar! 👟🔥</p>
+                        <p><em>#SneakSpot #Streetstyle #LimitedEdition #BergveenStyle</em></p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="text-section trackable-section" id="comments-section">
+                <h3 class="section-title">💬 Reacties van volgers</h3>
+                
+                <div class="dm-container">
+                    <div class="dm-header">🗣️ SamiraJansen_2010</div>
+                    <div class="dm-content">
+                        "Ik vond de sneakers eerst supervet, maar nu zijn ze wel erg druk. Veel jongeren dragen tegenwoordig juist rustige kleuren. Misschien tijd voor iets nieuws?"
+                    </div>
+                </div>
+
+                <div class="dm-container">
+                    <div class="dm-header">🗣️ Daantjehh_sports</div>
+                    <div class="dm-content">
+                        "Ik zocht gewoon een paar goed geteste sneakers voor de volgende Hyrox wedstrijd, maar die verkoopt SneakSpot niet. Niet echt iets voor mij helaas."
+                    </div>
+                </div>
+
+                <div class="dm-container">
+                    <div class="dm-header">🗣️ say_jay_den</div>
+                    <div class="dm-content">
+                        "Waarom alleen maar fel roze sneakers of prints? Doe mij maar iets simpels wat overal bij past. Dit is het niet meer voor mij."
+                    </div>
+                </div>
+
+                <div class="dm-container">
+                    <div class="dm-header">🗣️ ModePoint.official</div>
+                    <div class="dm-content">
+                        "Tja, als je écht goede sneakers zoekt, kom dan liever naar ModePoint, ook aan de Handelsweg. Wij hebben meer keuze én betere prijzen."
+                    </div>
+                </div>
+
+                <div class="dm-container">
+                    <div class="dm-header">🗣️ beautyandme_</div>
+                    <div class="dm-content">
+                        "Ik hou juist van die opvallende sneakers! Die kleurtjes en prints doen mij denken aan mijn jongere jaren."
+                    </div>
+                </div>
+
+                <div class="dm-container">
+                    <div class="dm-header">🗣️ SoleVibeStore_NL</div>
+                    <div class="dm-content">
+                        "SneakSpot is niet meer wat het was... Als je sneakers zoekt, check dan even @SoleVibeStore — die hebben wél wat jongeren nu willen!"
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="../../assets/js/textTracker.js"></script>
+    <script>
+        // Update reading progress
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('progressBar').style.width = scrolled + '%';
+        });
+    </script>
+</body>
+</html>

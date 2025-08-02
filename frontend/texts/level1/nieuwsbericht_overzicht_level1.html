@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nieuwsbericht Overzicht - Level 1</title>
+    <link rel="stylesheet" href="../../assets/css/main.css">
+    <link rel="stylesheet" href="../../assets/css/textPages.css">
+</head>
+<body>
+    <!-- Reading progress indicator -->
+    <div class="reading-progress">
+        <div class="reading-progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="text-container">
+        <header class="text-header">
+            <h1 class="text-title">📰 Nieuwsblad Bergveen</h1>
+            <div class="text-meta">Level 1 - Nieuwsbericht Overzicht</div>
+        </header>
+
+        <main class="text-content">
+            <section class="text-section trackable-section" id="news-header">
+                <div class="news-article">
+                    <div class="news-header">
+                        <div class="news-date">Nieuwsblad Bergveen | vandaag, 8:25</div>
+                        <div class="news-author">Damian Groesbeek – redacteur Nieuwsblad Bergveen</div>
+                        <h2 class="news-headline">In de spotlight - SneakSpot in Bergveen</h2>
+                        <div class="news-summary">
+                            Aan de Handelsweg in Bergveen zit een opvallende schoenenwinkel: SneakSpot. De winkel richt zich op de jonge klanten en probeert op haar eigen manier de sneakers te verkopen. Maar dat lukt niet bij iedereen.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="text-section trackable-section" id="articles-overview">
+                <div class="overview-container">
+                    <div class="overview-item">
+                        <h3 class="overview-title">👟 SneakSpot in Bergveen: waar het ooit begon.</h3>
+                        <p class="overview-excerpt">
+                            In 2015 opende Emma Miller de deuren van SneakSpot in het hart van Bergveen.
+                        </p>
+                        <a href="nieuwsbericht_1_level1.html?userId=${new URLSearchParams(window.location.search).get('userId') || 'anonymous'}" 
+                           class="hyperlink">Lees meer →</a>
+                    </div>
+
+                    <div class="overview-item">
+                        <h3 class="overview-title">🎯 Een sneakerwinkel voor jongeren: of toch niet?</h3>
+                        <p class="overview-excerpt">
+                            SneakSpot staat bekend om zijn opvallende, kleurrijke sneakers.
+                        </p>
+                        <a href="nieuwsbericht_2_level1.html?userId=${new URLSearchParams(window.location.search).get('userId') || 'anonymous'}" 
+                           class="hyperlink">Lees meer →</a>
+                    </div>
+
+                    <div class="overview-item">
+                        <h3 class="overview-title">🛒 Online shoppen is helemaal in!</h3>
+                        <p class="overview-excerpt">
+                            Geen zin om helemaal naar de winkel te gaan? Geen probleem!
+                        </p>
+                        <a href="nieuwsbericht_3_level1.html?userId=${new URLSearchParams(window.location.search).get('userId') || 'anonymous'}" 
+                           class="hyperlink">Lees meer →</a>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="../../assets/js/textTracker.js"></script>
+    <script>
+        // Update reading progress
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('progressBar').style.width = scrolled + '%';
+        });
+
+        // Fix hyperlinks with proper userId
+        document.addEventListener('DOMContentLoaded', () => {
+            const userId = new URLSearchParams(window.location.search).get('userId') || 'anonymous';
+            document.querySelectorAll('a[href*="userId="]').forEach(link => {
+                link.href = link.href.replace('${new URLSearchParams(window.location.search).get(\'userId\') || \'anonymous\'}', userId);
+            });
+        });
+    </script>
+</body>
+</html>

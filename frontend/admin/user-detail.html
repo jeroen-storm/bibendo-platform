@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gebruiker Details - Bibendo Platform</title>
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/admin.css">
+</head>
+<body>
+    <div class="user-detail-container">
+        <!-- Back button -->
+        <div style="margin-bottom: 20px;">
+            <button class="btn btn-secondary" id="backToOverview">
+                ← Terug naar Overzicht
+            </button>
+        </div>
+
+        <!-- Loading state -->
+        <div id="userDetailLoading" class="loading" style="display: none;">
+            <div class="loading-spinner"></div>
+            <p>Gebruiker gegevens laden...</p>
+        </div>
+
+        <!-- User info card -->
+        <div class="user-info-card">
+            <div class="user-header">
+                <div>
+                    <h1 class="user-id-large" id="userIdDisplay">Laden...</h1>
+                    <p style="color: #666; margin-top: 5px;">Gebruiker Details & Analytics</p>
+                </div>
+            </div>
+
+            <div class="user-meta">
+                <div class="meta-item" id="notesCount">
+                    <div class="meta-label">Notities</div>
+                    <div class="meta-value">0</div>
+                </div>
+                <div class="meta-item" id="textLogsCount">
+                    <div class="meta-label">Tekst Interacties</div>
+                    <div class="meta-value">0</div>
+                </div>
+                <div class="meta-item" id="timeLogsCount">
+                    <div class="meta-label">Tijd Logs</div>
+                    <div class="meta-value">0</div>
+                </div>
+                <div class="meta-item" id="totalTimeSpent">
+                    <div class="meta-label">Totale Tijd</div>
+                    <div class="meta-value">0s</div>
+                </div>
+                <div class="meta-item" id="userCreatedAt">
+                    <div class="meta-label">Aangemaakt</div>
+                    <div class="meta-value">-</div>
+                </div>
+                <div class="meta-item" id="userLastActive">
+                    <div class="meta-label">Laatst Actief</div>
+                    <div class="meta-value">-</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notes Data -->
+        <div class="data-section">
+            <h3>📝 Notities Data</h3>
+            <div id="notesTableContainer">
+                <div class="loading">Notities laden...</div>
+            </div>
+        </div>
+
+        <!-- Text Interaction Logs -->
+        <div class="data-section">
+            <h3>📖 Tekst Interactie Logs</h3>
+            <p style="color: #666; margin-bottom: 15px; font-size: 14px;">
+                Scroll gedrag, clicks en pagina interacties tijdens het lezen van teksten.
+            </p>
+            <div id="textLogsTableContainer">
+                <div class="loading">Tekst logs laden...</div>
+            </div>
+        </div>
+
+        <!-- Time Logs -->
+        <div class="data-section">
+            <h3>⏱️ Tijd Logs</h3>
+            <p style="color: #666; margin-bottom: 15px; font-size: 14px;">
+                Tijd besteed per pagina en sessie informatie.
+            </p>
+            <div id="timeLogsTableContainer">
+                <div class="loading">Tijd logs laden...</div>
+            </div>
+        </div>
+
+        <!-- CBM Results -->
+        <div class="data-section">
+            <h3>🎯 CBM Resultaten</h3>
+            <p style="color: #666; margin-bottom: 15px; font-size: 14px;">
+                Resultaten van CBM (Cloze-test) assessments.
+            </p>
+            <div id="cbmResultsContainer">
+                <div class="loading">CBM resultaten laden...</div>
+            </div>
+        </div>
+
+        <!-- Export Options -->
+        <div class="data-section">
+            <h3>📊 Export Opties</h3>
+            <p style="color: #666; margin-bottom: 15px;">
+                Exporteer alle data van deze gebruiker voor verdere analyse.
+            </p>
+            <div style="display: flex; gap: 15px;">
+                <button class="btn-export csv" onclick="adminDashboard.exportUserData('csv')">
+                    📊 Export naar CSV
+                </button>
+                <button class="btn-export" onclick="adminDashboard.exportUserData('json')">
+                    📋 Export naar JSON
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../assets/js/admin.js"></script>
+    <script>
+        // Initialize user detail view
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const userId = urlParams.get('userId');
+            
+            if (userId) {
+                // Load user data
+                window.adminDashboard.loadUserDetail(userId);
+                
+                // Update page title
+                document.title = `${userId} - Gebruiker Details - Bibendo Platform`;
+            } else {
+                // No user ID provided, redirect to dashboard
+                window.location.href = 'dashboard.html';
+            }
+        });
+        
+        // Add export functionality for individual user
+        if (window.adminDashboard) {
+            window.adminDashboard.exportUserData = function(format) {
+                if (!this.currentUserData) {
+                    this.showError('Geen gebruiker data beschikbaar voor export');
+                    return;
+                }
+                
+                const userData = this.currentUserData;
+                const user = userData.user[0];
+                const filename = `bibendo-user-${user.user_id}.${format}`;
+                
+                if (format === 'csv') {
+                    // Create CSV for single user
+                    const csvData = [];
+                    
+                    // Add notes
+                    userData.notes.forEach(note => {
+                        csvData.push({
+                            user_id: user.user_id,
+                            data_type: 'note',
+                            page_id: note.page_id,
+                            level: note.level,
+                            content: note.content,
+                            edit_count: note.edit_count,
+                            time_spent: note.time_spent,
+                            timestamp: note.updated_at
+                        });
+                    });
+                    
+                    // Add text logs
+                    userData.textLogs.forEach(log => {
+                        csvData.push({
+                            user_id: user.user_id,
+                            data_type: 'text_log',
+                            page_id: log.page_id,
+                            action_type: log.action_type,
+                            data: log.data,
+                            timestamp: log.timestamp
+                        });
+                    });
+                    
+                    const csv = this.convertToCSV(csvData);
+                    this.downloadFile(csv, filename, 'text/csv');
+                } else {
+                    // JSON export
+                    const json = JSON.stringify(userData, null, 2);
+                    this.downloadFile(json, filename, 'application/json');
+                }
+            };
+        }
+    </script>
+</body>
+</html>

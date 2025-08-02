@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online shoppen is helemaal in! - Level 1</title>
+    <link rel="stylesheet" href="../../assets/css/main.css">
+    <link rel="stylesheet" href="../../assets/css/textPages.css">
+</head>
+<body>
+    <!-- Reading progress indicator -->
+    <div class="reading-progress">
+        <div class="reading-progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="text-container">
+        <header class="text-header">
+            <h1 class="text-title">🛒 Online shoppen is helemaal in!</h1>
+            <div class="text-meta">Level 1 - Nieuwsbericht Deel 3</div>
+        </header>
+
+        <main class="text-content">
+            <section class="text-section trackable-section" id="main-article">
+                <div class="section-content">
+                    <p>Geen zin om helemaal naar de winkel te gaan? Geen probleem! Bij SneakSpot kun je gewoon online je sneakers bestellen. Lekker makkelijk, snel en veilig. Op de website zie je precies wat er op voorraad is. Je kunt filteren op maat, kleur en merk. Heb je een paar gevonden dat je tof vindt? Dan bestel je het met een paar klikken. Betalen doe je zoals jij wilt: met iDEAL, je bank-app of zelfs achteraf. En het beste? Je hebt je sneakers vaak al binnen een paar dagen in huis. Passen ze niet? Dan kun je ze gewoon terugsturen.</p>
+                </div>
+                
+                <div class="hyperlink-placeholder">
+                    <a href="nieuwsbericht_overzicht_level1.html?userId=" 
+                       class="hyperlink" id="backLink">← Terug naar overzicht</a>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="../../assets/js/textTracker.js"></script>
+    <script>
+        // Update reading progress
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('progressBar').style.width = scrolled + '%';
+        });
+
+        // Fix hyperlinks with proper userId
+        document.addEventListener('DOMContentLoaded', () => {
+            const userId = new URLSearchParams(window.location.search).get('userId') || 'anonymous';
+            const backLink = document.getElementById('backLink');
+            backLink.href = `nieuwsbericht_overzicht_level1.html?userId=${userId}`;
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doelgroep Feedback - Level 2</title>
+    <link rel="stylesheet" href="../../assets/css/main.css">
+    <link rel="stylesheet" href="../../assets/css/textPages.css">
+</head>
+<body>
+    <!-- Reading progress indicator -->
+    <div class="reading-progress">
+        <div class="reading-progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="text-container">
+        <header class="text-header">
+            <h1 class="text-title">💬 Feedback van Jongeren</h1>
+            <div class="text-meta">Level 2 - Doelgroep Analyse</div>
+        </header>
+
+        <main class="text-content">
+            <section class="text-section trackable-section" id="dm-messages">
+                <div class="dm-container">
+                    <div class="dm-header">👟 DM SamiraJansen_2010</div>
+                    <div class="dm-content">
+                        <p>Hey Karim! 👋</p>
+                        <p>Goede vraag! Ik vind eerlijk gezegd dat SneakSpot een beetje is blijven hangen in die felle kleuren en drukke designs. Dat was een paar jaar geleden nog cool, maar nu willen de meeste jongeren juist rustige sneakers — wit, beige, grijs, gewoon clean en makkelijk te combineren.</p>
+                        <p>Als ze wat meer zouden focussen op simpele stijlen en neutrale kleuren, denk ik dat veel meer mensen er weer zouden shoppen. En misschien wat meer variatie in merken ook.</p>
+                    </div>
+                </div>
+
+                <div class="dm-container">
+                    <div class="dm-header">👟 DM say_jay_den</div>
+                    <div class="dm-content">
+                        <p>Yo Karim,</p>
+                        <p>Ik zat laatst ook te kijken bij SneakSpot, maar eerlijk… het voelt een beetje alsof ze nog in 2019 leven 😅 Alles is zo fel en druk. Ik snap dat sommige mensen dat nog vet vinden, maar de meeste van ons willen nu gewoon rustige sneakers.</p>
+                        <p>Gewoon clean wit, beige of zwart, zonder al die gekke prints. Misschien ook wat meer nieuwe merken erbij? Niet iedereen wil lopen met een schoen die eruitziet als een confettibom, snap je? 😂</p>
+                        <p>Als ze dat aanpassen, ben ik sowieso weer klant.</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="../../assets/js/textTracker.js"></script>
+    <script>
+        // Update reading progress
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('progressBar').style.width = scrolled + '%';
+        });
+    </script>
+</body>
+</html>

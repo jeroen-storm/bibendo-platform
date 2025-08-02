@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assortiment SneakSpot - Level 1</title>
+    <link rel="stylesheet" href="../../assets/css/main.css">
+    <link rel="stylesheet" href="../../assets/css/textPages.css">
+</head>
+<body>
+    <!-- Reading progress indicator -->
+    <div class="reading-progress">
+        <div class="reading-progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="text-container">
+        <header class="text-header">
+            <h1 class="text-title">👟 Assortiment SneakSpot – Streetstyle met karakter</h1>
+            <div class="text-meta">Level 1 - Assortiment Beschrijving</div>
+        </header>
+
+        <main class="text-content">
+            <section class="text-section trackable-section" id="intro-section">
+                <div class="news-article">
+                    <div class="news-header">
+                        <div class="news-date">1 september 2025</div>
+                        <div class="news-author">Emma Miller (eigenaresse SneakSpot)</div>
+                    </div>
+                </div>
+                
+                <div class="section-content">
+                    <p>SneakSpot is dé plek voor wie houdt van opvallende streetwear en sneakers met een eigen stijl. De winkel richt zich op jongeren die durven op te vallen en hun persoonlijkheid willen laten zien via hun schoenen. De sfeer in de winkel is creatief en kleurrijk. Denk aan graffiti op de muren, hiphopmuziek op de achtergrond en sneakers die eruit springen. Hier is een overzicht van het assortiment: de sneakers die je in de winkel kan vinden:</p>
+                </div>
+            </section>
+
+            <section class="text-section trackable-section" id="assortiment-details">
+                <div class="section-content">
+                    <h3 class="section-title">🎨 Kleurrijke Stijl</h3>
+                    <p>SneakSpot staat voor kleur! De sneakers hebben felle kleuren, drukke prints en glanzende materialen. Denk aan rood met neon, camouflage of glitters. Perfect voor wie niet bang is om op te vallen.</p>
+                    
+                    <h3 class="section-title">👟 Verschillende Hoogtes</h3>
+                    <p>Je vindt bij SneakSpot zowel hoge sneakers (high-tops) als lage modellen. De hoge modellen zijn populair bij skaters en dansers, terwijl de lage sneakers goed passen bij een dagelijkse outfit.</p>
+                    
+                    <h3 class="section-title">⭐ Speciale Edities</h3>
+                    <p>Een deel van de collectie bestaat uit speciale edities van bekende merken. Deze sneakers zijn niet overal te koop en maken je outfit extra bijzonder. Ze zijn vaak voorzien van unieke details zoals speciale logo's of handtekeningen van bekende personen.</p>
+                </div>
+            </section>
+
+            <section class="text-section trackable-section" id="call-to-action">
+                <div class="section-content">
+                    <p><strong>Kom langs bij SneakSpot aan de Handelsweg en ontdek jouw stijl!</strong></p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="../../assets/js/textTracker.js"></script>
+    <script>
+        // Update reading progress
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('progressBar').style.width = scrolled + '%';
+        });
+    </script>
+</body>
+</html>

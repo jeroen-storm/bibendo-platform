@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analyse - Level 1</title>
+    <link rel="stylesheet" href="../../assets/css/main.css">
+</head>
+<body>
+    <div class="container">
+        <div class="status-message" id="statusMessage"></div>
+        
+        <div id="aggregatedContent" class="aggregated-content">
+            <!-- Aggregated content will be loaded here -->
+        </div>
+        
+        <div class="question">
+            <p>Op basis van jouw eerdere notities, wat is jouw hoofdconclusie over deze situatie?</p>
+        </div>
+        
+        <div class="form-group">
+            <label for="noteTextarea">Hoofdconclusie:</label>
+            <textarea 
+                id="noteTextarea" 
+                placeholder="Beschrijf je hoofdconclusie..."
+                maxlength="2000"
+            ></textarea>
+            <div class="char-counter">0/2000</div>
+        </div>
+        
+        <div class="question">
+            <p>Welke factoren hebben het meest bijgedragen aan jouw conclusie?</p>
+        </div>
+        
+        <div class="form-group">
+            <label for="factorsTextarea">Belangrijkste factoren:</label>
+            <textarea 
+                id="factorsTextarea" 
+                placeholder="Lijst de belangrijkste factoren op..."
+                maxlength="2000"
+            ></textarea>
+            <div class="char-counter">0/2000</div>
+        </div>
+        
+        <div class="question">
+            <p>Hoe zou je jouw aanpak in de toekomst aanpassen?</p>
+        </div>
+        
+        <div class="form-group">
+            <label for="futureTextarea">Toekomstige aanpak:</label>
+            <textarea 
+                id="futureTextarea" 
+                placeholder="Beschrijf je toekomstige aanpak..."
+                maxlength="2000"
+            ></textarea>
+            <div class="char-counter">0/2000</div>
+        </div>
+        
+        <div class="nav-buttons">
+            <button type="button" class="btn" id="saveButton" style="width: 100%;">
+                Opslaan
+            </button>
+        </div>
+    </div>
+    
+    <script src="../../assets/js/notepad.js"></script>
+    <script>
+        
+        // Custom save functionality for multiple textareas
+        document.getElementById('saveButton').addEventListener('click', async () => {
+            const manager = new NotepadManager();
+            const textareas = ['noteTextarea', 'factorsTextarea', 'futureTextarea'];
+            const content = {};
+            
+            textareas.forEach(id => {
+                const textarea = document.getElementById(id);
+                if (textarea) {
+                    content[id] = textarea.value;
+                }
+            });
+            
+            try {
+                const response = await fetch('/api/notes/save', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        userId: manager.userId,
+                        pageId: 'analysis_level1',
+                        content: JSON.stringify(content),
+                        editCount: manager.editCount,
+                        timeSpent: manager.calculateTimeSpent()
+                    })
+                });
+                
+                if (response.ok) {
+                    manager.showStatusMessage('Analyse succesvol opgeslagen!', 'success');
+                } else {
+                    throw new Error('Failed to save analysis');
+                }
+            } catch (error) {
+                console.error('Error saving analysis:', error);
+                manager.showStatusMessage('Er is een fout opgetreden bij het opslaan.', 'error');
+            }
+        });
+    </script>
+</body>
+</html>

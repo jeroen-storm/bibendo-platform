@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SneakSpot: waar het ooit begon - Level 1</title>
+    <link rel="stylesheet" href="../../assets/css/main.css">
+    <link rel="stylesheet" href="../../assets/css/textPages.css">
+</head>
+<body>
+    <!-- Reading progress indicator -->
+    <div class="reading-progress">
+        <div class="reading-progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="text-container">
+        <header class="text-header">
+            <h1 class="text-title">👟 SneakSpot in Bergveen: waar het ooit begon</h1>
+            <div class="text-meta">Level 1 - Nieuwsbericht Deel 1</div>
+        </header>
+
+        <main class="text-content">
+            <section class="text-section trackable-section" id="main-article">
+                <div class="section-content">
+                    <p>In 2015 opende Emma Miller de deuren van SneakSpot in het hart van Bergveen. Wat begon als een kleine droom, groeide al snel uit tot dé plek voor sneakerliefhebbers in de regio. Emma, zelf een enorme sneakerfan, merkte dat er in haar omgeving weinig winkels waren die écht inspeelden op de stijl en beleving van jongeren. Met een scherp oog voor trends en een passie voor streetwear, besloot ze het heft in eigen handen te nemen. Vandaag de dag is SneakSpot nog steeds een plek waar jongeren zich thuis voelen en waar Emma met haar team altijd klaarstaat met advies en een glimlach.</p>
+                </div>
+                
+                <div class="hyperlink-placeholder">
+                    <a href="nieuwsbericht_overzicht_level1.html?userId=${new URLSearchParams(window.location.search).get('userId') || 'anonymous'}" 
+                       class="hyperlink">← Terug naar overzicht</a>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="../../assets/js/textTracker.js"></script>
+    <script>
+        // Update reading progress
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('progressBar').style.width = scrolled + '%';
+        });
+
+        // Fix hyperlinks with proper userId
+        document.addEventListener('DOMContentLoaded', () => {
+            const userId = new URLSearchParams(window.location.search).get('userId') || 'anonymous';
+            document.querySelectorAll('a[href*="userId="]').forEach(link => {
+                link.href = link.href.replace('${new URLSearchParams(window.location.search).get(\'userId\') || \'anonymous\'}', userId);
+            });
+        });
+    </script>
+</body>
+</html>

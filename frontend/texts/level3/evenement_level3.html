@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sneaker Evenement - Level 3</title>
+    <link rel="stylesheet" href="../../assets/css/main.css">
+    <link rel="stylesheet" href="../../assets/css/textPages.css">
+</head>
+<body>
+    <!-- Reading progress indicator -->
+    <div class="reading-progress">
+        <div class="reading-progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="text-container">
+        <header class="text-header">
+            <h1 class="text-title">🎉 Event: Loopz – Jouw stijl, jouw moment</h1>
+            <div class="text-meta">Level 3 - Sneaker Evenement</div>
+        </header>
+
+        <main class="text-content">
+            <section class="text-section trackable-section" id="event-intro">
+                <div class="event-container">
+                    <div class="event-title">🎉 Event: Loopz – Jouw stijl, jouw moment</div>
+                    
+                    <div class="section-content">
+                        <p>Ben jij gek op vintage en streetwear? Dan mag je Loopz niet missen! Op zaterdag 15 juni verandert het plein bij Winkelcentrum Bergveen in een waar modeparadijs. Dit event is speciaal voor jongeren van 12 tot 18 jaar die houden van mode, muziek en fun.</p>
+                    </div>
+                    
+                    <div class="event-details">
+                        <div class="event-detail">📍 <strong>Locatie:</strong> Winkelcentrum Bergveen</div>
+                        <div class="event-detail">🕒 <strong>Tijd:</strong> 13:00 – 17:00 uur</div>
+                        <div class="event-detail">🎟️ <strong>Toegang:</strong> Gratis!</div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="text-section trackable-section" id="activities">
+                <h3 class="section-title">Wat kun je verwachten?</h3>
+                
+                <div class="event-section">
+                    <h4 class="event-section-title">👟 Fashion Showcase</h4>
+                    <p>Bekijk de nieuwste ontwerpen van populaire merken én unieke custom kleding van lokale ontwerpers. Laat je inspireren of stem op jouw favoriet!</p>
+                </div>
+
+                <div class="event-section">
+                    <h4 class="event-section-title">🎨 Custom Corner</h4>
+                    <p>Laat je eigen kleding pimpen door een echte fashion artist. Je kunt ook zelf aan de slag met verf, stiften en glitters. Alles ligt voor je klaar!</p>
+                </div>
+
+                <div class="event-section">
+                    <h4 class="event-section-title">🎧 Live DJ & Dance Battles</h4>
+                    <p>Geniet van de vetste beats van DJ Lino en cheer mee tijdens de dance battles van lokale crews. Misschien durf jij zelf ook wel mee te doen?</p>
+                </div>
+
+                <div class="event-section">
+                    <h4 class="event-section-title">📸 Photo Wall & TikTok Zone</h4>
+                    <p>Maak de perfecte foto met je nieuwe looks of doe mee aan de TikTok challenge van het event. De leukste video wint een minuut gratis shoppen!</p>
+                </div>
+
+                <div class="event-section">
+                    <h4 class="event-section-title">🎁 Winacties & Giveaways</h4>
+                    <p>Doe mee aan de quiz, de fashionbingo of de "Guess the Style"-wedstrijd en maak kans op toffe prijzen.</p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="../../assets/js/textTracker.js"></script>
+    <script>
+        // Update reading progress
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('progressBar').style.width = scrolled + '%';
+        });
+    </script>
+</body>
+</html>

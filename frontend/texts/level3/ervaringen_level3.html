@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evenement Ervaringen - Level 3</title>
+    <link rel="stylesheet" href="../../assets/css/main.css">
+    <link rel="stylesheet" href="../../assets/css/textPages.css">
+</head>
+<body>
+    <!-- Reading progress indicator -->
+    <div class="reading-progress">
+        <div class="reading-progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="text-container">
+        <header class="text-header">
+            <h1 class="text-title">📧 Ervaringen Loopz Evenement</h1>
+            <div class="text-meta">Level 3 - Evenement Evaluatie</div>
+        </header>
+
+        <main class="text-content">
+            <section class="text-section trackable-section" id="email-evaluation">
+                <div class="email-format">
+                    <div class="email-header">
+                        <div class="email-field">
+                            <strong>Aan:</strong> karim@retailexpert.nl
+                        </div>
+                        <div class="email-field">
+                            <strong>Van:</strong> sasha@sneakvibes.com
+                        </div>
+                        <div class="email-field">
+                            <strong>Onderwerp:</strong> Ervaringen activiteiten Loopz lancering
+                        </div>
+                    </div>
+                    
+                    <div class="email-body">
+                        <p><strong>Beste Karim,</strong></p>
+                        
+                        <p>Natuurlijk wil ik mijn ervaring delen over de lancering van Loopz vorige week. Het was een drukke, maar super leerzame dag met vijf leuke activiteiten. De Fashion Showcase en Custom Corner waren echt een succes! Jongeren vonden het leuk om de nieuwste merken te zien en we kregen veel positieve reacties op de opstelling. Het zag er strak uit en trok meteen aandacht.</p>
+                        
+                        <p>Vooral de mogelijkheid om je eigen kleding te pimpen viel in de smaak. We hadden een paar creatieve jongeren die echt unieke designs maakten. Volgende keer misschien iets meer begeleiding, maar het concept werkt!</p>
+                        
+                        <p>De live muziek van DJ Lino met een dancebattle vielen wat minder in de smaak. De muziek was top, maar de dansbattles trokken weinig deelnemers. Misschien was het te spannend of te druk. Volgende keer maar geen dancebattles meer. Daarentegen was het wél druk bij de Photo Wall & Tiktok Zone. Iedereen wilde op de foto en we zagen veel TikToks verschijnen met onze hashtag. Super goede zichtbaarheid en leuke sfeer, dus zeker een aanrader voor jullie!</p>
+                        
+                        <p>De winacties liepen niet zoals gehoopt. Er was verwarring over de regels en sommige prijzen waren niet leuk voor jongeren. Volgende keer gaan we dat anders doen.</p>
+                        
+                        <p>Al met al ben ik blij met hoe het ging, en ik heb al wat ideeën om het de volgende keer nog beter te maken. Laat me weten wat jij ervan vond!</p>
+                        
+                        <p><strong>Met vriendelijke groet,</strong><br>
+                        Sasha<br>
+                        Loopz</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="../../assets/js/textTracker.js"></script>
+    <script>
+        // Update reading progress
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('progressBar').style.width = scrolled + '%';
+        });
+    </script>
+</body>
+</html>
