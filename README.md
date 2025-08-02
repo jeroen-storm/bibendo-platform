@@ -1,10 +1,18 @@
-# Bibendo Educational Platform
+# Bibendo Educational Platform - Game Editor Extension
 
-A comprehensive web-based educational platform with smart notepad system, text tracking, CBM assessment tools, and admin dashboard, designed for integration with the Bibendo Flutter app via webview.
+A comprehensive web-based educational extension (add-on) for the **Bibendo Game Editor** (NBD Biblion), providing advanced educational tools including smart notepad system, text tracking, CBM assessment tools, and admin dashboard. Designed for seamless integration via Flutter webview within educational games.
 
-## 🚀 Features
+**Part of the LeesEvolutie Project** - Advanced reading comprehension tools for educational gaming.
 
-### ✅ Completed Components
+## 🔗 Related Projects
+- **Bibendo Game Editor**: [www.bibendo.nl](https://www.bibendo.nl) - Main game creation platform by NBD Biblion
+- **LeesEvolutie Project**: [www.leesevolutie.nl](https://www.leesevolutie.nl) - Reading evolution educational initiative
+
+## 🎮 Integration Features
+
+This extension adds advanced educational assessment capabilities to the **Bibendo Game Editor**, enabling game creators to incorporate sophisticated learning analytics and interactive tools within their educational games.
+
+### ✅ Extension Components
 
 #### Smart Notepad System
 - **3 Levels** with 12 total pages (9 note pages + 3 final pages)
@@ -93,11 +101,45 @@ bibendo-platform/
 
 ## 🛠️ Technical Stack
 
-- **Backend**: Node.js, Express.js, SQLite
-- **Frontend**: Vanilla HTML/CSS/JavaScript (no frameworks)
+**Extension Architecture:**
+- **Integration**: Flutter WebView compatibility for seamless game integration
+- **Backend**: Node.js, Express.js, SQLite (optimized for educational environments)
+- **Frontend**: Vanilla HTML/CSS/JavaScript (framework-free for maximum compatibility)
 - **Security**: Helmet, CORS, Rate Limiting, Input Sanitization
-- **Design**: Responsive, minimal UI, iframe-optimized
-- **Analytics**: Real-time user tracking and data visualization
+- **Design**: Responsive, minimal UI, iframe/webview-optimized
+- **Analytics**: Real-time user tracking and comprehensive learning analytics
+- **Deployment**: VPS-ready with classroom scalability (30-50 concurrent users)
+
+## 🎮 Game Editor Integration
+
+### Flutter WebView Integration
+This extension is designed to be embedded within educational games created in the **Bibendo Game Editor**. The platform provides:
+
+- **Seamless WebView Integration**: All components optimized for Flutter WebView rendering
+- **Cross-Platform Compatibility**: Works across iOS, Android, and web platforms
+- **Game Context Preservation**: User IDs and session data maintained between game and extension
+- **Responsive Design**: Adapts to different screen sizes and orientations within games
+
+### Integration URLs for Game Developers
+```javascript
+// Smart Notepad System
+const notepadUrl = `https://onderzoek.leeschallenges.nl/notepad/level1/note1.html?userId=${userId}`;
+
+// Text Analysis Pages  
+const textUrl = `https://onderzoek.leeschallenges.nl/texts/level1/tekst1.html?userId=${userId}`;
+
+// CBM Assessment Tool
+const cbmUrl = `https://onderzoek.leeschallenges.nl/cbm/selection.html?userId=${userId}`;
+
+// Admin Dashboard (for educators)
+const adminUrl = `https://onderzoek.leeschallenges.nl/admin/dashboard.html`;
+```
+
+### Educational Game Use Cases
+- **Reading Comprehension Games**: Embed CBM assessments within story-based adventures
+- **Note-Taking Adventures**: Use smart notepad system for puzzle-solving and reflection
+- **Analytics Integration**: Real-time learning analytics feed back into game progression
+- **Classroom Management**: Teachers can monitor student progress across all game sessions
 
 ## 📊 Database Schema
 
@@ -421,12 +463,52 @@ GET /api/health
 - [x] Real-time performance analytics
 
 ### Pending ⏳
-- [ ] Additional CBM texts (2 more planned)
-- [ ] VPS deployment scripts
-- [ ] SSL certificate automation
-- [ ] Production optimizations
-- [ ] CI/CD pipeline
-- [ ] User authentication system (if needed)
+- [ ] VPS deployment scripts (TransIP)
+- [ ] SSL certificate automation  
+- [ ] Production environment configuration
+
+## 🚀 Production Deployment
+
+### VPS Configuration (TransIP)
+The extension is configured for deployment on **TransIP VPS** infrastructure:
+
+- **Domain**: `onderzoek.leeschallenges.nl`
+- **Server**: Ubuntu 24.04 LTS (Amsterdam datacenter)
+- **Stack**: Node.js + PM2 + Nginx + Let's Encrypt SSL
+- **Database**: SQLite with WAL mode for concurrent access
+- **Capacity**: Optimized for 30-50 concurrent classroom users
+
+### Deployment Process
+1. **VPS Setup**: Ubuntu server configuration with security hardening
+2. **Domain Configuration**: DNS setup for `onderzoek.leeschallenges.nl`  
+3. **SSL Certificates**: Automated Let's Encrypt certificate generation
+4. **Application Deployment**: PM2 process management with auto-restart
+5. **Database Optimization**: WAL mode with automated backups
+6. **Monitoring**: Server logs and performance tracking
+
+### Game Editor Integration
+Once deployed, the extension URLs can be embedded in **Bibendo Game Editor** projects:
+
+```javascript
+// Production URLs for game integration
+const baseUrl = 'https://onderzoek.leeschallenges.nl';
+
+// Embed in Flutter WebView within educational games
+const extensionUrls = {
+  notepad: `${baseUrl}/notepad/level1/note1.html?userId=${gameUserId}`,
+  texts: `${baseUrl}/texts/level1/tekst1.html?userId=${gameUserId}`,
+  cbm: `${baseUrl}/cbm/selection.html?userId=${gameUserId}`,
+  admin: `${baseUrl}/admin/dashboard.html`
+};
+```
+
+### LeesEvolutie Project Integration
+This extension provides the advanced reading assessment tools needed for the **LeesEvolutie** educational initiative, enabling:
+
+- **Game-Based CBM Assessments**: Seamless reading fluency testing within educational games
+- **Interactive Note-Taking**: Context-aware notepad system for learning reflection
+- **Real-Time Analytics**: Teacher dashboard for monitoring student progress across all game sessions
+- **Cross-Platform Compatibility**: Consistent experience across iOS, Android, and web platforms
 
 ## 🔧 Development Notes
 
