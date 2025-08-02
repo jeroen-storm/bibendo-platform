@@ -6,6 +6,7 @@ A comprehensive web-based educational extension (add-on) for the **Bibendo Game 
 
 ## 🔗 Related Projects
 - **Bibendo Game Editor**: [www.bibendo.nl](https://www.bibendo.nl) - Main game creation platform by NBD Biblion
+- **Bibendo Documentation**: [bibendo-docs-dev.readme.io](https://bibendo-docs-dev.readme.io/) - Official Bibendo developer documentation
 - **LeesEvolutie Project**: [www.leesevolutie.nl](https://www.leesevolutie.nl) - Reading evolution educational initiative
 
 ## 🎮 Integration Features
@@ -487,7 +488,7 @@ The extension is configured for deployment on **TransIP VPS** infrastructure:
 6. **Monitoring**: Server logs and performance tracking
 
 ### Game Editor Integration
-Once deployed, the extension URLs can be embedded in **Bibendo Game Editor** projects:
+Once deployed, the extension URLs can be embedded in **Bibendo Game Editor** projects. For detailed integration instructions, see the [official Bibendo documentation](https://bibendo-docs-dev.readme.io/):
 
 ```javascript
 // Production URLs for game integration
@@ -509,6 +510,23 @@ This extension provides the advanced reading assessment tools needed for the **L
 - **Interactive Note-Taking**: Context-aware notepad system for learning reflection
 - **Real-Time Analytics**: Teacher dashboard for monitoring student progress across all game sessions
 - **Cross-Platform Compatibility**: Consistent experience across iOS, Android, and web platforms
+
+## 📚 Developer Resources
+
+### Bibendo Integration Documentation
+For comprehensive integration guides, API references, and best practices for embedding this extension in your educational games, visit:
+
+**[Official Bibendo Documentation](https://bibendo-docs-dev.readme.io/)**
+
+This documentation covers:
+- **WebView Integration**: Flutter WebView setup for educational games
+- **Game Engine APIs**: Communication between games and extensions  
+- **User Management**: Handling user sessions across game and extension
+- **Data Analytics**: Integrating learning analytics into game progression
+- **Platform Guidelines**: UI/UX best practices for educational content
+
+### Extension-Specific APIs
+This platform provides RESTful APIs for seamless integration with the Bibendo Game Editor ecosystem. All endpoints are documented in the API sections below.
 
 ## 🔧 Development Notes
 
