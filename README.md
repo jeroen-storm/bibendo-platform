@@ -101,10 +101,17 @@ bibendo-platform/
 │   ├── cbm/
 │   │   ├── selection.html    # CBM text selection page
 │   │   └── index.html        # CBM assessment interface
+│   ├── test/
+│   │   ├── three-questions.html  # SneakSpot assessment interface
+│   │   └── result.html           # Evaluation results page
 │   └── admin/
 │       ├── dashboard.html    # Main admin dashboard
 │       └── user-detail.html  # Individual user analytics
-└── deployment/              # Deployment scripts (pending)
+├── docs/
+│   └── assessment/
+│       ├── sneakspot-beoordelingsrubric.md  # Official rubric
+│       └── sneakspot-test-guide.md          # User guide
+└── deploy-to-vps.sh        # VPS deployment script
 ```
 
 ## 🛠️ Technical Stack
@@ -449,11 +456,9 @@ GET /api/health
 - **Web Server**: Nginx (reverse proxy)
 - **Location**: Amsterdam datacenter
 
-### Deployment Scripts (Pending)
+### Deployment Scripts
 ```bash
-./deployment/setup-vps.sh      # Initial VPS setup
-./deployment/deploy.sh         # Application deployment
-./deployment/ssl-setup.sh      # SSL certificate setup
+./deploy-to-vps.sh             # VPS deployment script
 ```
 
 ## 📋 Development Status
@@ -472,11 +477,11 @@ GET /api/health
 - [x] Comprehensive user tracking and logging
 - [x] Data export functionality (CSV/JSON)
 - [x] Real-time performance analytics
-
-### Pending ⏳
-- [ ] VPS deployment scripts (TransIP)
-- [ ] SSL certificate automation  
-- [ ] Production environment configuration
+- [x] SneakSpot Assessment Test with AI evaluation
+- [x] Official rubric-based scoring system (Goud/Zilver/Brons)
+- [x] VPS deployment on onderzoek.leeschallenges.nl
+- [x] SSL certificate and production configuration
+- [x] Complete API and user documentation
 
 ## 🚀 Production Deployment
 
