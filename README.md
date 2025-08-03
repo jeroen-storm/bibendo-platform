@@ -55,6 +55,13 @@ This extension adds advanced educational assessment capabilities to the **Bibend
 - **Performance Optimization**: Database caching, memory temp store, efficient queries
 - **Comprehensive Logging**: All user interactions tracked and stored
 
+#### SneakSpot Assessment Test
+- **Three-question analysis interface**: Comprehensive evaluation of SneakSpot case study
+- **AI-powered evaluation**: Automated assessment using official rubric criteria
+- **Official scoring system**: Goud/Zilver/Brons (3/2/1 points) with final grade calculation
+- **Individual question feedback**: Detailed scores per question with constructive feedback
+- **Professional results page**: Clean presentation of evaluation results with next steps
+
 ## 📁 Project Structure
 
 ```
@@ -131,6 +138,9 @@ const textUrl = `https://onderzoek.leeschallenges.nl/texts/level1/tekst1.html?us
 
 // CBM Assessment Tool
 const cbmUrl = `https://onderzoek.leeschallenges.nl/cbm/selection.html?userId=${userId}`;
+
+// SneakSpot Assessment Test
+const sneakspotUrl = `https://onderzoek.leeschallenges.nl/test/three-questions.html`;
 
 // Admin Dashboard (for educators)
 const adminUrl = `https://onderzoek.leeschallenges.nl/admin/dashboard.html`;

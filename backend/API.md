@@ -310,6 +310,93 @@ curl http://localhost:3000/api/admin/user/user123
 
 ---
 
+## Assessment API
+
+### Send SneakSpot Analysis to Karim
+
+Submit three-question SneakSpot analysis for AI evaluation using official rubric.
+
+**Endpoint:** `POST /api/send-to-karim`
+
+**Request Body:**
+```json
+{
+  "question1": "SneakSpot verkoopt opvallende, kleurrijke sneakers met felle kleuren...",
+  "question2": "Jongeren komen er weinig omdat ze liever rustige kleuren hebben...",
+  "question3": "Ze moeten overstappen op minimalistische ontwerpen...",
+  "timestamp": "2025-08-03T10:30:00.000Z"
+}
+```
+
+**Required Fields:**
+- `question1` (string): Answer to "Wat verkoopt SneakSpot op dit moment?"
+- `question2` (string): Answer to "Waarom komen er weinig jongeren naar SneakSpot?"
+- `question3` (string): Answer to "Wat moet er veranderen aan SneakSpot?"
+- `timestamp` (string): ISO timestamp of submission
+
+**Success Response (200 OK):**
+```json
+{
+  "success": true,
+  "message": "Antwoorden succesvol naar Karim gestuurd en beoordeeld!",
+  "evaluation": {
+    "score": "zilver",
+    "feedback": "Goede analyse met concrete details. Vraag 1 uitstekend beantwoord, vraag 2 en 3 kunnen specifieker.",
+    "individual_scores": {
+      "vraag1": "goud",
+      "vraag2": "zilver", 
+      "vraag3": "brons"
+    },
+    "total_points": 6,
+    "final_grade": "VOLDOENDE"
+  }
+}
+```
+
+**Evaluation System:**
+- **Goud (3 points)**: Excellent answer with specific details matching rubric criteria
+- **Zilver (2 points)**: Good answer with adequate details
+- **Brons (1 point)**: Basic answer or vague response
+- **Final Grades**: GOED (7-9 points), VOLDOENDE (4-6 points), MATIG (3 points)
+
+**Error Response (400 Bad Request):**
+```json
+{
+  "error": "Alle drie de vragen moeten beantwoord zijn"
+}
+```
+
+**Error Response (500 Internal Server Error):**
+```json
+{
+  "error": "Er ging iets mis bij het versturen",
+  "details": "OpenAI API error message"
+}
+```
+
+**Usage Example:**
+```javascript
+const response = await fetch('/api/send-to-karim', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    question1: "SneakSpot verkoopt momenteel opvallende sneakers...",
+    question2: "Jongeren blijven weg omdat...",
+    question3: "Ze moeten overstappen naar...",
+    timestamp: new Date().toISOString()
+  })
+});
+
+const result = await response.json();
+if (result.success) {
+  console.log('Evaluation:', result.evaluation);
+}
+```
+
+---
+
 ## Utility Endpoints
 
 ### Health Check
