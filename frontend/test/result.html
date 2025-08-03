@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beoordeling Resultaat - Bibendo Platform</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <style>
+        .result-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .score-badge {
+            font-size: 64px;
+            margin: 30px 0;
+            padding: 30px;
+            border-radius: 20px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        
+        .goud {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: #8B4513;
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
+        }
+        
+        .zilver {
+            background: linear-gradient(135deg, #C0C0C0, #808080);
+            color: #2F4F4F;
+            box-shadow: 0 8px 25px rgba(192, 192, 192, 0.4);
+        }
+        
+        .brons {
+            background: linear-gradient(135deg, #CD7F32, #8B4513);
+            color: white;
+            box-shadow: 0 8px 25px rgba(205, 127, 50, 0.4);
+        }
+        
+        .feedback-box {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            margin: 30px 0;
+            text-align: left;
+            border-radius: 8px;
+        }
+        
+        .feedback-title {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .feedback-text {
+            color: #555;
+            line-height: 1.6;
+        }
+        
+        .action-buttons {
+            margin-top: 30px;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            margin: 10px;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: transform 0.2s;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+        
+        .score-emoji {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+        
+        .individual-score-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .individual-score-item:last-child {
+            border-bottom: none;
+        }
+        
+        .score-badge-small {
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+    <div class="result-container">
+        <h1>🎯 Je Beoordeling</h1>
+        
+        <div id="scoreDisplay" class="score-badge">
+            <div class="score-emoji" id="scoreEmoji">🏆</div>
+            <div id="scoreText">GOUD</div>
+        </div>
+        
+        <div class="feedback-box">
+            <div class="feedback-title">💬 Feedback van de AI-beoordelaar:</div>
+            <div class="feedback-text" id="feedbackText">
+                Uitstekende analyse! Je hebt alle belangrijke punten geraakt.
+            </div>
+        </div>
+        
+        <div id="gradeInfo" class="feedback-box" style="display: none;">
+            <div class="feedback-title">📈 Eindoordeel:</div>
+            <div id="finalGradeText" style="font-size: 1.2em; font-weight: bold; margin: 10px 0;"></div>
+            <div id="totalPointsText" style="color: #666;"></div>
+        </div>
+        
+        <div id="individualScores" class="feedback-box" style="display: none;">
+            <div class="feedback-title">📊 Scores per vraag:</div>
+            <div class="individual-scores-list" id="individualScoresList">
+                <!-- Individual scores will be inserted here -->
+            </div>
+        </div>
+        
+        <div class="action-buttons">
+            <a href="three-questions.html" class="btn btn-primary">
+                🔄 Nieuwe SneakSpot Analyse
+            </a>
+            <a href="../admin/dashboard.html" class="btn btn-secondary">
+                📊 Dashboard
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Get parameters from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const score = urlParams.get('score') || 'brons';
+        const feedback = urlParams.get('feedback') || 'Geen feedback beschikbaar.';
+        const individualScoresParam = urlParams.get('individual_scores');
+        const totalPoints = urlParams.get('total_points');
+        const finalGrade = urlParams.get('final_grade');
+        const type = urlParams.get('type') || 'analysis';
+        
+        // Update display based on score
+        const scoreDisplay = document.getElementById('scoreDisplay');
+        const scoreText = document.getElementById('scoreText');
+        const scoreEmoji = document.getElementById('scoreEmoji');
+        const feedbackText = document.getElementById('feedbackText');
+        
+        // Update title based on type
+        const title = document.querySelector('h1');
+        if (type === 'sneakspot-analysis') {
+            title.textContent = '👟 SneakSpot Analyse Resultaat';
+        }
+        
+        // Remove any existing score classes
+        scoreDisplay.classList.remove('goud', 'zilver', 'brons');
+        
+        // Add appropriate class and content
+        switch (score.toLowerCase()) {
+            case 'goud':
+                scoreDisplay.classList.add('goud');
+                scoreText.textContent = 'GOUD';
+                scoreEmoji.textContent = '🏆';
+                break;
+            case 'zilver':
+                scoreDisplay.classList.add('zilver');
+                scoreText.textContent = 'ZILVER';
+                scoreEmoji.textContent = '🥈';
+                break;
+            case 'brons':
+                scoreDisplay.classList.add('brons');
+                scoreText.textContent = 'BRONS';
+                scoreEmoji.textContent = '🥉';
+                break;
+            default:
+                scoreDisplay.classList.add('brons');
+                scoreText.textContent = 'BRONS';
+                scoreEmoji.textContent = '🥉';
+        }
+        
+        // Update feedback
+        feedbackText.textContent = decodeURIComponent(feedback);
+        
+        // Show final grade info if available
+        if (totalPoints && finalGrade) {
+            const gradeInfoContainer = document.getElementById('gradeInfo');
+            const finalGradeText = document.getElementById('finalGradeText');
+            const totalPointsText = document.getElementById('totalPointsText');
+            
+            finalGradeText.textContent = `${finalGrade}`;
+            totalPointsText.textContent = `${totalPoints}/9 punten`;
+            
+            // Color coding for final grade
+            if (finalGrade === 'GOED') {
+                finalGradeText.style.color = '#28a745';
+            } else if (finalGrade === 'VOLDOENDE') {
+                finalGradeText.style.color = '#ffc107';
+            } else {
+                finalGradeText.style.color = '#dc3545';
+            }
+            
+            gradeInfoContainer.style.display = 'block';
+        }
+        
+        // Show individual scores if available
+        if (individualScoresParam) {
+            try {
+                const individualScores = JSON.parse(decodeURIComponent(individualScoresParam));
+                const individualScoresContainer = document.getElementById('individualScores');
+                const individualScoresList = document.getElementById('individualScoresList');
+                
+                // Create HTML for individual scores with points
+                const scoresHTML = `
+                    <div class="individual-score-item">
+                        <span>Vraag 1: Wat verkoopt SneakSpot?</span>
+                        <span class="score-badge-small ${individualScores.vraag1}">${individualScores.vraag1.toUpperCase()} (${getPoints(individualScores.vraag1)}pt)</span>
+                    </div>
+                    <div class="individual-score-item">
+                        <span>Vraag 2: Waarom komen er weinig jongeren?</span>
+                        <span class="score-badge-small ${individualScores.vraag2}">${individualScores.vraag2.toUpperCase()} (${getPoints(individualScores.vraag2)}pt)</span>
+                    </div>
+                    <div class="individual-score-item">
+                        <span>Vraag 3: Wat moet er veranderen?</span>
+                        <span class="score-badge-small ${individualScores.vraag3}">${individualScores.vraag3.toUpperCase()} (${getPoints(individualScores.vraag3)}pt)</span>
+                    </div>
+                `;
+                
+                individualScoresList.innerHTML = scoresHTML;
+                individualScoresContainer.style.display = 'block';
+            } catch (error) {
+                console.error('Failed to parse individual scores:', error);
+            }
+        }
+        
+        // Helper function to convert score to points
+        function getPoints(score) {
+            switch (score.toLowerCase()) {
+                case 'goud': return 3;
+                case 'zilver': return 2;
+                case 'brons': return 1;
+                default: return 1;
+            }
+        }
+    </script>
+</body>
+</html>
