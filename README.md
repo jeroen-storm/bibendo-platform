@@ -486,7 +486,10 @@ GET /api/health
 ### Nginx Configuration
 The production nginx configuration is managed via git in `/nginx/onderzoek.leeschallenges.nl`. 
 
-**Key principle**: All requests are proxied to `localhost:3000` - let the Express app handle routing.
+**Key principles**: 
+- All requests are proxied to `localhost:3000` - let the Express app handle routing
+- **No X-Frame-Options header** - enables iframe integration with Bibendo Game Editor
+- All pages can be embedded in Bibendo games via Flutter WebView
 
 For troubleshooting nginx issues, see: [docs/NGINX-TROUBLESHOOTING.md](docs/NGINX-TROUBLESHOOTING.md)
 
@@ -511,6 +514,11 @@ For troubleshooting nginx issues, see: [docs/NGINX-TROUBLESHOOTING.md](docs/NGIN
 - [x] VPS deployment on onderzoek.leeschallenges.nl
 - [x] SSL certificate and production configuration
 - [x] Complete API and user documentation
+- [x] SneakSpot game integration with responsive 3:4 aspect ratio
+- [x] Links overview page (/links.html) for development and testing
+- [x] Iframe compatibility - all pages can embed in Bibendo Game Editor
+- [x] Static file serving fixed via nginx configuration
+- [x] Clean styling consistency across all pages
 
 ## 🚀 Production Deployment
 

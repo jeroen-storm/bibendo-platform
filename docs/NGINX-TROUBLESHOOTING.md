@@ -2,6 +2,29 @@
 
 ## Common Issues and Solutions
 
+### Issue: Iframe Loading Blocked (X-Frame-Options)
+
+**Symptoms:**
+- Browser error: "Refused to display in a frame because it set 'X-Frame-Options' to 'SAMEORIGIN'"
+- External iframes (like bibendo.nl games) don't load
+- Pages can't be embedded in Bibendo Game Editor
+
+**Root Cause:**
+Nginx adds `X-Frame-Options: SAMEORIGIN` header which blocks iframe embedding from external domains.
+
+**Solution:**
+Remove the X-Frame-Options header from nginx configuration:
+
+```nginx
+# Security headers (no X-Frame-Options - all pages load in Bibendo iframes)
+add_header X-Content-Type-Options nosniff;
+add_header X-XSS-Protection "1; mode=block";
+add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
+# Note: X-Frame-Options removed for iframe compatibility
+```
+
+**Result:** All pages can now be embedded in Bibendo Game Editor iframes.
+
 ### Issue: API Returns 404 After Config Changes
 
 **Symptoms:**
