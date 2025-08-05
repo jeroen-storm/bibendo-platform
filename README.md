@@ -55,6 +55,12 @@ This extension adds advanced educational assessment capabilities to the **Bibend
 - **Performance Optimization**: Database caching, memory temp store, efficient queries
 - **Comprehensive Logging**: All user interactions tracked and stored
 
+#### SneakSpot Game Integration (NEW)
+- **Game Interface**: Responsive iframe integration with 3:4 aspect ratio (525px-675px width, 700px-900px height)
+- **Challenge System**: Multi-level game progression with visual feedback
+- **Level Selection**: Professional game interface with progress tracking
+- **Responsive Design**: Fluid scaling between minimum and maximum dimensions while maintaining aspect ratio
+
 #### SneakSpot Assessment Test
 - **Three-question analysis interface**: Comprehensive evaluation of SneakSpot case study
 - **AI-powered evaluation**: Automated assessment using official rubric criteria
@@ -79,12 +85,14 @@ bibendo-platform/
 │   │   ├── css/
 │   │   │   ├── main.css      # Main stylesheet
 │   │   │   ├── cbm.css       # CBM-specific styles  
-│   │   │   └── admin.css     # Admin dashboard styles
+│   │   │   ├── admin.css     # Admin dashboard styles
+│   │   │   └── textPages.css # Text page styles
 │   │   ├── data/
 │   │   │   ├── cbm-text-0.json # Practice text (9 exercises)
 │   │   │   ├── cbm-text-1.json # Main text 1 (72 exercises)
 │   │   │   ├── cbm-text-2.json # Main text 2 (98 exercises)
-│   │   │   └── cbm-text-3.json # Main text 3 (55 exercises)
+│   │   │   ├── cbm-text-3.json # Main text 3 (55 exercises)
+│   │   │   └── cbm-texts.json  # CBM text metadata
 │   │   └── js/
 │   │       ├── notepad.js    # Notepad functionality
 │   │       ├── textTracker.js # Text page tracking
@@ -95,12 +103,18 @@ bibendo-platform/
 │   │   ├── level2/           # Level 2 notepad pages (4 pages)
 │   │   └── level3/           # Level 3 notepad pages (4 pages)
 │   ├── texts/
-│   │   ├── level1/           # Level 1 text pages (3 pages)
-│   │   ├── level2/           # Level 2 text pages (3 pages)
-│   │   └── level3/           # Level 3 text pages (3 pages)
+│   │   ├── level1/           # Level 1 text pages (7 pages)
+│   │   ├── level2/           # Level 2 text pages (2 pages)
+│   │   └── level3/           # Level 3 text pages (2 pages)
 │   ├── cbm/
 │   │   ├── selection.html    # CBM text selection page
 │   │   └── index.html        # CBM assessment interface
+│   ├── sneakspot/           # SneakSpot game integration (NEW)
+│   │   ├── challenges.html   # Game challenges overview
+│   │   ├── levels.html       # Level selection interface
+│   │   ├── game.html         # Game iframe with responsive 3:4 aspect ratio
+│   │   ├── styles.css        # SneakSpot styling
+│   │   └── img/              # Game assets and images
 │   ├── test/
 │   │   ├── three-questions.html  # SneakSpot assessment interface
 │   │   └── result.html           # Evaluation results page
@@ -146,8 +160,13 @@ const textUrl = `https://onderzoek.leeschallenges.nl/texts/level1/tekst1.html?us
 // CBM Assessment Tool
 const cbmUrl = `https://onderzoek.leeschallenges.nl/cbm/selection.html?userId=${userId}`;
 
+// SneakSpot Game Integration
+const sneakspotGameUrl = `https://onderzoek.leeschallenges.nl/sneakspot/game.html`;
+const sneakspotChallengesUrl = `https://onderzoek.leeschallenges.nl/sneakspot/challenges.html`;
+const sneakspotLevelsUrl = `https://onderzoek.leeschallenges.nl/sneakspot/levels.html`;
+
 // SneakSpot Assessment Test
-const sneakspotUrl = `https://onderzoek.leeschallenges.nl/test/three-questions.html`;
+const sneakspotTestUrl = `https://onderzoek.leeschallenges.nl/test/three-questions.html`;
 
 // Admin Dashboard (for educators)
 const adminUrl = `https://onderzoek.leeschallenges.nl/admin/dashboard.html`;

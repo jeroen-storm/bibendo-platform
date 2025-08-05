@@ -1,0 +1,378 @@
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #141414;
+    color: #ffffff;
+    line-height: 1.6;
+}
+
+/* Game page has background image */
+body.game-page {
+    background-color: #000000;
+    background-image: url('img/sneakspot-background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+header {
+    padding: 20px 0;
+    border-bottom: 1px solid #333;
+}
+
+/* Game page has minimal header */
+body.game-page header {
+    padding: 10px 0;
+    border-bottom: none;
+}
+
+.logo {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #ffffff;
+    text-align: center;
+}
+
+/* Hide logo on game page and levels page */
+body.game-page .logo,
+body.levels-page .logo {
+    display: none;
+}
+
+main {
+    padding: 40px 0;
+}
+
+/* Game page has minimal padding */
+body.game-page main {
+    padding: 5px 0;
+}
+
+/* Back Button */
+.back-button {
+    margin-bottom: 20px;
+}
+
+body.game-page .back-button {
+    margin-bottom: 10px;
+}
+
+.back-button button {
+    background: transparent;
+    border: 1px solid #666;
+    color: #ffffff;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+body.game-page .back-button button {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+}
+
+.back-button button:hover {
+    background: #333;
+    border-color: #999;
+}
+
+/* Challenges Page Styles */
+.challenges-section h2 {
+    font-size: 2rem;
+    margin-bottom: 30px;
+    color: #ffffff;
+}
+
+.challenges-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.challenge-card {
+    background: #222;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+}
+
+.challenge-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+}
+
+.challenge-image {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+}
+
+.challenge-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.challenge-info {
+    padding: 20px;
+}
+
+.challenge-info h3 {
+    font-size: 1.5rem;
+    margin-bottom: 8px;
+    color: #ffffff;
+}
+
+.challenge-subtitle {
+    color: #b3b3b3;
+    margin-bottom: 12px;
+    font-size: 0.9rem;
+}
+
+.challenge-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.levels-count {
+    background: #d3117f;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+/* Levels Page Styles */
+/* Levels page background */
+body.levels-page {
+    background-image: url('img/background_levels_sneakspot.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.challenge-logo {
+    max-height: 260px;
+    width: auto;
+    margin-bottom: 10px;
+}
+.challenge-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.challenge-header h2 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    color: #ffffff;
+}
+
+.challenge-header p {
+    font-size: 1.1rem;
+    color: #b3b3b3;
+}
+
+.levels-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 20px;
+}
+
+.level-card {
+    background: #222;
+    border-radius: 8px;
+    padding: 25px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.level-card:hover {
+    background: #333;
+    border-color: #00c8c7;
+}
+
+.level-card.locked {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.level-card.locked:hover {
+    background: #222;
+    border-color: transparent;
+}
+
+.level-number {
+    background: #d3117f;
+    color: white;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-right: 20px;
+    flex-shrink: 0;
+}
+
+.level-card.locked .level-number {
+    background: #666;
+}
+
+.level-info {
+    flex: 1;
+}
+
+.level-info h3 {
+    font-size: 1.3rem;
+    margin-bottom: 5px;
+    color: #ffffff;
+}
+
+.level-info p {
+    color: #b3b3b3;
+    margin-bottom: 10px;
+}
+
+.level-progress {
+    display: flex;
+    align-items: center;
+}
+
+.status {
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.status:not(.locked) {
+    background: #00c8c7;
+    color: #ffffff;
+}
+
+.status.locked {
+    background: #666;
+    color: #cccccc;
+}
+
+/* Game Page Styles */
+.game-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 5px 0;
+    width: 100%;
+}
+
+.game-container iframe {
+    height: clamp(700px, 80vh, 900px);
+    width: calc(var(--iframe-height) * 3 / 4);
+    --iframe-height: clamp(700px, 80vh, 900px);
+    border: 1px solid #333;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 0 15px;
+    }
+    
+    .logo {
+        font-size: 2rem;
+    }
+    
+    main {
+        padding: 20px 0;
+    }
+    
+    body.game-page main {
+        padding: 15px 0;
+    }
+    
+    .challenges-section h2 {
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+    }
+    
+    .challenges-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .challenge-card:hover {
+        transform: scale(1.02);
+    }
+    
+    .challenge-header h2 {
+        font-size: 2rem;
+    }
+    
+    .levels-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .level-card {
+        padding: 20px;
+    }
+    
+    .level-number {
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+        margin-right: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo {
+        font-size: 1.8rem;
+    }
+    
+    .challenge-info {
+        padding: 15px;
+    }
+    
+    .challenge-info h3 {
+        font-size: 1.2rem;
+    }
+    
+    .level-card {
+        flex-direction: column;
+        text-align: center;
+        padding: 20px 15px;
+    }
+    
+    .level-number {
+        margin-right: 0;
+        margin-bottom: 15px;
+    }
+}

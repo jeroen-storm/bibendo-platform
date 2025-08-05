@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Levels - SneakSpot</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="levels-page">
+    <div class="container">
+        <header>
+            <h1 class="logo">Leeschallenges</h1>
+        </header>
+
+        <main>
+            <section class="levels-section">
+                <div class="back-button">
+                    <button onclick="window.location.href='challenges.html'">← Terug naar Challenges</button>
+                </div>
+                <div class="challenge-header">
+                    <img src="img/logo_sneakspot.png" alt="SneakSpot Logo" class="challenge-logo">
+                    <p>Korte beschrijving</p>
+                </div>
+                <div class="levels-grid">
+                    <div class="level-card" onclick="window.open('game.html', '_blank')">
+                        <div class="level-number">1</div>
+                        <div class="level-info">
+                            <h3>Analyse</h3>
+                            <p>Korte beschrijving</p>
+                            <div class="level-progress">
+                                <span class="status">Start level 1</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="level-card locked">
+                        <div class="level-number">2</div>
+                        <div class="level-info">
+                            <h3>Sneaker Style</h3>
+                            <p>Korte beschrijving</p>
+                            <div class="level-progress">
+                                <span class="status locked">Vergrendeld</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="level-card locked">
+                        <div class="level-number">3</div>
+                        <div class="level-info">
+                            <h3>Event</h3>
+                            <p>Korte beschrijving</p>
+                            <div class="level-progress">
+                                <span class="status locked">Vergrendeld</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

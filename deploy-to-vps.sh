@@ -22,8 +22,26 @@ ssh ${VPS_USER}@${VPS_HOST} << 'EOF'
     git pull origin main
     
     echo "📊 Checking new files..."
-    ls -la frontend/test/ 2>/dev/null || echo "frontend/test/ not found - checking docs..."
-    ls -la docs/ 2>/dev/null || echo "docs/ not found"
+    ls -la frontend/sneakspot/ 2>/dev/null || echo "frontend/sneakspot/ not found"
+    ls -la nginx/ 2>/dev/null || echo "nginx/ not found"
+    
+    # Update Nginx configuration
+    echo "🔧 Updating Nginx configuration..."
+    if [ -f nginx/onderzoek.leeschallenges.nl ]; then
+        sudo cp nginx/onderzoek.leeschallenges.nl /etc/nginx/sites-available/
+        sudo ln -sf /etc/nginx/sites-available/onderzoek.leeschallenges.nl /etc/nginx/sites-enabled/
+        
+        # Test nginx configuration
+        echo "🧪 Testing Nginx configuration..."
+        if sudo nginx -t; then
+            echo "✅ Nginx configuration valid - reloading..."
+            sudo systemctl reload nginx
+        else
+            echo "❌ Nginx configuration invalid - check manually"
+        fi
+    else
+        echo "⚠️ Nginx configuration file not found"
+    fi
     
     # Check if SSL setup is needed
     if [ ! -f /etc/letsencrypt/live/onderzoek.leeschallenges.nl/fullchain.pem ]; then
@@ -44,10 +62,13 @@ ssh ${VPS_USER}@${VPS_HOST} << 'EOF'
     pm2 list
     
     echo "🏥 Health check:"
-    sleep 2
+    sleep 3
     # Test both HTTP and HTTPS endpoints
     echo "HTTP: $(curl -s http://localhost:3000/api/health | head -1)"
     echo "HTTPS: $(curl -s -k https://onderzoek.leeschallenges.nl/api/health | head -1 || echo 'HTTPS not accessible')"
+    
+    # Test SneakSpot game page
+    echo "SneakSpot Game: $(curl -s -I https://onderzoek.leeschallenges.nl/sneakspot/game.html | head -1 || echo 'SneakSpot not accessible')"
     
     echo "✅ Deployment completed!"
 EOF
