@@ -290,13 +290,48 @@ body.levels-page {
     width: 100%;
 }
 
-.game-container iframe {
-    height: clamp(700px, 80vh, 900px);
-    width: calc(var(--iframe-height) * 3 / 4);
-    --iframe-height: clamp(700px, 80vh, 900px);
+.game-link-card {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 40px;
+    background: #222;
+    border-radius: 12px;
+    text-align: center;
     border: 1px solid #333;
-    border-radius: 8px;
     box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+}
+
+.game-link-card h2 {
+    color: #ffffff;
+    font-size: 2rem;
+    margin-bottom: 15px;
+}
+
+.game-link-card p {
+    color: #b3b3b3;
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+.game-button {
+    display: inline-block;
+    background: #d3117f;
+    color: white;
+    padding: 15px 30px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.game-button:hover {
+    background: #b8105f;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(211, 17, 127, 0.3);
 }
 
 /* Responsive Design */
