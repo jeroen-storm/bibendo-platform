@@ -25,7 +25,7 @@ server {
     add_header X-XSS-Protection "1; mode=block";
     add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
     
-    # Main application proxy - EXACTLY like working HTTP config
+    # Main application proxy - ALL requests to Express
     location / {
         proxy_pass http://localhost:3000;
         proxy_http_version 1.1;
@@ -41,11 +41,5 @@ server {
         proxy_connect_timeout 60s;
         proxy_send_timeout 60s;
         proxy_read_timeout 60s;
-
-        # Static file optimization
-        location ~* \.(css|js|png|jpg|jpeg|gif|ico|svg)$ {
-            expires 1y;
-            add_header Cache-Control "public, immutable";
-        }
     }
 }
