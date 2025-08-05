@@ -25,7 +25,7 @@
             <textarea id="question3" placeholder="Geef concrete aanbevelingen..."></textarea>
         </div>
         
-        <button id="submitBtn" onclick="sendToKarim()">Verstuur</button>
+        <button id="submitBtn" class="btn" onclick="sendToKarim()">Verstuur naar Karim</button>
         
         <div id="loading" class="status-message" style="display: none;">
             Je antwoorden worden verstuurd...
@@ -48,7 +48,7 @@
             
             // Show loading
             submitBtn.disabled = true;
-            submitBtn.textContent = 'Versturen...';
+            submitBtn.textContent = 'Versturen naar Karim...';
             loading.style.display = 'block';
             
             try {
@@ -89,7 +89,7 @@
                 alert('❌ Er ging iets mis bij het versturen. Probeer opnieuw.');
             } finally {
                 submitBtn.disabled = false;
-                submitBtn.textContent = 'Verstuur';
+                submitBtn.textContent = 'Verstuur naar Karim';
                 loading.style.display = 'none';
             }
         }
