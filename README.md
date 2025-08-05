@@ -122,10 +122,13 @@ bibendo-platform/
 │       ├── dashboard.html    # Main admin dashboard
 │       └── user-detail.html  # Individual user analytics
 ├── docs/
-│   └── assessment/
-│       ├── sneakspot-beoordelingsrubric.md  # Official rubric
-│       └── sneakspot-test-guide.md          # User guide
-└── deploy-to-vps.sh        # VPS deployment script
+│   ├── assessment/
+│   │   ├── sneakspot-beoordelingsrubric.md  # Official rubric
+│   │   └── sneakspot-test-guide.md          # User guide
+│   └── NGINX-TROUBLESHOOTING.md             # Nginx troubleshooting guide
+├── nginx/
+│   └── onderzoek.leeschallenges.nl          # Production nginx configuration
+└── deploy-to-vps.sh                         # VPS deployment script
 ```
 
 ## 🛠️ Technical Stack
@@ -479,6 +482,13 @@ GET /api/health
 ```bash
 ./deploy-to-vps.sh             # VPS deployment script
 ```
+
+### Nginx Configuration
+The production nginx configuration is managed via git in `/nginx/onderzoek.leeschallenges.nl`. 
+
+**Key principle**: All requests are proxied to `localhost:3000` - let the Express app handle routing.
+
+For troubleshooting nginx issues, see: [docs/NGINX-TROUBLESHOOTING.md](docs/NGINX-TROUBLESHOOTING.md)
 
 ## 📋 Development Status
 
