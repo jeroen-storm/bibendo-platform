@@ -170,11 +170,10 @@ textarea:focus {
 
 /* Question Display */
 .question {
-    background-color: #f8f9fa;
-    border-left: 4px solid #00C2CB;
-    padding: 16px;
     margin-bottom: 20px;
-    font-size: 16px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #000;
     line-height: 1.5;
 }
 
@@ -214,8 +213,7 @@ textarea:focus {
 
 @media (max-width: 480px) {
     .question {
-        padding: 12px;
-        font-size: 15px;
+        font-size: 16px;
     }
     
     .btn {
