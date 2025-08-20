@@ -18,16 +18,12 @@
         </div>
         
         <div class="form-group">
-            <label for="noteTextarea">Hoofdconclusie:</label>
             <textarea 
                 id="noteTextarea" 
                 placeholder="Beschrijf je hoofdconclusie..."
                 maxlength="1000"
             ></textarea>
             <div class="char-counter">0/1000</div>
-        
-        <!-- Auto-save status indicator -->
-        <div class="status-message auto-save-status" id="statusMessage"></div>
         </div>
         
         <div class="question">
@@ -35,16 +31,12 @@
         </div>
         
         <div class="form-group">
-            <label for="factorsTextarea">Belangrijkste factoren:</label>
             <textarea 
                 id="factorsTextarea" 
                 placeholder="Lijst de belangrijkste factoren op..."
                 maxlength="1000"
             ></textarea>
             <div class="char-counter">0/1000</div>
-        
-        <!-- Auto-save status indicator -->
-        <div class="status-message auto-save-status" id="statusMessage"></div>
         </div>
         
         <div class="question">
@@ -52,17 +44,16 @@
         </div>
         
         <div class="form-group">
-            <label for="futureTextarea">Toekomstige aanpak:</label>
             <textarea 
                 id="futureTextarea" 
                 placeholder="Beschrijf je toekomstige aanpak..."
                 maxlength="1000"
             ></textarea>
             <div class="char-counter">0/1000</div>
+        </div>
         
         <!-- Auto-save status indicator -->
         <div class="status-message auto-save-status" id="statusMessage"></div>
-        </div>
         
     </div>
     
@@ -150,8 +141,27 @@
             showStatus(message, type) {
                 const statusMessage = document.querySelector('.status-message');
                 if (statusMessage) {
-                    statusMessage.textContent = message;
-                    statusMessage.className = `status-message auto-save ${type}`;
+                    // Add icons to messages
+                    let icon = '';
+                    switch(type) {
+                        case 'typing':
+                            icon = '✏️ ';
+                            break;
+                        case 'saving':
+                            icon = '💾 ';
+                            break;
+                        case 'saved':
+                            icon = '✅ ';
+                            break;
+                        case 'error':
+                            icon = '❌ ';
+                            break;
+                        default:
+                            icon = 'ℹ️ ';
+                    }
+                    
+                    statusMessage.innerHTML = icon + message;
+                    statusMessage.className = `status-message auto-save-status ${type}`;
                     statusMessage.style.display = 'block';
                     
                     if (type === 'typing') {
