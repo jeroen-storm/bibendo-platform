@@ -8,7 +8,6 @@
 </head>
 <body>
     <div class="container">
-        <div class="status-message" id="statusMessage"></div>
         
         <div id="aggregatedContent" class="aggregated-content">
             <!-- Aggregated content will be loaded here -->
@@ -42,19 +41,9 @@
             <div class="char-counter">0/2000</div>
         </div>
         
-        <div class="question">
-            <p>Welke reacties verwacht je en hoe ga je daarmee om?</p>
-        </div>
+        <!-- Auto-save status indicator -->
+        <div class="status-message auto-save-status" id="statusMessage"></div>
         
-        <div class="form-group">
-            <label for="reactionsTextarea">Verwachte reacties:</label>
-            <textarea 
-                id="reactionsTextarea" 
-                placeholder="Anticipeer op mogelijke reacties..."
-                maxlength="2000"
-            ></textarea>
-            <div class="char-counter">0/2000</div>
-        </div>
         
     </div>
     
@@ -63,7 +52,7 @@
         // Multi-textarea auto-save functionality
         class MultiTextareaManager {
             constructor() {
-                this.textareas = ['noteTextarea', 'communicationTextarea', 'reactionsTextarea'];
+                this.textareas = ['noteTextarea', 'communicationTextarea'];
                 this.pageId = 'message_level2';
                 this.autoSaveTimer = null;
                 this.autoSaveDelay = 1500;
@@ -142,8 +131,27 @@
             showStatus(message, type) {
                 const statusMessage = document.querySelector('.status-message');
                 if (statusMessage) {
-                    statusMessage.textContent = message;
-                    statusMessage.className = `status-message auto-save ${type}`;
+                    // Add icons to messages
+                    let icon = '';
+                    switch(type) {
+                        case 'typing':
+                            icon = '✏️ ';
+                            break;
+                        case 'saving':
+                            icon = '💾 ';
+                            break;
+                        case 'saved':
+                            icon = '✅ ';
+                            break;
+                        case 'error':
+                            icon = '❌ ';
+                            break;
+                        default:
+                            icon = 'ℹ️ ';
+                    }
+                    
+                    statusMessage.innerHTML = icon + message;
+                    statusMessage.className = `status-message auto-save-status ${type}`;
                     statusMessage.style.display = 'block';
                     
                     if (type === 'typing') {
