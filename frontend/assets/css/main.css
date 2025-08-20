@@ -101,8 +101,9 @@ body {
 label {
     display: block;
     margin-bottom: 8px;
-    font-weight: 500;
-    color: #333;
+    font-weight: 600;
+    font-size: 18px;
+    color: #000;
 }
 
 textarea {

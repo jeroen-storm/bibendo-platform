@@ -91,7 +91,7 @@ class NotepadManager {
         
         if (textarea && charCounter) {
             const currentLength = textarea.value.length;
-            const maxLength = 2000;
+            const maxLength = 1000;
             
             charCounter.textContent = `${currentLength}/${maxLength}`;
             
@@ -389,7 +389,7 @@ class FinalPageManager extends NotepadManager {
         const charCounter = textarea.parentNode.querySelector('.char-counter');
         if (charCounter) {
             const currentLength = textarea.value.length;
-            const maxLength = 2000;
+            const maxLength = 1000;
             charCounter.textContent = `${currentLength}/${maxLength}`;
             
             charCounter.classList.remove('warning', 'error');

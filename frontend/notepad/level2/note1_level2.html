@@ -8,7 +8,6 @@
 </head>
 <body>
     <div class="container">
-        <div class="status-message" id="statusMessage"></div>
         
         <div class="question">
             <p>Analyseer de verschillende aspecten van deze complexe situatie. Welke elementen spelen een rol?</p>
@@ -19,9 +18,12 @@
             <textarea 
                 id="noteTextarea" 
                 placeholder="Begin hier met typen..."
-                maxlength="2000"
+                maxlength="1000"
             ></textarea>
-            <div class="char-counter">0/2000</div>
+            <div class="char-counter">0/1000</div>
+        
+        <!-- Auto-save status indicator -->
+        <div class="status-message auto-save-status" id="statusMessage"></div>
         </div>
         
     </div>

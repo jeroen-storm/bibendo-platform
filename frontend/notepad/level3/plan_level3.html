@@ -8,7 +8,6 @@
 </head>
 <body>
     <div class="container">
-        <div class="status-message" id="statusMessage"></div>
         
         <div id="aggregatedContent" class="aggregated-content">
             <!-- Aggregated content will be loaded here -->
@@ -23,9 +22,12 @@
             <textarea 
                 id="noteTextarea" 
                 placeholder="Beschrijf je actieplan met concrete stappen..."
-                maxlength="2000"
+                maxlength="1000"
             ></textarea>
-            <div class="char-counter">0/2000</div>
+            <div class="char-counter">0/1000</div>
+        
+        <!-- Auto-save status indicator -->
+        <div class="status-message auto-save-status" id="statusMessage"></div>
         </div>
         
         <div class="question">
@@ -37,9 +39,12 @@
             <textarea 
                 id="resourcesTextarea" 
                 placeholder="Lijst de benodigde resources op..."
-                maxlength="2000"
+                maxlength="1000"
             ></textarea>
-            <div class="char-counter">0/2000</div>
+            <div class="char-counter">0/1000</div>
+        
+        <!-- Auto-save status indicator -->
+        <div class="status-message auto-save-status" id="statusMessage"></div>
         </div>
         
         <div class="question">
@@ -51,9 +56,12 @@
             <textarea 
                 id="monitoringTextarea" 
                 placeholder="Beschrijf je monitoring strategie..."
-                maxlength="2000"
+                maxlength="1000"
             ></textarea>
-            <div class="char-counter">0/2000</div>
+            <div class="char-counter">0/1000</div>
+        
+        <!-- Auto-save status indicator -->
+        <div class="status-message auto-save-status" id="statusMessage"></div>
         </div>
         
     </div>
