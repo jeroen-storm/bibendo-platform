@@ -150,6 +150,13 @@ class TextTracker {
                 clickData.href = link.href;
                 clickData.linkText = link.textContent?.trim();
                 
+                // Extract target page from URL for better tracking
+                const url = new URL(link.href);
+                const pathParts = url.pathname.split('/');
+                const fileName = pathParts[pathParts.length - 1];
+                clickData.targetPage = fileName.replace('.html', '');
+                clickData.fullURL = link.href;
+                
                 this.logEvent('hyperlink_click', clickData);
             } else {
                 this.logEvent('click', clickData);
