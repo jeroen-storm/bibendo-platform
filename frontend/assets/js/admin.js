@@ -169,7 +169,6 @@ class AdminDashboard {
         this.displayNotesTable(userData.notes);
         this.displayTextLogsTable(userData.textLogs);
         this.displayTimeLogsTable(userData.timeLogs);
-        this.displayCBMResults(userData.cbmResults);
     }
     
     updateUserHeader(user) {
@@ -321,50 +320,6 @@ class AdminDashboard {
         container.innerHTML = tableHTML;
     }
     
-    displayCBMResults(results) {
-        const container = document.getElementById('cbmResultsContainer');
-        if (!container) return;
-        
-        if (results.length === 0) {
-            container.innerHTML = '<div class="empty-state"><p>Geen CBM resultaten gevonden</p></div>';
-            return;
-        }
-        
-        const tableHTML = `
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>Tekst</th>
-                        <th>Score</th>
-                        <th>Nauwkeurigheid</th>
-                        <th>WCPM</th>
-                        <th>Tijd</th>
-                        <th>Datum</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    ${results.map(result => `
-                        <tr>
-                            <td><strong>${result.text_title}</strong><br>
-                                <small style="color: #666;">${result.total_answered}/${result.total_questions} beantwoord</small>
-                            </td>
-                            <td><span class="score-badge">${result.correct_answers}/${result.total_questions}</span></td>
-                            <td><span class="accuracy-badge ${result.accuracy >= 70 ? 'good' : result.accuracy >= 50 ? 'fair' : 'poor'}">
-                                ${result.accuracy}%
-                            </span></td>
-                            <td><span class="wcpm-badge ${result.wcpm >= 60 ? 'good' : result.wcpm >= 30 ? 'fair' : 'poor'}">
-                                ${result.wcpm} WCPM
-                            </span></td>
-                            <td>${this.formatDuration(result.time_spent)}</td>
-                            <td class="timestamp">${this.formatDateTime(result.completed_at)}</td>
-                        </tr>
-                    `).join('')}
-                </tbody>
-            </table>
-        `;
-        
-        container.innerHTML = tableHTML;
-    }
     
     setupEventListeners() {
         // Export buttons
