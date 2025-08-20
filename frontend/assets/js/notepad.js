@@ -136,8 +136,27 @@ class NotepadManager {
     showAutoSaveStatus(message, type = 'info') {
         const statusMessage = document.querySelector('.status-message');
         if (statusMessage) {
-            statusMessage.textContent = message;
-            statusMessage.className = `status-message auto-save ${type}`;
+            // Add icons to messages
+            let icon = '';
+            switch(type) {
+                case 'typing':
+                    icon = '✏️ ';
+                    break;
+                case 'saving':
+                    icon = '💾 ';
+                    break;
+                case 'saved':
+                    icon = '✅ ';
+                    break;
+                case 'error':
+                    icon = '❌ ';
+                    break;
+                default:
+                    icon = 'ℹ️ ';
+            }
+            
+            statusMessage.innerHTML = icon + message;
+            statusMessage.className = `status-message auto-save-status ${type}`;
             statusMessage.style.display = 'block';
             
             // Auto-hide typing indicator after short delay
