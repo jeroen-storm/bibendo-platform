@@ -61,6 +61,19 @@
         <div class="status-message auto-save-status" id="statusMessage"></div>
         </div>
         
+        <!-- Verstuur naar Emma button -->
+        <div class="submit-section">
+            <button id="submitToEmma" class="submit-button">Verstuur naar Emma</button>
+        </div>
+        
+        <!-- Emma submission overlay -->
+        <div class="emma-overlay" id="emmaOverlay">
+            <div class="emma-popup">
+                <div class="emma-icon">✅</div>
+                <p class="emma-message">Je lanceringsevenement is verzonden naar Emma! Ze gaat het plan nu bekijken en hopelijk goedkeuren.</p>
+            </div>
+        </div>
+        
     </div>
     
     <script src="../../assets/js/notepad.js"></script>
@@ -93,6 +106,12 @@
                         this.saveContent();
                     }
                 });
+                
+                // Submit to Emma button
+                const submitButton = document.getElementById('submitToEmma');
+                if (submitButton) {
+                    submitButton.addEventListener('click', () => this.submitToEmma());
+                }
             }
             
             scheduleAutoSave() {
@@ -163,7 +182,38 @@
                                 statusMessage.style.display = 'none';
                             }
                         }, 3000);
+                    } else if (type === 'submitted') {
+                        setTimeout(() => {
+                            if (statusMessage.classList.contains('submitted')) {
+                                statusMessage.style.display = 'none';
+                            }
+                        }, 4000);
                     }
+                }
+            }
+            
+            async submitToEmma() {
+                // First save the content
+                await this.saveContent();
+                
+                // Show Emma overlay
+                this.showEmmaOverlay();
+            }
+            
+            showEmmaOverlay() {
+                const overlay = document.getElementById('emmaOverlay');
+                if (overlay) {
+                    overlay.classList.add('show');
+                    
+                    // Hide overlay after 4 seconds
+                    setTimeout(() => {
+                        overlay.classList.remove('show');
+                    }, 4000);
+                    
+                    // Close on overlay click
+                    overlay.addEventListener('click', () => {
+                        overlay.classList.remove('show');
+                    });
                 }
             }
         }

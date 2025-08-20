@@ -93,6 +93,95 @@ body {
     100% { opacity: 1; }
 }
 
+/* Submit to Emma section styling */
+.submit-section {
+    margin-top: 30px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.submit-button {
+    background-color: #00C2CB;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-family: inherit;
+    min-width: 160px;
+    font-weight: 500;
+}
+
+.submit-button:hover {
+    background-color: #00a8b0;
+}
+
+.submit-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+/* Submitted status styling */
+.auto-save-status.submitted {
+    background-color: #d4edda;
+    border-color: #28a745;
+    color: #155724;
+}
+
+/* Emma submission overlay */
+.emma-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.emma-overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.emma-popup {
+    background-color: white;
+    padding: 40px 30px;
+    border-radius: 12px;
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    transform: scale(0.8);
+    transition: transform 0.3s ease;
+}
+
+.emma-overlay.show .emma-popup {
+    transform: scale(1);
+}
+
+.emma-icon {
+    font-size: 48px;
+    color: #28a745;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.emma-message {
+    font-size: 18px;
+    line-height: 1.5;
+    color: #333;
+    margin: 0;
+}
+
 /* Form Elements */
 .form-group {
     margin-bottom: 20px;
