@@ -291,9 +291,8 @@ body.levels-page {
 }
 
 .game-container iframe {
-    height: clamp(700px, 80vh, 900px);
-    width: calc(var(--iframe-height) * 3 / 4);
-    --iframe-height: clamp(700px, 80vh, 900px);
+    height: 900px;
+    width: 506px;
     border: 1px solid #333;
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
