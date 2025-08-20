@@ -8,7 +8,7 @@ class NotepadManager {
         this.editCount = 0;
         this.isLoading = false;
         this.autoSaveTimer = null;
-        this.autoSaveDelay = 2000; // 2 seconds after typing stops
+        this.autoSaveDelay = 1500; // 1.5 seconds after typing stops
         this.hasUnsavedChanges = false;
         
         this.init();

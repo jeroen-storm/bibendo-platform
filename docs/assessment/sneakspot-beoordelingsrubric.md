@@ -160,4 +160,3 @@ def bereken_eindscore(scores):
 
 *Versie: 1.0*  
 *Datum: Augustus 2025*  
-*Auteur: Beoordelingsteam SneakSpot*
