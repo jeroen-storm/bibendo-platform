@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Game - SneakSpot</title>
-    <link rel="stylesheet" href="/sneakspot/styles.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body class="game-page">
     <div class="container">
@@ -17,14 +17,34 @@
            
                 <div class="game-container">
                     <iframe 
+                        id="gameFrame"
                         frameborder="0" 
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                         allowfullscreen="" 
-                        src="https://play.bibendo.nl/#/game/6284747011522560">
+                        src="https://play.bibendo.nl/#/game/6200236886196224">
                     </iframe>
                 </div>
             </section>
         </main>
     </div>
+    
+    <script>
+        // Game ID mapping
+        const gameIds = {
+            '1': '6200236886196224',
+            '2': '6297750494773248',
+            '3': '6300120645632000'
+        };
+        
+        // Get level from URL parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const level = urlParams.get('level') || '1';
+        
+        // Update iframe src with correct game ID
+        const gameFrame = document.getElementById('gameFrame');
+        if (gameIds[level]) {
+            gameFrame.src = `https://play.bibendo.nl/#/game/${gameIds[level]}`;
+        }
+    </script>
 </body>
 </html>
