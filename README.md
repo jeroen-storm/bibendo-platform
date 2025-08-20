@@ -1,6 +1,6 @@
 # Bibendo Educational Platform - Game Editor Extension
 
-A comprehensive web-based educational extension (add-on) for the **Bibendo Game Editor** (NBD Biblion), providing advanced educational tools including smart notepad system, text tracking, CBM assessment tools, and admin dashboard. Designed for seamless integration via Flutter webview within educational games.
+A comprehensive web-based educational extension (add-on) for the **Bibendo Game Editor** (NBD Biblion), providing advanced educational tools including smart notepad system, text tracking, SneakSpot game integration, and admin dashboard. Designed for seamless integration via Flutter webview within educational games.
 
 **Part of the LeesEvolutie Project** - Advanced reading comprehension tools for educational gaming.
 
@@ -28,22 +28,11 @@ This extension adds advanced educational assessment capabilities to the **Bibend
 - **Content Types**: Email threads, news articles, social media, forum discussions
 - **Real-time Analytics**: IntersectionObserver for section tracking
 
-#### CBM Assessment Tool
-- **4 Complete CBM Texts**: 1 practice text (9 exercises) + 3 main texts (72, 98, 55 exercises)
-- **234 Total Cloze-Test Exercises** about sneaker trends and youth culture
-- **2-Minute Timed Assessment** with automatic timer stop on completion
-- **Inline Options Interface** with smooth fade animations and left-aligned text
-- **Individual JSON Files** for optimized loading per text selection
-- **Auto-save Functionality** every 10 seconds with visual feedback
-- **WCPM Calculation** (Words Correct Per Minute) and accuracy tracking
-- **Completion Popup** with simple message (no close button needed)
-- **Text Selection Page** with clear categorization of practice vs main texts
 
 #### Admin Dashboard
 - **User Management**: Complete overview of all users and activity
 - **Detailed Analytics**: Individual user data with all interactions
 - **Data Export**: CSV and JSON export for all user data
-- **CBM Results Visualization**: Performance tracking with color-coded badges
 - **Real-time Statistics**: Active users, completion rates, performance metrics
 
 #### Backend Infrastructure
@@ -61,12 +50,6 @@ This extension adds advanced educational assessment capabilities to the **Bibend
 - **Level Selection**: Professional game interface with progress tracking
 - **Responsive Design**: Fluid scaling between minimum and maximum dimensions while maintaining aspect ratio
 
-#### SneakSpot Assessment Test
-- **Three-question analysis interface**: Comprehensive evaluation of SneakSpot case study
-- **AI-powered evaluation**: Automated assessment using official rubric criteria
-- **Official scoring system**: Goud/Zilver/Brons (3/2/1 points) with final grade calculation
-- **Individual question feedback**: Detailed scores per question with constructive feedback
-- **Professional results page**: Clean presentation of evaluation results with next steps
 
 ## 📁 Project Structure
 
@@ -84,19 +67,12 @@ bibendo-platform/
 │   ├── assets/
 │   │   ├── css/
 │   │   │   ├── main.css      # Main stylesheet
-│   │   │   ├── cbm.css       # CBM-specific styles  
 │   │   │   ├── admin.css     # Admin dashboard styles
 │   │   │   └── textPages.css # Text page styles
-│   │   ├── data/
-│   │   │   ├── cbm-text-0.json # Practice text (9 exercises)
-│   │   │   ├── cbm-text-1.json # Main text 1 (72 exercises)
-│   │   │   ├── cbm-text-2.json # Main text 2 (98 exercises)
-│   │   │   ├── cbm-text-3.json # Main text 3 (55 exercises)
-│   │   │   └── cbm-texts.json  # CBM text metadata
 │   │   └── js/
 │   │       ├── notepad.js    # Notepad functionality
 │   │       ├── textTracker.js # Text page tracking
-│   │       ├── cbm.js        # CBM assessment logic (optimized)
+│   │       ├── userUtils.js  # User ID persistence for nieuwsbericht flow
 │   │       └── admin.js      # Admin dashboard logic
 │   ├── notepad/
 │   │   ├── level1/           # Level 1 notepad pages (4 pages)
@@ -105,19 +81,13 @@ bibendo-platform/
 │   ├── texts/
 │   │   ├── level1/           # Level 1 text pages (7 pages)
 │   │   ├── level2/           # Level 2 text pages (2 pages)
-│   │   └── level3/           # Level 3 text pages (2 pages)
-│   ├── cbm/
-│   │   ├── selection.html    # CBM text selection page
-│   │   └── index.html        # CBM assessment interface
+│   │   └── level3/           # Level 3 text pages (3 pages)
 │   ├── sneakspot/           # SneakSpot game integration (NEW)
 │   │   ├── challenges.html   # Game challenges overview
 │   │   ├── levels.html       # Level selection interface
 │   │   ├── game.html         # Game iframe with responsive 3:4 aspect ratio
 │   │   ├── styles.css        # SneakSpot styling
 │   │   └── img/              # Game assets and images
-│   ├── test/
-│   │   ├── three-questions.html  # SneakSpot assessment interface
-│   │   └── result.html           # Evaluation results page
 │   └── admin/
 │       ├── dashboard.html    # Main admin dashboard
 │       └── user-detail.html  # Individual user analytics
@@ -160,16 +130,12 @@ const notepadUrl = `https://onderzoek.leeschallenges.nl/notepad/level1/note1.htm
 // Text Analysis Pages  
 const textUrl = `https://onderzoek.leeschallenges.nl/texts/level1/tekst1.html?userId=${userId}`;
 
-// CBM Assessment Tool
-const cbmUrl = `https://onderzoek.leeschallenges.nl/cbm/selection.html?userId=${userId}`;
 
 // SneakSpot Game Integration
 const sneakspotGameUrl = `https://onderzoek.leeschallenges.nl/sneakspot/game.html`;
 const sneakspotChallengesUrl = `https://onderzoek.leeschallenges.nl/sneakspot/challenges.html`;
 const sneakspotLevelsUrl = `https://onderzoek.leeschallenges.nl/sneakspot/levels.html`;
 
-// SneakSpot Assessment Test
-const sneakspotTestUrl = `https://onderzoek.leeschallenges.nl/test/three-questions.html`;
 
 // Admin Dashboard (for educators)
 const adminUrl = `https://onderzoek.leeschallenges.nl/admin/dashboard.html`;
@@ -188,7 +154,6 @@ const adminUrl = `https://onderzoek.leeschallenges.nl/admin/dashboard.html`;
 - `notes`: Notepad content with metadata (edit counts, time spent)
 - `text_logs`: Text interaction tracking (scroll, click, time)
 - `time_logs`: Page session time logging
-- `cbm_results`: CBM assessment results and performance data
 - `sessions`: Session management and tracking
 
 ## 🚀 Quick Start
@@ -363,36 +328,6 @@ Content-Type: application/json
 }
 ```
 
-### CBM Endpoints
-
-#### Save CBM Result
-```http
-POST /api/cbm/save-result
-Content-Type: application/json
-
-{
-  "userId": "string",
-  "textId": number,
-  "textTitle": "string",
-  "totalQuestions": number,
-  "totalAnswered": number,
-  "correctAnswers": number,
-  "accuracy": number,
-  "timeSpent": number,
-  "wcpm": number,
-  "answers": "string"
-}
-```
-
-#### Get CBM Results
-```http
-GET /api/cbm/results/{userId}
-```
-
-#### Get CBM Statistics
-```http
-GET /api/cbm/stats/{userId}
-```
 
 ### Admin Endpoints
 
@@ -453,9 +388,6 @@ GET /api/health
 - Level 2: `http://localhost:3000/texts/level2/oefentekst_level2.html?userId=test123`
 - Level 3: `http://localhost:3000/texts/level3/oefentekst_level3.html?userId=test123`
 
-#### CBM Assessment
-- Text 2: `http://localhost:3000/cbm/index.html?userId=test123&textId=2`
-- Text 3: `http://localhost:3000/cbm/index.html?userId=test123&textId=3`
 
 #### Admin Dashboard
 - Overview: `http://localhost:3000/admin/dashboard.html`
@@ -464,7 +396,6 @@ GET /api/health
 ### Test Scenarios
 1. **Notepad Flow**: Create notes in sequence → verify pre-filling
 2. **Text Tracking**: Scroll through texts → check admin analytics
-3. **CBM Assessment**: Complete assessment → verify results in admin
 4. **Data Export**: Export user data → verify CSV/JSON format
 5. **Responsive Design**: Test on different screen sizes
 
@@ -501,7 +432,6 @@ For troubleshooting nginx issues, see: [docs/NGINX-TROUBLESHOOTING.md](docs/NGIN
 - [x] Express.js API with all endpoints (notes, texts, CBM, admin)
 - [x] Smart notepad system (12 pages across 3 levels)
 - [x] Text pages system (9 pages with comprehensive tracking)
-- [x] CBM assessment tool with 2-minute timer and inline interface
 - [x] Admin dashboard with user management and analytics
 - [x] Pre-filled textareas on final pages
 - [x] Responsive CSS design across all components
@@ -509,8 +439,6 @@ For troubleshooting nginx issues, see: [docs/NGINX-TROUBLESHOOTING.md](docs/NGIN
 - [x] Comprehensive user tracking and logging
 - [x] Data export functionality (CSV/JSON)
 - [x] Real-time performance analytics
-- [x] SneakSpot Assessment Test with AI evaluation
-- [x] Official rubric-based scoring system (Goud/Zilver/Brons)
 - [x] VPS deployment on onderzoek.leeschallenges.nl
 - [x] SSL certificate and production configuration
 - [x] Complete API and user documentation
@@ -550,7 +478,6 @@ const baseUrl = 'https://onderzoek.leeschallenges.nl';
 const extensionUrls = {
   notepad: `${baseUrl}/notepad/level1/note1.html?userId=${gameUserId}`,
   texts: `${baseUrl}/texts/level1/tekst1.html?userId=${gameUserId}`,
-  cbm: `${baseUrl}/cbm/selection.html?userId=${gameUserId}`,
   admin: `${baseUrl}/admin/dashboard.html`
 };
 ```
@@ -558,7 +485,6 @@ const extensionUrls = {
 ### LeesEvolutie Project Integration
 This extension provides the advanced reading assessment tools needed for the **LeesEvolutie** educational initiative, enabling:
 
-- **Game-Based CBM Assessments**: Seamless reading fluency testing within educational games
 - **Interactive Note-Taking**: Context-aware notepad system for learning reflection
 - **Real-Time Analytics**: Teacher dashboard for monitoring student progress across all game sessions
 - **Cross-Platform Compatibility**: Consistent experience across iOS, Android, and web platforms
@@ -582,10 +508,6 @@ This platform provides RESTful APIs for seamless integration with the Bibendo Ga
 
 ## 🔧 Development Notes
 
-### Adding New CBM Texts
-1. Add text data to `cbm.js` in the `cbmTexts` object
-2. Include cloze-test with choices and correct answers
-3. Update admin dashboard CBM text selection if needed
 
 ### Database Maintenance
 - Database auto-initializes on first run
@@ -594,7 +516,7 @@ This platform provides RESTful APIs for seamless integration with the Bibendo Ga
 
 ### Performance Considerations
 - Text tracking uses throttled scroll events (100ms)
-- Auto-save intervals optimized (10s for CBM, on-demand for notes)
+- Auto-save intervals optimized (1.5s delay for notepad auto-save)
 - Admin dashboard limits large result sets (50 latest logs)
 
 ## 👥 Contributing
