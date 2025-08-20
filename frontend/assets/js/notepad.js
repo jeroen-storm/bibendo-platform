@@ -228,7 +228,7 @@ class NotepadManager {
             });
             
             if (response.ok) {
-                this.showAutoSaveStatus('Automatisch opgeslagen', 'saved');
+                this.showAutoSaveStatus('Opgeslagen', 'saved');
                 this.editCount = 0; // Reset edit count after successful save
                 this.hasUnsavedChanges = false; // Mark as saved
             } else {
