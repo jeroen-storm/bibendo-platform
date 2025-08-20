@@ -43,13 +43,8 @@
             document.getElementById('progressBar').style.width = scrolled + '%';
         });
 
-        // Fix hyperlinks with proper userId
-        document.addEventListener('DOMContentLoaded', () => {
-            const userId = new URLSearchParams(window.location.search).get('userId') || 'anonymous';
-            document.querySelectorAll('a[href*="userId="]').forEach(link => {
-                link.href = link.href.replace('${new URLSearchParams(window.location.search).get(\'userId\') || \'anonymous\'}', userId);
-            });
-        });
     </script>
+    
+    <script src="../../assets/js/userUtils.js"></script>
 </body>
 </html>

@@ -43,12 +43,8 @@
             document.getElementById('progressBar').style.width = scrolled + '%';
         });
 
-        // Fix hyperlinks with proper userId
-        document.addEventListener('DOMContentLoaded', () => {
-            const userId = new URLSearchParams(window.location.search).get('userId') || 'anonymous';
-            const backLink = document.getElementById('backLink');
-            backLink.href = `nieuwsbericht_overzicht_level1.html?userId=${userId}`;
-        });
     </script>
+    
+    <script src="../../assets/js/userUtils.js"></script>
 </body>
 </html>
