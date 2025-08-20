@@ -1,7 +1,7 @@
 # Bibendo Integration Project Specification
 
 ## Project Overview
-Build a web-based educational platform integrated with the Bibendo Flutter app via webview. The platform includes a smart notepad system, text pages with user tracking, CBM (Curriculum-Based Measurement) tool, and an admin dashboard.
+Build a web-based educational platform integrated with the Bibendo Flutter app via webview. The platform includes a smart notepad system, text pages with user tracking, SneakSpot game integration, and an admin dashboard.
 
 ## Technical Stack
 - **Backend**: Node.js with Express API
@@ -61,6 +61,7 @@ Build a web-based educational platform integrated with the Bibendo Flutter app v
 **Level 3:**
 - note1_level3.html
 - note2_level3.html
+- note3_level3.html
 - plan_level3.html
 
 #### Note Page Features
@@ -92,28 +93,26 @@ Build a web-based educational platform integrated with the Bibendo Flutter app v
 **Level 3:**
 - Voorbeeld Sneaker evenement (1 page)
 - Ervaringen sneaker evenement (1 page - email format)
+- Product Lancering (1 page - strategic case study)
 
 #### Tracking Requirements
 - Scroll tracking (forward/backward + order)
 - Time on text (open/reopen duration)
 - Hyperlink clicks and navigation patterns
 
-### 3. CBM Tool
+### 3. SneakSpot Game Integration
 
 #### Features
-- Cloze-test methodology
-- 4 texts total (1 test + 3 levels)
-- 2-minute time limit per test
-- 3-word multiple choice for each gap
-- Smooth animations (1 sec fade out)
-- Selected words can be changed
-- Text disappears after completion or timeout
+- Responsive iframe integration with fixed 16:9 aspect ratio
+- Dynamic game ID loading via URL parameters
+- Three difficulty levels with progressive challenges
+- Level selection interface with visual feedback
+- Game challenges overview page
 
-#### Data Collection
-- Number of answers given
-- Correct answers count
-- Time spent on text
-- Complete interaction sequences
+#### Game IDs
+- Level 1: 6200236886196224
+- Level 2: 6297750494773248  
+- Level 3: 6300120645632000
 
 ### 4. Admin Dashboard
 
@@ -123,8 +122,8 @@ Build a web-based educational platform integrated with the Bibendo Flutter app v
   - Note inputs
   - Final page submissions
   - Text interaction logs
-  - CBM performance data
-- Data export capabilities
+  - Time tracking analytics
+- Data export capabilities (CSV/JSON)
 
 ## User Identification
 - User ID passed via header or URL parameter
@@ -143,17 +142,16 @@ Build a web-based educational platform integrated with the Bibendo Flutter app v
 - Page open/close events
 - Hyperlink interactions
 
-### CBM Tool
-- Response accuracy
-- Response timing
-- Completion status
-- Total correct answers
+### SneakSpot Integration
+- Game level progression
+- Time spent per level
+- Challenge completion tracking
+- User navigation patterns
 
 ## Database Schema Considerations
 - Users table (user_id, created_at)
 - Notes table (user_id, page_id, content, edit_count, time_spent)
 - Text_logs table (user_id, page_id, action_type, timestamp, data)
-- CBM_results table (user_id, test_id, answers, correct_count, time_spent)
 - Sessions table (user_id, page_id, start_time, end_time)
 
 ## API Endpoints Structure
@@ -161,7 +159,6 @@ Build a web-based educational platform integrated with the Bibendo Flutter app v
 POST /api/notes/save
 GET /api/notes/:userId/:pageId
 POST /api/logs/text
-POST /api/logs/cbm
 GET /api/admin/users
 GET /api/admin/user/:userId
 ```
@@ -170,12 +167,13 @@ GET /api/admin/user/:userId
 1. **Phase 1**: Backend setup (Express, SQLite, basic API)
 2. **Phase 2**: Smart notepad implementation
 3. **Phase 3**: Text pages with logging
-4. **Phase 4**: CBM tool development
+4. **Phase 4**: SneakSpot game integration
 5. **Phase 5**: Admin dashboard
 6. **Phase 6**: VPS deployment and SSL setup
 
 ## Testing Considerations
-- CBM 2-minute timer optional during development
+- Auto-save functionality testing with 1.5s delay
+- User ID persistence testing for nieuwsbericht flow
 - Local development environment setup
 - Migration scripts for production deployment
 
