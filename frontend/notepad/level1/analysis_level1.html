@@ -56,53 +56,115 @@
             <div class="char-counter">0/2000</div>
         </div>
         
-        <div class="nav-buttons">
-            <button type="button" class="btn" id="saveButton" style="width: 100%;">
-                Opslaan
-            </button>
-        </div>
     </div>
     
     <script src="../../assets/js/notepad.js"></script>
     <script>
-        
-        // Custom save functionality for multiple textareas
-        document.getElementById('saveButton').addEventListener('click', async () => {
-            const manager = new NotepadManager();
-            const textareas = ['noteTextarea', 'factorsTextarea', 'futureTextarea'];
-            const content = {};
+        // Multi-textarea auto-save functionality
+        class MultiTextareaManager {
+            constructor() {
+                this.textareas = ['noteTextarea', 'factorsTextarea', 'futureTextarea'];
+                this.pageId = 'analysis_level1';
+                this.autoSaveTimer = null;
+                this.autoSaveDelay = 2000;
+                this.hasUnsavedChanges = false;
+                this.init();
+            }
             
-            textareas.forEach(id => {
-                const textarea = document.getElementById(id);
-                if (textarea) {
-                    content[id] = textarea.value;
-                }
-            });
-            
-            try {
-                const response = await fetch('/api/notes/save', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        userId: manager.userId,
-                        pageId: 'analysis_level1',
-                        content: JSON.stringify(content),
-                        editCount: manager.editCount,
-                        timeSpent: manager.calculateTimeSpent()
-                    })
+            init() {
+                this.textareas.forEach(id => {
+                    const textarea = document.getElementById(id);
+                    if (textarea) {
+                        textarea.addEventListener('input', () => this.scheduleAutoSave());
+                        textarea.addEventListener('paste', () => {
+                            setTimeout(() => this.scheduleAutoSave(), 10);
+                        });
+                    }
                 });
                 
-                if (response.ok) {
-                    manager.showStatusMessage('Analyse succesvol opgeslagen!', 'success');
-                } else {
-                    throw new Error('Failed to save analysis');
-                }
-            } catch (error) {
-                console.error('Error saving analysis:', error);
-                manager.showStatusMessage('Er is een fout opgetreden bij het opslaan.', 'error');
+                // Auto-save on page unload
+                window.addEventListener('beforeunload', () => {
+                    if (this.hasUnsavedChanges) {
+                        this.saveContent();
+                    }
+                });
             }
+            
+            scheduleAutoSave() {
+                if (this.autoSaveTimer) clearTimeout(this.autoSaveTimer);
+                
+                this.hasUnsavedChanges = true;
+                this.showStatus('Aan het typen...', 'typing');
+                
+                this.autoSaveTimer = setTimeout(() => {
+                    this.saveContent();
+                }, this.autoSaveDelay);
+            }
+            
+            async saveContent() {
+                const manager = new NotepadManager();
+                const content = {};
+                
+                this.textareas.forEach(id => {
+                    const textarea = document.getElementById(id);
+                    if (textarea) {
+                        content[id] = textarea.value;
+                    }
+                });
+                
+                this.showStatus('Opslaan...', 'saving');
+                
+                try {
+                    const response = await fetch('/api/notes/save', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            userId: manager.userId,
+                            pageId: this.pageId,
+                            content: JSON.stringify(content),
+                            editCount: manager.editCount,
+                            timeSpent: manager.calculateTimeSpent()
+                        })
+                    });
+                    
+                    if (response.ok) {
+                        this.showStatus('Automatisch opgeslagen', 'saved');
+                        this.hasUnsavedChanges = false;
+                    } else {
+                        throw new Error('Failed to save analysis');
+                    }
+                } catch (error) {
+                    console.error('Error saving analysis:', error);
+                    this.showStatus('Fout bij opslaan', 'error');
+                }
+            }
+            
+            showStatus(message, type) {
+                const statusMessage = document.querySelector('.status-message');
+                if (statusMessage) {
+                    statusMessage.textContent = message;
+                    statusMessage.className = `status-message auto-save ${type}`;
+                    statusMessage.style.display = 'block';
+                    
+                    if (type === 'typing') {
+                        setTimeout(() => {
+                            if (statusMessage.classList.contains('typing')) {
+                                statusMessage.style.display = 'none';
+                            }
+                        }, 1500);
+                    } else if (type === 'saved') {
+                        setTimeout(() => {
+                            if (statusMessage.classList.contains('saved')) {
+                                statusMessage.style.display = 'none';
+                            }
+                        }, 3000);
+                    }
+                }
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            new MultiTextareaManager();
         });
     </script>
 </body>

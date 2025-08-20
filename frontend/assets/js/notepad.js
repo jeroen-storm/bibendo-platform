@@ -7,6 +7,9 @@ class NotepadManager {
         this.startTime = Date.now();
         this.editCount = 0;
         this.isLoading = false;
+        this.autoSaveTimer = null;
+        this.autoSaveDelay = 2000; // 2 seconds after typing stops
+        this.hasUnsavedChanges = false;
         
         this.init();
     }
@@ -35,17 +38,27 @@ class NotepadManager {
         const saveButton = document.getElementById('saveButton');
         const charCounter = document.querySelector('.char-counter');
         
+        // Hide the save button since we're using auto-save
+        if (saveButton) {
+            saveButton.style.display = 'none';
+        }
+        
         if (textarea) {
             textarea.addEventListener('input', () => {
                 this.updateCharCounter();
                 this.incrementEditCount();
+                this.scheduleAutoSave();
             });
             
             textarea.addEventListener('paste', () => {
-                setTimeout(() => this.updateCharCounter(), 10);
+                setTimeout(() => {
+                    this.updateCharCounter();
+                    this.scheduleAutoSave();
+                }, 10);
             });
         }
         
+        // Keep save button functionality as fallback (but button is hidden)
         if (saveButton) {
             saveButton.addEventListener('click', () => this.saveNote());
         }
@@ -54,14 +67,21 @@ class NotepadManager {
         document.addEventListener('visibilitychange', () => {
             if (document.hidden) {
                 this.saveTimeSpent();
+                // Auto-save when user leaves the page
+                if (this.hasUnsavedChanges) {
+                    this.saveNote();
+                }
             } else {
                 this.startTime = Date.now();
             }
         });
         
-        // Save time on page unload
+        // Save time and auto-save on page unload
         window.addEventListener('beforeunload', () => {
             this.saveTimeSpent();
+            if (this.hasUnsavedChanges) {
+                this.saveNote();
+            }
         });
     }
     
@@ -93,6 +113,49 @@ class NotepadManager {
     
     incrementEditCount() {
         this.editCount++;
+        this.hasUnsavedChanges = true;
+    }
+    
+    scheduleAutoSave() {
+        // Clear existing timer
+        if (this.autoSaveTimer) {
+            clearTimeout(this.autoSaveTimer);
+        }
+        
+        // Show saving indicator
+        this.showAutoSaveStatus('Aan het typen...', 'typing');
+        
+        // Schedule auto-save
+        this.autoSaveTimer = setTimeout(() => {
+            if (this.hasUnsavedChanges && !this.isLoading) {
+                this.saveNote();
+            }
+        }, this.autoSaveDelay);
+    }
+    
+    showAutoSaveStatus(message, type = 'info') {
+        const statusMessage = document.querySelector('.status-message');
+        if (statusMessage) {
+            statusMessage.textContent = message;
+            statusMessage.className = `status-message auto-save ${type}`;
+            statusMessage.style.display = 'block';
+            
+            // Auto-hide typing indicator after short delay
+            if (type === 'typing') {
+                setTimeout(() => {
+                    if (statusMessage.classList.contains('typing')) {
+                        statusMessage.style.display = 'none';
+                    }
+                }, 1500);
+            } else if (type === 'saved') {
+                // Hide success message after longer delay
+                setTimeout(() => {
+                    if (statusMessage.classList.contains('saved')) {
+                        statusMessage.style.display = 'none';
+                    }
+                }, 3000);
+            }
+        }
     }
     
     async loadExistingContent() {
@@ -114,13 +177,19 @@ class NotepadManager {
     async saveNote() {
         const textarea = document.getElementById('noteTextarea');
         const saveButton = document.getElementById('saveButton');
-        const statusMessage = document.querySelector('.status-message');
         
         if (!textarea || this.isLoading) return;
         
         this.isLoading = true;
-        saveButton.disabled = true;
-        saveButton.textContent = 'Opslaan...';
+        
+        // Update save button if it exists (though it's hidden)
+        if (saveButton) {
+            saveButton.disabled = true;
+            saveButton.textContent = 'Opslaan...';
+        }
+        
+        // Show auto-save feedback
+        this.showAutoSaveStatus('Opslaan...', 'saving');
         
         try {
             const timeSpent = this.calculateTimeSpent();
@@ -140,18 +209,21 @@ class NotepadManager {
             });
             
             if (response.ok) {
-                this.showStatusMessage('Notitie succesvol opgeslagen!', 'success');
+                this.showAutoSaveStatus('Automatisch opgeslagen', 'saved');
                 this.editCount = 0; // Reset edit count after successful save
+                this.hasUnsavedChanges = false; // Mark as saved
             } else {
                 throw new Error('Failed to save note');
             }
         } catch (error) {
             console.error('Error saving note:', error);
-            this.showStatusMessage('Er is een fout opgetreden bij het opslaan.', 'error');
+            this.showAutoSaveStatus('Fout bij opslaan', 'error');
         } finally {
             this.isLoading = false;
-            saveButton.disabled = false;
-            saveButton.textContent = 'Opslaan';
+            if (saveButton) {
+                saveButton.disabled = false;
+                saveButton.textContent = 'Opslaan';
+            }
         }
     }
     
