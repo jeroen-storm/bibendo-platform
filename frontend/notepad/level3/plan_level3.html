@@ -183,6 +183,8 @@
                 this.autoSaveTimer = null;
                 this.autoSaveDelay = 1500;
                 this.hasUnsavedChanges = false;
+                this.startTime = Date.now();
+                this.editCount = 0;
                 this.init();
             }
             
@@ -404,8 +406,8 @@
                             userId: manager.userId,
                             pageId: 'eindopdracht',
                             content: JSON.stringify(fullContent),
-                            editCount: manager.editCount + 1,
-                            timeSpent: manager.calculateTimeSpent()
+                            editCount: ++this.editCount,
+                            timeSpent: Date.now() - this.startTime
                         })
                     });
                     
@@ -471,8 +473,8 @@
                 await this.saveContent();
                 
                 // Log the submission for analytics
-                const manager = new NotepadManager();
                 try {
+                    const manager = new NotepadManager();
                     await fetch('/api/logs/text', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
