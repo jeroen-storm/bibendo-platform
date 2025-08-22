@@ -23,11 +23,27 @@ This extension adds advanced educational assessment capabilities to the **Bibend
 - **Responsive Design**: Clean minimal UI with #00C2CB primary color
 
 #### Text Pages System
-- **9 Text Pages** across 3 levels with diverse content types
+- **12 Modern Text Pages** across 3 levels with diverse, engaging content types
 - **Comprehensive Tracking**: Scroll position, click events, time spent, section visibility
-- **Content Types**: Email threads, news articles, social media, forum discussions
+- **Diverse Styling**: Email layouts, Instagram posts, WhatsApp chats, news sites, event plans
 - **Real-time Analytics**: IntersectionObserver for section tracking
+- **Mobile-First Design**: Fully responsive across all devices
 
+#### Modern Content Types (Updated 2024)
+**Level 1 (7 Pages):**
+- **Email Layout**: Professional email from Emma (SneakSpot owner) seeking advice
+- **Instagram Posts**: Customer reviews in authentic Instagram post format
+- **News Website**: Professional news site with ANP branding and multiple articles
+- **Product Showcase**: Assortment overview with product cards
+
+**Level 2 (2 Pages):**
+- **WhatsApp Chat**: Multi-participant conversation with profile pictures
+- **Product Cards**: Color-coded sneaker showcases (Urban Flow, FlexCore, MotionStep)
+
+**Level 3 (3 Pages):**
+- **Email Communication**: Event feedback in professional email format
+- **Event Plan**: Colorful, modern event showcase with gradient backgrounds
+- **Launch Plan**: Clean, document-style business plan layout
 
 #### Admin Dashboard
 - **User Management**: Complete overview of all users and activity
@@ -44,12 +60,12 @@ This extension adds advanced educational assessment capabilities to the **Bibend
 - **Performance Optimization**: Database caching, memory temp store, efficient queries
 - **Comprehensive Logging**: All user interactions tracked and stored
 
-#### SneakSpot Game Integration (NEW)
+#### SneakSpot Game Integration
+- **Interactive Storyline**: "Help Emma save her sneaker store" in Dutch
 - **Game Interface**: Responsive iframe integration with 3:4 aspect ratio (525px-675px width, 700px-900px height)
 - **Challenge System**: Multi-level game progression with visual feedback
 - **Level Selection**: Professional game interface with progress tracking
 - **Responsive Design**: Fluid scaling between minimum and maximum dimensions while maintaining aspect ratio
-
 
 ## 📁 Project Structure
 
@@ -69,20 +85,40 @@ bibendo-platform/
 │   │   │   ├── main.css      # Main stylesheet
 │   │   │   ├── admin.css     # Admin dashboard styles
 │   │   │   └── textPages.css # Text page styles
-│   │   └── js/
-│   │       ├── notepad.js    # Notepad functionality
-│   │       ├── textTracker.js # Text page tracking
-│   │       ├── userUtils.js  # User ID persistence for nieuwsbericht flow
-│   │       └── admin.js      # Admin dashboard logic
+│   │   ├── js/
+│   │   │   ├── notepad.js    # Notepad functionality
+│   │   │   ├── textTracker.js # Text page tracking
+│   │   │   ├── userUtils.js  # User ID persistence
+│   │   │   └── admin.js      # Admin dashboard logic
+│   │   └── images/           # All images (profile pics, product shots, logos)
+│   │       ├── anp-logo.jpg  # ANP news logo
+│   │       ├── karim-profile.jpg # Profile pictures for chat interfaces
+│   │       ├── samira-profile.jpg
+│   │       ├── jay-profile.jpg
+│   │       ├── emma-profile.jpg
+│   │       ├── sasha-profile.jpg
+│   │       ├── loopz-event.jpg # Event imagery
+│   │       ├── sneaker-trends.avif # Product imagery
+│   │       └── news-item-*.jpg # News article images
 │   ├── notepad/
 │   │   ├── level1/           # Level 1 notepad pages (4 pages)
 │   │   ├── level2/           # Level 2 notepad pages (4 pages)
 │   │   └── level3/           # Level 3 notepad pages (4 pages)
 │   ├── texts/
-│   │   ├── level1/           # Level 1 text pages (7 pages)
-│   │   ├── level2/           # Level 2 text pages (2 pages)
-│   │   └── level3/           # Level 3 text pages (3 pages)
-│   ├── sneakspot/           # SneakSpot game integration (NEW)
+│   │   ├── level1/           # Level 1: Email, Instagram, News, Product pages
+│   │   │   ├── oefentekst_level1.html        # Emma's email (enhanced)
+│   │   │   ├── klantrecensies_level1.html    # Instagram customer reviews
+│   │   │   ├── nieuwsbericht_overzicht_level1.html # News overview
+│   │   │   ├── nieuwsbericht_[1-3]_level1.html     # Individual articles
+│   │   │   └── assortiment_overzicht_level1.html   # Product showcase
+│   │   ├── level2/           # Level 2: WhatsApp chat, Product cards
+│   │   │   ├── doelgroep_level2.html         # WhatsApp conversation
+│   │   │   └── sneakers_jongeren_level2.html # Product showcase
+│   │   └── level3/           # Level 3: Email feedback, Event plans
+│   │       ├── ervaringen_level3.html        # Email feedback
+│   │       ├── evenement_level3.html         # Colorful event showcase
+│   │       └── lancering_level3.html         # Business launch plan
+│   ├── sneakspot/           # SneakSpot game integration
 │   │   ├── challenges.html   # Game challenges overview
 │   │   ├── levels.html       # Level selection interface
 │   │   ├── game.html         # Game iframe with responsive 3:4 aspect ratio
@@ -108,7 +144,7 @@ bibendo-platform/
 - **Backend**: Node.js, Express.js, SQLite (optimized for educational environments)
 - **Frontend**: Vanilla HTML/CSS/JavaScript (framework-free for maximum compatibility)
 - **Security**: Helmet, CORS, Rate Limiting, Input Sanitization
-- **Design**: Responsive, minimal UI, iframe/webview-optimized
+- **Design**: Responsive, modern UI with diverse social media and business layouts
 - **Analytics**: Real-time user tracking and comprehensive learning analytics
 - **Deployment**: VPS-ready with classroom scalability (30-50 concurrent users)
 
@@ -128,24 +164,45 @@ This extension is designed to be embedded within educational games created in th
 const notepadUrl = `https://onderzoek.leeschallenges.nl/notepad/level1/note1.html?userId=${userId}`;
 
 // Text Analysis Pages  
-const textUrl = `https://onderzoek.leeschallenges.nl/texts/level1/tekst1.html?userId=${userId}`;
-
+const textUrl = `https://onderzoek.leeschallenges.nl/texts/level1/oefentekst_level1.html?userId=${userId}`;
 
 // SneakSpot Game Integration
 const sneakspotGameUrl = `https://onderzoek.leeschallenges.nl/sneakspot/game.html`;
 const sneakspotChallengesUrl = `https://onderzoek.leeschallenges.nl/sneakspot/challenges.html`;
 const sneakspotLevelsUrl = `https://onderzoek.leeschallenges.nl/sneakspot/levels.html`;
 
-
 // Admin Dashboard (for educators)
 const adminUrl = `https://onderzoek.leeschallenges.nl/admin/dashboard.html`;
 ```
 
 ### Educational Game Use Cases
-- **Reading Comprehension Games**: Embed CBM assessments within story-based adventures
+- **Reading Comprehension Games**: Embed modern text formats within story-based adventures
 - **Note-Taking Adventures**: Use smart notepad system for puzzle-solving and reflection
 - **Analytics Integration**: Real-time learning analytics feed back into game progression
 - **Classroom Management**: Teachers can monitor student progress across all game sessions
+
+## 🎨 Modern Design System
+
+### Design Principles
+- **Authentic Social Media Layouts**: Instagram posts, WhatsApp chats, email clients
+- **Professional Business Documents**: News sites, event plans, launch documents
+- **Mobile-First Responsive**: Perfect display across all device sizes
+- **Content Preservation**: All educational content maintained during design transformations
+- **Accessibility**: High contrast, readable fonts, clear navigation
+
+### Color Schemes & Styling
+- **Instagram**: Authentic Instagram UI with profile pictures and engagement elements
+- **WhatsApp**: Color-coded messages per participant with profile pictures
+- **News Site**: Professional ANP branding with article navigation
+- **Event Plans**: Gradient backgrounds with color-coded activity sections
+- **Business Documents**: Clean, minimal styling with professional typography
+
+### Typography & Layout
+- **System Fonts**: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto
+- **Serif Headers**: Georgia for formal document titles
+- **Responsive Grid**: CSS Grid and Flexbox for optimal layouts
+- **Image Integration**: Profile pictures, product shots, event imagery
+- **Navigation**: Back-to-overview links, breadcrumbs, consistent UX
 
 ## 📊 Database Schema
 
@@ -219,43 +276,51 @@ http://localhost:3000/notepad/level{1-3}/{page}.html?userId={userId}
 - `note2_level3.html` - Success factors
 - `plan_level3.html` - Action planning (pre-filled)
 
-### Text Pages System
+### Enhanced Text Pages System
 
 #### URL Structure
 ```
-http://localhost:3000/texts/level{1-3}/{page}.html?userId={userId}
+http://localhost:3000/texts/level{1-3}/{page}.html?userId=${userId}
 ```
 
-#### Content Types
-- **Email Threads**: Multi-participant email conversations
-- **News Articles**: Current events and analysis
-- **Social Media**: Posts, comments, discussions
-- **Forum Discussions**: Technical and educational content
+#### Level 1 Content (7 Pages)
+**Professional Email Layout**
+- `oefentekst_level1.html` - Emma's request for help (enhanced readability)
+
+**Instagram Social Media**
+- `klantrecensies_level1.html` - Customer reviews as Instagram posts with profiles
+
+**News Website Experience**
+- `nieuwsbericht_overzicht_level1.html` - News overview with ANP branding
+- `nieuwsbericht_1_level1.html` - "SneakSpot: waar het ooit begon"
+- `nieuwsbericht_2_level1.html` - "Een sneakerwinkel voor jongeren: of toch niet?"
+- `nieuwsbericht_3_level1.html` - "Online shoppen is helemaal in!"
+
+**Product Showcase**
+- `assortiment_overzicht_level1.html` - Product overview with visual cards
+
+#### Level 2 Content (2 Pages)
+**WhatsApp Chat Interface**
+- `doelgroep_level2.html` - Multi-participant conversation with Karim, Samira, and Jay
+
+**Product Showcase**
+- `sneakers_jongeren_level2.html` - Color-coded sneaker showcase (Urban Flow, FlexCore, MotionStep)
+
+#### Level 3 Content (3 Pages)
+**Professional Email**
+- `ervaringen_level3.html` - Sasha's event feedback email
+
+**Event Showcase**
+- `evenement_level3.html` - Colorful Loopz event plan with gradient activity sections
+
+**Business Launch Plan**
+- `lancering_level3.html` - Clean, fullscreen business plan document
 
 #### Tracking Features
 - **Scroll Tracking**: Position, direction, speed
 - **Click Tracking**: All interactive elements
 - **Time Tracking**: Total time and active reading time
 - **Section Visibility**: Which parts were actually viewed
-
-### CBM Assessment Tool
-
-#### URL Structure
-```
-http://localhost:3000/cbm/index.html?userId={userId}&textId={textId}
-```
-
-#### Features
-- **2-Minute Timer**: Precise countdown with visual progress
-- **Inline Cloze-Test**: Yellow highlighted words with dropdown options
-- **Smooth Animations**: Words fade in/out with user selections
-- **Auto-completion**: Popup appears when all questions answered
-- **Performance Metrics**: WCPM, accuracy, completion rate
-- **Auto-save**: Progress saved every 10 seconds
-
-#### Available Texts
-- **Text 2**: "Nieuwe Sneakerstyle" (12 questions)
-- **Text 3**: "Product Launch - SneakLab" (14 questions)
 
 ### Admin Dashboard
 
@@ -270,7 +335,7 @@ http://localhost:3000/admin/dashboard.html
 - **Performance Metrics**: Completion rates, time spent, scores
 - **Data Export**: CSV and JSON export for analysis
 - **Real-time Updates**: Live statistics and user activity
-- **CBM Results**: Color-coded performance indicators
+- **Enhanced Analytics**: Track engagement with modern content types
 
 ## 🔧 API Documentation
 
@@ -328,7 +393,6 @@ Content-Type: application/json
 }
 ```
 
-
 ### Admin Endpoints
 
 #### Get All Users
@@ -346,20 +410,9 @@ GET /api/admin/user/{userId}
 GET /api/health
 ```
 
-## 🎨 Design Guidelines
-
-- **Background**: White (#FFFFFF)
-- **Primary Color**: #00C2CB (buttons, accents)
-- **Typography**: System fonts, clean and minimal
-- **Layout**: Maximum screen estate usage, minimal margins
-- **Responsive**: Mobile-first approach
-- **No Effects**: No shadows, gradients, or complex styling
-- **CBM Styling**: Yellow highlights (#ffeb99) for cloze-test words
-- **Admin Colors**: Color-coded performance badges (green/yellow/red)
-
 ## 🔒 Security Features
 
-- **Rate Limiting**: 100 requests per 15 minutes per IP
+- **Rate Limiting**: 500 requests per 15 minutes per IP
 - **Input Sanitization**: Content length limits and XSS prevention
 - **SQL Injection Prevention**: Prepared statements throughout
 - **CORS Configuration**: Controlled cross-origin access
@@ -383,11 +436,19 @@ GET /api/health
 - Level 2: `http://localhost:3000/notepad/level2/message_level2.html?userId=test123`
 - Level 3: `http://localhost:3000/notepad/level3/plan_level3.html?userId=test123`
 
-#### Text Pages
-- Level 1: `http://localhost:3000/texts/level1/oefentekst_level1.html?userId=test123`
-- Level 2: `http://localhost:3000/texts/level2/oefentekst_level2.html?userId=test123`
-- Level 3: `http://localhost:3000/texts/level3/oefentekst_level3.html?userId=test123`
+#### Enhanced Text Pages
+- Level 1 Email: `http://localhost:3000/texts/level1/oefentekst_level1.html?userId=test123`
+- Level 1 Instagram: `http://localhost:3000/texts/level1/klantrecensies_level1.html?userId=test123`
+- Level 1 News: `http://localhost:3000/texts/level1/nieuwsbericht_overzicht_level1.html?userId=test123`
+- Level 2 WhatsApp: `http://localhost:3000/texts/level2/doelgroep_level2.html?userId=test123`
+- Level 2 Products: `http://localhost:3000/texts/level2/sneakers_jongeren_level2.html?userId=test123`
+- Level 3 Event: `http://localhost:3000/texts/level3/evenement_level3.html?userId=test123`
+- Level 3 Launch: `http://localhost:3000/texts/level3/lancering_level3.html?userId=test123`
 
+#### SneakSpot Game
+- Game: `http://localhost:3000/sneakspot/game.html`
+- Challenges: `http://localhost:3000/sneakspot/challenges.html`
+- Levels: `http://localhost:3000/sneakspot/levels.html`
 
 #### Admin Dashboard
 - Overview: `http://localhost:3000/admin/dashboard.html`
@@ -395,9 +456,11 @@ GET /api/health
 
 ### Test Scenarios
 1. **Notepad Flow**: Create notes in sequence → verify pre-filling
-2. **Text Tracking**: Scroll through texts → check admin analytics
-4. **Data Export**: Export user data → verify CSV/JSON format
-5. **Responsive Design**: Test on different screen sizes
+2. **Text Tracking**: Scroll through diverse content types → check admin analytics
+3. **Data Export**: Export user data → verify CSV/JSON format
+4. **Responsive Design**: Test all layouts on different screen sizes
+5. **Navigation**: Test back-to-overview links in news articles
+6. **Social Media UX**: Verify Instagram posts and WhatsApp chat interfaces
 
 ## 🚀 Deployment
 
@@ -429,12 +492,20 @@ For troubleshooting nginx issues, see: [docs/NGINX-TROUBLESHOOTING.md](docs/NGIN
 ### Completed ✅
 - [x] Project structure and setup
 - [x] SQLite database with complete schema (6 tables)
-- [x] Express.js API with all endpoints (notes, texts, CBM, admin)
+- [x] Express.js API with all endpoints (notes, texts, admin)
 - [x] Smart notepad system (12 pages across 3 levels)
-- [x] Text pages system (9 pages with comprehensive tracking)
+- [x] **Enhanced text pages system (12 modern pages with diverse layouts)**
+- [x] **Instagram posts with authentic social media styling**
+- [x] **WhatsApp chat interface with profile pictures and color coding**
+- [x] **Professional news website with ANP branding and navigation**
+- [x] **Colorful event plans with gradient backgrounds**
+- [x] **Clean business documents with fullscreen layouts**
+- [x] **All images integrated (profile pics, products, logos)**
+- [x] **Back-to-overview navigation for news articles**
+- [x] **Enhanced email readability with improved spacing**
 - [x] Admin dashboard with user management and analytics
 - [x] Pre-filled textareas on final pages
-- [x] Responsive CSS design across all components
+- [x] **Fully responsive CSS design across all content types**
 - [x] Security middleware and rate limiting
 - [x] Comprehensive user tracking and logging
 - [x] Data export functionality (CSV/JSON)
@@ -442,11 +513,11 @@ For troubleshooting nginx issues, see: [docs/NGINX-TROUBLESHOOTING.md](docs/NGIN
 - [x] VPS deployment on onderzoek.leeschallenges.nl
 - [x] SSL certificate and production configuration
 - [x] Complete API and user documentation
-- [x] SneakSpot game integration with responsive 3:4 aspect ratio
+- [x] SneakSpot game integration with Emma storyline in Dutch
 - [x] Links overview page (/links.html) for development and testing
 - [x] Iframe compatibility - all pages can embed in Bibendo Game Editor
-- [x] Static file serving fixed via nginx configuration
-- [x] Clean styling consistency across all pages
+- [x] Static file serving via nginx configuration
+- [x] **Modern, engaging content styling with educational value preservation**
 
 ## 🚀 Production Deployment
 
@@ -477,7 +548,7 @@ const baseUrl = 'https://onderzoek.leeschallenges.nl';
 // Embed in Flutter WebView within educational games
 const extensionUrls = {
   notepad: `${baseUrl}/notepad/level1/note1.html?userId=${gameUserId}`,
-  texts: `${baseUrl}/texts/level1/tekst1.html?userId=${gameUserId}`,
+  texts: `${baseUrl}/texts/level1/oefentekst_level1.html?userId=${gameUserId}`,
   admin: `${baseUrl}/admin/dashboard.html`
 };
 ```
@@ -486,6 +557,7 @@ const extensionUrls = {
 This extension provides the advanced reading assessment tools needed for the **LeesEvolutie** educational initiative, enabling:
 
 - **Interactive Note-Taking**: Context-aware notepad system for learning reflection
+- **Modern Content Engagement**: Students interact with authentic social media and business formats
 - **Real-Time Analytics**: Teacher dashboard for monitoring student progress across all game sessions
 - **Cross-Platform Compatibility**: Consistent experience across iOS, Android, and web platforms
 
@@ -504,10 +576,9 @@ This documentation covers:
 - **Platform Guidelines**: UI/UX best practices for educational content
 
 ### Extension-Specific APIs
-This platform provides RESTful APIs for seamless integration with the Bibendo Game Editor ecosystem. All endpoints are documented in the API sections below.
+This platform provides RESTful APIs for seamless integration with the Bibendo Game Editor ecosystem. All endpoints are documented in the API sections above.
 
 ## 🔧 Development Notes
-
 
 ### Database Maintenance
 - Database auto-initializes on first run
@@ -518,6 +589,12 @@ This platform provides RESTful APIs for seamless integration with the Bibendo Ga
 - Text tracking uses throttled scroll events (100ms)
 - Auto-save intervals optimized (1.5s delay for notepad auto-save)
 - Admin dashboard limits large result sets (50 latest logs)
+
+### Content Management
+- All educational content preserved during design transformations
+- Images organized in `/frontend/assets/images/` directory
+- Profile pictures and branded content properly attributed
+- Responsive design tested across all device sizes
 
 ## 👥 Contributing
 

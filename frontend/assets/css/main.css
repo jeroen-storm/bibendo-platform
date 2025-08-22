@@ -352,3 +352,113 @@ textarea:focus {
     margin: 0;
     white-space: pre-wrap;
 }
+
+/* Plan Level 3 specific styles */
+.launch-plan-header {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.launch-plan-header h1 {
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.launch-plan-header p {
+    font-size: 16px;
+    color: #666;
+    line-height: 1.6;
+}
+
+.section {
+    margin-bottom: 40px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.section h2 {
+    font-size: 20px;
+    margin-bottom: 20px;
+    color: #333;
+    border-bottom: 2px solid #00C2CB;
+    padding-bottom: 10px;
+}
+
+.event-details {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+}
+
+.event-details p {
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.section ul {
+    margin-left: 20px;
+    margin-bottom: 15px;
+}
+
+.section li {
+    margin-bottom: 5px;
+}
+
+.question small {
+    display: block;
+    color: #666;
+    font-style: italic;
+    margin-top: 5px;
+}
+
+/* Readonly textareas styling */
+textarea[readonly] {
+    background-color: #f8f8f8;
+    border-color: #ccc;
+    color: #555;
+}
+
+/* Emma submission overlay */
+.emma-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    z-index: 1000;
+}
+
+.emma-overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.emma-popup {
+    background: white;
+    padding: 40px;
+    border-radius: 10px;
+    text-align: center;
+    max-width: 400px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.emma-icon {
+    font-size: 48px;
+    margin-bottom: 20px;
+}
+
+.emma-message {
+    font-size: 18px;
+    color: #333;
+    line-height: 1.6;
+}
