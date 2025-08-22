@@ -68,6 +68,8 @@
                 this.autoSaveTimer = null;
                 this.autoSaveDelay = 1500;
                 this.hasUnsavedChanges = false;
+                this.startTime = Date.now();
+                this.editCount = 0;
                 this.init();
             }
             
@@ -128,8 +130,8 @@
                             userId: manager.userId,
                             pageId: this.pageId,
                             content: JSON.stringify(content),
-                            editCount: manager.editCount,
-                            timeSpent: manager.calculateTimeSpent()
+                            editCount: ++this.editCount,
+                            timeSpent: Date.now() - this.startTime
                         })
                     });
                     
