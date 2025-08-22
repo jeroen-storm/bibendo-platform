@@ -224,11 +224,11 @@ class AdminDashboard {
                 </thead>
                 <tbody>
                     ${notes.map(note => `
-                        <tr>
+                        <tr class="${note.page_id === 'eindopdracht' ? 'eindopdracht-row' : ''}">
                             <td><code>${note.page_id}</code></td>
-                            <td>Level ${note.level}</td>
-                            <td class="content-preview" title="${this.escapeHtml(note.content || '')}">
-                                ${this.truncateText(note.content || 'Leeg', 50)}
+                            <td>${this.formatLevelDisplay(note.level, note.page_id)}</td>
+                            <td class="content-preview" title="${this.escapeHtml(this.formatContentPreview(note.content, note.page_id))}">
+                                ${this.truncateText(this.formatContentPreview(note.content, note.page_id) || 'Leeg', 50)}
                             </td>
                             <td>${note.edit_count}</td>
                             <td>${this.formatDuration(note.time_spent)}</td>
@@ -384,7 +384,7 @@ class AdminDashboard {
                     data_type: 'note',
                     page_id: note.page_id,
                     level: note.level,
-                    content: note.content,
+                    content: note.page_id === 'eindopdracht' ? this.formatEindopdrachtForExport(note.content) : note.content,
                     edit_count: note.edit_count,
                     time_spent: note.time_spent,
                     created_at: note.created_at,
@@ -433,6 +433,40 @@ class AdminDashboard {
         link.click();
         document.body.removeChild(link);
         URL.revokeObjectURL(url);
+    }
+    
+    // Helper functions for eindopdracht display
+    formatLevelDisplay(level, pageId) {
+        if (pageId === 'eindopdracht') {
+            return '<span class="eindopdracht-badge">Eindopdracht</span>';
+        }
+        return `Level ${level}`;
+    }
+    
+    formatContentPreview(content, pageId) {
+        if (pageId === 'eindopdracht' && content) {
+            try {
+                const parsedContent = JSON.parse(content);
+                const completedFields = Object.values(parsedContent).filter(value => value && value.trim().length > 0).length;
+                return `Eindopdracht: ${completedFields}/8 velden ingevuld`;
+            } catch (e) {
+                return content;
+            }
+        }
+        return content;
+    }
+    
+    formatEindopdrachtForExport(content) {
+        if (!content) return '';
+        try {
+            const parsedContent = JSON.parse(content);
+            // Convert to readable format for CSV export
+            return Object.entries(parsedContent)
+                .map(([field, value]) => `${field}: ${value}`)
+                .join(' | ');
+        } catch (e) {
+            return content;
+        }
     }
     
     // Utility functions
@@ -490,6 +524,10 @@ class AdminDashboard {
                 return `Click: ${data.href}`;
             } else if (data.timeSpent) {
                 return `Time: ${this.formatDuration(data.timeSpent)}`;
+            } else if (data.editableFields !== undefined) {
+                return `Eindopdracht: ${data.editableFields} velden`;
+            } else if (data.completedFields !== undefined) {
+                return `Eindopdracht verzonden: ${data.completedFields}/8 velden ingevuld`;
             } else {
                 return this.truncateText(dataString, 30);
             }
