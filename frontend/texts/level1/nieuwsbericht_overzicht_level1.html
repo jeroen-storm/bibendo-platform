@@ -6,6 +6,141 @@
     <title>Nieuwsbericht Overzicht - Level 1</title>
     <link rel="stylesheet" href="../../assets/css/main.css">
     <link rel="stylesheet" href="../../assets/css/textPages.css">
+    <style>
+        body {
+            background: #f8f9fa;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        .news-site-header {
+            background: white;
+            border-bottom: 1px solid #e5e5e5;
+            padding: 10px 0;
+        }
+        
+        .anp-logo {
+            max-height: 30px;
+            margin-bottom: 5px;
+        }
+        
+        .news-site {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .main-article {
+            padding: 20px;
+            border-bottom: 2px solid #e5e5e5;
+        }
+        
+        .main-headline {
+            font-size: 32px;
+            font-weight: bold;
+            color: #1a1a1a;
+            margin-bottom: 10px;
+            line-height: 1.2;
+        }
+        
+        .main-summary {
+            font-size: 18px;
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+        
+        .article-meta {
+            color: #999;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        
+        .related-articles {
+            padding: 20px;
+        }
+        
+        .related-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #1a1a1a;
+        }
+        
+        .article-card {
+            display: flex;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .article-card:last-child {
+            border-bottom: none;
+        }
+        
+        .article-image {
+            width: 150px;
+            height: 100px;
+            object-fit: cover;
+            margin-right: 15px;
+            border-radius: 4px;
+        }
+        
+        .article-content {
+            flex: 1;
+        }
+        
+        .article-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 8px;
+            text-decoration: none;
+        }
+        
+        .article-title:hover {
+            color: #00C2CB;
+        }
+        
+        .article-excerpt {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.4;
+            margin-bottom: 8px;
+        }
+        
+        .read-more-link {
+            color: #00C2CB;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .read-more-link:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 768px) {
+            .news-site {
+                margin: 10px;
+            }
+            
+            .main-headline {
+                font-size: 24px;
+            }
+            
+            .article-card {
+                flex-direction: column;
+            }
+            
+            .article-image {
+                width: 100%;
+                height: 200px;
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Reading progress indicator -->
@@ -13,57 +148,61 @@
         <div class="reading-progress-bar" id="progressBar"></div>
     </div>
 
-    <div class="text-container">
-        <header class="text-header">
-            <h1 class="text-title">📰 Nieuwsblad Bergveen</h1>
-            <div class="text-meta">Level 1 - Nieuwsbericht Overzicht</div>
-        </header>
-
-        <main class="text-content">
-            <section class="text-section trackable-section" id="news-header">
-                <div class="news-article">
-                    <div class="news-header">
-                        <div class="news-date">Nieuwsblad Bergveen | vandaag, 8:25</div>
-                        <div class="news-author">Damian Groesbeek – redacteur Nieuwsblad Bergveen</div>
-                        <h2 class="news-headline">In de spotlight - SneakSpot in Bergveen</h2>
-                        <div class="news-summary">
-                            Aan de Handelsweg in Bergveen zit een opvallende schoenenwinkel: SneakSpot. De winkel richt zich op de jonge klanten en probeert op haar eigen manier de sneakers te verkopen. Maar dat lukt niet bij iedereen.
-                        </div>
-                    </div>
+    <div class="news-site-header">
+        <div style="text-align: center;">
+            <img src="../../assets/images/anp-logo.jpg" alt="ANP Logo" class="anp-logo">
+        </div>
+    </div>
+    
+    <div class="news-site">
+        <!-- Main Article -->
+        <article class="main-article trackable-section" id="news-header">
+            <h1 class="main-headline">In de spotlight - SneakSpot in Bergveen</h1>
+            <p class="main-summary">
+                Aan de Handelsweg in Bergveen zit een opvallende schoenenwinkel: SneakSpot. De winkel richt zich op de jonge klanten en probeert op haar eigen manier de sneakers te verkopen. Maar dat lukt niet bij iedereen.
+            </p>
+            <div class="article-meta">
+                Nieuwsblad Bergveen | vandaag, 8:25 | Damian Groesbeek
+            </div>
+        </article>
+        
+        <!-- Related Articles -->
+        <section class="related-articles trackable-section" id="articles-overview">
+            <h2 class="related-title">Lees ook</h2>
+            
+            <article class="article-card">
+                <img src="../../assets/images/news-item-1.jpg" alt="SneakSpot geschiedenis" class="article-image">
+                <div class="article-content">
+                    <a href="nieuwsbericht_1_level1.html" class="article-title">SneakSpot in Bergveen: waar het ooit begon</a>
+                    <p class="article-excerpt">
+                        In 2015 opende Emma Miller de deuren van SneakSpot in het hart van Bergveen. Wat begon als een kleine droom, groeide al snel uit tot dé plek voor sneakerliefhebbers.
+                    </p>
+                    <a href="nieuwsbericht_1_level1.html" class="read-more-link">Lees verder →</a>
                 </div>
-            </section>
-
-            <section class="text-section trackable-section" id="articles-overview">
-                <div class="overview-container">
-                    <div class="overview-item">
-                        <h3 class="overview-title">👟 SneakSpot in Bergveen: waar het ooit begon.</h3>
-                        <p class="overview-excerpt">
-                            In 2015 opende Emma Miller de deuren van SneakSpot in het hart van Bergveen.
-                        </p>
-                        <a href="nieuwsbericht_1_level1.html" 
-                           class="hyperlink">Lees meer →</a>
-                    </div>
-
-                    <div class="overview-item">
-                        <h3 class="overview-title">🎯 Een sneakerwinkel voor jongeren: of toch niet?</h3>
-                        <p class="overview-excerpt">
-                            SneakSpot staat bekend om zijn opvallende, kleurrijke sneakers.
-                        </p>
-                        <a href="nieuwsbericht_2_level1.html" 
-                           class="hyperlink">Lees meer →</a>
-                    </div>
-
-                    <div class="overview-item">
-                        <h3 class="overview-title">🛒 Online shoppen is helemaal in!</h3>
-                        <p class="overview-excerpt">
-                            Geen zin om helemaal naar de winkel te gaan? Geen probleem!
-                        </p>
-                        <a href="nieuwsbericht_3_level1.html" 
-                           class="hyperlink">Lees meer →</a>
-                    </div>
+            </article>
+            
+            <article class="article-card">
+                <img src="../../assets/images/news-item-2.jpg" alt="Sneaker collectie" class="article-image">
+                <div class="article-content">
+                    <a href="nieuwsbericht_2_level1.html" class="article-title">Een sneakerwinkel voor jongeren: of toch niet?</a>
+                    <p class="article-excerpt">
+                        SneakSpot staat bekend om zijn opvallende, kleurrijke sneakers. Maar spreekt dit assortiment wel de juiste doelgroep aan?
+                    </p>
+                    <a href="nieuwsbericht_2_level1.html" class="read-more-link">Lees verder →</a>
                 </div>
-            </section>
-        </main>
+            </article>
+            
+            <article class="article-card">
+                <img src="../../assets/images/news-item-3.jpeg" alt="Online shopping" class="article-image">
+                <div class="article-content">
+                    <a href="nieuwsbericht_3_level1.html" class="article-title">Online shoppen is helemaal in!</a>
+                    <p class="article-excerpt">
+                        Geen zin om helemaal naar de winkel te gaan? Geen probleem! Steeds meer jongeren shoppen hun sneakers online.
+                    </p>
+                    <a href="nieuwsbericht_3_level1.html" class="read-more-link">Lees verder →</a>
+                </div>
+            </article>
+        </section>
     </div>
 
     <script src="../../assets/js/textTracker.js"></script>
