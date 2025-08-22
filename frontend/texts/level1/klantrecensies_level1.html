@@ -6,6 +6,147 @@
     <title>Klantrecensies SneakSpot - Level 1</title>
     <link rel="stylesheet" href="../../assets/css/main.css">
     <link rel="stylesheet" href="../../assets/css/textPages.css">
+    <style>
+        body {
+            background: #fafafa;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        .text-container {
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+        
+        .instagram-post {
+            background: white;
+            margin-bottom: 20px;
+            border: 1px solid #dbdbdb;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .text-container {
+                max-width: 100%;
+                margin: 10px;
+                padding: 0;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .text-container {
+                margin: 5px;
+            }
+        }
+        
+        .post-header {
+            display: flex;
+            align-items: center;
+            padding: 14px 16px;
+            border-bottom: 1px solid #efefef;
+        }
+        
+        .profile-pic {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #00C2CB;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            font-size: 16px;
+        }
+        
+        .profile-info {
+            flex-grow: 1;
+        }
+        
+        .username {
+            font-weight: 600;
+            font-size: 14px;
+            display: block;
+        }
+        
+        .location {
+            color: #8e8e8e;
+            font-size: 12px;
+        }
+        
+        .post-actions {
+            padding: 8px 16px;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 16px;
+        }
+        
+        .action-btn {
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        .post-info {
+            padding: 0 16px 16px;
+        }
+        
+        .likes {
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+        
+        .caption {
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+        
+        .caption .username {
+            font-weight: 600;
+            margin-right: 8px;
+        }
+        
+        .hashtags {
+            color: #00376b;
+            font-size: 14px;
+            margin-top: 8px;
+        }
+        
+        .instagram-comments {
+            background: white;
+            border: 1px solid #dbdbdb;
+            border-top: none;
+        }
+        
+        .comments-header {
+            padding: 12px 16px;
+            color: #8e8e8e;
+            font-size: 14px;
+            border-bottom: 1px solid #efefef;
+        }
+        
+        .comment {
+            padding: 8px 16px;
+            font-size: 14px;
+            border-bottom: 1px solid #efefef;
+        }
+        
+        .comment:last-child {
+            border-bottom: none;
+        }
+        
+        .comment-username {
+            font-weight: 600;
+            margin-right: 8px;
+        }
+        
+        .comment-text {
+            line-height: 1.4;
+        }
+    </style>
 </head>
 <body>
     <!-- Reading progress indicator -->
@@ -14,65 +155,74 @@
     </div>
 
     <div class="text-container">
-        <header class="text-header">
-            <h1 class="text-title">💬 @SneakSpot_Bergveen</h1>
-            <div class="text-meta">Level 1 - Klantrecensies</div>
-        </header>
-
         <main class="text-content">
-            <section class="text-section trackable-section" id="social-post">
-                <div class="dm-container">
-                    <div class="section-content">
-                        <p><strong>Laat je stijl spreken bij SneakSpot!</strong></p>
-                        <p>Ben jij klaar om op te vallen? Bij SneakSpot vind je sneakers met lef: felle kleuren, unieke prints en limited editions die je nergens anders ziet. Kom langs aan de Handelsweg en ontdek jouw nieuwe favoriete paar! 👟🔥</p>
-                        <p><em>#SneakSpot #Streetstyle #LimitedEdition #BergveenStyle</em></p>
+            <!-- Instagram Post -->
+            <section class="instagram-post" id="social-post">
+                <!-- Post Header -->
+                <div class="post-header">
+                    <div class="profile-pic">📍</div>
+                    <div class="profile-info">
+                        <span class="username">sneakspot_bergveen</span>
+                        <span class="location">Handelsweg, Bergveen</span>
                     </div>
+                </div>
+                
+                <!-- Post Image -->
+                <div class="post-image">
+                    <img src="../../assets/images/sneakspot-winkel.jpg" alt="SneakSpot winkel interior" style="width: 100%; height: 300px; object-fit: cover;">
+                </div>
+                
+                <!-- Post Actions -->
+                <div class="post-actions">
+                    <div class="action-buttons">
+                        <span class="action-btn">❤️</span>
+                        <span class="action-btn">💬</span>
+                        <span class="action-btn">📤</span>
+                    </div>
+                </div>
+                
+                <!-- Post Info -->
+                <div class="post-info">
+                    <div class="likes">127 likes</div>
+                    <div class="caption">
+                        <span class="username">sneakspot_bergveen</span>
+                        <span class="caption-text">Laat je stijl spreken bij SneakSpot! Ben jij klaar om op te vallen? Bij ons vind je sneakers met lef: felle kleuren, unieke prints en limited editions die je nergens anders ziet. Kom langs aan de Handelsweg! 👟🔥</span>
+                    </div>
+                    <div class="hashtags">#SneakSpot #Streetstyle #LimitedEdition #BergveenStyle</div>
                 </div>
             </section>
 
-            <section class="text-section trackable-section" id="comments-section">
-                <h3 class="section-title">💬 Reacties van volgers</h3>
+            <!-- Instagram Comments -->
+            <section class="instagram-comments" id="comments-section">
                 
-                <div class="dm-container">
-                    <div class="dm-header">🗣️ SamiraJansen_2010</div>
-                    <div class="dm-content">
-                        "Ik vond de sneakers eerst supervet, maar nu zijn ze wel erg druk. Veel jongeren dragen tegenwoordig juist rustige kleuren. Misschien tijd voor iets nieuws?"
-                    </div>
+                <div class="comment">
+                    <span class="comment-username">samirajansen_2010</span>
+                    <span class="comment-text">Ik vond de sneakers eerst supervet, maar nu zijn ze wel erg druk. Veel jongeren dragen tegenwoordig juist rustige kleuren. Misschien tijd voor iets nieuws?</span>
                 </div>
 
-                <div class="dm-container">
-                    <div class="dm-header">🗣️ Daantjehh_sports</div>
-                    <div class="dm-content">
-                        "Ik zocht gewoon een paar goed geteste sneakers voor de volgende Hyrox wedstrijd, maar die verkoopt SneakSpot niet. Niet echt iets voor mij helaas."
-                    </div>
+                <div class="comment">
+                    <span class="comment-username">daantjehh_sports</span>
+                    <span class="comment-text">Ik zocht gewoon een paar goed geteste sneakers voor de volgende Hyrox wedstrijd, maar die verkoopt SneakSpot niet. Niet echt iets voor mij helaas.</span>
                 </div>
 
-                <div class="dm-container">
-                    <div class="dm-header">🗣️ say_jay_den</div>
-                    <div class="dm-content">
-                        "Waarom alleen maar fel roze sneakers of prints? Doe mij maar iets simpels wat overal bij past. Dit is het niet meer voor mij."
-                    </div>
+                <div class="comment">
+                    <span class="comment-username">say_jay_den</span>
+                    <span class="comment-text">Waarom alleen maar fel roze sneakers of prints? Doe mij maar iets simpels wat overal bij past. Dit is het niet meer voor mij.</span>
                 </div>
 
-                <div class="dm-container">
-                    <div class="dm-header">🗣️ ModePoint.official</div>
-                    <div class="dm-content">
-                        "Tja, als je écht goede sneakers zoekt, kom dan liever naar ModePoint, ook aan de Handelsweg. Wij hebben meer keuze én betere prijzen."
-                    </div>
+                <div class="comment">
+                    <span class="comment-username">modepoint.official</span>
+                    <span class="comment-text">Tja, als je écht goede sneakers zoekt, kom dan liever naar ModePoint, ook aan de Handelsweg. Wij hebben meer keuze én betere prijzen.</span>
                 </div>
 
-                <div class="dm-container">
-                    <div class="dm-header">🗣️ beautyandme_</div>
-                    <div class="dm-content">
-                        "Ik hou juist van die opvallende sneakers! Die kleurtjes en prints doen mij denken aan mijn jongere jaren."
-                    </div>
+                <div class="comment">
+                    <span class="comment-username">beautyandme_</span>
+                    <span class="comment-text">Ik hou juist van die opvallende sneakers! Die kleurtjes en prints doen mij denken aan mijn jongere jaren.</span>
                 </div>
 
-                <div class="dm-container">
-                    <div class="dm-header">🗣️ SoleVibeStore_NL</div>
-                    <div class="dm-content">
-                        "SneakSpot is niet meer wat het was... Als je sneakers zoekt, check dan even @SoleVibeStore — die hebben wél wat jongeren nu willen!"
-                    </div>
+                <div class="comment">
+                    <span class="comment-username">solevibestore_nl</span>
+                    <span class="comment-text">SneakSpot is niet meer wat het was... Als je sneakers zoekt, check dan even @solevibestore — die hebben wél wat jongeren nu willen!</span>
                 </div>
             </section>
         </main>
