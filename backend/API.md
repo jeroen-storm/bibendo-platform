@@ -141,6 +141,36 @@ curl http://localhost:3000/api/notes/user123/level/1
 
 ---
 
+### Get Eindopdracht Snapshot
+Retrieves the complete eindopdracht snapshot with all 8 fields.
+
+**Endpoint**: `GET /notes/{userId}/eindopdracht`
+
+**Parameters**:
+- `userId` (string): User identifier
+
+**Response**:
+```json
+{
+  "id": 125,
+  "user_id": "user123",
+  "page_id": "eindopdracht",
+  "level": 3,
+  "content": "{\"analyse1Textarea\":\"Content from note1_level1...\",\"analyse2Textarea\":\"Content from note3_level1...\",\"styleDescription3Textarea\":\"Content from note2_level2...\",\"styleReason4Textarea\":\"Content from note1_level2...\",\"targetGroup5Textarea\":\"New content...\",\"eventGoal6Textarea\":\"New content...\",\"activities7Textarea\":\"Content from note2_level3...\",\"activitiesReason8Textarea\":\"New content...\"}",
+  "edit_count": 15,
+  "time_spent": 1250,
+  "created_at": "2025-08-22 13:30:00",
+  "updated_at": "2025-08-22 14:15:20"
+}
+```
+
+**Example**:
+```bash
+curl http://localhost:3000/api/notes/user123/eindopdracht
+```
+
+---
+
 ## Logging API
 
 ### Log Time Spent
@@ -479,7 +509,8 @@ curl http://localhost:3000/api/health
 ### Notepad Pages
 - Level 1: `note1_level1`, `note2_level1`, `note3_level1`, `analysis_level1`
 - Level 2: `note1_level2`, `note2_level2`, `note3_level2`, `message_level2` 
-- Level 3: `note1_level3`, `note2_level3`, `plan_level3`
+- Level 3: `note1_level3`, `note2_level3`, `note3_level3`, `plan_level3`
+- **Eindopdracht**: `eindopdracht` (snapshot of all previous notes for final assessment)
 
 ### Text Pages (Future)
 - Level 1: `oefentekst_level1`, `nieuwsbericht_level1`, etc.
