@@ -44,7 +44,7 @@ Build a web-based educational platform integrated with the Bibendo Flutter app v
 ### 1. Smart Notepad System
 
 #### Structure
-3 levels with no data transfer between levels, but data transfer within levels:
+3 levels with data transfer within levels and a My Notes overview page in level 3:
 
 **Level 1:**
 - note1_level1.html
@@ -61,8 +61,7 @@ Build a web-based educational platform integrated with the Bibendo Flutter app v
 **Level 3:**
 - note1_level3.html
 - note2_level3.html
-- note3_level3.html
-- plan_level3.html
+- mynotes_level3.html (read-only overview of all 7 notes from levels 1-2)
 
 #### Note Page Features
 - Status message (hidden until action)

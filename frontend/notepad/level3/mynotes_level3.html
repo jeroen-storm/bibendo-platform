@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mijn Notities - Overzicht</title>
+    <link rel="stylesheet" href="../../assets/css/main.css">
+    <style>
+        .notes-overview {
+            margin-top: 30px;
+        }
+        
+        .note-section {
+            margin-bottom: 40px;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .note-section h3 {
+            color: #00C2CB;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        
+        .note-label {
+            font-weight: bold;
+            color: #666;
+            margin-bottom: 8px;
+            font-size: 0.9em;
+        }
+        
+        .note-content {
+            padding: 15px;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            min-height: 60px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            line-height: 1.6;
+        }
+        
+        .empty-note {
+            color: #999;
+            font-style: italic;
+        }
+        
+        .level-header {
+            background: linear-gradient(135deg, #00C2CB 0%, #00A2AB 100%);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+        }
+        
+        .level-header h2 {
+            margin: 0;
+            font-size: 1.3em;
+        }
+        
+        .loading-message {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+        
+        .overview-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .overview-header h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .overview-header p {
+            color: #666;
+            font-size: 1.1em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="overview-header">
+            <h1>Mijn Notities - Compleet Overzicht</h1>
+            <p>Hier vind je al je notities van level 1 en level 2 terug</p>
+        </div>
+        
+        <div id="loadingMessage" class="loading-message">
+            Notities worden geladen...
+        </div>
+        
+        <div id="notesContainer" class="notes-overview" style="display: none;">
+            <!-- Level 1 Notes -->
+            <div class="level-header">
+                <h2>Level 1 - Analyse</h2>
+            </div>
+            
+            <div class="note-section">
+                <h3>Notitie 1</h3>
+                <div class="note-label">Waarom komen er weinig jongeren naar SneakSpot?</div>
+                <div class="note-content" id="note1_level1">
+                    <span class="empty-note">Geen notitie gevonden</span>
+                </div>
+            </div>
+            
+            <div class="note-section">
+                <h3>Notitie 2</h3>
+                <div class="note-label">Welke informatie heb je verzameld?</div>
+                <div class="note-content" id="note2_level1">
+                    <span class="empty-note">Geen notitie gevonden</span>
+                </div>
+            </div>
+            
+            <div class="note-section">
+                <h3>Notitie 3</h3>
+                <div class="note-label">Wat moet er veranderen aan SneakSpot?</div>
+                <div class="note-content" id="note3_level1">
+                    <span class="empty-note">Geen notitie gevonden</span>
+                </div>
+            </div>
+            
+            <div class="note-section">
+                <h3>Analyse (Level 1 Final)</h3>
+                <div class="note-label">Je analyse van de situatie</div>
+                <div class="note-content" id="analysis_level1">
+                    <span class="empty-note">Geen analyse gevonden</span>
+                </div>
+            </div>
+            
+            <!-- Level 2 Notes -->
+            <div class="level-header" style="margin-top: 40px;">
+                <h2>Level 2 - Bericht</h2>
+            </div>
+            
+            <div class="note-section">
+                <h3>Notitie 1</h3>
+                <div class="note-label">Welke stijl past bij jongeren?</div>
+                <div class="note-content" id="note1_level2">
+                    <span class="empty-note">Geen notitie gevonden</span>
+                </div>
+            </div>
+            
+            <div class="note-section">
+                <h3>Notitie 2</h3>
+                <div class="note-label">Beschrijf de Urban Flow stijl</div>
+                <div class="note-content" id="note2_level2">
+                    <span class="empty-note">Geen notitie gevonden</span>
+                </div>
+            </div>
+            
+            <div class="note-section">
+                <h3>Notitie 3</h3>
+                <div class="note-label">Voor- en nadelen van de nieuwe stijl</div>
+                <div class="note-content" id="note3_level2">
+                    <span class="empty-note">Geen notitie gevonden</span>
+                </div>
+            </div>
+            
+            <div class="note-section">
+                <h3>Bericht (Level 2 Final)</h3>
+                <div class="note-label">Je bericht aan Emma</div>
+                <div class="note-content" id="message_level2">
+                    <span class="empty-note">Geen bericht gevonden</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Get user ID from URL
+        function getUserId() {
+            const urlParams = new URLSearchParams(window.location.search);
+            let userId = urlParams.get('userId');
+            
+            if (!userId) {
+                const storedUserId = localStorage.getItem('bibendo_user_id');
+                if (storedUserId) {
+                    userId = storedUserId;
+                } else {
+                    userId = 'user_' + Math.random().toString(36).substr(2, 9);
+                    localStorage.setItem('bibendo_user_id', userId);
+                }
+                
+                urlParams.set('userId', userId);
+                const newUrl = window.location.pathname + '?' + urlParams.toString();
+                window.history.replaceState({}, '', newUrl);
+            } else {
+                localStorage.setItem('bibendo_user_id', userId);
+            }
+            
+            return userId;
+        }
+        
+        // Load all notes from database
+        async function loadAllNotes() {
+            const userId = getUserId();
+            const notesToLoad = [
+                // Level 1
+                { id: 'note1_level1', pageId: 'note1_level1' },
+                { id: 'note2_level1', pageId: 'note2_level1' },
+                { id: 'note3_level1', pageId: 'note3_level1' },
+                { id: 'analysis_level1', pageId: 'analysis_level1' },
+                // Level 2
+                { id: 'note1_level2', pageId: 'note1_level2' },
+                { id: 'note2_level2', pageId: 'note2_level2' },
+                { id: 'note3_level2', pageId: 'note3_level2' },
+                { id: 'message_level2', pageId: 'message_level2' }
+            ];
+            
+            try {
+                // Load all notes in parallel
+                const promises = notesToLoad.map(note => 
+                    fetch(`/api/notes/${userId}/${note.pageId}`)
+                        .then(response => response.json())
+                        .then(data => ({ ...note, content: data.content || '' }))
+                        .catch(error => {
+                            console.error(`Error loading ${note.pageId}:`, error);
+                            return { ...note, content: '' };
+                        })
+                );
+                
+                const results = await Promise.all(promises);
+                
+                // Display the notes
+                results.forEach(result => {
+                    const element = document.getElementById(result.id);
+                    if (element) {
+                        if (result.content) {
+                            // For final pages, parse JSON if needed
+                            if (result.pageId === 'analysis_level1' || result.pageId === 'message_level2') {
+                                try {
+                                    const parsed = JSON.parse(result.content);
+                                    // Combine all textareas from final pages
+                                    const combinedContent = Object.values(parsed).filter(v => v).join('\n\n');
+                                    element.textContent = combinedContent || '';
+                                    if (!combinedContent) {
+                                        element.innerHTML = '<span class="empty-note">Geen inhoud gevonden</span>';
+                                    }
+                                } catch (e) {
+                                    // If not JSON, display as is
+                                    element.textContent = result.content;
+                                }
+                            } else {
+                                element.textContent = result.content;
+                            }
+                        } else {
+                            element.innerHTML = '<span class="empty-note">Geen notitie gevonden</span>';
+                        }
+                    }
+                });
+                
+                // Hide loading message and show notes
+                document.getElementById('loadingMessage').style.display = 'none';
+                document.getElementById('notesContainer').style.display = 'block';
+                
+            } catch (error) {
+                console.error('Error loading notes:', error);
+                document.getElementById('loadingMessage').textContent = 'Er is een fout opgetreden bij het laden van de notities.';
+            }
+        }
+        
+        // Load notes when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            loadAllNotes();
+        });
+    </script>
+</body>
+</html>

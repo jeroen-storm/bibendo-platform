@@ -16,10 +16,10 @@ This extension adds advanced educational assessment capabilities to the **Bibend
 ### ✅ Extension Components
 
 #### Smart Notepad System
-- **3 Levels** with 12 total pages (9 note pages + 3 final pages)
+- **3 Levels** with 11 total pages (7 note pages + 2 final pages + 1 overview page + 1 my notes page)
 - **Note Pages**: Simple textarea with 2000 character limit
-- **Final Pages**: Pre-filled with previous notes for analysis/message/plan creation
-- **Eindopdracht System**: Level 3 plan creates protected snapshot of all previous notes
+- **Final Pages**: Pre-filled with previous notes for analysis/message creation
+- **My Notes Page (Level 3)**: Read-only overview of all 7 notes from levels 1 and 2
 - **User Tracking**: Time spent, edit counts, content persistence
 - **Responsive Design**: Clean minimal UI with #00C2CB primary color
 
@@ -54,7 +54,7 @@ This extension adds advanced educational assessment capabilities to the **Bibend
 
 #### Backend Infrastructure
 - **Express.js API** with optimized SQLite database (WAL mode for concurrent access)
-- **RESTful Endpoints** for notes, logs, CBM, and admin functions
+- **RESTful Endpoints** for notes, logs, and admin functions
 - **Classroom-Ready Scaling**: Optimized for 30-50 concurrent users
 - **Smart Rate Limiting**: 500 requests/15min with static file exemptions
 - **Security Features**: Input sanitization, XSS prevention, CORS protection
@@ -78,7 +78,6 @@ bibendo-platform/
 │   ├── database/
 │   │   ├── init.sql          # Complete database schema (6 tables)
 │   │   └── bibendo.db        # SQLite database (auto-created)
-│   ├── cbm/                  # CBM content files
 │   └── server.log           # Server logs
 ├── frontend/
 │   ├── assets/
@@ -93,7 +92,6 @@ bibendo-platform/
 │   │   │   └── admin.js      # Admin dashboard logic
 │   │   └── images/           # All images (profile pics, product shots, logos)
 │   │       ├── anp-logo.jpg  # ANP news logo
-│   │       ├── karim-profile.jpg # Profile pictures for chat interfaces
 │   │       ├── samira-profile.jpg
 │   │       ├── jay-profile.jpg
 │   │       ├── emma-profile.jpg
@@ -104,7 +102,7 @@ bibendo-platform/
 │   ├── notepad/
 │   │   ├── level1/           # Level 1 notepad pages (4 pages)
 │   │   ├── level2/           # Level 2 notepad pages (4 pages)
-│   │   └── level3/           # Level 3 notepad pages (4 pages)
+│   │   └── level3/           # Level 3 notepad pages (3 pages incl. My Notes overview)
 │   ├── texts/
 │   │   ├── level1/           # Level 1: Email, Instagram, News, Product pages
 │   │   │   ├── oefentekst_level1.html        # Emma's email (enhanced)
@@ -272,11 +270,10 @@ http://localhost:3000/notepad/level{1-3}/{page}.html?userId={userId}
 - `note3_level2.html` - Pros/cons evaluation
 - `message_level2.html` - Message formulation (pre-filled)
 
-**Level 3 (Strategic Planning)**
+**Level 3 (Strategic Planning & Overview)**
 - `note1_level3.html` - Strategic vision  
 - `note2_level3.html` - Success factors
-- `note3_level3.html` - Learning insights
-- `plan_level3.html` - Comprehensive launch plan (eindopdracht with snapshot system)
+- `mynotes_level3.html` - My Notes: Complete overview of all 7 notes from levels 1 and 2
 
 ### Enhanced Text Pages System
 
@@ -303,7 +300,7 @@ http://localhost:3000/texts/level{1-3}/{page}.html?userId=${userId}
 
 #### Level 2 Content (2 Pages)
 **WhatsApp Chat Interface**
-- `doelgroep_level2.html` - Multi-participant conversation with Karim, Samira, and Jay
+- `doelgroep_level2.html` - Multi-participant conversation with Samira and Jay
 
 **Product Showcase**
 - `sneakers_jongeren_level2.html` - Color-coded sneaker showcase (Urban Flow, FlexCore, MotionStep)
@@ -323,44 +320,6 @@ http://localhost:3000/texts/level{1-3}/{page}.html?userId=${userId}
 - **Click Tracking**: All interactive elements
 - **Time Tracking**: Total time and active reading time
 - **Section Visibility**: Which parts were actually viewed
-
-### Eindopdracht Snapshot System
-
-#### Overview
-The Level 3 `plan_level3.html` page implements a sophisticated snapshot system that preserves student work while enabling comprehensive final assessment.
-
-#### How It Works
-1. **First Visit**: When a student opens `plan_level3.html` for the first time:
-   - System creates a **frozen snapshot** of all previous notes from levels 1-3
-   - Snapshot is saved as `pageId: 'eindopdracht'` in the database
-   - All 8 fields are populated with relevant previous content
-
-2. **Content Mapping**:
-   - **Field 1**: Level 1 - note1 (Why few young people visit SneakSpot)
-   - **Field 2**: Level 1 - note3 (What needs to change at SneakSpot)
-   - **Field 3**: Level 2 - note2 (Urban Flow sneaker style description)
-   - **Field 4**: Level 2 - note1 (Which style appeals to young people)
-   - **Field 5**: New content (Target group for the event)
-   - **Field 6**: New content (Why organize this event)
-   - **Field 7**: Level 3 - note2 (Three activities Sasha recommends)
-   - **Field 8**: New content (Why these three activities)
-
-3. **Protection Mechanism**:
-   - If students later return to modify original notes (e.g., `note1_level1`)
-   - The eindopdracht retains the **original snapshot** content
-   - Students can edit all 8 fields in the final plan independently
-
-#### Technical Implementation
-- **Snapshot Creation**: One-time copy of all relevant notes on first access
-- **Independent Tracking**: Separate `edit_count`, `time_spent`, and logging for eindopdracht
-- **Auto-Save**: All 8 fields support real-time auto-save functionality
-- **Comprehensive Logging**: All interactions tracked for learning analytics
-
-#### Educational Benefits
-- **Content Preservation**: Original work protected from accidental modifications
-- **Flexible Editing**: Students can refine and enhance their final submission
-- **Complete Audit Trail**: Teachers can see evolution of student thinking
-- **Authentic Assessment**: Final work represents student's best consolidated effort
 
 ### Admin Dashboard
 
@@ -404,13 +363,6 @@ GET /api/notes/{userId}/{pageId}
 ```http
 GET /api/notes/{userId}/level/{level}
 ```
-
-#### Get Eindopdracht Snapshot
-```http
-GET /api/notes/{userId}/eindopdracht
-```
-
-Returns the complete eindopdracht snapshot with all 8 fields, preserving the original state of notes when first created.
 
 ### Text Tracking Endpoints
 
@@ -476,12 +428,13 @@ GET /api/health
 
 ## 🧪 Testing
 
-### Manual Testing URLs
+### Testing URLs
 
 #### Smart Notepad
 - Level 1: `http://localhost:3000/notepad/level1/analysis_level1.html?userId=test123`
 - Level 2: `http://localhost:3000/notepad/level2/message_level2.html?userId=test123`
-- Level 3: `http://localhost:3000/notepad/level3/plan_level3.html?userId=test123` (Eindopdracht with snapshot system)
+- Level 3 Notes: `http://localhost:3000/notepad/level3/note2_level3.html?userId=test123`
+- Level 3 My Notes: `http://localhost:3000/notepad/level3/mynotes_level3.html?userId=test123`
 
 #### Enhanced Text Pages
 - Level 1 Email: `http://localhost:3000/texts/level1/oefentekst_level1.html?userId=test123`
@@ -503,13 +456,12 @@ GET /api/health
 
 ### Test Scenarios
 1. **Notepad Flow**: Create notes in sequence → verify pre-filling
-2. **Eindopdracht Snapshot**: Complete notes → test plan_level3.html snapshot creation → modify original notes → verify plan retains original content
-3. **Text Tracking**: Scroll through diverse content types → check admin analytics
-4. **Data Export**: Export user data → verify CSV/JSON format
-5. **Responsive Design**: Test all layouts on different screen sizes
-6. **Navigation**: Test back-to-overview links in news articles
-7. **Social Media UX**: Verify Instagram posts and WhatsApp chat interfaces
-8. **Auto-Save**: Test real-time saving across all 8 eindopdracht fields
+2. **Text Tracking**: Scroll through diverse content types → check admin analytics
+3. **Data Export**: Export user data → verify CSV/JSON format
+4. **Responsive Design**: Test all layouts on different screen sizes
+5. **Navigation**: Test back-to-overview links in news articles
+6. **Social Media UX**: Verify Instagram posts and WhatsApp chat interfaces
+7. **Auto-Save**: Test real-time saving across all notepad fields
 
 ## 🚀 Deployment
 

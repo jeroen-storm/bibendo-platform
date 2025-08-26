@@ -33,23 +33,6 @@ CREATE TABLE IF NOT EXISTS text_logs (
     FOREIGN KEY (user_id) REFERENCES users (user_id)
 );
 
--- CBM test results
-CREATE TABLE IF NOT EXISTS cbm_results (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    user_id TEXT NOT NULL,
-    text_id INTEGER NOT NULL,
-    text_title TEXT,
-    total_questions INTEGER DEFAULT 0,
-    total_answered INTEGER DEFAULT 0,
-    correct_answers INTEGER DEFAULT 0,
-    accuracy INTEGER DEFAULT 0,
-    time_spent INTEGER DEFAULT 0,
-    wcpm INTEGER DEFAULT 0,
-    answers TEXT, -- JSON string of answers
-    completed_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users (user_id)
-);
-
 -- Sessions tracking
 CREATE TABLE IF NOT EXISTS sessions (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -75,6 +58,5 @@ CREATE TABLE IF NOT EXISTS time_logs (
 CREATE INDEX IF NOT EXISTS idx_notes_user_page ON notes(user_id, page_id);
 CREATE INDEX IF NOT EXISTS idx_text_logs_user ON text_logs(user_id);
 CREATE INDEX IF NOT EXISTS idx_text_logs_timestamp ON text_logs(timestamp);
-CREATE INDEX IF NOT EXISTS idx_cbm_results_user ON cbm_results(user_id);
 CREATE INDEX IF NOT EXISTS idx_sessions_user ON sessions(user_id);
 CREATE INDEX IF NOT EXISTS idx_time_logs_user ON time_logs(user_id);
