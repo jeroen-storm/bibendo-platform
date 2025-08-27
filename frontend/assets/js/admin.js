@@ -197,6 +197,7 @@ class AdminDashboard {
         this.displayNotesTable(userData.notes);
         this.displayTextLogsTable(userData.textLogs);
         this.displayTimeLogsTable(userData.timeLogs);
+        this.displayContentOverview(userData.notes);
     }
     
     updateUserHeader(user) {
@@ -373,6 +374,162 @@ class AdminDashboard {
         container.innerHTML = tableHTML;
     }
     
+    displayContentOverview(notes) {
+        const container = document.getElementById('contentOverviewContainer');
+        if (!container) return;
+        
+        if (notes.length === 0) {
+            container.innerHTML = '<div class="empty-state"><p>Geen content gevonden</p></div>';
+            return;
+        }
+        
+        // Group notes by level and type
+        const groupedNotes = {
+            level1: notes.filter(n => n.page_id.includes('level1')),
+            level2: notes.filter(n => n.page_id.includes('level2')),
+            level3: notes.filter(n => n.page_id.includes('level3')),
+            final: notes.filter(n => n.page_id === 'final_assignment')
+        };
+        
+        let contentHTML = '';
+        
+        // Level 1 - Analysis
+        if (groupedNotes.level1.length > 0) {
+            contentHTML += '<div class="content-group"><h4>📊 Level 1 - Analyse</h4>';
+            groupedNotes.level1.forEach(note => {
+                const title = this.getPageTitle(note.page_id);
+                contentHTML += this.renderNoteContent(note, title);
+            });
+            contentHTML += '</div>';
+        }
+        
+        // Level 2 - Message Creation  
+        if (groupedNotes.level2.length > 0) {
+            contentHTML += '<div class="content-group"><h4>💬 Level 2 - Bericht</h4>';
+            groupedNotes.level2.forEach(note => {
+                const title = this.getPageTitle(note.page_id);
+                contentHTML += this.renderNoteContent(note, title);
+            });
+            contentHTML += '</div>';
+        }
+        
+        // Level 3 - Strategic Planning
+        if (groupedNotes.level3.length > 0) {
+            contentHTML += '<div class="content-group"><h4>🎯 Level 3 - Planning</h4>';
+            groupedNotes.level3.forEach(note => {
+                const title = this.getPageTitle(note.page_id);
+                contentHTML += this.renderNoteContent(note, title);
+            });
+            contentHTML += '</div>';
+        }
+        
+        // Final Assignment
+        if (groupedNotes.final.length > 0) {
+            contentHTML += '<div class="content-group"><h4>🎓 Eindopdracht</h4>';
+            groupedNotes.final.forEach(note => {
+                contentHTML += this.renderFinalAssignmentContent(note);
+            });
+            contentHTML += '</div>';
+        }
+        
+        container.innerHTML = contentHTML;
+    }
+    
+    getPageTitle(pageId) {
+        const titles = {
+            'note1_level1': 'Notitie 1 - Waarom weinig jongeren',
+            'note2_level1': 'Notitie 2 - Factoren', 
+            'note3_level1': 'Notitie 3 - Toekomst',
+            'analysis_level1': 'Analyse Samenvatting',
+            'note1_level2': 'Notitie 1 - Sneakerstyle jongeren',
+            'note2_level2': 'Notitie 2 - Communicatie',
+            'message_level2': 'Bericht aan Emma',
+            'note1_level3': 'Notitie 1 - Activiteiten',
+            'note2_level3': 'Notitie 2 - Sasha\'s activiteiten',
+            'plan_level3': 'Plan Level 3'
+        };
+        return titles[pageId] || pageId;
+    }
+    
+    renderNoteContent(note, title) {
+        const content = note.content || '';
+        const preview = content.length > 200 ? content.substring(0, 200) + '...' : content;
+        const isEmpty = !content.trim();
+        
+        return `
+            <div class="note-item" style="margin-bottom: 15px; padding: 15px; background: white; border: 1px solid #ddd; border-radius: 4px;">
+                <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 10px;">
+                    <h5 style="margin: 0; color: #00C2CB; font-size: 0.95em;">${title}</h5>
+                    <small style="color: #666;">${this.formatDateTime(note.updated_at)}</small>
+                </div>
+                ${isEmpty ? 
+                    '<p style="color: #999; font-style: italic; margin: 0;">Nog niet ingevuld</p>' :
+                    `<div style="background: #f8f9fa; padding: 10px; border-radius: 3px; font-size: 0.9em; line-height: 1.4;">
+                        ${this.escapeHtml(preview)}
+                    </div>`
+                }
+            </div>
+        `;
+    }
+    
+    renderFinalAssignmentContent(note) {
+        try {
+            const content = JSON.parse(note.content || '{}');
+            let fieldsHTML = '';
+            
+            const fieldLabels = [
+                'Waarom kwamen er weinig jongeren naar SneakSpot?',
+                'Wat moest er veranderen aan SneakSpot?', 
+                'Beschrijf de nieuwe sneakerstyle \'Urban Flow\'',
+                'Waarom past deze sneakerstyle bij SneakSpot?',
+                'Voor wie is het evenement?',
+                'Waarom wordt dit evenement georganiseerd?',
+                'Welke drie activiteiten ga je organiseren?',
+                'Waarom worden deze drie activiteiten georganiseerd?'
+            ];
+            
+            for (let i = 1; i <= 8; i++) {
+                const fieldContent = content[`field${i}`] || '';
+                const isEmpty = !fieldContent.trim();
+                fieldsHTML += `
+                    <div style="margin-bottom: 12px;">
+                        <div style="font-weight: 500; color: #555; margin-bottom: 5px; font-size: 0.9em;">
+                            ${i}. ${fieldLabels[i-1]}
+                        </div>
+                        ${isEmpty ?
+                            '<div style="color: #999; font-style: italic; font-size: 0.9em;">Nog niet ingevuld</div>' :
+                            `<div style="background: #f8f9fa; padding: 8px; border-radius: 3px; font-size: 0.9em; line-height: 1.4;">
+                                ${this.escapeHtml(fieldContent)}
+                            </div>`
+                        }
+                    </div>
+                `;
+            }
+            
+            return `
+                <div class="note-item" style="margin-bottom: 15px; padding: 15px; background: white; border: 1px solid #ddd; border-radius: 4px;">
+                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 15px;">
+                        <h5 style="margin: 0; color: #00C2CB; font-size: 0.95em;">Plan voor Lancering - SneakSpot</h5>
+                        <small style="color: #666;">${this.formatDateTime(note.updated_at)}</small>
+                    </div>
+                    ${fieldsHTML}
+                </div>
+            `;
+        } catch (error) {
+            return `
+                <div class="note-item" style="margin-bottom: 15px; padding: 15px; background: white; border: 1px solid #ddd; border-radius: 4px;">
+                    <h5 style="margin: 0; color: #00C2CB; font-size: 0.95em;">Eindopdracht</h5>
+                    <p style="color: #999; font-style: italic;">Fout bij het laden van content</p>
+                </div>
+            `;
+        }
+    }
+    
+    escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
     
     setupEventListeners() {
         // Export buttons
