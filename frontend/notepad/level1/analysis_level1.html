@@ -108,6 +108,9 @@
                 if (submitButton) {
                     submitButton.addEventListener('click', () => this.submitToEmma());
                 }
+                
+                // Load existing content for multi-textarea pages
+                this.loadExistingMultiContent();
             }
             
             scheduleAutoSave() {
@@ -231,23 +234,11 @@
                     });
                 }
             }
-        }
-        
-        document.addEventListener('DOMContentLoaded', () => {
-            new MultiTextareaManager();
-        });
-        
-        // Load existing content for multi-textarea final page
-        class FinalPageLoader {
-            constructor() {
-                this.userId = new NotepadManager().userId;
-                this.pageId = 'analysis_level1';
-                this.loadExistingContent();
-            }
             
-            async loadExistingContent() {
+            async loadExistingMultiContent() {
                 try {
-                    const response = await fetch(`/api/notes/${this.userId}/${this.pageId}`);
+                    const manager = new NotepadManager();
+                    const response = await fetch(`/api/notes/${manager.userId}/${this.pageId}`);
                     if (response.ok) {
                         const data = await response.json();
                         if (data.content) {
@@ -257,7 +248,7 @@
                                 content = typeof data.content === 'string' ? JSON.parse(data.content) : data.content;
                             } catch (e) {
                                 // If it's not JSON, treat as plain text for first textarea
-                                content = { noteTextarea: data.content };
+                                content = { [this.textareas[0]]: data.content };
                             }
                             
                             // Fill the textareas
@@ -276,15 +267,16 @@
                         }
                     }
                 } catch (error) {
-                    console.error('Error loading existing content:', error);
+                    console.error('Error loading existing multi content:', error);
                 }
             }
         }
         
-        // Initialize content loader after DOM is ready
-        setTimeout(() => {
-            new FinalPageLoader();
-        }, 100);
+        document.addEventListener('DOMContentLoaded', () => {
+            new MultiTextareaManager();
+        });
+        
+        // Remove the separate FinalPageLoader since MultiTextareaManager now handles content loading
     </script>
 </body>
 </html>
