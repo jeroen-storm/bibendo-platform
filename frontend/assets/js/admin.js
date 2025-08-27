@@ -87,6 +87,34 @@ class AdminDashboard {
     
     async loadAdditionalStats() {
         try {
+            // Count final assignments
+            let finalAssignmentCount = 0;
+            for (const user of this.users) {
+                try {
+                    const response = await fetch(`/api/notes/${user.user_id}/final_assignment`);
+                    if (response.ok) {
+                        const data = await response.json();
+                        if (data.content) {
+                            const content = JSON.parse(data.content);
+                            // Check if at least 6 out of 8 fields are filled
+                            let filledFields = 0;
+                            for (let i = 1; i <= 8; i++) {
+                                if (content[`field${i}`] && content[`field${i}`].trim()) {
+                                    filledFields++;
+                                }
+                            }
+                            if (filledFields >= 6) {
+                                finalAssignmentCount++;
+                            }
+                        }
+                    }
+                } catch (error) {
+                    console.error(`Error checking final assignment for user ${user.user_id}:`, error);
+                }
+            }
+            
+            this.updateStatCard('finalAssignments', finalAssignmentCount, 'Ingeleverde eindopdrachten');
+            
             // This would require additional API endpoints for aggregated data
             // For now, we'll show basic stats
             this.updateStatCard('totalNotes', '~', 'Opgeslagen notities');
@@ -187,10 +215,35 @@ class AdminDashboard {
         const timeLogsCount = userData.timeLogs.length;
         const totalTimeSpent = userData.timeLogs.reduce((sum, log) => sum + log.time_spent, 0);
         
+        // Check final assignment status
+        const finalAssignment = userData.notes.find(note => note.page_id === 'final_assignment');
+        let finalAssignmentStatus = 'Niet ingeleverd';
+        if (finalAssignment && finalAssignment.content) {
+            try {
+                const content = JSON.parse(finalAssignment.content);
+                let filledFields = 0;
+                for (let i = 1; i <= 8; i++) {
+                    if (content[`field${i}`] && content[`field${i}`].trim()) {
+                        filledFields++;
+                    }
+                }
+                if (filledFields >= 8) {
+                    finalAssignmentStatus = '✅ Volledig ingeleverd';
+                } else if (filledFields >= 6) {
+                    finalAssignmentStatus = `🟡 Gedeeltelijk (${filledFields}/8)`;
+                } else if (filledFields > 0) {
+                    finalAssignmentStatus = `🟠 Begonnen (${filledFields}/8)`;
+                }
+            } catch (error) {
+                console.error('Error parsing final assignment content:', error);
+            }
+        }
+        
         this.updateMetaItem('notesCount', notesCount);
         this.updateMetaItem('textLogsCount', textLogsCount);
         this.updateMetaItem('timeLogsCount', timeLogsCount);
         this.updateMetaItem('totalTimeSpent', this.formatDuration(totalTimeSpent));
+        this.updateMetaItem('finalAssignmentStatus', finalAssignmentStatus);
     }
     
     updateMetaItem(itemId, value) {

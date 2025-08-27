@@ -3,420 +3,348 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Final Assignment - SneakSpot Lancering</title>
+    <title>Plan voor Lancering - SneakSpot</title>
     <link rel="stylesheet" href="../../assets/css/main.css">
     <style>
-        .assignment-container {
-            max-width: 900px;
+        .document-container {
+            max-width: 800px;
             margin: 0 auto;
-            padding: 20px;
-        }
-        
-        .assignment-header {
-            text-align: center;
-            margin-bottom: 40px;
-            padding: 30px;
-            background: linear-gradient(135deg, #00C2CB 0%, #00a8b0 100%);
-            color: white;
-            border-radius: 15px;
-            box-shadow: 0 8px 25px rgba(0, 194, 203, 0.2);
-        }
-        
-        .assignment-header h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-            font-weight: 700;
-        }
-        
-        .assignment-header p {
-            font-size: 1.2em;
-            opacity: 0.9;
-            margin: 0;
-        }
-        
-        .field-section {
+            padding: 40px;
             background: white;
-            border-radius: 12px;
-            padding: 25px;
-            margin-bottom: 25px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            border: 2px solid #f0f0f0;
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        .field-section:hover {
-            border-color: #00C2CB;
-            box-shadow: 0 6px 20px rgba(0, 194, 203, 0.15);
-        }
-        
-        .field-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 15px;
-        }
-        
-        .field-number {
-            background: #00C2CB;
-            color: white;
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 1.1em;
-        }
-        
-        .field-title {
-            flex: 1;
-            margin-left: 15px;
-            font-size: 1.1em;
-            font-weight: 600;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
             color: #333;
-            line-height: 1.4;
         }
         
-        .field-stats {
-            display: flex;
+        .document-header {
+            text-align: left;
+            margin-bottom: 40px;
+            border-bottom: 2px solid #333;
+            padding-bottom: 20px;
+        }
+        
+        .document-header h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+            font-family: Georgia, serif;
+        }
+        
+        .document-header .subtitle {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 20px;
+        }
+        
+        .context-text {
+            font-size: 1rem;
+            color: #555;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+        
+        .section-header {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #00C2CB;
+            margin: 40px 0 20px 0;
+            border-left: 4px solid #00C2CB;
+            padding-left: 15px;
+            font-family: Georgia, serif;
+        }
+        
+        .subsection {
+            margin-bottom: 30px;
+        }
+        
+        .launch-details {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        
+        .detail-row {
+            display: grid;
+            grid-template-columns: 150px 1fr;
             gap: 15px;
-            font-size: 0.85em;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .detail-label {
+            font-weight: 600;
             color: #666;
         }
         
-        .stat-item {
-            display: flex;
-            align-items: center;
-            gap: 4px;
+        .requirements-list, .promotion-list {
+            list-style: none;
+            padding: 0;
+            margin: 15px 0;
         }
         
-        .stat-icon {
-            font-size: 1.1em;
+        .requirements-list li, .promotion-list li {
+            margin-bottom: 8px;
+            padding: 8px;
+            background: #f8f9fa;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .requirements-list input[type="checkbox"], .promotion-list input[type="checkbox"] {
+            margin: 0;
+            transform: scale(1.2);
+        }
+        
+        .input-field {
+            margin-bottom: 20px;
+        }
+        
+        .input-label {
+            font-weight: 500;
+            color: #666;
+            margin-bottom: 8px;
+            display: block;
+            font-size: 0.95em;
         }
         
         .field-textarea {
             width: 100%;
-            min-height: 120px;
-            padding: 15px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 16px;
-            line-height: 1.6;
+            min-height: 100px;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            line-height: 1.5;
             resize: vertical;
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            transition: border-color 0.3s ease;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #fafafa;
         }
         
         .field-textarea:focus {
             outline: none;
-            border-color: #00C2CB;
-            box-shadow: 0 0 0 3px rgba(0, 194, 203, 0.1);
+            border-color: #333;
+            background: white;
         }
         
         .field-textarea::placeholder {
             color: #999;
             font-style: italic;
-        }
-        
-        .save-status {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 10px 20px;
-            background: #28a745;
-            color: white;
-            border-radius: 25px;
-            font-size: 14px;
-            font-weight: 600;
-            opacity: 0;
-            transform: translateY(-20px);
-            transition: all 0.3s ease;
-            z-index: 1000;
-        }
-        
-        .save-status.show {
             opacity: 1;
-            transform: translateY(0);
         }
         
-        .save-status.saving {
-            background: #ffc107;
-            color: #333;
-        }
         
-        .progress-bar {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            height: 4px;
-            background: #00C2CB;
-            transition: width 0.3s ease;
-            z-index: 1000;
-        }
-        
-        .completion-summary {
-            background: #f8f9fa;
-            border-radius: 12px;
-            padding: 20px;
-            margin-top: 30px;
-            text-align: center;
-            border: 2px solid #e9ecef;
-        }
-        
-        .completion-text {
-            font-size: 1.1em;
-            color: #666;
-            margin-bottom: 10px;
-        }
-        
-        .completion-count {
-            font-size: 2em;
-            font-weight: 700;
-            color: #00C2CB;
-        }
         
         /* Responsive design */
         @media (max-width: 768px) {
-            .assignment-container {
-                padding: 15px;
-            }
-            
-            .field-section {
+            .document-container {
                 padding: 20px;
-                margin-bottom: 20px;
             }
             
-            .field-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 10px;
+            .detail-row {
+                grid-template-columns: 1fr;
+                gap: 5px;
             }
             
-            .field-stats {
-                width: 100%;
-                justify-content: space-between;
-            }
-            
-            .assignment-header h1 {
-                font-size: 2em;
+            .document-header h1 {
+                font-size: 1.8rem;
             }
         }
     </style>
 </head>
 <body>
-    <div class="assignment-container">
-        <div class="assignment-header">
-            <h1>Final Assignment</h1>
-            <p>Plan voor Lancering - SneakSpot</p>
+    <div class="document-container">
+        <div class="document-header">
+            <h1>Plan voor Lancering</h1>
+            <div class="subtitle">SneakSpot: De nieuwe <u>sneakerstyle</u></div>
         </div>
         
-        <!-- Field 1 -->
-        <div class="field-section">
-            <div class="field-header">
-                <div class="field-number">1</div>
-                <div class="field-title">Waarom kwamen er weinig jongeren naar SneakSpot?</div>
-                <div class="field-stats">
-                    <div class="stat-item">
-                        <span class="stat-icon">✏️</span>
-                        <span id="edit-count-1">0</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-icon">⏱️</span>
-                        <span id="time-spent-1">0s</span>
-                    </div>
-                </div>
+        <div class="context-text">
+            Drie weken geleden kregen wij een mail van Emma Miller met de vraag: <em>Wat moet er aan SneakSpot veranderen, zodat jongeren weer naar de winkel komen?</em>
+        </div>
+        
+        <h2 class="section-header">Analyse</h2>
+        <div class="subsection">
+            <div class="input-field">
+                <label class="input-label">Waarom kwamen er weinig jongeren naar SneakSpot?</label>
+                <textarea 
+                    id="field-1" 
+                    class="field-textarea" 
+                    placeholder="Begin hier met typen..."
+                    data-field-number="1">
+                </textarea>
             </div>
-            <textarea 
-                id="field-1" 
-                class="field-textarea" 
-                placeholder="Begin hier met typen..."
-                data-field-number="1">
-            </textarea>
-        </div>
-        
-        <!-- Field 2 -->
-        <div class="field-section">
-            <div class="field-header">
-                <div class="field-number">2</div>
-                <div class="field-title">Wat moest er veranderen aan SneakSpot, zodat er meer jongeren naar SneakSpot komen?</div>
-                <div class="field-stats">
-                    <div class="stat-item">
-                        <span class="stat-icon">✏️</span>
-                        <span id="edit-count-2">0</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-icon">⏱️</span>
-                        <span id="time-spent-2">0s</span>
-                    </div>
-                </div>
-            </div>
-            <textarea 
-                id="field-2" 
-                class="field-textarea" 
-                placeholder="Begin hier met typen..."
-                data-field-number="2">
-            </textarea>
-        </div>
-        
-        <!-- Field 3 -->
-        <div class="field-section">
-            <div class="field-header">
-                <div class="field-number">3</div>
-                <div class="field-title">Beschrijf de nieuwe sneakerstyle 'Urban Flow' van SneakSpot.</div>
-                <div class="field-stats">
-                    <div class="stat-item">
-                        <span class="stat-icon">✏️</span>
-                        <span id="edit-count-3">0</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-icon">⏱️</span>
-                        <span id="time-spent-3">0s</span>
-                    </div>
-                </div>
-            </div>
-            <textarea 
-                id="field-3" 
-                class="field-textarea" 
-                placeholder="Begin hier met typen..."
-                data-field-number="3">
-            </textarea>
-        </div>
-        
-        <!-- Field 4 -->
-        <div class="field-section">
-            <div class="field-header">
-                <div class="field-number">4</div>
-                <div class="field-title">Waarom past deze sneakerstyle bij SneakSpot?</div>
-                <div class="field-stats">
-                    <div class="stat-item">
-                        <span class="stat-icon">✏️</span>
-                        <span id="edit-count-4">0</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-icon">⏱️</span>
-                        <span id="time-spent-4">0s</span>
-                    </div>
-                </div>
-            </div>
-            <textarea 
-                id="field-4" 
-                class="field-textarea" 
-                placeholder="Begin hier met typen..."
-                data-field-number="4">
-            </textarea>
-        </div>
-        
-        <!-- Field 5 -->
-        <div class="field-section">
-            <div class="field-header">
-                <div class="field-number">5</div>
-                <div class="field-title">Voor wie is het evenement?</div>
-                <div class="field-stats">
-                    <div class="stat-item">
-                        <span class="stat-icon">✏️</span>
-                        <span id="edit-count-5">0</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-icon">⏱️</span>
-                        <span id="time-spent-5">0s</span>
-                    </div>
-                </div>
-            </div>
-            <textarea 
-                id="field-5" 
-                class="field-textarea" 
-                placeholder="Begin hier met typen..."
-                data-field-number="5">
-            </textarea>
-        </div>
-        
-        <!-- Field 6 -->
-        <div class="field-section">
-            <div class="field-header">
-                <div class="field-number">6</div>
-                <div class="field-title">Waarom wordt dit evenement georganiseerd?</div>
-                <div class="field-stats">
-                    <div class="stat-item">
-                        <span class="stat-icon">✏️</span>
-                        <span id="edit-count-6">0</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-icon">⏱️</span>
-                        <span id="time-spent-6">0s</span>
-                    </div>
-                </div>
-            </div>
-            <textarea 
-                id="field-6" 
-                class="field-textarea" 
-                placeholder="Begin hier met typen..."
-                data-field-number="6">
-            </textarea>
-        </div>
-        
-        <!-- Field 7 -->
-        <div class="field-section">
-            <div class="field-header">
-                <div class="field-number">7</div>
-                <div class="field-title">Welke drie activiteiten ga je organiseren?</div>
-                <div class="field-stats">
-                    <div class="stat-item">
-                        <span class="stat-icon">✏️</span>
-                        <span id="edit-count-7">0</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-icon">⏱️</span>
-                        <span id="time-spent-7">0s</span>
-                    </div>
-                </div>
-            </div>
-            <textarea 
-                id="field-7" 
-                class="field-textarea" 
-                placeholder="Begin hier met typen..."
-                data-field-number="7">
-            </textarea>
-        </div>
-        
-        <!-- Field 8 -->
-        <div class="field-section">
-            <div class="field-header">
-                <div class="field-number">8</div>
-                <div class="field-title">Waarom worden deze drie activiteiten georganiseerd?</div>
-                <div class="field-stats">
-                    <div class="stat-item">
-                        <span class="stat-icon">✏️</span>
-                        <span id="edit-count-8">0</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-icon">⏱️</span>
-                        <span id="time-spent-8">0s</span>
-                    </div>
-                </div>
-            </div>
-            <textarea 
-                id="field-8" 
-                class="field-textarea" 
-                placeholder="Begin hier met typen..."
-                data-field-number="8">
-            </textarea>
-        </div>
-        
-        <!-- Completion Summary -->
-        <div class="completion-summary">
-            <div class="completion-text">Velden ingevuld:</div>
-            <div class="completion-count">
-                <span id="completed-count">0</span> / 8
+            
+            <div class="input-field">
+                <label class="input-label">Wat moest er veranderen aan SneakSpot, zodat er meer jongeren naar SneakSpot komen?</label>
+                <textarea 
+                    id="field-2" 
+                    class="field-textarea" 
+                    placeholder="Begin hier met typen..."
+                    data-field-number="2">
+                </textarea>
             </div>
         </div>
         
-        <!-- Progress bar -->
-        <div class="progress-bar" id="progress-bar" style="width: 0%"></div>
+        <h2 class="section-header">De nieuwe sneakerstyle</h2>
+        <p>Na de analyse zijn we op zoek gegaan naar een nieuwe sneakerstyle voor SneakSpot.</p>
+        
+        <div class="subsection">
+            <div class="input-field">
+                <label class="input-label">Beschrijf de nieuwe sneakerstyle 'Urban Flow' van SneakSpot.</label>
+                <textarea 
+                    id="field-3" 
+                    class="field-textarea" 
+                    placeholder="Begin hier met typen..."
+                    data-field-number="3">
+                </textarea>
+            </div>
+            
+            <div class="input-field">
+                <label class="input-label">Waarom past deze sneakerstyle bij SneakSpot?</label>
+                <textarea 
+                    id="field-4" 
+                    class="field-textarea" 
+                    placeholder="Begin hier met typen..."
+                    data-field-number="4">
+                </textarea>
+            </div>
+        </div>
+        
+        <h2 class="section-header">De lancering</h2>
+        <p>Om deze sneakerstyle aan de jongeren te laten zien, willen we een lancering organiseren.</p>
+        
+        <div class="launch-details">
+            <div class="detail-row">
+                <div class="detail-label">Naam van het evenement:</div>
+                <div>SneakSpot – Feel the Urban Flow</div>
+            </div>
+            <div class="detail-row">
+                <div class="detail-label">Datum:</div>
+                <div>Zaterdag 13 december</div>
+            </div>
+            <div class="detail-row">
+                <div class="detail-label">Tijd:</div>
+                <div>13:00 – 17:00 uur</div>
+            </div>
+            <div class="detail-row">
+                <div class="detail-label">Locatie:</div>
+                <div>Winkelcentrum Bergveen, buitenterrein</div>
+            </div>
+            <div class="detail-row">
+                <div class="detail-label">Doelgroep:</div>
+                <div></div>
+            </div>
+        </div>
+        
+        <div class="subsection">
+            <div class="input-field">
+                <label class="input-label">Voor wie is het evenement?</label>
+                <textarea 
+                    id="field-5" 
+                    class="field-textarea" 
+                    placeholder="Begin hier met typen..."
+                    data-field-number="5">
+                </textarea>
+            </div>
+        </div>
+        
+        <div class="subsection">
+            <strong>Doel van het evenement</strong>
+            <div class="input-field">
+                <label class="input-label">Waarom wordt dit evenement georganiseerd?</label>
+                <textarea 
+                    id="field-6" 
+                    class="field-textarea" 
+                    placeholder="Begin hier met typen..."
+                    data-field-number="6">
+                </textarea>
+            </div>
+        </div>
+        
+        <div class="subsection">
+            <strong>Programma-onderdelen</strong>
+            <div class="input-field">
+                <label class="input-label">Welke drie activiteiten ga je organiseren?</label>
+                <textarea 
+                    id="field-7" 
+                    class="field-textarea" 
+                    placeholder="Begin hier met typen..."
+                    data-field-number="7">
+                </textarea>
+            </div>
+            
+            <div class="input-field">
+                <label class="input-label">Waarom worden deze drie activiteiten georganiseerd?</label>
+                <textarea 
+                    id="field-8" 
+                    class="field-textarea" 
+                    placeholder="Begin hier met typen..."
+                    data-field-number="8">
+                </textarea>
+            </div>
+        </div>
+        
+        <div class="subsection">
+            <strong>Benodigdheden:</strong>
+            <ul class="requirements-list">
+                <li><input type="checkbox"> <span>Podium, tafels, stoelen, tenten</span></li>
+                <li><input type="checkbox"> <span>Geluidsinstallatie en DJ-set</span></li>
+                <li><input type="checkbox"> <span>Verf, stiften, beschermhoezen voor de workshop</span></li>
+                <li><input type="checkbox"> <span>Promotiemateriaal (posters, flyers, social media posts)</span></li>
+            </ul>
+            
+            <strong>Promotieplan:</strong>
+            <ul class="promotion-list">
+                <li><input type="checkbox"> <span>Flyers op scholen en in winkels</span></li>
+                <li><input type="checkbox"> <span>Instagram- en TikTok-campagne met korte video's</span></li>
+                <li><input type="checkbox"> <span>Samenwerking met lokale influencers</span></li>
+            </ul>
+            
+            <p><strong>Toegang:</strong> Gratis</p>
+            <p><strong>Verantwoordelijken:</strong> Kinderen tot 12 jaar onder begeleiding van ouders. Jongeren tot 18 jaar schrijven zich in op de website van SneakSpot. Bij de ingang krijgt iedereen tot 18 jaar een bandje.</p>
+        </div>
+        
+        <div style="text-align: center; margin: 40px 0;">
+            <button id="submitPlan" style="
+                padding: 15px 30px;
+                background: #00C2CB;
+                color: white;
+                border: none;
+                border-radius: 8px;
+                font-size: 16px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+                min-width: 200px;
+            " onmouseover="this.style.background='#00a8b0'" onmouseout="this.style.background='#00C2CB'">
+                Verstuur naar Emma
+            </button>
+        </div>
+        
+        
         
         <!-- Save status -->
-        <div class="save-status" id="save-status">
-            ✅ Automatisch opgeslagen
+        <div class="status-message auto-save-status" id="statusMessage"></div>
+    </div>
+
+    <!-- Emma Overlay -->
+    <div class="emma-overlay" id="emmaOverlay">
+        <div class="emma-popup">
+            <div class="emma-header">
+                <h3>Plan verzonden naar Emma!</h3>
+            </div>
+            <div class="emma-content">
+                <p>Je plan voor lancering is succesvol naar Emma Miller verzonden.</p>
+                <p>Ze zal contact met je opnemen over de volgende stappen voor SneakSpot.</p>
+            </div>
+            <div class="emma-actions">
+                <button class="emma-close-btn" onclick="closeEmmaOverlay()">Sluiten</button>
+            </div>
         </div>
     </div>
     
@@ -480,8 +408,8 @@
                 // Start page time tracking
                 this.startPageTimeTracking();
                 
-                // Update completion status
-                this.updateCompletionStatus();
+                // Setup submit button
+                this.setupSubmitButton();
             }
             
             setupFieldListeners(fieldNumber) {
@@ -523,7 +451,6 @@
             handleFieldChange(fieldNumber) {
                 this.editCounts[fieldNumber]++;
                 this.updateFieldStats(fieldNumber);
-                this.updateCompletionStatus();
                 this.scheduleAutoSave();
             }
             
@@ -535,28 +462,10 @@
                 if (timeElement) timeElement.textContent = this.formatTime(this.timeSpent[fieldNumber]);
             }
             
-            updateCompletionStatus() {
-                let completedFields = 0;
-                
-                for (let i = 1; i <= 8; i++) {
-                    if (this.fields[i] && this.fields[i].value.trim()) {
-                        completedFields++;
-                    }
-                }
-                
-                const countElement = document.getElementById('completed-count');
-                const progressBar = document.getElementById('progress-bar');
-                
-                if (countElement) countElement.textContent = completedFields;
-                if (progressBar) {
-                    const percentage = (completedFields / 8) * 100;
-                    progressBar.style.width = `${percentage}%`;
-                }
-            }
             
             scheduleAutoSave() {
                 clearTimeout(this.autoSaveTimeout);
-                this.showSaveStatus('saving');
+                this.showAutoSaveStatus('Opslaan...', 'saving');
                 
                 this.autoSaveTimeout = setTimeout(() => {
                     this.saveData();
@@ -595,14 +504,14 @@
                     });
                     
                     if (response.ok) {
-                        this.showSaveStatus('saved');
+                        this.showAutoSaveStatus('Opgeslagen', 'saved');
                     } else {
                         throw new Error('Save failed');
                     }
                     
                 } catch (error) {
                     console.error('Error saving final assignment:', error);
-                    this.showSaveStatus('error');
+                    this.showAutoSaveStatus('Fout bij opslaan', 'error');
                 }
             }
             
@@ -636,30 +545,90 @@
                 }
             }
             
-            showSaveStatus(status) {
-                const saveStatus = document.getElementById('save-status');
-                if (!saveStatus) return;
-                
-                saveStatus.className = 'save-status';
-                
-                switch (status) {
-                    case 'saving':
-                        saveStatus.textContent = '💾 Opslaan...';
-                        saveStatus.classList.add('saving');
-                        break;
-                    case 'saved':
-                        saveStatus.textContent = '✅ Automatisch opgeslagen';
-                        break;
-                    case 'error':
-                        saveStatus.textContent = '❌ Fout bij opslaan';
-                        break;
+            showAutoSaveStatus(message, type = 'info') {
+                const statusMessage = document.querySelector('.status-message');
+                if (statusMessage) {
+                    // Add icons to messages
+                    let icon = '';
+                    switch(type) {
+                        case 'typing':
+                            icon = '✏️ ';
+                            break;
+                        case 'saving':
+                            icon = '💾 ';
+                            break;
+                        case 'saved':
+                            icon = '✅ ';
+                            break;
+                        default:
+                            icon = 'ℹ️ ';
+                    }
+                    
+                    statusMessage.innerHTML = icon + message;
+                    statusMessage.className = `status-message auto-save-status ${type}`;
+                    statusMessage.style.display = 'block';
+                    
+                    // Auto-hide messages
+                    if (type === 'saved') {
+                        setTimeout(() => {
+                            if (statusMessage.classList.contains('saved')) {
+                                statusMessage.style.display = 'none';
+                            }
+                        }, 3000);
+                    }
+                }
+            }
+            
+            setupSubmitButton() {
+                const submitButton = document.getElementById('submitPlan');
+                if (submitButton) {
+                    submitButton.addEventListener('click', () => this.submitPlan());
+                }
+            }
+            
+            async submitPlan() {
+                // Check if all fields are filled
+                let filledFields = 0;
+                for (let i = 1; i <= 8; i++) {
+                    if (this.fields[i] && this.fields[i].value.trim()) {
+                        filledFields++;
+                    }
                 }
                 
-                saveStatus.classList.add('show');
+                if (filledFields < 8) {
+                    alert(`Vul eerst alle velden in! (${filledFields}/8 ingevuld)`);
+                    return;
+                }
                 
-                setTimeout(() => {
-                    saveStatus.classList.remove('show');
-                }, 2000);
+                // Save current data first
+                await this.saveData();
+                
+                // Show Emma overlay
+                const overlay = document.getElementById('emmaOverlay');
+                if (overlay) {
+                    overlay.classList.add('show');
+                }
+                
+                // Log the submission action
+                try {
+                    await fetch('/api/logs/text', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            userId: this.userId,
+                            pageId: this.pageId,
+                            actionType: 'submit_to_emma',
+                            data: JSON.stringify({
+                                completedFields: filledFields,
+                                timestamp: new Date().toISOString()
+                            })
+                        })
+                    });
+                } catch (error) {
+                    console.error('Error logging submission:', error);
+                }
             }
             
             startPageTimeTracking() {
@@ -694,6 +663,14 @@
                 const minutes = Math.floor(seconds / 60);
                 const remainingSeconds = seconds % 60;
                 return `${minutes}m ${remainingSeconds}s`;
+            }
+        }
+        
+        // Close Emma overlay function
+        function closeEmmaOverlay() {
+            const overlay = document.getElementById('emmaOverlay');
+            if (overlay) {
+                overlay.classList.remove('show');
             }
         }
         
