@@ -260,12 +260,18 @@
                                 content = { [this.textareas[0]]: data.content };
                             }
                             
-                            // Fill the textareas
+                            // Fill the textareas - ensure we never show raw JSON
                             Object.keys(content).forEach(textareaId => {
                                 const textarea = document.getElementById(textareaId);
                                 if (textarea && content[textareaId]) {
-                                    console.log(`Filling ${textareaId} with:`, content[textareaId]);
-                                    textarea.value = content[textareaId];
+                                    const valueToSet = content[textareaId];
+                                    // Double check: if value looks like JSON, don't set it
+                                    if (typeof valueToSet === 'string' && valueToSet.includes('"noteTextarea"')) {
+                                        console.log(`Skipping JSON-like content for ${textareaId}:`, valueToSet);
+                                        return;
+                                    }
+                                    console.log(`Filling ${textareaId} with:`, valueToSet);
+                                    textarea.value = valueToSet;
                                     // Update character counter
                                     const charCounter = textarea.parentNode.querySelector('.char-counter');
                                     if (charCounter) {
