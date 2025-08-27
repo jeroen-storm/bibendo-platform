@@ -99,43 +99,6 @@
             transform: scale(1.2);
         }
         
-        .input-field {
-            margin-bottom: 20px;
-        }
-        
-        .input-label {
-            font-weight: 500;
-            color: #666;
-            margin-bottom: 8px;
-            display: block;
-            font-size: 0.95em;
-        }
-        
-        .field-textarea {
-            width: 100%;
-            min-height: 100px;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 14px;
-            line-height: 1.5;
-            resize: vertical;
-            transition: border-color 0.3s ease;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #fafafa;
-        }
-        
-        .field-textarea:focus {
-            outline: none;
-            border-color: #333;
-            background: white;
-        }
-        
-        .field-textarea::placeholder {
-            color: #999;
-            font-style: italic;
-            opacity: 1;
-        }
         
         
         
@@ -169,21 +132,23 @@
         
         <h2 class="section-header">Analyse</h2>
         <div class="subsection">
-            <div class="input-field">
-                <label class="input-label">Waarom kwamen er weinig jongeren naar SneakSpot?</label>
+            <div class="question">
+                <p>Waarom kwamen er weinig jongeren naar SneakSpot?</p>
+            </div>
+            <div class="form-group">
                 <textarea 
                     id="field-1" 
-                    class="field-textarea" 
                     placeholder="Begin hier met typen..."
                     data-field-number="1">
                 </textarea>
             </div>
             
-            <div class="input-field">
-                <label class="input-label">Wat moest er veranderen aan SneakSpot, zodat er meer jongeren naar SneakSpot komen?</label>
+            <div class="question">
+                <p>Wat moest er veranderen aan SneakSpot, zodat er meer jongeren naar SneakSpot komen?</p>
+            </div>
+            <div class="form-group">
                 <textarea 
                     id="field-2" 
-                    class="field-textarea" 
                     placeholder="Begin hier met typen..."
                     data-field-number="2">
                 </textarea>
@@ -194,21 +159,23 @@
         <p>Na de analyse zijn we op zoek gegaan naar een nieuwe sneakerstyle voor SneakSpot.</p>
         
         <div class="subsection">
-            <div class="input-field">
-                <label class="input-label">Beschrijf de nieuwe sneakerstyle 'Urban Flow' van SneakSpot.</label>
+            <div class="question">
+                <p>Beschrijf de nieuwe sneakerstyle 'Urban Flow' van SneakSpot.</p>
+            </div>
+            <div class="form-group">
                 <textarea 
                     id="field-3" 
-                    class="field-textarea" 
                     placeholder="Begin hier met typen..."
                     data-field-number="3">
                 </textarea>
             </div>
             
-            <div class="input-field">
-                <label class="input-label">Waarom past deze sneakerstyle bij SneakSpot?</label>
+            <div class="question">
+                <p>Waarom past deze sneakerstyle bij SneakSpot?</p>
+            </div>
+            <div class="form-group">
                 <textarea 
                     id="field-4" 
-                    class="field-textarea" 
                     placeholder="Begin hier met typen..."
                     data-field-number="4">
                 </textarea>
@@ -242,11 +209,12 @@
         </div>
         
         <div class="subsection">
-            <div class="input-field">
-                <label class="input-label">Voor wie is het evenement?</label>
+            <div class="question">
+                <p>Voor wie is het evenement?</p>
+            </div>
+            <div class="form-group">
                 <textarea 
                     id="field-5" 
-                    class="field-textarea" 
                     placeholder="Begin hier met typen..."
                     data-field-number="5">
                 </textarea>
@@ -255,11 +223,12 @@
         
         <div class="subsection">
             <strong>Doel van het evenement</strong>
-            <div class="input-field">
-                <label class="input-label">Waarom wordt dit evenement georganiseerd?</label>
+            <div class="question">
+                <p>Waarom wordt dit evenement georganiseerd?</p>
+            </div>
+            <div class="form-group">
                 <textarea 
                     id="field-6" 
-                    class="field-textarea" 
                     placeholder="Begin hier met typen..."
                     data-field-number="6">
                 </textarea>
@@ -268,21 +237,23 @@
         
         <div class="subsection">
             <strong>Programma-onderdelen</strong>
-            <div class="input-field">
-                <label class="input-label">Welke drie activiteiten ga je organiseren?</label>
+            <div class="question">
+                <p>Welke drie activiteiten ga je organiseren?</p>
+            </div>
+            <div class="form-group">
                 <textarea 
                     id="field-7" 
-                    class="field-textarea" 
                     placeholder="Begin hier met typen..."
                     data-field-number="7">
                 </textarea>
             </div>
             
-            <div class="input-field">
-                <label class="input-label">Waarom worden deze drie activiteiten georganiseerd?</label>
+            <div class="question">
+                <p>Waarom worden deze drie activiteiten georganiseerd?</p>
+            </div>
+            <div class="form-group">
                 <textarea 
                     id="field-8" 
-                    class="field-textarea" 
                     placeholder="Begin hier met typen..."
                     data-field-number="8">
                 </textarea>
@@ -465,7 +436,7 @@
             
             scheduleAutoSave() {
                 clearTimeout(this.autoSaveTimeout);
-                this.showAutoSaveStatus('Opslaan...', 'saving');
+                this.showSaveStatus('Opslaan...', 'saving');
                 
                 this.autoSaveTimeout = setTimeout(() => {
                     this.saveData();
@@ -504,14 +475,14 @@
                     });
                     
                     if (response.ok) {
-                        this.showAutoSaveStatus('Opgeslagen', 'saved');
+                        this.showSaveStatus('Opgeslagen', 'saved');
                     } else {
                         throw new Error('Save failed');
                     }
                     
                 } catch (error) {
                     console.error('Error saving final assignment:', error);
-                    this.showAutoSaveStatus('Fout bij opslaan', 'error');
+                    this.showSaveStatus('Fout bij opslaan', 'error');
                 }
             }
             
@@ -545,7 +516,7 @@
                 }
             }
             
-            showAutoSaveStatus(message, type = 'info') {
+            showSaveStatus(message, type = 'info') {
                 const statusMessage = document.querySelector('.status-message');
                 if (statusMessage) {
                     // Add icons to messages
