@@ -298,7 +298,7 @@
         <div class="status-message auto-save-status" id="statusMessage"></div>
     </div>
 
-    <!-- Emma Overlay -->
+    <!-- Emma Success Overlay -->
     <div class="emma-overlay" id="emmaOverlay">
         <div class="emma-popup">
             <div class="emma-header">
@@ -309,7 +309,23 @@
                 <p>Ze zal contact met je opnemen over de volgende stappen voor SneakSpot.</p>
             </div>
             <div class="emma-actions">
-                <button class="emma-close-btn" onclick="closeEmmaOverlay()">Sluiten</button>
+                <button class="emma-close-btn" onclick="closeEmmaOverlay()" style="background: #00C2CB; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer;">Sluiten</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Validation Error Overlay -->
+    <div class="emma-overlay" id="validationOverlay">
+        <div class="emma-popup">
+            <div class="emma-header">
+                <h3>Niet alle velden ingevuld</h3>
+            </div>
+            <div class="emma-content">
+                <p>Vul eerst alle 8 velden in voordat je het plan kunt versturen naar Emma.</p>
+                <p id="validationMessage">Je hebt nog <span id="missingFields">0</span> velden te gaan.</p>
+            </div>
+            <div class="emma-actions">
+                <button class="emma-close-btn" onclick="closeValidationOverlay()" style="background: #00C2CB; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer;">Sluiten</button>
             </div>
         </div>
     </div>
@@ -562,7 +578,15 @@
                 }
                 
                 if (filledFields < 8) {
-                    alert(`Vul eerst alle velden in! (${filledFields}/8 ingevuld)`);
+                    // Update validation message
+                    const missingFields = 8 - filledFields;
+                    document.getElementById('missingFields').textContent = missingFields;
+                    
+                    // Show validation overlay
+                    const validationOverlay = document.getElementById('validationOverlay');
+                    if (validationOverlay) {
+                        validationOverlay.classList.add('show');
+                    }
                     return;
                 }
                 
@@ -635,6 +659,14 @@
         // Close Emma overlay function
         function closeEmmaOverlay() {
             const overlay = document.getElementById('emmaOverlay');
+            if (overlay) {
+                overlay.classList.remove('show');
+            }
+        }
+        
+        // Close validation overlay function
+        function closeValidationOverlay() {
+            const overlay = document.getElementById('validationOverlay');
             if (overlay) {
                 overlay.classList.remove('show');
             }
