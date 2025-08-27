@@ -60,7 +60,7 @@
     
     <script src="../../assets/js/notepad.js"></script>
     <script>
-        // Multi-textarea auto-save functionality
+        // Multi-textarea auto-save functionality with content loading
         class MultiTextareaManager {
             constructor() {
                 this.textareas = ['noteTextarea', 'communicationTextarea'];
@@ -224,6 +224,55 @@
         document.addEventListener('DOMContentLoaded', () => {
             new MultiTextareaManager();
         });
+        
+        // Load existing content for multi-textarea final page
+        class FinalPageLoader {
+            constructor() {
+                this.userId = new NotepadManager().userId;
+                this.pageId = 'message_level2';
+                this.loadExistingContent();
+            }
+            
+            async loadExistingContent() {
+                try {
+                    const response = await fetch(`/api/notes/${this.userId}/${this.pageId}`);
+                    if (response.ok) {
+                        const data = await response.json();
+                        if (data.content) {
+                            // Parse the JSON content
+                            let content;
+                            try {
+                                content = typeof data.content === 'string' ? JSON.parse(data.content) : data.content;
+                            } catch (e) {
+                                // If it's not JSON, treat as plain text for first textarea
+                                content = { noteTextarea: data.content };
+                            }
+                            
+                            // Fill the textareas
+                            Object.keys(content).forEach(textareaId => {
+                                const textarea = document.getElementById(textareaId);
+                                if (textarea && content[textareaId]) {
+                                    textarea.value = content[textareaId];
+                                    // Update character counter
+                                    const charCounter = textarea.parentNode.querySelector('.char-counter');
+                                    if (charCounter) {
+                                        const currentLength = textarea.value.length;
+                                        charCounter.textContent = `${currentLength}/1000`;
+                                    }
+                                }
+                            });
+                        }
+                    }
+                } catch (error) {
+                    console.error('Error loading existing content:', error);
+                }
+            }
+        }
+        
+        // Initialize content loader after DOM is ready
+        setTimeout(() => {
+            new FinalPageLoader();
+        }, 100);
     </script>
 </body>
 </html>
