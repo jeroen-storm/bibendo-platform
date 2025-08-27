@@ -3,23 +3,7 @@
 /* Import main styles */
 @import url('./main.css');
 
-/* Eindopdracht specific styles */
-.eindopdracht-row {
-    background-color: #f0f9ff;
-    border-left: 4px solid #00C2CB;
-}
-
-.eindopdracht-badge {
-    background-color: #00C2CB;
-    color: white;
-    padding: 4px 8px;
-    border-radius: 12px;
-    font-size: 12px;
-    font-weight: 600;
-    text-transform: uppercase;
-}
-
-/* Action badges for eindopdracht actions */
+/* Action badges */
 .action-badge.auto_save {
     background-color: #10b981;
 }

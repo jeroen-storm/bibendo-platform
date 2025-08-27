@@ -76,8 +76,13 @@
         class AnalysisManager {
             constructor() {
                 this.userId = this.getUserId();
-                this.pageId = 'analysis_level1';
-                this.textareas = ['noteTextarea', 'factorsTextarea', 'futureTextarea'];
+                // Map textareas to their corresponding individual note pageIds
+                this.textareaMapping = {
+                    'noteTextarea': 'note1_level1',      // Maps to individual note 1
+                    'factorsTextarea': 'note2_level1',   // Maps to individual note 2  
+                    'futureTextarea': 'note3_level1'     // Maps to individual note 3
+                };
+                this.textareas = Object.keys(this.textareaMapping);
                 this.init();
             }
             
@@ -111,55 +116,58 @@
             }
             
             async saveContent() {
-                const content = {};
-                this.textareas.forEach(id => {
-                    const textarea = document.getElementById(id);
-                    if (textarea) {
-                        content[id] = textarea.value;
+                // Save each textarea to its corresponding individual note page
+                const savePromises = this.textareas.map(async (textareaId) => {
+                    const textarea = document.getElementById(textareaId);
+                    const pageId = this.textareaMapping[textareaId];
+                    
+                    if (textarea && pageId) {
+                        return fetch('/api/notes/save', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                userId: this.userId,
+                                pageId: pageId,  // Save to individual note pageId
+                                content: textarea.value,  // Save as plain text, not JSON
+                                editCount: 1,
+                                timeSpent: 0
+                            })
+                        });
                     }
                 });
                 
                 try {
-                    await fetch('/api/notes/save', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            userId: this.userId,
-                            pageId: this.pageId,
-                            content: JSON.stringify(content),
-                            editCount: 1,
-                            timeSpent: 0
-                        })
-                    });
+                    await Promise.all(savePromises.filter(Boolean));
+                    console.log('Saved all textareas to individual notes');
                 } catch (error) {
                     console.error('Error saving:', error);
                 }
             }
             
             async loadExistingContent() {
-                try {
-                    const response = await fetch(`/api/notes/${this.userId}/${this.pageId}`);
-                    if (response.ok) {
-                        const data = await response.json();
-                        if (data.content) {
-                            let content;
-                            try {
-                                content = JSON.parse(data.content);
-                                Object.keys(content).forEach(textareaId => {
-                                    const textarea = document.getElementById(textareaId);
-                                    if (textarea) {
-                                        textarea.value = content[textareaId];
-                                    }
-                                });
-                            } catch (e) {
-                                // Skip malformed content
-                                console.log('Skipping malformed content');
+                // Load each textarea from its corresponding individual note page
+                const loadPromises = this.textareas.map(async (textareaId) => {
+                    const pageId = this.textareaMapping[textareaId];
+                    const textarea = document.getElementById(textareaId);
+                    
+                    if (!textarea || !pageId) return;
+                    
+                    try {
+                        const response = await fetch(`/api/notes/${this.userId}/${pageId}`);
+                        if (response.ok) {
+                            const data = await response.json();
+                            if (data.content) {
+                                textarea.value = data.content;  // Load plain text content
+                                console.log(`Loaded ${textareaId} from ${pageId}:`, data.content.substring(0, 50));
                             }
                         }
+                    } catch (error) {
+                        console.error(`Error loading ${textareaId} from ${pageId}:`, error);
                     }
-                } catch (error) {
-                    console.error('Error loading content:', error);
-                }
+                });
+                
+                await Promise.all(loadPromises);
+                console.log('Loaded all textareas from individual notes');
             }
             
             async submitToEmma() {
