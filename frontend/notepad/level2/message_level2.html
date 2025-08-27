@@ -97,8 +97,8 @@
                     submitButton.addEventListener('click', () => this.submitToEmma());
                 }
                 
-                // Load existing content for multi-textarea pages
-                this.loadExistingMultiContent();
+                // Load existing content after a short delay to ensure everything is initialized
+                setTimeout(() => this.loadExistingMultiContent(), 200);
             }
             
             scheduleAutoSave() {
@@ -225,16 +225,25 @@
             
             async loadExistingMultiContent() {
                 try {
-                    const manager = new NotepadManager();
-                    const response = await fetch(`/api/notes/${manager.userId}/${this.pageId}`);
+                    // Get userId from URL parameters directly
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const userId = urlParams.get('userId') || 'anonymous';
+                    
+                    console.log('Loading multi-textarea content for:', { userId, pageId: this.pageId });
+                    
+                    const response = await fetch(`/api/notes/${userId}/${this.pageId}`);
                     if (response.ok) {
                         const data = await response.json();
+                        console.log('Received data:', data);
+                        
                         if (data.content) {
                             // Parse the JSON content
                             let content;
                             try {
                                 content = typeof data.content === 'string' ? JSON.parse(data.content) : data.content;
+                                console.log('Parsed content:', content);
                             } catch (e) {
+                                console.log('Content is not JSON, treating as plain text');
                                 // If it's not JSON, treat as plain text for first textarea
                                 content = { [this.textareas[0]]: data.content };
                             }
@@ -243,6 +252,7 @@
                             Object.keys(content).forEach(textareaId => {
                                 const textarea = document.getElementById(textareaId);
                                 if (textarea && content[textareaId]) {
+                                    console.log(`Filling ${textareaId} with:`, content[textareaId]);
                                     textarea.value = content[textareaId];
                                     // Update character counter
                                     const charCounter = textarea.parentNode.querySelector('.char-counter');
