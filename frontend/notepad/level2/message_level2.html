@@ -243,9 +243,16 @@
                                 content = typeof data.content === 'string' ? JSON.parse(data.content) : data.content;
                                 console.log('Parsed content:', content);
                             } catch (e) {
-                                console.log('Content is not JSON, treating as plain text');
-                                // If it's not JSON, treat as plain text for first textarea
-                                content = { [this.textareas[0]]: data.content };
+                                console.log('Content is not JSON, checking if it looks like JSON string...');
+                                // If content looks like JSON string, skip it entirely to prevent JSON display
+                                if (typeof data.content === 'string' && data.content.includes('"noteTextarea"')) {
+                                    console.log('Content looks like JSON string, skipping to prevent JSON display');
+                                    content = {}; // Empty object means no content will be filled
+                                } else {
+                                    // Only treat as plain text if it really doesn't look like JSON
+                                    console.log('Content is genuinely plain text');
+                                    content = { [this.textareas[0]]: data.content };
+                                }
                             }
                             
                             // Fill the textareas - ensure we never show raw JSON
