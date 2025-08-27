@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mijn Notities - Overzicht</title>
+    <title>Mijn aantekeningen</title>
     <link rel="stylesheet" href="../../assets/css/main.css">
     <style>
         .notes-overview {
@@ -47,17 +47,15 @@
             font-style: italic;
         }
         
-        .level-header {
-            background: linear-gradient(135deg, #00C2CB 0%, #00A2AB 100%);
-            color: white;
-            padding: 15px 20px;
-            border-radius: 8px;
-            margin-bottom: 25px;
+        .section-header {
+            color: #333;
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            margin-top: 30px;
         }
         
-        .level-header h2 {
-            margin: 0;
-            font-size: 1.3em;
+        .section-header:first-of-type {
+            margin-top: 0;
         }
         
         .loading-message {
@@ -85,8 +83,7 @@
 <body>
     <div class="container">
         <div class="overview-header">
-            <h1>Mijn Notities - Compleet Overzicht</h1>
-            <p>Hier vind je al je notities van level 1 en level 2 terug</p>
+            <h1>Mijn aantekeningen</h1>
         </div>
         
         <div id="loadingMessage" class="loading-message">
@@ -94,77 +91,35 @@
         </div>
         
         <div id="notesContainer" class="notes-overview" style="display: none;">
-            <!-- Level 1 Notes -->
-            <div class="level-header">
-                <h2>Level 1 - Analyse</h2>
-            </div>
-            
+            <!-- Analysis from Level 1 -->
+            <h2 class="section-header">De analyse</h2>
             <div class="note-section">
-                <h3>Notitie 1</h3>
-                <div class="note-label">Waarom komen er weinig jongeren naar SneakSpot?</div>
-                <div class="note-content" id="note1_level1">
-                    <span class="empty-note">Geen notitie gevonden</span>
-                </div>
-            </div>
-            
-            <div class="note-section">
-                <h3>Notitie 2</h3>
-                <div class="note-label">Welke informatie heb je verzameld?</div>
-                <div class="note-content" id="note2_level1">
-                    <span class="empty-note">Geen notitie gevonden</span>
-                </div>
-            </div>
-            
-            <div class="note-section">
-                <h3>Notitie 3</h3>
-                <div class="note-label">Wat moet er veranderen aan SneakSpot?</div>
-                <div class="note-content" id="note3_level1">
-                    <span class="empty-note">Geen notitie gevonden</span>
-                </div>
-            </div>
-            
-            <div class="note-section">
-                <h3>Analyse (Level 1 Final)</h3>
-                <div class="note-label">Je analyse van de situatie</div>
                 <div class="note-content" id="analysis_level1">
                     <span class="empty-note">Geen analyse gevonden</span>
                 </div>
             </div>
             
-            <!-- Level 2 Notes -->
-            <div class="level-header" style="margin-top: 40px;">
-                <h2>Level 2 - Bericht</h2>
-            </div>
-            
+            <!-- Message from Level 2 -->
+            <h2 class="section-header">Mijn bericht aan Emma</h2>
             <div class="note-section">
-                <h3>Notitie 1</h3>
-                <div class="note-label">Welke stijl past bij jongeren?</div>
-                <div class="note-content" id="note1_level2">
-                    <span class="empty-note">Geen notitie gevonden</span>
-                </div>
-            </div>
-            
-            <div class="note-section">
-                <h3>Notitie 2</h3>
-                <div class="note-label">Beschrijf de Urban Flow stijl</div>
-                <div class="note-content" id="note2_level2">
-                    <span class="empty-note">Geen notitie gevonden</span>
-                </div>
-            </div>
-            
-            <div class="note-section">
-                <h3>Notitie 3</h3>
-                <div class="note-label">Voor- en nadelen van de nieuwe stijl</div>
-                <div class="note-content" id="note3_level2">
-                    <span class="empty-note">Geen notitie gevonden</span>
-                </div>
-            </div>
-            
-            <div class="note-section">
-                <h3>Bericht (Level 2 Final)</h3>
-                <div class="note-label">Je bericht aan Emma</div>
                 <div class="note-content" id="message_level2">
                     <span class="empty-note">Geen bericht gevonden</span>
+                </div>
+            </div>
+            
+            <!-- Level 3 Note 1 -->
+            <h2 class="section-header">Activiteiten die we kunnen gebruiken</h2>
+            <div class="note-section">
+                <div class="note-content" id="note1_level3">
+                    <span class="empty-note">Geen notitie gevonden</span>
+                </div>
+            </div>
+            
+            <!-- Level 3 Note 2 -->
+            <h2 class="section-header">3 activiteiten van Sasha</h2>
+            <div class="note-section">
+                <div class="note-content" id="note2_level3">
+                    <span class="empty-note">Geen notitie gevonden</span>
                 </div>
             </div>
         </div>
@@ -199,16 +154,12 @@
         async function loadAllNotes() {
             const userId = getUserId();
             const notesToLoad = [
-                // Level 1
-                { id: 'note1_level1', pageId: 'note1_level1' },
-                { id: 'note2_level1', pageId: 'note2_level1' },
-                { id: 'note3_level1', pageId: 'note3_level1' },
+                // Analysis and Message
                 { id: 'analysis_level1', pageId: 'analysis_level1' },
-                // Level 2
-                { id: 'note1_level2', pageId: 'note1_level2' },
-                { id: 'note2_level2', pageId: 'note2_level2' },
-                { id: 'note3_level2', pageId: 'note3_level2' },
-                { id: 'message_level2', pageId: 'message_level2' }
+                { id: 'message_level2', pageId: 'message_level2' },
+                // Level 3 Notes
+                { id: 'note1_level3', pageId: 'note1_level3' },
+                { id: 'note2_level3', pageId: 'note2_level3' }
             ];
             
             try {
