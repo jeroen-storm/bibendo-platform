@@ -393,20 +393,36 @@ class AdminDashboard {
         
         let contentHTML = '';
         
-        // Level 1 - Analysis
+        // Level 1 - Analysis (prioritize final analysis)
         if (groupedNotes.level1.length > 0) {
             contentHTML += '<div class="content-group"><h4>📊 Level 1 - Analyse</h4>';
-            groupedNotes.level1.forEach(note => {
+            
+            // Show final analysis first if it exists
+            const finalAnalysis = groupedNotes.level1.find(n => n.page_id === 'analysis_level1');
+            if (finalAnalysis) {
+                contentHTML += this.renderNoteContent(finalAnalysis, '🎯 Finale Analyse (Hoofdinhoud)');
+            }
+            
+            // Then show individual notes
+            groupedNotes.level1.filter(n => n.page_id !== 'analysis_level1').forEach(note => {
                 const title = this.getPageTitle(note.page_id);
                 contentHTML += this.renderNoteContent(note, title);
             });
             contentHTML += '</div>';
         }
         
-        // Level 2 - Message Creation  
+        // Level 2 - Message Creation (prioritize final message)
         if (groupedNotes.level2.length > 0) {
             contentHTML += '<div class="content-group"><h4>💬 Level 2 - Bericht</h4>';
-            groupedNotes.level2.forEach(note => {
+            
+            // Show final message first if it exists
+            const finalMessage = groupedNotes.level2.find(n => n.page_id === 'message_level2');
+            if (finalMessage) {
+                contentHTML += this.renderNoteContent(finalMessage, '📧 Finale Bericht aan Emma (Hoofdinhoud)');
+            }
+            
+            // Then show individual notes
+            groupedNotes.level2.filter(n => n.page_id !== 'message_level2').forEach(note => {
                 const title = this.getPageTitle(note.page_id);
                 contentHTML += this.renderNoteContent(note, title);
             });
