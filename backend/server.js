@@ -5,7 +5,13 @@ const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const path = require('path');
 const fs = require('fs');
+const { JSDOM } = require('jsdom');
+const createDOMPurify = require('dompurify');
 require('dotenv').config();
+
+// Setup DOMPurify for server-side HTML sanitization
+const window = new JSDOM('').window;
+const DOMPurify = createDOMPurify(window);
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -91,6 +97,35 @@ const extractLevel = (pageId) => {
     return 1;
 };
 
+// Content sanitization functions
+const sanitizeContent = (content) => {
+    if (!content || typeof content !== 'string') return '';
+    
+    // Remove dangerous HTML/JS while keeping basic formatting
+    const cleaned = DOMPurify.sanitize(content, {
+        ALLOWED_TAGS: [],  // No HTML tags allowed
+        ALLOWED_ATTR: [],  // No attributes allowed
+        KEEP_CONTENT: true // Keep text content
+    });
+    
+    // Additional safety: limit content size
+    return cleaned.substring(0, 10000);
+};
+
+const sanitizeUserId = (userId) => {
+    if (!userId || typeof userId !== 'string') return 'anonymous';
+    
+    // Allow only alphanumeric, underscore, hyphen
+    return userId.replace(/[^a-zA-Z0-9_-]/g, '').substring(0, 100) || 'anonymous';
+};
+
+const sanitizePageId = (pageId) => {
+    if (!pageId || typeof pageId !== 'string') return 'unknown';
+    
+    // Allow only alphanumeric, underscore, hyphen
+    return pageId.replace(/[^a-zA-Z0-9_-]/g, '').substring(0, 100) || 'unknown';
+};
+
 // API Routes
 
 // Save note
@@ -101,11 +136,20 @@ app.post('/api/notes/save', (req, res) => {
         return res.status(400).json({ error: 'Missing required fields' });
     }
     
-    // Sanitize content (prevent XSS)
-    const sanitizedContent = content ? content.substring(0, 10000) : ''; // Limit content size
-    const level = extractLevel(pageId);
+    // Sanitize all input to prevent XSS and injection attacks
+    const sanitizedUserId = sanitizeUserId(userId);
+    const sanitizedPageId = sanitizePageId(pageId);
+    const sanitizedContent = sanitizeContent(content);
+    const level = extractLevel(sanitizedPageId);
     
-    ensureUser(userId, (err) => {
+    console.log('Saving note:', { 
+        originalUserId: userId, sanitizedUserId,
+        originalPageId: pageId, sanitizedPageId,
+        contentLength: content?.length || 0,
+        sanitizedContentLength: sanitizedContent.length
+    });
+    
+    ensureUser(sanitizedUserId, (err) => {
         if (err) {
             return res.status(500).json({ error: 'Database error' });
         }
@@ -114,7 +158,7 @@ app.post('/api/notes/save', (req, res) => {
             `INSERT OR REPLACE INTO notes 
              (user_id, page_id, level, content, edit_count, time_spent, updated_at) 
              VALUES (?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)`,
-            [userId, pageId, level, sanitizedContent, editCount || 0, timeSpent || 0],
+            [sanitizedUserId, sanitizedPageId, level, sanitizedContent, editCount || 0, timeSpent || 0],
             function(err) {
                 if (err) {
                     console.error('Error saving note:', err);
@@ -135,9 +179,13 @@ app.post('/api/notes/save', (req, res) => {
 app.get('/api/notes/:userId/:pageId', (req, res) => {
     const { userId, pageId } = req.params;
     
+    // Sanitize parameters
+    const sanitizedUserId = sanitizeUserId(userId);
+    const sanitizedPageId = sanitizePageId(pageId);
+    
     db.get(
         'SELECT * FROM notes WHERE user_id = ? AND page_id = ?',
-        [userId, pageId],
+        [sanitizedUserId, sanitizedPageId],
         (err, row) => {
             if (err) {
                 console.error('Error fetching note:', err);
@@ -153,9 +201,13 @@ app.get('/api/notes/:userId/:pageId', (req, res) => {
 app.get('/api/notes/:userId/level/:level', (req, res) => {
     const { userId, level } = req.params;
     
+    // Sanitize parameters
+    const sanitizedUserId = sanitizeUserId(userId);
+    const sanitizedLevel = parseInt(level) || 1;
+    
     db.all(
         'SELECT * FROM notes WHERE user_id = ? AND level = ? AND page_id NOT LIKE "%analysis%" AND page_id NOT LIKE "%message%" AND page_id NOT LIKE "%plan%" ORDER BY created_at',
-        [userId, level],
+        [sanitizedUserId, sanitizedLevel],
         (err, rows) => {
             if (err) {
                 console.error('Error fetching notes by level:', err);
@@ -175,14 +227,20 @@ app.post('/api/logs/time', (req, res) => {
         return res.status(400).json({ error: 'Missing required fields' });
     }
     
-    ensureUser(userId, (err) => {
+    // Sanitize input
+    const sanitizedUserId = sanitizeUserId(userId);
+    const sanitizedPageId = sanitizePageId(pageId);
+    const sanitizedTimeSpent = parseInt(timeSpent) || 0;
+    const sanitizedTimestamp = timestamp || new Date().toISOString();
+    
+    ensureUser(sanitizedUserId, (err) => {
         if (err) {
             return res.status(500).json({ error: 'Database error' });
         }
         
         db.run(
             'INSERT INTO time_logs (user_id, page_id, time_spent, timestamp) VALUES (?, ?, ?, ?)',
-            [userId, pageId, timeSpent, timestamp || new Date().toISOString()],
+            [sanitizedUserId, sanitizedPageId, sanitizedTimeSpent, sanitizedTimestamp],
             function(err) {
                 if (err) {
                     console.error('Error logging time:', err);
