@@ -72,62 +72,46 @@
     
     <script src="../../assets/js/notepad.js"></script>
     <script>
-        // Multi-textarea auto-save functionality with content loading
-        class MultiTextareaManager {
+        // Simple multi-textarea functionality for final pages
+        class AnalysisManager {
             constructor() {
-                this.textareas = ['noteTextarea', 'factorsTextarea', 'futureTextarea'];
+                this.userId = this.getUserId();
                 this.pageId = 'analysis_level1';
-                this.autoSaveTimer = null;
-                this.autoSaveDelay = 1500;
-                this.hasUnsavedChanges = false;
-                this.startTime = Date.now();
-                this.editCount = 0;
+                this.textareas = ['noteTextarea', 'factorsTextarea', 'futureTextarea'];
                 this.init();
             }
             
+            getUserId() {
+                const urlParams = new URLSearchParams(window.location.search);
+                return urlParams.get('userId') || 'anonymous';
+            }
+            
             init() {
+                // Set up auto-save for all textareas
                 this.textareas.forEach(id => {
                     const textarea = document.getElementById(id);
                     if (textarea) {
                         textarea.addEventListener('input', () => this.scheduleAutoSave());
-                        textarea.addEventListener('paste', () => {
-                            setTimeout(() => this.scheduleAutoSave(), 10);
-                        });
                     }
                 });
                 
-                // Auto-save on page unload
-                window.addEventListener('beforeunload', () => {
-                    if (this.hasUnsavedChanges) {
-                        this.saveContent();
-                    }
-                });
-                
-                // Submit to Emma button
+                // Submit to Emma
                 const submitButton = document.getElementById('submitToEmma');
                 if (submitButton) {
                     submitButton.addEventListener('click', () => this.submitToEmma());
                 }
                 
-                // Load existing content after a short delay to ensure everything is initialized
-                setTimeout(() => this.loadExistingMultiContent(), 200);
+                // Load existing content
+                this.loadExistingContent();
             }
             
             scheduleAutoSave() {
                 if (this.autoSaveTimer) clearTimeout(this.autoSaveTimer);
-                
-                this.hasUnsavedChanges = true;
-                this.showStatus('Aan het typen...', 'typing');
-                
-                this.autoSaveTimer = setTimeout(() => {
-                    this.saveContent();
-                }, this.autoSaveDelay);
+                this.autoSaveTimer = setTimeout(() => this.saveContent(), 1500);
             }
             
             async saveContent() {
-                const manager = new NotepadManager();
                 const content = {};
-                
                 this.textareas.forEach(id => {
                     const textarea = document.getElementById(id);
                     if (textarea) {
@@ -135,171 +119,63 @@
                     }
                 });
                 
-                this.showStatus('Opslaan...', 'saving');
-                
                 try {
-                    const response = await fetch('/api/notes/save', {
+                    await fetch('/api/notes/save', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
-                            userId: manager.userId,
+                            userId: this.userId,
                             pageId: this.pageId,
                             content: JSON.stringify(content),
-                            editCount: ++this.editCount,
-                            timeSpent: Date.now() - this.startTime
+                            editCount: 1,
+                            timeSpent: 0
                         })
                     });
-                    
-                    if (response.ok) {
-                        this.showStatus('Opgeslagen', 'saved');
-                        this.hasUnsavedChanges = false;
-                    } else {
-                        throw new Error('Failed to save analysis');
-                    }
                 } catch (error) {
-                    console.error('Error saving analysis:', error);
-                    this.showStatus('Fout bij opslaan', 'error');
+                    console.error('Error saving:', error);
                 }
             }
             
-            showStatus(message, type) {
-                const statusMessage = document.querySelector('.status-message');
-                if (statusMessage) {
-                    // Add icons to messages
-                    let icon = '';
-                    switch(type) {
-                        case 'typing':
-                            icon = '✏️ ';
-                            break;
-                        case 'saving':
-                            icon = '💾 ';
-                            break;
-                        case 'saved':
-                            icon = '✅ ';
-                            break;
-                        case 'error':
-                            icon = '❌ ';
-                            break;
-                        default:
-                            icon = 'ℹ️ ';
+            async loadExistingContent() {
+                try {
+                    const response = await fetch(`/api/notes/${this.userId}/${this.pageId}`);
+                    if (response.ok) {
+                        const data = await response.json();
+                        if (data.content) {
+                            let content;
+                            try {
+                                content = JSON.parse(data.content);
+                                Object.keys(content).forEach(textareaId => {
+                                    const textarea = document.getElementById(textareaId);
+                                    if (textarea) {
+                                        textarea.value = content[textareaId];
+                                    }
+                                });
+                            } catch (e) {
+                                // Skip malformed content
+                                console.log('Skipping malformed content');
+                            }
+                        }
                     }
-                    
-                    statusMessage.innerHTML = icon + message;
-                    statusMessage.className = `status-message auto-save-status ${type}`;
-                    statusMessage.style.display = 'block';
-                    
-                    if (type === 'typing') {
-                        setTimeout(() => {
-                            if (statusMessage.classList.contains('typing')) {
-                                statusMessage.style.display = 'none';
-                            }
-                        }, 1500);
-                    } else if (type === 'saved') {
-                        setTimeout(() => {
-                            if (statusMessage.classList.contains('saved')) {
-                                statusMessage.style.display = 'none';
-                            }
-                        }, 3000);
-                    } else if (type === 'submitted') {
-                        setTimeout(() => {
-                            if (statusMessage.classList.contains('submitted')) {
-                                statusMessage.style.display = 'none';
-                            }
-                        }, 4000);
-                    }
+                } catch (error) {
+                    console.error('Error loading content:', error);
                 }
             }
             
             async submitToEmma() {
-                // First save the content
                 await this.saveContent();
-                
-                // Show Emma overlay
-                this.showEmmaOverlay();
-            }
-            
-            showEmmaOverlay() {
                 const overlay = document.getElementById('emmaOverlay');
                 if (overlay) {
                     overlay.classList.add('show');
-                    
-                    // Hide overlay after 4 seconds
-                    setTimeout(() => {
-                        overlay.classList.remove('show');
-                    }, 4000);
-                    
-                    // Close on overlay click
-                    overlay.addEventListener('click', () => {
-                        overlay.classList.remove('show');
-                    });
-                }
-            }
-            
-            async loadExistingMultiContent() {
-                try {
-                    // Get userId from URL parameters directly
-                    const urlParams = new URLSearchParams(window.location.search);
-                    const userId = urlParams.get('userId') || 'anonymous';
-                    
-                    console.log('Loading multi-textarea content for:', { userId, pageId: this.pageId });
-                    
-                    const response = await fetch(`/api/notes/${userId}/${this.pageId}`);
-                    if (response.ok) {
-                        const data = await response.json();
-                        console.log('Received data:', data);
-                        
-                        if (data.content) {
-                            // Parse the JSON content
-                            let content;
-                            try {
-                                content = typeof data.content === 'string' ? JSON.parse(data.content) : data.content;
-                                console.log('Parsed content:', content);
-                            } catch (e) {
-                                console.log('Content is not JSON, checking if it looks like JSON string...');
-                                // If content looks like JSON string, skip it entirely to prevent JSON display
-                                if (typeof data.content === 'string' && data.content.includes('"noteTextarea"')) {
-                                    console.log('Content looks like JSON string, skipping to prevent JSON display');
-                                    content = {}; // Empty object means no content will be filled
-                                } else {
-                                    // Only treat as plain text if it really doesn't look like JSON
-                                    console.log('Content is genuinely plain text');
-                                    content = { [this.textareas[0]]: data.content };
-                                }
-                            }
-                            
-                            // Fill the textareas - ensure we never show raw JSON
-                            Object.keys(content).forEach(textareaId => {
-                                const textarea = document.getElementById(textareaId);
-                                if (textarea && content[textareaId]) {
-                                    const valueToSet = content[textareaId];
-                                    // Double check: if value looks like JSON, don't set it
-                                    if (typeof valueToSet === 'string' && valueToSet.includes('"noteTextarea"')) {
-                                        console.log(`Skipping JSON-like content for ${textareaId}:`, valueToSet);
-                                        return;
-                                    }
-                                    console.log(`Filling ${textareaId} with:`, valueToSet);
-                                    textarea.value = valueToSet;
-                                    // Update character counter
-                                    const charCounter = textarea.parentNode.querySelector('.char-counter');
-                                    if (charCounter) {
-                                        const currentLength = textarea.value.length;
-                                        charCounter.textContent = `${currentLength}/1000`;
-                                    }
-                                }
-                            });
-                        }
-                    }
-                } catch (error) {
-                    console.error('Error loading existing multi content:', error);
+                    setTimeout(() => overlay.classList.remove('show'), 4000);
                 }
             }
         }
         
+        // Initialize when DOM is ready
         document.addEventListener('DOMContentLoaded', () => {
-            new MultiTextareaManager();
+            new AnalysisManager();
         });
-        
-        // Remove the separate FinalPageLoader since MultiTextareaManager now handles content loading
     </script>
 </body>
 </html>
