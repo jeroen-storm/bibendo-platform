@@ -19,7 +19,7 @@ This extension adds advanced educational assessment capabilities to the **Bibend
 - **3 Levels** with 11 total pages (7 note pages + 2 final pages + 1 overview page + 1 my notes page)
 - **Note Pages**: Simple textarea with 2000 character limit
 - **Final Pages**: Pre-filled with previous notes for analysis/message creation
-- **My Notes Page (Level 3)**: Read-only overview of all 7 notes from levels 1 and 2
+- **My Notes Page (Level 3)**: Streamlined overview showing analysis, message to Emma, and Level 3 activities
 - **User Tracking**: Time spent, edit counts, content persistence
 - **Responsive Design**: Clean minimal UI with #00C2CB primary color
 
@@ -271,9 +271,9 @@ http://localhost:3000/notepad/level{1-3}/{page}.html?userId={userId}
 - `message_level2.html` - Message formulation (pre-filled)
 
 **Level 3 (Strategic Planning & Overview)**
-- `note1_level3.html` - Strategic vision  
-- `note2_level3.html` - Success factors
-- `mynotes_level3.html` - My Notes: Complete overview of all 7 notes from levels 1 and 2
+- `note1_level3.html` - Activities planning
+- `note2_level3.html` - Sasha's activity suggestions
+- `mynotes_level3.html` - My Notes: Focused overview of analysis, message to Emma, and Level 3 notes
 
 ### Enhanced Text Pages System
 
@@ -519,6 +519,13 @@ For troubleshooting nginx issues, see: [docs/NGINX-TROUBLESHOOTING.md](docs/NGIN
 - [x] Iframe compatibility - all pages can embed in Bibendo Game Editor
 - [x] Static file serving via nginx configuration
 - [x] **Modern, engaging content styling with educational value preservation**
+
+### Recent Updates ✨
+- [x] **Fixed JSON display bug** in final page textareas (August 2025)
+- [x] **Standardized placeholder text** to "Begin hier met typen..." across all notepad fields
+- [x] **Simplified mynotes_level3.html** to show only relevant content (analysis, message to Emma, Level 3 activities)
+- [x] **Enhanced content loading** with proper JSON parsing and backwards compatibility
+- [x] **Improved user experience** with consistent interface across all notepad pages
 
 ## 🚀 Production Deployment
 
