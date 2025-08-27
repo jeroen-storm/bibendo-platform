@@ -469,12 +469,11 @@
                     const totalEdits = Object.values(this.editCounts).reduce((sum, count) => sum + count, 0);
                     
                     const data = {
-                        user_id: this.userId,
-                        page_id: this.pageId,
-                        level: 'final',
+                        userId: this.userId,
+                        pageId: this.pageId,
                         content: JSON.stringify(content),
-                        edit_count: totalEdits,
-                        time_spent: totalTimeSpent
+                        editCount: totalEdits,
+                        timeSpent: totalTimeSpent
                     };
                     
                     const response = await fetch('/api/notes/save', {
@@ -631,9 +630,9 @@
             async logTimeSpent() {
                 try {
                     const data = {
-                        user_id: this.userId,
-                        page_id: this.pageId,
-                        time_spent: 30 // 30 seconds
+                        userId: this.userId,
+                        pageId: this.pageId,
+                        timeSpent: 30 // 30 seconds
                     };
                     
                     await fetch('/api/logs/time', {
