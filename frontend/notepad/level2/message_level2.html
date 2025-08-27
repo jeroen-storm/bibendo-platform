@@ -125,27 +125,45 @@
             
             async loadExistingContent() {
                 try {
+                    console.log('Loading content for message_level2');
                     const response = await fetch(`/api/notes/${this.userId}/${this.pageId}`);
                     if (response.ok) {
                         const data = await response.json();
+                        console.log('Received data for message_level2:', data);
                         if (data.content) {
                             let content;
                             try {
                                 content = JSON.parse(data.content);
+                                console.log('Parsed content for message_level2:', content);
                                 Object.keys(content).forEach(textareaId => {
                                     const textarea = document.getElementById(textareaId);
                                     if (textarea) {
                                         textarea.value = content[textareaId];
+                                        console.log(`Set ${textareaId} to:`, content[textareaId]);
                                     }
                                 });
                             } catch (e) {
-                                // Skip malformed content
-                                console.log('Skipping malformed content');
+                                console.log('Skipping malformed content for message_level2:', e);
+                                console.log('Raw content was:', data.content);
+                                // Clear any malformed content from database
+                                await fetch(`/api/notes/save`, {
+                                    method: 'POST',
+                                    headers: { 'Content-Type': 'application/json' },
+                                    body: JSON.stringify({
+                                        userId: this.userId,
+                                        pageId: this.pageId,
+                                        content: '{}',
+                                        editCount: 0,
+                                        timeSpent: 0
+                                    })
+                                });
                             }
                         }
+                    } else {
+                        console.log('No existing content found for message_level2');
                     }
                 } catch (error) {
-                    console.error('Error loading content:', error);
+                    console.error('Error loading content for message_level2:', error);
                 }
             }
             
@@ -163,6 +181,36 @@
         document.addEventListener('DOMContentLoaded', () => {
             new MessageManager();
         });
+        
+        // Debug function to clear all data
+        window.clearMessageLevel2 = async function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const userId = urlParams.get('userId') || 'anonymous';
+            
+            // Clear from database
+            await fetch('/api/notes/save', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    userId: userId,
+                    pageId: 'message_level2',
+                    content: '{}',
+                    editCount: 0,
+                    timeSpent: 0
+                })
+            });
+            
+            // Clear textareas
+            ['noteTextarea', 'communicationTextarea'].forEach(id => {
+                const textarea = document.getElementById(id);
+                if (textarea) {
+                    textarea.value = '';
+                }
+            });
+            
+            console.log('Cleared all message_level2 data');
+            location.reload();
+        };
     </script>
 </body>
 </html>
