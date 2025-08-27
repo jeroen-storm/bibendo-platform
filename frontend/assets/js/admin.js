@@ -437,10 +437,22 @@ class AdminDashboard {
     
     // Helper functions for display
     formatLevelDisplay(level, pageId) {
+        if (level === 4 && pageId === 'final_assignment') {
+            return 'Final Assignment';
+        }
         return `Level ${level}`;
     }
     
     formatContentPreview(content, pageId) {
+        if (pageId === 'final_assignment' && content) {
+            try {
+                const parsed = JSON.parse(content);
+                const completedFields = Object.values(parsed).filter(v => v && v.trim()).length;
+                return `${completedFields}/8 velden ingevuld`;
+            } catch (e) {
+                return content;
+            }
+        }
         return content;
     }
     

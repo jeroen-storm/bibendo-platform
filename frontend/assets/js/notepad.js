@@ -338,6 +338,7 @@ class FinalPageManager extends NotepadManager {
         if (pageId.includes('level1')) return 1;
         if (pageId.includes('level2')) return 2;
         if (pageId.includes('level3')) return 3;
+        if (pageId === 'final_assignment') return 4;
         return 1;
     }
     

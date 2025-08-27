@@ -11,7 +11,8 @@ frontend/
 ├── notepad/
 │   ├── level1/               # Level 1 pages (4 pages)
 │   ├── level2/               # Level 2 pages (4 pages) 
-│   └── level3/               # Level 3 pages (3 pages)
+│   ├── level3/               # Level 3 pages (3 pages)
+│   └── final-assignment/     # Final Assignment (1 page with 8 fields)
 ├── texts/     [PENDING]      # Text reading pages
 ├── cbm/       [PENDING]      # CBM assessment tool
 └── admin/     [PENDING]      # Admin dashboard
@@ -293,8 +294,16 @@ curl -X POST http://localhost:3000/api/notes/save \
   -H "Content-Type: application/json" \
   -d '{"userId":"test","pageId":"note1_level1","content":"test"}'
 
+# Test Final Assignment saving
+curl -X POST http://localhost:3000/api/notes \
+  -H "Content-Type: application/json" \
+  -d '{"user_id":"test","page_id":"final_assignment","level":"final","content":"{\"field1\":\"test content\",\"field2\":\"\"}","edit_count":5,"time_spent":120}'
+
 # Test note retrieval
 curl http://localhost:3000/api/notes/test/note1_level1
+
+# Test Final Assignment retrieval
+curl http://localhost:3000/api/notes/test/final_assignment
 
 # Test aggregation
 curl http://localhost:3000/api/notes/test/level/1
@@ -426,6 +435,8 @@ if (DEBUG) {
 - Edit counts per note
 - User activity timestamps
 - Content persistence
+- Final Assignment progress tracking (8 fields)
+- Individual field statistics (time, edits)
 
 ### Future Analytics
 - User flow analysis
@@ -476,6 +487,10 @@ git push origin fix/issue-description
 - [x] Standardized placeholder text to "Begin hier met typen..." across all notepad fields
 - [x] Simplified mynotes_level3.html to show only analysis, message to Emma, and Level 3 activities
 - [x] Enhanced multi-textarea content loading with proper JSON parsing
+- [x] **Added Final Assignment system**: 8-field comprehensive assessment page
+- [x] **Final Assignment features**: Individual field tracking, progress bar, auto-save
+- [x] **Database integration**: Level 4 support, admin dashboard display
+- [x] **Admin enhancements**: Final Assignment data visualization and export
 - [x] Improved user experience with consistent interface
 
 ### Phase 3: ⏳ CBM Tool (Pending)

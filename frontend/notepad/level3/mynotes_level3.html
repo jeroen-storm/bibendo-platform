@@ -154,9 +154,13 @@
         async function loadAllNotes() {
             const userId = getUserId();
             const notesToLoad = [
-                // Analysis and Message
-                { id: 'analysis_level1', pageId: 'analysis_level1' },
-                { id: 'message_level2', pageId: 'message_level2' },
+                // Analysis from individual notes (Level 1)
+                { id: 'analysis_note1', pageId: 'note1_level1', label: 'Notitie 1' },
+                { id: 'analysis_note2', pageId: 'note2_level1', label: 'Factoren' },
+                { id: 'analysis_note3', pageId: 'note3_level1', label: 'Toekomst' },
+                // Message from individual notes (Level 2)
+                { id: 'message_note1', pageId: 'note1_level2', label: 'Notitie 1' },
+                { id: 'message_note2', pageId: 'note2_level2', label: 'Communicatie' },
                 // Level 3 Notes
                 { id: 'note1_level3', pageId: 'note1_level3' },
                 { id: 'note2_level3', pageId: 'note2_level3' }
@@ -176,28 +180,45 @@
                 
                 const results = await Promise.all(promises);
                 
-                // Display the notes
-                results.forEach(result => {
+                // Combine analysis notes
+                const analysisNotes = results.filter(r => r.id.startsWith('analysis_'));
+                const analysisContent = analysisNotes.map(note => {
+                    if (note.content) {
+                        return `${note.label}:\n${note.content}`;
+                    }
+                    return null;
+                }).filter(content => content).join('\n\n');
+                
+                const analysisElement = document.getElementById('analysis_level1');
+                if (analysisContent) {
+                    analysisElement.textContent = analysisContent;
+                } else {
+                    analysisElement.innerHTML = '<span class="empty-note">Geen analyse gevonden</span>';
+                }
+                
+                // Combine message notes
+                const messageNotes = results.filter(r => r.id.startsWith('message_'));
+                const messageContent = messageNotes.map(note => {
+                    if (note.content) {
+                        return `${note.label}:\n${note.content}`;
+                    }
+                    return null;
+                }).filter(content => content).join('\n\n');
+                
+                const messageElement = document.getElementById('message_level2');
+                if (messageContent) {
+                    messageElement.textContent = messageContent;
+                } else {
+                    messageElement.innerHTML = '<span class="empty-note">Geen bericht gevonden</span>';
+                }
+                
+                // Display Level 3 notes
+                const level3Notes = results.filter(r => r.id.startsWith('note') && r.id.includes('level3'));
+                level3Notes.forEach(result => {
                     const element = document.getElementById(result.id);
                     if (element) {
                         if (result.content) {
-                            // For final pages, parse JSON if needed
-                            if (result.pageId === 'analysis_level1' || result.pageId === 'message_level2') {
-                                try {
-                                    const parsed = JSON.parse(result.content);
-                                    // Combine all textareas from final pages
-                                    const combinedContent = Object.values(parsed).filter(v => v).join('\n\n');
-                                    element.textContent = combinedContent || '';
-                                    if (!combinedContent) {
-                                        element.innerHTML = '<span class="empty-note">Geen inhoud gevonden</span>';
-                                    }
-                                } catch (e) {
-                                    // If not JSON, display as is
-                                    element.textContent = result.content;
-                                }
-                            } else {
-                                element.textContent = result.content;
-                            }
+                            element.textContent = result.content;
                         } else {
                             element.innerHTML = '<span class="empty-note">Geen notitie gevonden</span>';
                         }

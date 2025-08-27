@@ -16,10 +16,11 @@ This extension adds advanced educational assessment capabilities to the **Bibend
 ### ✅ Extension Components
 
 #### Smart Notepad System
-- **3 Levels** with 11 total pages (7 note pages + 2 final pages + 1 overview page + 1 my notes page)
+- **3 Levels + Final Assignment** with 12 total pages (7 note pages + 2 final pages + 1 overview page + 1 my notes page + 1 final assignment)
 - **Note Pages**: Simple textarea with 2000 character limit
 - **Final Pages**: Pre-filled with previous notes for analysis/message creation
 - **My Notes Page (Level 3)**: Streamlined overview showing analysis, message to Emma, and Level 3 activities
+- **Final Assignment**: 8-field comprehensive assessment page with individual field tracking
 - **User Tracking**: Time spent, edit counts, content persistence
 - **Responsive Design**: Clean minimal UI with #00C2CB primary color
 
@@ -102,7 +103,8 @@ bibendo-platform/
 │   ├── notepad/
 │   │   ├── level1/           # Level 1 notepad pages (4 pages)
 │   │   ├── level2/           # Level 2 notepad pages (4 pages)
-│   │   └── level3/           # Level 3 notepad pages (3 pages incl. My Notes overview)
+│   │   ├── level3/           # Level 3 notepad pages (3 pages incl. My Notes overview)
+│   │   └── final-assignment/ # Final Assignment with 8 assessment fields
 │   ├── texts/
 │   │   ├── level1/           # Level 1: Email, Instagram, News, Product pages
 │   │   │   ├── oefentekst_level1.html        # Emma's email (enhanced)
@@ -162,6 +164,9 @@ This extension is designed to be embedded within educational games created in th
 // Smart Notepad System
 const notepadUrl = `https://onderzoek.leeschallenges.nl/notepad/level1/note1.html?userId=${userId}`;
 
+// Final Assignment System
+const finalAssignmentUrl = `https://onderzoek.leeschallenges.nl/notepad/final-assignment/final_assignment.html?userId=${userId}`;
+
 // Text Analysis Pages  
 const textUrl = `https://onderzoek.leeschallenges.nl/texts/level1/oefentekst_level1.html?userId=${userId}`;
 
@@ -177,6 +182,7 @@ const adminUrl = `https://onderzoek.leeschallenges.nl/admin/dashboard.html`;
 ### Educational Game Use Cases
 - **Reading Comprehension Games**: Embed modern text formats within story-based adventures
 - **Note-Taking Adventures**: Use smart notepad system for puzzle-solving and reflection
+- **Comprehensive Assessment**: Final Assignment system for end-of-unit evaluations
 - **Analytics Integration**: Real-time learning analytics feed back into game progression
 - **Classroom Management**: Teachers can monitor student progress across all game sessions
 
@@ -274,6 +280,9 @@ http://localhost:3000/notepad/level{1-3}/{page}.html?userId={userId}
 - `note1_level3.html` - Activities planning
 - `note2_level3.html` - Sasha's activity suggestions
 - `mynotes_level3.html` - My Notes: Focused overview of analysis, message to Emma, and Level 3 notes
+
+**Final Assignment (Comprehensive Assessment)**
+- `final_assignment.html` - 8-field comprehensive assessment with SneakSpot launch planning questions
 
 ### Enhanced Text Pages System
 
@@ -435,6 +444,7 @@ GET /api/health
 - Level 2: `http://localhost:3000/notepad/level2/message_level2.html?userId=test123`
 - Level 3 Notes: `http://localhost:3000/notepad/level3/note2_level3.html?userId=test123`
 - Level 3 My Notes: `http://localhost:3000/notepad/level3/mynotes_level3.html?userId=test123`
+- Final Assignment: `http://localhost:3000/notepad/final-assignment/final_assignment.html?userId=test123`
 
 #### Enhanced Text Pages
 - Level 1 Email: `http://localhost:3000/texts/level1/oefentekst_level1.html?userId=test123`
@@ -456,12 +466,13 @@ GET /api/health
 
 ### Test Scenarios
 1. **Notepad Flow**: Create notes in sequence → verify pre-filling
-2. **Text Tracking**: Scroll through diverse content types → check admin analytics
-3. **Data Export**: Export user data → verify CSV/JSON format
-4. **Responsive Design**: Test all layouts on different screen sizes
-5. **Navigation**: Test back-to-overview links in news articles
-6. **Social Media UX**: Verify Instagram posts and WhatsApp chat interfaces
-7. **Auto-Save**: Test real-time saving across all notepad fields
+2. **Final Assignment**: Complete all 8 fields → verify progress tracking and auto-save
+3. **Text Tracking**: Scroll through diverse content types → check admin analytics
+4. **Data Export**: Export user data → verify CSV/JSON format
+5. **Responsive Design**: Test all layouts on different screen sizes
+6. **Navigation**: Test back-to-overview links in news articles
+7. **Social Media UX**: Verify Instagram posts and WhatsApp chat interfaces
+8. **Auto-Save**: Test real-time saving across all notepad fields
 
 ## 🚀 Deployment
 
