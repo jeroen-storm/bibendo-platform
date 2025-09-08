@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlexCore – Sneakers die met je meebewegen - Level 2</title>
+    <link rel="stylesheet" href="../../assets/css/main.css">
+    <link rel="stylesheet" href="../../assets/css/textPages.css">
+    <style>
+        body {
+            background: #f8f9fa;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segue UI', Roboto, sans-serif;
+        }
+        
+        .sneakers-site-header {
+            background: white;
+            border-bottom: 1px solid #e5e5e5;
+            padding: 15px 0;
+            text-align: center;
+        }
+        
+        .site-logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #00C2CB;
+        }
+        
+        .back-to-overview {
+            background: #0066ff;
+            color: white;
+            padding: 8px 16px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 14px;
+            display: inline-block;
+            margin-bottom: 20px;
+            transition: background-color 0.3s;
+        }
+        
+        .back-to-overview:hover {
+            background: #0056b3;
+            color: white;
+        }
+        
+        .sneaker-article {
+            max-width: 800px;
+            margin: 20px auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .article-header {
+            padding: 30px;
+            text-align: center;
+            background: linear-gradient(135deg, #0066ff 0%, #0056b3 100%);
+            color: white;
+        }
+        
+        .article-title {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .article-subtitle {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        
+        .article-content {
+            padding: 30px;
+        }
+        
+        .product-card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 25px;
+            border-left: 4px solid #0066ff;
+        }
+        
+        .product-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #0066ff;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .product-description {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        
+        .product-features {
+            margin: 20px 0;
+        }
+        
+        .features-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 15px;
+        }
+        
+        .product-features ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .product-features li {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+        
+        .product-features li:last-child {
+            border-bottom: none;
+        }
+        
+        .product-features strong {
+            color: #0066ff;
+        }
+        
+        .product-footer {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            border: 1px solid #e0f2f3;
+        }
+        
+        .availability {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.4;
+        }
+        
+        @media (max-width: 768px) {
+            .sneaker-article {
+                margin: 10px;
+            }
+            
+            .article-header {
+                padding: 20px;
+            }
+            
+            .article-title {
+                font-size: 24px;
+            }
+            
+            .article-content {
+                padding: 20px;
+            }
+            
+            .product-card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Reading progress indicator -->
+    <div class="reading-progress">
+        <div class="reading-progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="sneakers-site-header">
+        <div class="site-logo">👟 SneakerStyle Magazine</div>
+    </div>
+    
+    <div class="sneaker-article">
+        <a href="sneakers_jongeren_level2.html" class="back-to-overview">← Terug naar overzicht</a>
+        
+        <header class="article-header">
+            <h1 class="article-title">🌀 FlexCore – Sneakers die met je meebewegen</h1>
+            <p class="article-subtitle">Speciaal ontworpen voor jongeren die houden van beweging, vrijheid en een sportieve look</p>
+        </header>
+        
+        <main class="article-content trackable-section">
+            <div class="product-card">
+                <p class="product-description">
+                    Ben jij altijd onderweg? Van school naar sport, van chillen naar feest? Dan zijn de nieuwe FlexCore sneakers echt iets voor jou. Deze sneakers zijn speciaal ontworpen voor jongeren die houden van beweging, vrijheid en een sportieve look.
+                </p>
+                <p class="product-description">
+                    FlexCore combineert een moderne stijl met slimme technologie. De schoenen zijn licht, flexibel en passen zich aan jouw stappen aan. Of je nu rent, fietst of gewoon relaxt – FlexCore beweegt met je mee.
+                </p>
+                
+                <div class="product-features">
+                    <h4 class="features-title">Wat maakt FlexCore uniek?</h4>
+                    <ul>
+                        <li><strong>FlexFit-technologie:</strong> De zool is extra buigzaam en zorgt voor een natuurlijke afwikkeling van je voet. Dat loopt niet alleen lekker, maar voorkomt ook vermoeide voeten.</li>
+                        <li><strong>Sportieve streetlook:</strong> De sneakers hebben een frisse, sportieve uitstraling met strakke lijnen en zijn verkrijgbaar in verschillende kleuren zoals rood, navy en olijfgroen. Ze passen bij elke outfit, van jeans tot joggers.</li>
+                        <li><strong>Ademend & stevig:</strong> Het bovenwerk is gemaakt van een ademende stof en verstevigd met rubberen details. Zo blijven je voeten koel én goed beschermd.</li>
+                    </ul>
+                </div>
+                
+                <div class="product-footer">
+                    <p class="availability">FlexCore is er voor iedereen die niet stilzit. Verkrijgbaar in maten 36 t/m 46.</p>
+                    <p class="availability">📍 Nu te koop bij: SportStyle, SneakDistrict en via flexcore.shoes<br>
+                    📱 Volg ons op TikTok en Instagram: @flexcore.sneakers</p>
+                </div>
+            </div>
+        </main>
+        
+        <div style="padding: 20px; text-align: center; border-top: 1px solid #eee;">
+            <a href="sneakers_jongeren_level2.html" class="back-to-overview">← Terug naar overzicht</a>
+        </div>
+    </div>
+
+    <script src="../../assets/js/textTracker.js"></script>
+    <script>
+        // Update reading progress
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('progressBar').style.width = scrolled + '%';
+        });
+    </script>
+    
+    <script src="../../assets/js/userUtils.js"></script>
+</body>
+</html>

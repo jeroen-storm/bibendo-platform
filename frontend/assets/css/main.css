@@ -93,6 +93,121 @@ body {
     100% { opacity: 1; }
 }
 
+/* Exit Intent Modal Styles - using emma-overlay pattern */
+.exit-intent-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.exit-intent-overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.exit-intent-popup {
+    background-color: white;
+    padding: 40px 30px;
+    border-radius: 12px;
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    transform: scale(0.8);
+    transition: transform 0.3s ease;
+}
+
+.exit-intent-overlay.show .exit-intent-popup {
+    transform: scale(1);
+}
+
+.exit-intent-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+    object-fit: cover;
+    border: 3px solid #00C2CB;
+}
+
+.exit-intent-header h3 {
+    color: #333;
+    margin-bottom: 25px;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+.exit-intent-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-top: 25px;
+}
+
+.exit-intent-btn-primary {
+    background: #00C2CB;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.exit-intent-btn-primary:hover {
+    background: #00a8b0;
+}
+
+.exit-intent-btn-secondary {
+    background: #00C2CB;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.exit-intent-btn-secondary:hover {
+    background: #00a8b0;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 /* Submit to Emma section styling */
 .submit-section {
     margin-top: 30px;

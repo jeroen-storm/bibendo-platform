@@ -11,6 +11,23 @@ class NotepadManager {
         this.autoSaveDelay = 1500; // 1.5 seconds after typing stops
         this.hasUnsavedChanges = false;
         
+        // Exit intent configuration
+        this.exitIntentConfig = {
+            minCharacters: 20,          // Easy to change!
+            triggerZoneHeight: 150,     // Top area (where back button is)
+            triggerZoneWidth: 150,      // Left area 
+            debounceDelay: 500,         // Avoid false positives
+            showOnlyOnce: true,         // Per session
+            enabled: true
+        };
+        
+        this.exitIntentState = {
+            hasShownModal: false,       // Track if modal was shown this session
+            isMouseInTriggerZone: false,
+            debounceTimer: null,
+            mouseLeaveTimer: null
+        };
+        
         this.init();
     }
     
@@ -18,6 +35,7 @@ class NotepadManager {
         this.setupEventListeners();
         this.loadExistingContent();
         this.startTimeTracking();
+        this.setupExitIntent();
     }
     
     getUserId() {
@@ -288,6 +306,156 @@ class NotepadManager {
     
     startTimeTracking() {
         this.startTime = Date.now();
+    }
+    
+    // Exit Intent Methods
+    setupExitIntent() {
+        if (!this.exitIntentConfig.enabled) return;
+        
+        // Don't show exit intent on final pages (analysis, message, final assignment)
+        if (this.isFinalPage()) return;
+        
+        document.addEventListener('mousemove', (e) => this.handleMouseMove(e));
+        document.addEventListener('mouseleave', (e) => this.handleMouseLeave(e));
+    }
+    
+    isFinalPage() {
+        const pageId = this.pageId;
+        return (
+            pageId.includes('analysis') ||
+            pageId.includes('message') ||
+            pageId.includes('final_assignment') ||
+            pageId.includes('mynotes')
+        );
+    }
+    
+    handleMouseMove(event) {
+        if (this.exitIntentState.hasShownModal || !this.exitIntentConfig.enabled) return;
+        
+        const x = event.clientX;
+        const y = event.clientY;
+        
+        // Check if mouse is in trigger zone (top-left area)
+        const inTriggerZone = (
+            x <= this.exitIntentConfig.triggerZoneWidth && 
+            y <= this.exitIntentConfig.triggerZoneHeight
+        );
+        
+        if (inTriggerZone && !this.exitIntentState.isMouseInTriggerZone) {
+            this.exitIntentState.isMouseInTriggerZone = true;
+            this.startExitIntentDebounce();
+        } else if (!inTriggerZone && this.exitIntentState.isMouseInTriggerZone) {
+            this.exitIntentState.isMouseInTriggerZone = false;
+            this.clearExitIntentDebounce();
+        }
+    }
+    
+    handleMouseLeave(event) {
+        if (this.exitIntentState.hasShownModal || !this.exitIntentConfig.enabled) return;
+        
+        // Check if mouse left through top of window
+        if (event.clientY <= 0) {
+            this.startExitIntentDebounce();
+        }
+    }
+    
+    startExitIntentDebounce() {
+        this.clearExitIntentDebounce();
+        
+        this.exitIntentState.debounceTimer = setTimeout(() => {
+            this.checkAndShowExitModal();
+        }, this.exitIntentConfig.debounceDelay);
+    }
+    
+    clearExitIntentDebounce() {
+        if (this.exitIntentState.debounceTimer) {
+            clearTimeout(this.exitIntentState.debounceTimer);
+            this.exitIntentState.debounceTimer = null;
+        }
+    }
+    
+    checkAndShowExitModal() {
+        if (this.exitIntentState.hasShownModal) return;
+        
+        const textarea = document.getElementById('noteTextarea');
+        if (!textarea) return;
+        
+        const currentText = textarea.value.trim();
+        const characterCount = currentText.length;
+        
+        // Only show modal if user hasn't written enough
+        if (characterCount < this.exitIntentConfig.minCharacters) {
+            this.showExitModal(characterCount);
+        }
+    }
+    
+    showExitModal(currentCharCount) {
+        this.exitIntentState.hasShownModal = true;
+        
+        // Create modal HTML using emma-overlay pattern
+        const modalHtml = `
+            <div class="exit-intent-overlay" id="exitIntentOverlay">
+                <div class="exit-intent-popup">
+                    <div class="exit-intent-header">
+                        <img src="../../assets/images/karim_popup.png" alt="Karin" class="exit-intent-avatar">
+                        <h3>Hey, weet je zeker dat je klaar bent?</h3>
+                    </div>
+                    <div class="exit-intent-actions">
+                        <button class="exit-intent-btn-secondary" data-action="done">Sluiten</button>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        // Add to DOM
+        const modalContainer = document.createElement('div');
+        modalContainer.innerHTML = modalHtml;
+        const modal = modalContainer.firstElementChild;
+        document.body.appendChild(modal);
+        
+        // Add event listeners
+        modal.addEventListener('click', (e) => this.handleModalAction(e, modal));
+        
+        // Show modal with animation (like emma overlay)
+        setTimeout(() => {
+            modal.classList.add('show');
+        }, 10);
+        
+        // Focus trap - keep focus in modal
+        const closeBtn = modal.querySelector('.exit-intent-btn-secondary');
+        if (closeBtn) {
+            closeBtn.focus();
+        }
+    }
+    
+    handleModalAction(event, modal) {
+        const action = event.target.getAttribute('data-action');
+        
+        if (action === 'done') {
+            // Close modal and allow natural exit behavior
+            this.closeModal(modal);
+            // User chose to be done, disable exit intent for this session
+            this.exitIntentConfig.enabled = false;
+        }
+        
+        // Click outside modal to close
+        if (event.target.classList.contains('exit-intent-overlay')) {
+            this.closeModal(modal);
+            const textarea = document.getElementById('noteTextarea');
+            if (textarea) {
+                textarea.focus();
+            }
+        }
+    }
+    
+    closeModal(modal) {
+        // Use emma-overlay pattern for closing
+        modal.classList.remove('show');
+        setTimeout(() => {
+            if (modal.parentNode) {
+                modal.parentNode.removeChild(modal);
+            }
+        }, 300); // Match transition duration
     }
 }
 
