@@ -12,17 +12,33 @@
         <div class="question">
             <div class="instruction-emoji">📝</div>
             <p class="instruction-text">Beschrijf Urban Flow in 2-3 zinnen en leg uit waarom deze sneakerstyle goed past bij SneakSpot.</p>
-            <p>Urban Flow past goed bij SneakSpot omdat:</p>
+            <p>De kenmerken van deze style zijn...</p>
         </div>
-        
         
         <div class="form-group">
             <textarea 
-                id="noteTextarea" 
+                id="characteristicsTextarea" 
                 placeholder="Begin hier met typen..."
-                maxlength="1000"
+                maxlength="500"
+                style="height: 80px;"
             ></textarea>
-            <div class="char-counter">0/1000</div>
+            <div class="char-counter">0/500</div>
+        </div>
+        
+        <!-- Second Question -->
+        <div class="question" style="margin-top: 30px;">
+            <p>Deze sneakerstyle past goed bij SneakSpot omdat...</p>
+        </div>
+        
+        <div class="form-group">
+            <textarea 
+                id="reasonTextarea" 
+                placeholder="Begin hier met typen..."
+                maxlength="500"
+                style="height: 80px;"
+            ></textarea>
+            <div class="char-counter">0/500</div>
+        </div>
         
         <!-- Auto-save status indicator -->
         <div class="status-message auto-save-status" id="statusMessage"></div>
@@ -35,6 +51,355 @@
         
     </div>
     
-    <script src="../../assets/js/notepad.js"></script>
+    <script>
+        // Custom dual-textarea version for note2_level2
+        class DualNotepadLevel2Manager {
+            constructor() {
+                this.userId = this.getUserId();
+                this.pageId = 'note2_level2';
+                this.startTime = Date.now();
+                this.editCount = 0;
+                this.autoSaveTimer = null;
+                this.autoSaveDelay = 1500;
+                this.hasUnsavedChanges = false;
+                
+                // Exit intent configuration
+                this.exitIntentConfig = {
+                    minCharacters: 20,          
+                    triggerZoneHeight: 150,     
+                    triggerZoneWidth: 150,      
+                    debounceDelay: 500,         
+                    showOnlyOnce: false,        // Keep showing until sufficient text
+                    enabled: true
+                };
+                
+                this.exitIntentState = {
+                    hasShownModal: false,       
+                    isMouseInTriggerZone: false,
+                    debounceTimer: null,
+                    mouseLeaveTimer: null
+                };
+                
+                this.init();
+            }
+            
+            getUserId() {
+                const urlParams = new URLSearchParams(window.location.search);
+                return urlParams.get('userId') || 'anonymous';
+            }
+            
+            init() {
+                this.setupEventListeners();
+                this.loadExistingContent();
+                this.startTimeTracking();
+                this.setupExitIntent();
+            }
+            
+            setupEventListeners() {
+                const textarea1 = document.getElementById('characteristicsTextarea');
+                const textarea2 = document.getElementById('reasonTextarea');
+                
+                [textarea1, textarea2].forEach(textarea => {
+                    if (textarea) {
+                        textarea.addEventListener('input', (e) => {
+                            this.editCount++;
+                            this.hasUnsavedChanges = true;
+                            this.scheduleAutoSave();
+                            this.updateCharCounter(e.target);
+                        });
+                        
+                        textarea.addEventListener('blur', () => {
+                            if (this.hasUnsavedChanges) {
+                                this.saveNote();
+                            }
+                        });
+                    }
+                });
+                
+                // Update character counters on load
+                this.updateCharCounter(textarea1);
+                this.updateCharCounter(textarea2);
+            }
+            
+            updateCharCounter(textarea) {
+                if (!textarea) return;
+                
+                const charCounter = textarea.nextElementSibling;
+                if (charCounter && charCounter.classList.contains('char-counter')) {
+                    const maxLength = textarea.getAttribute('maxlength') || 1000;
+                    const currentLength = textarea.value.length;
+                    charCounter.textContent = `${currentLength}/${maxLength}`;
+                    
+                    // Color coding for character limit
+                    if (currentLength > maxLength * 0.9) {
+                        charCounter.style.color = '#d32f2f';
+                    } else if (currentLength > maxLength * 0.8) {
+                        charCounter.style.color = '#ff9800';
+                    } else {
+                        charCounter.style.color = '#666';
+                    }
+                }
+            }
+            
+            scheduleAutoSave() {
+                clearTimeout(this.autoSaveTimer);
+                this.autoSaveTimer = setTimeout(() => {
+                    this.saveNote();
+                }, this.autoSaveDelay);
+            }
+            
+            async saveNote() {
+                const textarea1 = document.getElementById('characteristicsTextarea');
+                const textarea2 = document.getElementById('reasonTextarea');
+                
+                if (!textarea1 || !textarea2) return;
+                
+                // Combine both textareas with separator for backward compatibility
+                const combinedContent = textarea1.value.trim() + 
+                    (textarea1.value.trim() && textarea2.value.trim() ? '\n\n--- Waarom geschikt ---\n\n' : '') + 
+                    textarea2.value.trim();
+                
+                const statusMessage = document.getElementById('statusMessage');
+                
+                try {
+                    const response = await fetch('/api/notes/save', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            userId: this.userId,
+                            pageId: this.pageId,
+                            content: combinedContent,
+                            editCount: this.editCount,
+                            timeSpent: Math.floor((Date.now() - this.startTime) / 1000)
+                        })
+                    });
+                    
+                    if (response.ok) {
+                        this.hasUnsavedChanges = false;
+                        if (statusMessage) {
+                            statusMessage.textContent = 'Automatisch opgeslagen ✓';
+                            statusMessage.style.color = '#4caf50';
+                            setTimeout(() => {
+                                statusMessage.textContent = '';
+                            }, 2000);
+                        }
+                    } else {
+                        throw new Error('Save failed');
+                    }
+                } catch (error) {
+                    console.error('Error saving:', error);
+                    if (statusMessage) {
+                        statusMessage.textContent = 'Fout bij opslaan';
+                        statusMessage.style.color = '#d32f2f';
+                    }
+                }
+            }
+            
+            async loadExistingContent() {
+                try {
+                    const response = await fetch(`/api/notes/${this.userId}/${this.pageId}`);
+                    if (response.ok) {
+                        const data = await response.json();
+                        if (data.content) {
+                            // Split the content back into two parts
+                            const separator = '--- Waarom geschikt ---';
+                            const parts = data.content.split(separator);
+                            
+                            const textarea1 = document.getElementById('characteristicsTextarea');
+                            const textarea2 = document.getElementById('reasonTextarea');
+                            
+                            if (textarea1 && parts[0]) {
+                                textarea1.value = parts[0].trim();
+                                this.updateCharCounter(textarea1);
+                            }
+                            
+                            if (textarea2 && parts[1]) {
+                                textarea2.value = parts[1].trim();
+                                this.updateCharCounter(textarea2);
+                            }
+                        }
+                    }
+                } catch (error) {
+                    console.error('Error loading content:', error);
+                }
+            }
+            
+            startTimeTracking() {
+                // Track time spent on page
+                window.addEventListener('beforeunload', () => {
+                    const timeSpent = Math.floor((Date.now() - this.startTime) / 1000);
+                    navigator.sendBeacon('/api/logs/time', JSON.stringify({
+                        userId: this.userId,
+                        pageId: this.pageId,
+                        timeSpent: timeSpent
+                    }));
+                });
+            }
+            
+            // Exit Intent Methods
+            setupExitIntent() {
+                if (!this.exitIntentConfig.enabled) return;
+                
+                document.addEventListener('mousemove', (e) => this.handleMouseMove(e));
+                document.addEventListener('mouseleave', (e) => this.handleMouseLeave(e));
+            }
+            
+            handleMouseMove(event) {
+                if (this.exitIntentState.hasShownModal || !this.exitIntentConfig.enabled) return;
+                
+                const x = event.clientX;
+                const y = event.clientY;
+                
+                // Check if mouse is in trigger zone (top-left area)
+                const inTriggerZone = (
+                    x <= this.exitIntentConfig.triggerZoneWidth && 
+                    y <= this.exitIntentConfig.triggerZoneHeight
+                );
+                
+                if (inTriggerZone && !this.exitIntentState.isMouseInTriggerZone) {
+                    this.exitIntentState.isMouseInTriggerZone = true;
+                    this.startExitIntentDebounce();
+                } else if (!inTriggerZone && this.exitIntentState.isMouseInTriggerZone) {
+                    this.exitIntentState.isMouseInTriggerZone = false;
+                    this.clearExitIntentDebounce();
+                }
+            }
+            
+            handleMouseLeave(event) {
+                if (this.exitIntentState.hasShownModal || !this.exitIntentConfig.enabled) return;
+                
+                // Check if mouse left through top of window
+                if (event.clientY <= 0) {
+                    this.startExitIntentDebounce();
+                }
+            }
+            
+            startExitIntentDebounce() {
+                this.clearExitIntentDebounce();
+                
+                this.exitIntentState.debounceTimer = setTimeout(() => {
+                    this.checkAndShowExitModal();
+                }, this.exitIntentConfig.debounceDelay);
+            }
+            
+            clearExitIntentDebounce() {
+                if (this.exitIntentState.debounceTimer) {
+                    clearTimeout(this.exitIntentState.debounceTimer);
+                    this.exitIntentState.debounceTimer = null;
+                }
+            }
+            
+            checkAndShowExitModal() {
+                // Check combined text from both textareas
+                const textarea1 = document.getElementById('characteristicsTextarea');
+                const textarea2 = document.getElementById('reasonTextarea');
+                
+                if (!textarea1 || !textarea2) return;
+                
+                const combinedText = (textarea1.value + ' ' + textarea2.value).trim();
+                const characterCount = combinedText.length;
+                
+                // Only show modal if user hasn't written enough
+                if (characterCount < this.exitIntentConfig.minCharacters) {
+                    // Don't show if modal is currently being displayed
+                    if (!document.getElementById('exitIntentOverlay')) {
+                        this.showExitModal(characterCount);
+                    }
+                }
+            }
+            
+            showExitModal(currentCharCount) {
+                // Create modal HTML using emma-overlay pattern
+                const modalHtml = `
+                    <div class="exit-intent-overlay" id="exitIntentOverlay">
+                        <div class="exit-intent-popup">
+                            <div class="exit-intent-header">
+                                <img src="../../assets/images/karim_popup.png" alt="Karin" class="exit-intent-avatar">
+                                <h3>Hey, weet je zeker dat je klaar bent?</h3>
+                            </div>
+                            <div class="exit-intent-actions">
+                                <button class="exit-intent-btn-secondary" data-action="done">Sluiten</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                // Add to DOM
+                const modalContainer = document.createElement('div');
+                modalContainer.innerHTML = modalHtml;
+                const modal = modalContainer.firstElementChild;
+                document.body.appendChild(modal);
+                
+                // Add event listeners
+                modal.addEventListener('click', (e) => this.handleModalAction(e, modal));
+                
+                // Show modal with animation (like emma overlay)
+                setTimeout(() => {
+                    modal.classList.add('show');
+                }, 10);
+                
+                // Focus trap - keep focus in modal
+                const closeBtn = modal.querySelector('.exit-intent-btn-secondary');
+                if (closeBtn) {
+                    closeBtn.focus();
+                }
+            }
+            
+            handleModalAction(event, modal) {
+                const action = event.target.getAttribute('data-action');
+                
+                if (action === 'done') {
+                    // Close modal and check if they have enough text now
+                    this.closeModalAndCheckText(modal);
+                }
+                
+                // Click outside modal to close
+                if (event.target.classList.contains('exit-intent-overlay')) {
+                    this.closeModalAndCheckText(modal);
+                    const textarea1 = document.getElementById('characteristicsTextarea');
+                    const textarea2 = document.getElementById('reasonTextarea');
+                    if (textarea1) {
+                        textarea1.focus();
+                    }
+                }
+            }
+            
+            closeModalAndCheckText(modal) {
+                this.closeModal(modal);
+                
+                // Check if they now have sufficient text
+                const textarea1 = document.getElementById('characteristicsTextarea');
+                const textarea2 = document.getElementById('reasonTextarea');
+                
+                if (textarea1 && textarea2) {
+                    const combinedText = (textarea1.value + ' ' + textarea2.value).trim();
+                    const characterCount = combinedText.length;
+                    
+                    if (characterCount >= this.exitIntentConfig.minCharacters) {
+                        // They have enough text now - disable exit intent for this session
+                        this.exitIntentConfig.enabled = false;
+                    } else {
+                        // Still not enough text - reset so popup can show again
+                        this.exitIntentState.hasShownModal = false;
+                    }
+                }
+            }
+            
+            closeModal(modal) {
+                // Use emma-overlay pattern for closing
+                modal.classList.remove('show');
+                setTimeout(() => {
+                    if (modal.parentNode) {
+                        modal.parentNode.removeChild(modal);
+                    }
+                }, 300); // Match transition duration
+            }
+        }
+        
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            new DualNotepadLevel2Manager();
+        });
+    </script>
 </body>
 </html>
