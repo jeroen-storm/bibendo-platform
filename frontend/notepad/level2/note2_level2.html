@@ -106,6 +106,14 @@
                             this.hasUnsavedChanges = true;
                             this.scheduleAutoSave();
                             this.updateCharCounter(e.target);
+                            
+                            // Show typing indicator
+                            const statusMessage = document.getElementById('statusMessage');
+                            if (statusMessage) {
+                                statusMessage.innerHTML = '✏️ Bezig met typen...';
+                                statusMessage.className = 'status-message auto-save-status typing';
+                                statusMessage.style.display = 'block';
+                            }
                         });
                         
                         textarea.addEventListener('blur', () => {
@@ -161,6 +169,13 @@
                 
                 const statusMessage = document.getElementById('statusMessage');
                 
+                // Show saving indicator
+                if (statusMessage) {
+                    statusMessage.innerHTML = '⏳ Bezig met opslaan...';
+                    statusMessage.className = 'status-message auto-save-status saving';
+                    statusMessage.style.display = 'block';
+                }
+                
                 try {
                     const response = await fetch('/api/notes/save', {
                         method: 'POST',
@@ -177,12 +192,12 @@
                     if (response.ok) {
                         this.hasUnsavedChanges = false;
                         if (statusMessage) {
-                            statusMessage.textContent = 'Automatisch opgeslagen ✓';
+                            statusMessage.innerHTML = '✅ Automatisch opgeslagen';
                             statusMessage.className = 'status-message auto-save-status saved';
+                            statusMessage.style.display = 'block';
                             setTimeout(() => {
-                                statusMessage.textContent = '';
-                                statusMessage.className = 'status-message auto-save-status';
-                            }, 2000);
+                                statusMessage.style.display = 'none';
+                            }, 3000);
                         }
                     } else {
                         throw new Error('Save failed');
@@ -190,11 +205,11 @@
                 } catch (error) {
                     console.error('Error saving:', error);
                     if (statusMessage) {
-                        statusMessage.textContent = 'Fout bij opslaan';
+                        statusMessage.innerHTML = '❌ Fout bij opslaan';
                         statusMessage.className = 'status-message auto-save-status error';
+                        statusMessage.style.display = 'block';
                         setTimeout(() => {
-                            statusMessage.textContent = '';
-                            statusMessage.className = 'status-message auto-save-status';
+                            statusMessage.style.display = 'none';
                         }, 3000);
                     }
                 }
