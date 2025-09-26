@@ -279,7 +279,7 @@
                 </div>
                 <textarea 
                     id="field7" 
-                    placeholder="1. ...\n2. ..."
+                    placeholder="Begin hier met typen..."
                     maxlength="500"
                     style="height: 50px;"
                 ></textarea>
@@ -298,7 +298,7 @@
                 </div>
                 <textarea 
                     id="field8" 
-                    placeholder="1. ...\n2. ...\n3. ..."
+                    placeholder="Begin hier met typen..."
                     maxlength="500"
                     style="height: 60px;"
                 ></textarea>
@@ -614,16 +614,26 @@
             
             async displayUserNotes() {
                 console.log('Displaying user notes under fields...');
+                console.log('User ID:', this.userId);
                 
                 for (let i = 1; i <= 8; i++) {
                     const mapping = this.noteMapping[i];
                     if (!mapping || !mapping.pageId) continue;
                     
+                    console.log(`Processing field ${i}, pageId: ${mapping.pageId}, field: ${mapping.field}`);
+                    
                     const noteDisplay = document.getElementById(`note-display-${i}`);
-                    if (!noteDisplay) continue;
+                    if (!noteDisplay) {
+                        console.log(`No note-display-${i} element found`);
+                        continue;
+                    }
                     
                     try {
-                        const response = await fetch(`/api/notes/${this.userId}/${mapping.pageId}`);
+                        const url = `/api/notes/${this.userId}/${mapping.pageId}`;
+                        console.log(`Fetching: ${url}`);
+                        const response = await fetch(url);
+                        console.log(`Response status for ${mapping.pageId}:`, response.status);
+                        
                         if (response.ok) {
                             const data = await response.json();
                             if (data.content) {
@@ -852,64 +862,18 @@
     </script>
 
     <!-- Exit Intent Modal -->
-    <div id="exitIntentModal" class="exit-intent-modal" style="display: none;">
-        <div class="exit-intent-content">
-            <h3>Wacht even!</h3>
-            <p>Je hebt nog maar weinig tekst ingevuld in de eindopdracht. Vul eerst meer tekst in voordat je de pagina verlaat.</p>
-            <button id="continueWriting" class="continue-btn">Verder schrijven</button>
+    <div id="exitIntentModal" class="exit-intent-overlay" style="display: none;">
+        <div class="exit-intent-popup">
+            <div class="exit-intent-header">
+                <img src="../../assets/images/karim_popup.png" alt="Karim" class="exit-intent-avatar">
+                <h3>Hey, weet je zeker dat je klaar bent?</h3>
+            </div>
+            <div class="exit-intent-actions">
+                <button id="continueWriting" class="exit-intent-btn-secondary">Sluiten</button>
+            </div>
         </div>
     </div>
 
-    <style>
-        .exit-intent-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 10000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .exit-intent-content {
-            background: white;
-            padding: 30px;
-            border-radius: 8px;
-            text-align: center;
-            max-width: 400px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .exit-intent-content h3 {
-            color: #333;
-            margin-bottom: 15px;
-            font-size: 1.3em;
-        }
-
-        .exit-intent-content p {
-            color: #666;
-            margin-bottom: 20px;
-            line-height: 1.4;
-        }
-
-        .continue-btn {
-            background: #00C2CB;
-            color: white;
-            padding: 12px 25px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 1em;
-            transition: background-color 0.3s ease;
-        }
-
-        .continue-btn:hover {
-            background: #00a9b5;
-        }
-    </style>
 
     <script>
         // Exit Intent functionality for Final Assignment
@@ -938,6 +902,7 @@
                 const modal = document.getElementById('exitIntentModal');
                 if (modal) {
                     modal.style.display = 'flex';
+                    setTimeout(() => modal.classList.add('show'), 10);
                     exitIntentShown = true;
                 }
             }
