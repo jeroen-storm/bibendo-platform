@@ -943,21 +943,23 @@
             }
         }
 
-        // Mouse leave detection - top and left zones
+        // Exit intent detection using proven working approach
         document.addEventListener('mouseleave', (e) => {
-            if (e.clientY <= 0 || e.clientX <= 0) {
+            if (e.clientY <= 0) {
                 showExitIntentModal();
             }
         });
         
-        // Additional mouse move tracking for better exit intent detection
+        // Add mouse movement tracking for trigger zones
         document.addEventListener('mousemove', (e) => {
-            // Check if mouse is in top-left corner area (back button zone)
-            if ((e.clientY <= 100 && e.clientX <= 100) || 
-                (e.clientY <= 50) || 
-                (e.clientX <= 50)) {
-                // Mouse is near exit zones - prepare to show modal on next leave
-                // This improves detection accuracy
+            // Check if mouse is in top-left trigger zone (back button area)
+            if (e.clientX <= 150 && e.clientY <= 150) {
+                // Mouse is in potential exit zone
+            }
+            
+            // Check immediate exit intent on very top edge
+            if (e.clientY <= 10) {
+                showExitIntentModal();
             }
         });
 
