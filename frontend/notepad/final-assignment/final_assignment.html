@@ -426,7 +426,7 @@
                 
                 // Note mapping for auto-population
                 this.noteMapping = {
-                    1: { pageId: 'note2_level1', field: 'products' },      // SneakSpot verkoopt
+                    1: { pageId: 'note2_level1', field: 'single' },       // SneakSpot verkoopt
                     2: { pageId: 'note1_level1', field: 'single' },       // Weinig jongeren omdat
                     3: { pageId: 'note3_level1', field: 'single' },       // Om meer aan te trekken
                     4: { pageId: 'note1_level2', field: 'single' },       // Jongeren zoeken naar
@@ -639,14 +639,7 @@
                                 let noteText = '';
                                 
                                 // Handle dual-textarea pages - show both parts
-                                if (mapping.pageId === 'note2_level1') {
-                                    const separator = '--- Kenmerken ---';
-                                    const parts = data.content.split(separator);
-                                    if (mapping.field === 'products') {
-                                        // Field 1: Show products part
-                                        noteText = parts[0] ? parts[0].trim() : '';
-                                    }
-                                } else if (mapping.pageId === 'note2_level2') {
+                                if (mapping.pageId === 'note2_level2') {
                                     const separator = '--- Waarom geschikt ---';
                                     const parts = data.content.split(separator);
                                     if (mapping.field === 'characteristics') {

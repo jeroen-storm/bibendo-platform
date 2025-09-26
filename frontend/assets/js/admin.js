@@ -454,7 +454,7 @@ class AdminDashboard {
     getPageTitle(pageId) {
         const titles = {
             'note1_level1': 'Notitie 1 - Waarom weinig jongeren',
-            'note2_level1': 'Notitie 2 - Producten & Kenmerken', 
+            'note2_level1': 'Notitie 2 - Factoren', 
             'note3_level1': 'Notitie 3 - Toekomst',
             'analysis_level1': 'Analyse Samenvatting',
             'note1_level2': 'Notitie 1 - Sneakerstyle jongeren',
