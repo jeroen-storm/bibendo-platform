@@ -178,9 +178,10 @@
                         this.hasUnsavedChanges = false;
                         if (statusMessage) {
                             statusMessage.textContent = 'Automatisch opgeslagen ✓';
-                            statusMessage.style.color = '#4caf50';
+                            statusMessage.className = 'status-message auto-save-status saved';
                             setTimeout(() => {
                                 statusMessage.textContent = '';
+                                statusMessage.className = 'status-message auto-save-status';
                             }, 2000);
                         }
                     } else {
@@ -190,7 +191,11 @@
                     console.error('Error saving:', error);
                     if (statusMessage) {
                         statusMessage.textContent = 'Fout bij opslaan';
-                        statusMessage.style.color = '#d32f2f';
+                        statusMessage.className = 'status-message auto-save-status error';
+                        setTimeout(() => {
+                            statusMessage.textContent = '';
+                            statusMessage.className = 'status-message auto-save-status';
+                        }, 3000);
                     }
                 }
             }
