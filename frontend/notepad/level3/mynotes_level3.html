@@ -122,6 +122,14 @@
                     <span class="empty-note">Geen notitie gevonden</span>
                 </div>
             </div>
+            
+            <!-- Final Assignment -->
+            <h2 class="section-header">Eindopdracht</h2>
+            <div class="note-section">
+                <div class="note-content" id="final_assignment">
+                    <span class="empty-note">Geen eindopdracht gevonden</span>
+                </div>
+            </div>
         </div>
     </div>
     
@@ -156,14 +164,16 @@
             const notesToLoad = [
                 // Analysis from individual notes (Level 1)
                 { id: 'analysis_note1', pageId: 'note1_level1', label: 'Notitie 1' },
-                { id: 'analysis_note2', pageId: 'note2_level1', label: 'Factoren' },
+                { id: 'analysis_note2', pageId: 'note2_level1', label: 'Producten & Kenmerken' },
                 { id: 'analysis_note3', pageId: 'note3_level1', label: 'Toekomst' },
                 // Message from individual notes (Level 2)
                 { id: 'message_note1', pageId: 'note1_level2', label: 'Notitie 1' },
-                { id: 'message_note2', pageId: 'note2_level2', label: 'Communicatie' },
+                { id: 'message_note2', pageId: 'note2_level2', label: 'Urban Flow & Geschiktheid' },
                 // Level 3 Notes
                 { id: 'note1_level3', pageId: 'note1_level3' },
-                { id: 'note2_level3', pageId: 'note2_level3' }
+                { id: 'note2_level3', pageId: 'note2_level3' },
+                // Final Assignment
+                { id: 'final_assignment', pageId: 'final_assignment' }
             ];
             
             try {
@@ -224,6 +234,17 @@
                         }
                     }
                 });
+                
+                // Display Final Assignment
+                const finalAssignmentResult = results.find(r => r.id === 'final_assignment');
+                if (finalAssignmentResult) {
+                    const finalAssignmentElement = document.getElementById('final_assignment');
+                    if (finalAssignmentResult.content) {
+                        finalAssignmentElement.textContent = finalAssignmentResult.content;
+                    } else {
+                        finalAssignmentElement.innerHTML = '<span class="empty-note">Geen eindopdracht gevonden</span>';
+                    }
+                }
                 
                 // Hide loading message and show notes
                 document.getElementById('loadingMessage').style.display = 'none';

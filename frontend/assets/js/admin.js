@@ -96,14 +96,14 @@ class AdminDashboard {
                         const data = await response.json();
                         if (data.content) {
                             const content = JSON.parse(data.content);
-                            // Check if at least 6 out of 8 fields are filled
+                            // Check if at least 7 out of 9 fields are filled
                             let filledFields = 0;
-                            for (let i = 1; i <= 8; i++) {
+                            for (let i = 1; i <= 9; i++) {
                                 if (content[`field${i}`] && content[`field${i}`].trim()) {
                                     filledFields++;
                                 }
                             }
-                            if (filledFields >= 6) {
+                            if (filledFields >= 7) {
                                 finalAssignmentCount++;
                             }
                         }
@@ -223,17 +223,17 @@ class AdminDashboard {
             try {
                 const content = JSON.parse(finalAssignment.content);
                 let filledFields = 0;
-                for (let i = 1; i <= 8; i++) {
+                for (let i = 1; i <= 9; i++) {
                     if (content[`field${i}`] && content[`field${i}`].trim()) {
                         filledFields++;
                     }
                 }
-                if (filledFields >= 8) {
+                if (filledFields >= 9) {
                     finalAssignmentStatus = '✅ Volledig ingeleverd';
-                } else if (filledFields >= 6) {
-                    finalAssignmentStatus = `🟡 Gedeeltelijk (${filledFields}/8)`;
+                } else if (filledFields >= 7) {
+                    finalAssignmentStatus = `🟡 Gedeeltelijk (${filledFields}/9)`;
                 } else if (filledFields > 0) {
-                    finalAssignmentStatus = `🟠 Begonnen (${filledFields}/8)`;
+                    finalAssignmentStatus = `🟠 Begonnen (${filledFields}/9)`;
                 }
             } catch (error) {
                 console.error('Error parsing final assignment content:', error);
@@ -454,11 +454,11 @@ class AdminDashboard {
     getPageTitle(pageId) {
         const titles = {
             'note1_level1': 'Notitie 1 - Waarom weinig jongeren',
-            'note2_level1': 'Notitie 2 - Factoren', 
+            'note2_level1': 'Notitie 2 - Producten & Kenmerken', 
             'note3_level1': 'Notitie 3 - Toekomst',
             'analysis_level1': 'Analyse Samenvatting',
             'note1_level2': 'Notitie 1 - Sneakerstyle jongeren',
-            'note2_level2': 'Notitie 2 - Communicatie',
+            'note2_level2': 'Notitie 2 - Urban Flow & Geschiktheid',
             'message_level2': 'Bericht aan Emma',
             'note1_level3': 'Notitie 1 - Activiteiten',
             'note2_level3': 'Notitie 2 - Sasha\'s activiteiten',
@@ -494,17 +494,18 @@ class AdminDashboard {
             let fieldsHTML = '';
             
             const fieldLabels = [
-                'Waarom kwamen er weinig jongeren naar SneakSpot?',
-                'Wat moest er veranderen aan SneakSpot?', 
-                'Beschrijf de nieuwe sneakerstyle \'Urban Flow\'',
-                'Waarom past deze sneakerstyle bij SneakSpot?',
-                'Voor wie is het evenement?',
-                'Waarom wordt dit evenement georganiseerd?',
-                'Welke drie activiteiten ga je organiseren?',
-                'Waarom worden deze drie activiteiten georganiseerd?'
+                '1. SneakSpot verkoopt op dit moment...',
+                '2. Er komen weinig jongeren naar SneakSpot, omdat...',
+                '3. Om meer jongeren aan te trekken, moet SneakSpot sneakers verkopen die...',
+                '4. Jongeren zijn op zoek naar een sneakerstyle...',
+                '5. De sneakerstyle die volgens ons goed past bij SneakSpot is...',
+                '6. Deze sneakerstyle past goed bij SneakSpot, omdat...',
+                '7. Loopz activiteiten - We hebben de activiteiten van kledingwinkel Loopz bekeken...',
+                '8. Sasha activiteiten - Sasha gaf aan dat de volgende activiteiten geschikt zijn...',
+                '9. Conclusie - Om meer jongeren naar SneakSpot te laten komen, zouden wij adviseren om...'
             ];
             
-            for (let i = 1; i <= 8; i++) {
+            for (let i = 1; i <= 9; i++) {
                 const fieldContent = content[`field${i}`] || '';
                 const isEmpty = !fieldContent.trim();
                 fieldsHTML += `
@@ -674,7 +675,7 @@ class AdminDashboard {
             try {
                 const parsed = JSON.parse(content);
                 const completedFields = Object.values(parsed).filter(v => v && v.trim()).length;
-                return `${completedFields}/8 velden ingevuld`;
+                return `${completedFields}/9 velden ingevuld`;
             } catch (e) {
                 return content;
             }

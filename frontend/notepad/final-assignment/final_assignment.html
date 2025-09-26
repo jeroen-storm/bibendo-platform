@@ -7,19 +7,84 @@
     <link rel="stylesheet" href="../../assets/css/main.css">
     <style>
         
-        .document-header {
+        .email-header {
             text-align: left;
             margin-bottom: 40px;
             border-bottom: 2px solid #333;
             padding-bottom: 20px;
         }
         
-        .document-header h1 {
+        .email-header h1 {
             font-size: 2.2rem;
             font-weight: 700;
             color: #333;
             margin-bottom: 10px;
             font-family: Georgia, serif;
+        }
+        
+        .email-body {
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        .email-greeting {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+        
+        .email-intro {
+            margin-bottom: 25px;
+            font-size: 1rem;
+        }
+        
+        .email-section-intro {
+            margin: 25px 0 15px 0;
+            font-size: 1rem;
+        }
+        
+        .email-field {
+            margin: 15px 0 25px 0;
+            position: relative;
+        }
+        
+        .email-field textarea {
+            width: 100%;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            padding: 12px;
+            font-size: 14px;
+            font-family: inherit;
+            resize: vertical;
+            transition: border-color 0.3s ease;
+        }
+        
+        .email-field textarea:focus {
+            outline: none;
+            border-color: #00C2CB;
+        }
+        
+        .field-explanation {
+            margin-top: 8px;
+            font-size: 0.9rem;
+            color: #666;
+            background-color: #fff9e6;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #e6e6e6;
+        }
+        
+        .activity-list {
+            display: none; /* Hidden but used for formatting reference */
+        }
+        
+        .email-closing {
+            margin: 30px 0 20px 0;
+            font-size: 1rem;
+        }
+        
+        .email-signature {
+            margin: 30px 0;
+            font-size: 1rem;
         }
         
         .document-header .subtitle {
@@ -108,171 +173,159 @@
 </head>
 <body>
     <div class="container">
-        <div class="document-header">
-            <h1>Plan voor Lancering</h1>
-            <div class="subtitle">SneakSpot: De nieuwe <u>sneakerstyle</u></div>
-        </div>
         
-        <div class="context-text">
-            Drie weken geleden kregen wij een mail van Emma Miller met de vraag: <em>Wat moet er aan SneakSpot veranderen, zodat jongeren weer naar de winkel komen?</em>
-        </div>
-        
-        <h2 class="section-header">Analyse</h2>
-        <div class="subsection">
-            <div class="question">
-                <p>Waarom kwamen er weinig jongeren naar SneakSpot?</p>
-            </div>
-            <div class="form-group">
+        <!-- Email Body -->
+        <div class="email-body">
+            <p class="email-greeting"><strong>Beste Emma Miller,</strong></p>
+            
+            <p class="email-intro">
+                Een aantal weken geleden mailden u mij met de vraag waarom er weinig jongeren naar SneakSpot komen. 
+                De afgelopen weken hebben wij hier onderzoek naar gedaan.
+            </p>
+            
+            <p class="email-section-intro">
+                We zijn begonnen met een <em>analyse</em> van SneakSpot. <strong>SneakSpot verkoopt op dit moment</strong> ...
+            </p>
+            
+            <!-- Field 1: Products -->
+            <div class="email-field">
                 <textarea 
-                    id="field-1" 
+                    id="field1" 
                     placeholder="Begin hier met typen..."
-                    maxlength="1000"
+                    maxlength="500"
+                    style="height: 40px;"
                 ></textarea>
-                <div class="char-counter">0/1000</div>
+                <div class="char-counter">0/500</div>
+                <p class="field-explanation" id="note-display-1"><em>Je eerdere notitie wordt hier getoond...</em></p>
             </div>
             
-            <div class="question">
-                <p>Wat moest er veranderen aan SneakSpot, zodat er meer jongeren naar SneakSpot komen?</p>
-            </div>
-            <div class="form-group">
+            <p>U gaf aan dat er op dit moment weinig jongeren naar SneakSpot komen. <strong>Er komen weinig jongeren naar SneakSpot, omdat</strong> ...</p>
+            
+            <!-- Field 2: Why few youth come -->
+            <div class="email-field">
                 <textarea 
-                    id="field-2" 
+                    id="field2" 
                     placeholder="Begin hier met typen..."
-                    maxlength="1000"
+                    maxlength="500"
+                    style="height: 40px;"
                 ></textarea>
-                <div class="char-counter">0/1000</div>
-            </div>
-        </div>
-        
-        <h2 class="section-header">De nieuwe sneakerstyle</h2>
-        <p>Na de analyse zijn we op zoek gegaan naar een nieuwe sneakerstyle voor SneakSpot.</p>
-        
-        <div class="subsection">
-            <div class="question">
-                <p>Beschrijf de nieuwe sneakerstyle 'Urban Flow' van SneakSpot.</p>
-            </div>
-            <div class="form-group">
-                <textarea 
-                    id="field-3" 
-                    placeholder="Begin hier met typen..."
-                    maxlength="1000"
-                ></textarea>
-                <div class="char-counter">0/1000</div>
+                <div class="char-counter">0/500</div>
+                <p class="field-explanation" id="note-display-2"><em>Je eerdere notitie wordt hier getoond...</em></p>
             </div>
             
-            <div class="question">
-                <p>Waarom past deze sneakerstyle bij SneakSpot?</p>
-            </div>
-            <div class="form-group">
+            <p><strong>Om meer jongeren aan te trekken, moet SneakSpot sneakers verkopen die</strong> ...</p>
+            
+            <!-- Field 3: What needs to change -->
+            <div class="email-field">
                 <textarea 
-                    id="field-4" 
+                    id="field3" 
                     placeholder="Begin hier met typen..."
-                    maxlength="1000"
+                    maxlength="500"
+                    style="height: 40px;"
                 ></textarea>
-                <div class="char-counter">0/1000</div>
-            </div>
-        </div>
-        
-        <h2 class="section-header">De lancering</h2>
-        <p>Om deze sneakerstyle aan de jongeren te laten zien, willen we een lancering organiseren.</p>
-        
-        <div class="launch-details">
-            <div class="detail-row">
-                <div class="detail-label">Naam van het evenement:</div>
-                <div>SneakSpot – Feel the Urban Flow</div>
-            </div>
-            <div class="detail-row">
-                <div class="detail-label">Datum:</div>
-                <div>Zaterdag 13 december</div>
-            </div>
-            <div class="detail-row">
-                <div class="detail-label">Tijd:</div>
-                <div>13:00 – 17:00 uur</div>
-            </div>
-            <div class="detail-row">
-                <div class="detail-label">Locatie:</div>
-                <div>Winkelcentrum Bergveen, buitenterrein</div>
-            </div>
-            <div class="detail-row">
-                <div class="detail-label">Doelgroep:</div>
-                <div></div>
-            </div>
-        </div>
-        
-        <div class="subsection">
-            <div class="question">
-                <p>Voor wie is het evenement?</p>
-            </div>
-            <div class="form-group">
-                <textarea 
-                    id="field-5" 
-                    placeholder="Begin hier met typen..."
-                    maxlength="1000"
-                ></textarea>
-                <div class="char-counter">0/1000</div>
-            </div>
-        </div>
-        
-        <div class="subsection">
-            <strong>Doel van het evenement</strong>
-            <div class="question">
-                <p>Waarom wordt dit evenement georganiseerd?</p>
-            </div>
-            <div class="form-group">
-                <textarea 
-                    id="field-6" 
-                    placeholder="Begin hier met typen..."
-                    maxlength="1000"
-                ></textarea>
-                <div class="char-counter">0/1000</div>
-            </div>
-        </div>
-        
-        <div class="subsection">
-            <strong>Programma-onderdelen</strong>
-            <div class="question">
-                <p>Welke drie activiteiten ga je organiseren?</p>
-            </div>
-            <div class="form-group">
-                <textarea 
-                    id="field-7" 
-                    placeholder="Begin hier met typen..."
-                    maxlength="1000"
-                ></textarea>
-                <div class="char-counter">0/1000</div>
+                <div class="char-counter">0/500</div>
+                <p class="field-explanation" id="note-display-3"><em>Je eerdere notitie wordt hier getoond...</em></p>
             </div>
             
-            <div class="question">
-                <p>Waarom worden deze drie activiteiten georganiseerd?</p>
-            </div>
-            <div class="form-group">
+            <p>Vervolgens zijn wij op zoek gegaan naar een <em>nieuwe sneakerstyle</em> voor SneakSpot, die past bij jongeren. <strong>Jongeren zijn op zoek naar een sneakerstyle</strong> ...</p>
+            
+            <!-- Field 4: Youth preferences -->
+            <div class="email-field">
                 <textarea 
-                    id="field-8" 
+                    id="field4" 
                     placeholder="Begin hier met typen..."
-                    maxlength="1000"
+                    maxlength="500"
+                    style="height: 40px;"
                 ></textarea>
-                <div class="char-counter">0/1000</div>
+                <div class="char-counter">0/500</div>
+                <p class="field-explanation" id="note-display-4"><em>Je eerdere notitie wordt hier getoond...</em></p>
             </div>
-        </div>
-        
-        <div class="subsection">
-            <strong>Benodigdheden:</strong>
-            <ul class="requirements-list">
-                <li><input type="checkbox"> <span>Podium, tafels, stoelen, tenten</span></li>
-                <li><input type="checkbox"> <span>Geluidsinstallatie en DJ-set</span></li>
-                <li><input type="checkbox"> <span>Verf, stiften, beschermhoezen voor de workshop</span></li>
-                <li><input type="checkbox"> <span>Promotiemateriaal (posters, flyers, social media posts)</span></li>
-            </ul>
             
-            <strong>Promotieplan:</strong>
-            <ul class="promotion-list">
-                <li><input type="checkbox"> <span>Flyers op scholen en in winkels</span></li>
-                <li><input type="checkbox"> <span>Instagram- en TikTok-campagne met korte video's</span></li>
-                <li><input type="checkbox"> <span>Samenwerking met lokale influencers</span></li>
-            </ul>
+            <p><strong>De sneakerstyle die volgens ons goed past bij SneakSpot is</strong> ...</p>
             
-            <p><strong>Toegang:</strong> Gratis</p>
-            <p><strong>Verantwoordelijken:</strong> Kinderen tot 12 jaar onder begeleiding van ouders. Jongeren tot 18 jaar schrijven zich in op de website van SneakSpot. Bij de ingang krijgt iedereen tot 18 jaar een bandje.</p>
+            <!-- Field 5: New sneaker style description -->
+            <div class="email-field">
+                <textarea 
+                    id="field5" 
+                    placeholder="Begin hier met typen..."
+                    maxlength="500"
+                    style="height: 40px;"
+                ></textarea>
+                <div class="char-counter">0/500</div>
+                <p class="field-explanation" id="note-display-5"><em>Je eerdere notitie wordt hier getoond...</em></p>
+            </div>
+            
+            <p><strong>Deze sneakerstyle past goed bij SneakSpot, omdat</strong> ...</p>
+            
+            <!-- Field 6: Why it fits -->
+            <div class="email-field">
+                <textarea 
+                    id="field6" 
+                    placeholder="Begin hier met typen..."
+                    maxlength="500"
+                    style="height: 40px;"
+                ></textarea>
+                <div class="char-counter">0/500</div>
+                <p class="field-explanation" id="note-display-6"><em>Je eerdere notitie wordt hier getoond...</em></p>
+            </div>
+            
+            <p>Om de nieuwe sneakerstyle aan de jongeren te laten zien, willen we een <em>lancering</em> organiseren. Bij de lancering horen activiteiten waarin jongeren de nieuwe sneakerstyle kunnen ontdekken. <strong>We hebben de activiteiten van kledingwinkel Loopz bekeken, en denken dat de volgende twee activiteiten goed zouden passen bij SneakSpot:</strong></p>
+            
+            <!-- Field 7: Loopz activities -->
+            <div class="email-field">
+                <div class="activity-list">
+                    <p><strong>1.</strong> ...</p>
+                    <p><strong>2.</strong> ...</p>
+                </div>
+                <textarea 
+                    id="field7" 
+                    placeholder="1. ...\n2. ..."
+                    maxlength="500"
+                    style="height: 50px;"
+                ></textarea>
+                <div class="char-counter">0/500</div>
+                <p class="field-explanation" id="note-display-7"><em>Je eerdere notitie wordt hier getoond...</em></p>
+            </div>
+            
+            <p>Om er zeker van te zijn dat deze activiteiten passen bij jongeren, hebben we Sasha, de eigenaresse van Loopz, gevraagd naar haar ervaring. <strong>Sasha gaf aan dat de volgende activiteiten geschikt zijn voor de lancering van SneakSpot:</strong></p>
+            
+            <!-- Field 8: Sasha activities -->
+            <div class="email-field">
+                <div class="activity-list">
+                    <p><strong>1.</strong> ...</p>
+                    <p><strong>2.</strong> ...</p>
+                    <p><strong>3.</strong> ...</p>
+                </div>
+                <textarea 
+                    id="field8" 
+                    placeholder="1. ...\n2. ...\n3. ..."
+                    maxlength="500"
+                    style="height: 60px;"
+                ></textarea>
+                <div class="char-counter">0/500</div>
+                <p class="field-explanation" id="note-display-8"><em>Je eerdere notitie wordt hier getoond...</em></p>
+            </div>
+            
+            <p>Als laatste zouden wij u graag een antwoord willen geven op de vraag die u ons stelde: <em>Wat moet er aan SneakSpot veranderen, zodat jongeren weer naar de winkel komen?</em> <strong>Om meer jongeren naar SneakSpot te laten komen, zouden wij adviseren om</strong> ...</p>
+            
+            <!-- Field 9: Final conclusion -->
+            <div class="email-field">
+                <textarea 
+                    id="field9" 
+                    placeholder="Begin hier met typen..."
+                    maxlength="500"
+                    style="height: 50px;"
+                ></textarea>
+                <div class="char-counter">0/500</div>
+                <p class="field-explanation" id="note-display-9"><em>Dit veld is voor jouw eigen conclusie...</em></p>
+            </div>
+            
+            <p class="email-closing">Ik hoor graag wat u van dit idee vindt en of u het verder met mij wilt bespreken.</p>
+            
+            <p class="email-signature">
+                <strong>Met vriendelijke groet,</strong><br><br>
+                <strong>Karim</strong>
+            </p>
         </div>
         
         <div style="text-align: center; margin: 40px 0;">
@@ -333,7 +386,7 @@
     <!-- Include necessary JavaScript -->
     <script src="../../assets/js/notepad.js"></script>
     <script>
-        class FinalAssignment {
+        class EmailFinalAssignment {
             constructor() {
                 this.fields = {};
                 this.editCounts = {};
@@ -372,9 +425,22 @@
             async init() {
                 console.log('Final Assignment initialized');
                 
-                // Initialize all fields
-                for (let i = 1; i <= 8; i++) {
-                    this.fields[i] = document.getElementById(`field-${i}`);
+                // Note mapping for auto-population
+                this.noteMapping = {
+                    1: { pageId: 'note2_level1', field: 'products' },      // SneakSpot verkoopt
+                    2: { pageId: 'note1_level1', field: 'single' },       // Weinig jongeren omdat
+                    3: { pageId: 'note3_level1', field: 'single' },       // Om meer aan te trekken
+                    4: { pageId: 'note1_level2', field: 'single' },       // Jongeren zoeken naar
+                    5: { pageId: 'note2_level2', field: 'characteristics' }, // Urban Flow kenmerken
+                    6: { pageId: 'note2_level2', field: 'reason' },       // Waarom past het bij SneakSpot
+                    7: { pageId: 'note1_level3', field: 'single' },       // Loopz activiteiten
+                    8: { pageId: 'note2_level3', field: 'single' },       // Sasha activiteiten
+                    9: { pageId: null, field: 'new' }                     // New conclusion field
+                };
+                
+                // Initialize all fields (now 9 instead of 8)
+                for (let i = 1; i <= 9; i++) {
+                    this.fields[i] = document.getElementById(`field${i}`);
                     this.editCounts[i] = 0;
                     this.timeSpent[i] = 0;
                     this.fieldTimers[i] = null;
@@ -383,6 +449,12 @@
                         this.setupFieldListeners(i);
                     }
                 }
+                
+                // Load previous notes for auto-population
+                await this.loadPreviousNotes();
+                
+                // Display user notes under each field
+                await this.displayUserNotes();
                 
                 // Load existing data
                 await this.loadData();
@@ -412,6 +484,50 @@
                 field.addEventListener('input', () => {
                     this.handleFieldChange(fieldNumber);
                 });
+            }
+            
+            async loadPreviousNotes() {
+                console.log('Loading previous notes for auto-population...');
+                
+                for (let i = 1; i <= 8; i++) {
+                    const mapping = this.noteMapping[i];
+                    if (!mapping || !mapping.pageId) continue;
+                    
+                    try {
+                        const response = await fetch(`/api/notes/${this.userId}/${mapping.pageId}`);
+                        if (response.ok) {
+                            const data = await response.json();
+                            if (data.content) {
+                                let contentToPaste = '';
+                                
+                                // Handle dual-textarea pages (note2_level1, note2_level2)
+                                if (mapping.field === 'products' || mapping.field === 'characteristics' || mapping.field === 'reason') {
+                                    const separator = mapping.pageId === 'note2_level1' ? '--- Kenmerken ---' : '--- Waarom geschikt ---';
+                                    const parts = data.content.split(separator);
+                                    
+                                    if (mapping.field === 'products' || mapping.field === 'characteristics') {
+                                        contentToPaste = parts[0] ? parts[0].trim() : '';
+                                    } else if (mapping.field === 'reason') {
+                                        contentToPaste = parts[1] ? parts[1].trim() : '';
+                                    }
+                                } else {
+                                    // Single textarea pages
+                                    contentToPaste = data.content.trim();
+                                }
+                                
+                                // Populate the field if textarea exists and is empty
+                                const field = this.fields[i];
+                                if (field && !field.value.trim() && contentToPaste) {
+                                    field.value = contentToPaste;
+                                    this.updateCharCounter(field);
+                                    console.log(`Auto-populated field${i} from ${mapping.pageId}`);
+                                }
+                            }
+                        }
+                    } catch (error) {
+                        console.error(`Error loading ${mapping.pageId} for field${i}:`, error);
+                    }
+                }
             }
             
             startFieldTimer(fieldNumber) {
@@ -458,7 +574,7 @@
                 try {
                     // Prepare content data
                     const content = {};
-                    for (let i = 1; i <= 8; i++) {
+                    for (let i = 1; i <= 9; i++) {
                         if (this.fields[i]) {
                             content[`field${i}`] = this.fields[i].value;
                         }
@@ -496,6 +612,64 @@
                 }
             }
             
+            async displayUserNotes() {
+                console.log('Displaying user notes under fields...');
+                
+                for (let i = 1; i <= 8; i++) {
+                    const mapping = this.noteMapping[i];
+                    if (!mapping || !mapping.pageId) continue;
+                    
+                    const noteDisplay = document.getElementById(`note-display-${i}`);
+                    if (!noteDisplay) continue;
+                    
+                    try {
+                        const response = await fetch(`/api/notes/${this.userId}/${mapping.pageId}`);
+                        if (response.ok) {
+                            const data = await response.json();
+                            if (data.content) {
+                                let noteText = '';
+                                
+                                // Handle dual-textarea pages - show both parts
+                                if (mapping.pageId === 'note2_level1') {
+                                    const separator = '--- Kenmerken ---';
+                                    const parts = data.content.split(separator);
+                                    if (mapping.field === 'products') {
+                                        // Field 1: Show products part
+                                        noteText = parts[0] ? parts[0].trim() : '';
+                                    }
+                                } else if (mapping.pageId === 'note2_level2') {
+                                    const separator = '--- Waarom geschikt ---';
+                                    const parts = data.content.split(separator);
+                                    if (mapping.field === 'characteristics') {
+                                        // Field 5: Show characteristics part
+                                        noteText = parts[0] ? parts[0].trim() : '';
+                                    } else if (mapping.field === 'reason') {
+                                        // Field 6: Show reason part
+                                        noteText = parts[1] ? parts[1].trim() : '';
+                                    }
+                                } else {
+                                    // Single textarea pages
+                                    noteText = data.content.trim();
+                                }
+                                
+                                if (noteText) {
+                                    noteDisplay.innerHTML = `<em>${noteText}</em>`;
+                                } else {
+                                    noteDisplay.innerHTML = '<em>Geen notitie gevonden...</em>';
+                                }
+                            } else {
+                                noteDisplay.innerHTML = '<em>Geen notitie gevonden...</em>';
+                            }
+                        } else {
+                            noteDisplay.innerHTML = '<em>Geen notitie gevonden...</em>';
+                        }
+                    } catch (error) {
+                        console.error(`Error displaying note for field${i}:`, error);
+                        noteDisplay.innerHTML = '<em>Fout bij laden notitie...</em>';
+                    }
+                }
+            }
+            
             async loadData() {
                 try {
                     const response = await fetch(`/api/notes/${this.userId}/${this.pageId}`);
@@ -505,7 +679,7 @@
                             const content = JSON.parse(data.content);
                             
                             // Load field contents
-                            for (let i = 1; i <= 8; i++) {
+                            for (let i = 1; i <= 9; i++) {
                                 if (this.fields[i] && content[`field${i}`]) {
                                     this.fields[i].value = content[`field${i}`];
                                 }
@@ -516,7 +690,7 @@
                             this.timeSpent = data.time_spent || {};
                             
                             // Update display
-                            for (let i = 1; i <= 8; i++) {
+                            for (let i = 1; i <= 9; i++) {
                                 this.updateFieldStats(i);
                             }
                         }
@@ -568,15 +742,15 @@
             }
             
             async submitPlan() {
-                // Check if all fields are filled
+                // Check if all fields are filled (at least 7 out of 9)
                 let filledFields = 0;
-                for (let i = 1; i <= 8; i++) {
+                for (let i = 1; i <= 9; i++) {
                     if (this.fields[i] && this.fields[i].value.trim()) {
                         filledFields++;
                     }
                 }
                 
-                if (filledFields < 8) {
+                if (filledFields < 7) {
                     // Update validation message
                     const missingFields = 8 - filledFields;
                     document.getElementById('missingFields').textContent = missingFields;
@@ -673,7 +847,137 @@
         
         // Initialize when DOM is loaded
         document.addEventListener('DOMContentLoaded', () => {
-            window.finalAssignment = new FinalAssignment();
+            window.emailFinalAssignment = new EmailFinalAssignment();
+        });
+    </script>
+
+    <!-- Exit Intent Modal -->
+    <div id="exitIntentModal" class="exit-intent-modal" style="display: none;">
+        <div class="exit-intent-content">
+            <h3>Wacht even!</h3>
+            <p>Je hebt nog maar weinig tekst ingevuld in de eindopdracht. Vul eerst meer tekst in voordat je de pagina verlaat.</p>
+            <button id="continueWriting" class="continue-btn">Verder schrijven</button>
+        </div>
+    </div>
+
+    <style>
+        .exit-intent-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 10000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .exit-intent-content {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            text-align: center;
+            max-width: 400px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .exit-intent-content h3 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .exit-intent-content p {
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+
+        .continue-btn {
+            background: #00C2CB;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+        }
+
+        .continue-btn:hover {
+            background: #00a9b5;
+        }
+    </style>
+
+    <script>
+        // Exit Intent functionality for Final Assignment
+        let exitIntentShown = false;
+        let isLeavingPage = false;
+
+        function checkTextAmount() {
+            // Check if user has sufficient text across all fields
+            let totalTextLength = 0;
+            let fieldsWithText = 0;
+            
+            for (let i = 1; i <= 9; i++) {
+                const field = document.getElementById(`field${i}`);
+                if (field && field.value.trim()) {
+                    totalTextLength += field.value.trim().length;
+                    fieldsWithText++;
+                }
+            }
+            
+            // Require ALL 9 fields with text
+            return fieldsWithText >= 9;
+        }
+
+        function showExitIntentModal() {
+            if (!exitIntentShown && !isLeavingPage && !checkTextAmount()) {
+                const modal = document.getElementById('exitIntentModal');
+                if (modal) {
+                    modal.style.display = 'flex';
+                    exitIntentShown = true;
+                }
+            }
+        }
+
+        // Mouse leave detection
+        document.addEventListener('mouseleave', (e) => {
+            if (e.clientY <= 0) {
+                showExitIntentModal();
+            }
+        });
+
+        // Before unload detection
+        window.addEventListener('beforeunload', (e) => {
+            if (!checkTextAmount() && !isLeavingPage) {
+                e.preventDefault();
+                e.returnValue = 'Je hebt nog niet alle velden ingevuld. Weet je zeker dat je de pagina wilt verlaten?';
+                return 'Je hebt nog niet alle velden ingevuld. Weet je zeker dat je de pagina wilt verlaten?';
+            }
+        });
+
+        // Modal close functionality
+        document.addEventListener('DOMContentLoaded', () => {
+            const continueBtn = document.getElementById('continueWriting');
+            const modal = document.getElementById('exitIntentModal');
+            
+            if (continueBtn) {
+                continueBtn.addEventListener('click', () => {
+                    modal.style.display = 'none';
+                    // Reset so it can show again later if needed
+                    exitIntentShown = false;
+                });
+            }
+        });
+
+        // Reset exit intent when user types enough
+        document.addEventListener('input', () => {
+            if (checkTextAmount()) {
+                exitIntentShown = false; // Reset so user can leave freely
+            }
         });
     </script>
 </body>
