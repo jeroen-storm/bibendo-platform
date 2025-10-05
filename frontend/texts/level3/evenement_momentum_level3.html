@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Momentum Creatives - Level 3</title>
+    <link rel="stylesheet" href="../../assets/css/main.css">
+    <link rel="stylesheet" href="../../assets/css/textPages.css">
+</head>
+<body>
+    <!-- Reading progress indicator -->
+    <div class="reading-progress">
+        <div class="reading-progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="modern-text-container">
+        <div style="margin-bottom: 20px;">
+            <a href="evenementenbureaus_overzicht_level3.html" style="display: inline-block; text-decoration: none; background: #666666; color: white; padding: 8px 16px; border-radius: 4px; font-size: 14px;">← Terug naar overzicht</a>
+        </div>
+
+        <!-- Header with icon -->
+        <div class="text-header trackable-section" id="header" style="display: flex; align-items: center; gap: 15px;">
+            <div class="icon-badge">☀️</div>
+            <h1 class="text-title" style="margin-bottom: 0;">Momentum Creatives – Jouw verhaal, onze beleving</h1>
+        </div>
+
+        <!-- Main content -->
+        <div class="text-content trackable-section" id="main-content" style="margin-top: 30px;">
+            <p style="margin-bottom: 20px;">Een merk is meer dan een logo. Het is een verhaal. En dat verhaal moet je goed vertellen. Daarom is <strong>Momentum Creatives</strong> er voor merken die méér willen dan alleen een feestje. Wij maken van jouw lancering een echte beleving, zodat mensen jouw merk niet alleen zien, maar ook voelen.</p>
+
+            <p style="margin-bottom: 20px;">Hoe doen we dat? Allereerst creëren we <strong>Experience Rooms</strong>. Dat zijn speciale ruimtes waarin bezoekers jouw merk kunnen beleven met licht, geluid en interactieve elementen. Denk aan een kamer waar je het product kunt testen, voelen en ervaren. Daarnaast zorgen we voor <strong>Live Art Installations</strong>. Kunstenaars maken ter plekke kunst die past bij jouw merk. Dat is niet alleen mooi om te zien, maar ook super origineel.</p>
+
+            <p style="margin-bottom: 20px;">Verder organiseren we <strong>Panel Talks & Community Sessions</strong>. Hierbij gaan mensen in gesprek over jouw merk. Bijvoorbeeld met de oprichter, influencers of fans. Omdat dit zorgt voor verdieping, leren bezoekers jouw merk echt kennen.</p>
+
+            <p style="margin-bottom: 20px;">Kortom: Momentum Creatives maakt van jouw lancering een verhaal dat mensen raakt. Wij combineren creativiteit met inhoud, zodat jouw merk een blijvende indruk maakt. Wil jij een lancering die anders is dan anders? Kies dan voor Momentum Creatives. Wij helpen je om jouw merk op een bijzondere manier te presenteren.</p>
+        </div>
+
+        <div style="margin-top: 30px; text-align: center;">
+            <a href="evenementenbureaus_overzicht_level3.html" style="display: inline-block; text-decoration: none; background: #666666; color: white; padding: 8px 16px; border-radius: 4px; font-size: 14px;">← Terug naar overzicht</a>
+        </div>
+    </div>
+
+    <script src="../../assets/js/textTracker.js"></script>
+    <script>
+        // Update reading progress
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('progressBar').style.width = scrolled + '%';
+        });
+    </script>
+
+    <script src="../../assets/js/userUtils.js"></script>
+</body>
+</html>

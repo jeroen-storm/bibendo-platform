@@ -175,14 +175,93 @@
                 const overlay = document.getElementById('emmaOverlay');
                 if (overlay) {
                     overlay.classList.add('show');
-                    setTimeout(() => overlay.classList.remove('show'), 4000);
+                    setTimeout(() => {
+                        overlay.classList.remove('show');
+                        // Make page 20% transparent after submission
+                        this.makePageTransparent();
+                    }, 4000);
+                }
+            }
+
+            makePageTransparent() {
+                const container = document.querySelector('.container');
+                if (container) {
+                    container.style.opacity = '0.2';
+                    container.style.pointerEvents = 'none';
                 }
             }
         }
-        
+
         // Initialize when DOM is ready
         document.addEventListener('DOMContentLoaded', () => {
             new AnalysisManager();
+        });
+    </script>
+
+    <!-- Exit Intent Modal -->
+    <div id="exitIntentModal" class="exit-intent-overlay" style="display: none;">
+        <div class="exit-intent-popup">
+            <div class="exit-intent-header">
+                <img src="../../assets/images/karim_popup.png" alt="Karim" class="exit-intent-avatar">
+                <h3>Hey, weet je zeker dat je klaar bent?</h3>
+            </div>
+            <div class="exit-intent-actions">
+                <button id="continueWriting" class="exit-intent-btn-secondary">Sluiten</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Exit Intent functionality
+        let exitIntentShown = false;
+        let isLeavingPage = false;
+
+        function checkTextAmount() {
+            const noteTextarea = document.getElementById('noteTextarea');
+            const factorsTextarea = document.getElementById('factorsTextarea');
+            const futureTextarea = document.getElementById('futureTextarea');
+
+            const totalChars = (noteTextarea?.value || '').length +
+                             (factorsTextarea?.value || '').length +
+                             (futureTextarea?.value || '').length;
+
+            return totalChars >= 50; // Require at least 50 characters total
+        }
+
+        function showExitIntentModal() {
+            if (exitIntentShown || isLeavingPage) return;
+            if (!checkTextAmount()) return; // Only show if user has written something
+
+            const modal = document.getElementById('exitIntentModal');
+            if (modal) {
+                modal.style.display = 'flex';
+                exitIntentShown = true;
+            }
+        }
+
+        function hideExitIntentModal() {
+            const modal = document.getElementById('exitIntentModal');
+            if (modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        // Mouse leave detection
+        document.addEventListener('mousemove', (e) => {
+            if (e.clientY <= 10 && !exitIntentShown) {
+                showExitIntentModal();
+            }
+        });
+
+        // Close modal buttons
+        const continueBtn = document.getElementById('continueWriting');
+        if (continueBtn) {
+            continueBtn.addEventListener('click', hideExitIntentModal);
+        }
+
+        // Before unload
+        window.addEventListener('beforeunload', () => {
+            isLeavingPage = true;
         });
     </script>
 </body>

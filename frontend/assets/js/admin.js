@@ -96,9 +96,9 @@ class AdminDashboard {
                         const data = await response.json();
                         if (data.content) {
                             const content = JSON.parse(data.content);
-                            // Check if at least 7 out of 9 fields are filled
+                            // Check if at least 7 out of 10 fields are filled
                             let filledFields = 0;
-                            for (let i = 1; i <= 9; i++) {
+                            for (let i = 1; i <= 10; i++) {
                                 if (content[`field${i}`] && content[`field${i}`].trim()) {
                                     filledFields++;
                                 }
@@ -223,17 +223,17 @@ class AdminDashboard {
             try {
                 const content = JSON.parse(finalAssignment.content);
                 let filledFields = 0;
-                for (let i = 1; i <= 9; i++) {
+                for (let i = 1; i <= 10; i++) {
                     if (content[`field${i}`] && content[`field${i}`].trim()) {
                         filledFields++;
                     }
                 }
-                if (filledFields >= 9) {
+                if (filledFields >= 10) {
                     finalAssignmentStatus = '✅ Volledig ingeleverd';
                 } else if (filledFields >= 7) {
-                    finalAssignmentStatus = `🟡 Gedeeltelijk (${filledFields}/9)`;
+                    finalAssignmentStatus = `🟡 Gedeeltelijk (${filledFields}/10)`;
                 } else if (filledFields > 0) {
-                    finalAssignmentStatus = `🟠 Begonnen (${filledFields}/9)`;
+                    finalAssignmentStatus = `🟠 Begonnen (${filledFields}/10)`;
                 }
             } catch (error) {
                 console.error('Error parsing final assignment content:', error);
@@ -462,6 +462,7 @@ class AdminDashboard {
             'message_level2': 'Bericht aan Emma',
             'note1_level3': 'Notitie 1 - Activiteiten',
             'note2_level3': 'Notitie 2 - Sasha\'s activiteiten',
+            'note3_level3': 'Notitie 3 - Evenementenbureau',
             'plan_level3': 'Plan Level 3'
         };
         return titles[pageId] || pageId;
@@ -502,10 +503,11 @@ class AdminDashboard {
                 '6. Deze sneakerstyle past goed bij SneakSpot, omdat...',
                 '7. Loopz activiteiten - We hebben de activiteiten van kledingwinkel Loopz bekeken...',
                 '8. Sasha activiteiten - Sasha gaf aan dat de volgende activiteiten geschikt zijn...',
-                '9. Conclusie - Om meer jongeren naar SneakSpot te laten komen, zouden wij adviseren om...'
+                '9. Conclusie - Om meer jongeren naar SneakSpot te laten komen, zouden wij adviseren om...',
+                '10. Evenementenbureau - Voor de lancering zouden wij adviseren om...'
             ];
-            
-            for (let i = 1; i <= 9; i++) {
+
+            for (let i = 1; i <= 10; i++) {
                 const fieldContent = content[`field${i}`] || '';
                 const isEmpty = !fieldContent.trim();
                 fieldsHTML += `

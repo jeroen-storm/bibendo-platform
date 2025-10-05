@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evenementenbureaus - Level 3</title>
+    <link rel="stylesheet" href="../../assets/css/main.css">
+    <link rel="stylesheet" href="../../assets/css/textPages.css">
+    <style>
+        body {
+            background: #f8f9fa;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        .content-site {
+            max-width: 800px;
+            margin: 20px auto;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .main-header {
+            padding: 30px 20px;
+            border-bottom: 2px solid #e5e5e5;
+        }
+
+        .main-headline {
+            font-size: 32px;
+            font-weight: bold;
+            color: #1a1a1a;
+            margin-bottom: 10px;
+            line-height: 1.2;
+        }
+
+        .main-intro {
+            font-size: 18px;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .bureaus-list {
+            padding: 20px;
+        }
+
+        .bureaus-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #1a1a1a;
+        }
+
+        .bureau-card {
+            display: flex;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+        }
+
+        .bureau-card:last-child {
+            border-bottom: none;
+        }
+
+        .bureau-icon {
+            width: 80px;
+            height: 80px;
+            margin-right: 15px;
+            border-radius: 8px;
+            background: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            flex-shrink: 0;
+        }
+
+        .bureau-content {
+            flex: 1;
+        }
+
+        .bureau-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 8px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .bureau-title:hover {
+            color: #00C2CB;
+        }
+
+        .bureau-excerpt {
+            color: #666;
+            font-size: 15px;
+            line-height: 1.4;
+            margin-bottom: 8px;
+        }
+
+        .read-more-link {
+            color: #00C2CB;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .read-more-link:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .content-site {
+                margin: 10px;
+            }
+
+            .main-headline {
+                font-size: 24px;
+            }
+
+            .bureau-card {
+                flex-direction: column;
+            }
+
+            .bureau-icon {
+                margin-right: 0;
+                margin-bottom: 10px;
+                width: 100%;
+                height: 80px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Reading progress indicator -->
+    <div class="reading-progress">
+        <div class="reading-progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="content-site">
+        <!-- Main Header -->
+        <header class="main-header trackable-section" id="main-header">
+            <h1 class="main-headline">Evenementenbureaus voor je lancering</h1>
+        </header>
+
+        <!-- Bureaus List -->
+        <section class="bureaus-list trackable-section" id="bureaus-overview">
+
+            <article class="bureau-card">
+                <div class="bureau-icon">🎉</div>
+                <div class="bureau-content">
+                    <a href="evenement_nextgen_level3.html" class="bureau-title">NextGen Events – Jouw lancering, jouw stijl</a>
+                    <p class="bureau-excerpt">
+                        Wil jij een kledingmerk lanceren dat jongeren écht aanspreekt? Dan zit je goed bij NextGen Events. Wij zijn gespecialiseerd in evenementen voor jonge doelgroepen. Dat betekent: veel energie, creativiteit en vooral veel fun.
+                    </p>
+                    <a href="evenement_nextgen_level3.html" class="read-more-link">Lees meer →</a>
+                </div>
+            </article>
+
+            <article class="bureau-card">
+                <div class="bureau-icon">☀️</div>
+                <div class="bureau-content">
+                    <a href="evenement_momentum_level3.html" class="bureau-title">Momentum Creatives – Jouw verhaal, onze beleving</a>
+                    <p class="bureau-excerpt">
+                        Een merk is meer dan een logo. Het is een verhaal. En dat verhaal moet je goed vertellen. Daarom is Momentum Creatives er voor merken die méér willen dan alleen een feestje. Wij maken van jouw lancering een echte beleving.
+                    </p>
+                    <a href="evenement_momentum_level3.html" class="read-more-link">Lees meer →</a>
+                </div>
+            </article>
+
+            <article class="bureau-card">
+                <div class="bureau-icon">🎵</div>
+                <div class="bureau-content">
+                    <a href="evenement_urbanpulse_level3.html" class="bureau-title">Urban Pulse – Muziek, cultuur en jouw merk in beweging</a>
+                    <p class="bureau-excerpt">
+                        Wil jij een lancering die bruist van energie? Dan is Urban Pulse jouw partner. Wij combineren muziek, cultuur en lifestyle tot een evenement dat leeft. Omdat wij geloven dat een merk pas echt tot leven komt als mensen het kunnen voelen, horen en beleven.
+                    </p>
+                    <a href="evenement_urbanpulse_level3.html" class="read-more-link">Lees meer →</a>
+                </div>
+            </article>
+        </section>
+    </div>
+
+    <script src="../../assets/js/textTracker.js"></script>
+    <script>
+        // Update reading progress
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('progressBar').style.width = scrolled + '%';
+        });
+    </script>
+
+    <script src="../../assets/js/userUtils.js"></script>
+</body>
+</html>

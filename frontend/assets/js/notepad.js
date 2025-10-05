@@ -324,8 +324,7 @@ class NotepadManager {
         return (
             pageId.includes('analysis') ||
             pageId.includes('message') ||
-            pageId.includes('final_assignment') ||
-            pageId.includes('mynotes')
+            pageId.includes('final_assignment')
         );
     }
     
