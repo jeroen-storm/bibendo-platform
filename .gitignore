@@ -11,6 +11,12 @@ secrets.json
 .env.production
 .env.local
 
+# Deployment scripts and server configuration
+deploy-to-vps.sh
+setup-ssl.sh
+SSL-TROUBLESHOOTING.md
+bibendo-project-spec.md
+
 # ================================
 # DATABASE & LOGS
 # ================================
