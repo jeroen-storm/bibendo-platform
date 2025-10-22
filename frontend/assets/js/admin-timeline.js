@@ -174,8 +174,8 @@ class AdminTimelineDashboard {
 
         // Render each level
         Object.entries(levels).forEach(([levelNum, levelData]) => {
-            const hasContent = levelData.notes.length > 0 ||
-                             levelData.analysis.length > 0 ||
+            const hasContent = (levelData.notes?.length || 0) > 0 ||
+                             (levelData.analysis?.length || 0) > 0 ||
                              (levelData.message?.length || 0) > 0 ||
                              (levelData.final?.length || 0) > 0;
 
@@ -185,7 +185,7 @@ class AdminTimelineDashboard {
             html += `<h3>${levelData.title}</h3>`;
 
             // Notes
-            if (levelData.notes.length > 0) {
+            if (levelData.notes && levelData.notes.length > 0) {
                 html += `<h4 style="color: #666; font-size: 14px; margin: 15px 0 10px 0;">Notities</h4>`;
                 levelData.notes.forEach(note => {
                     html += this.createAccordionItem(note);
@@ -193,7 +193,7 @@ class AdminTimelineDashboard {
             }
 
             // Analysis/Message
-            if (levelData.analysis.length > 0) {
+            if (levelData.analysis && levelData.analysis.length > 0) {
                 html += `<h4 style="color: #666; font-size: 14px; margin: 15px 0 10px 0;">Analyse</h4>`;
                 levelData.analysis.forEach(item => {
                     html += this.createAccordionItem(item);
