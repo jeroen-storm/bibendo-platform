@@ -193,12 +193,12 @@ class AdminTimelineDashboard {
             // Analysis/Message (combined fields)
             if (levelData.analysis && levelData.analysis.length > 0) {
                 html += `<h4 style="color: #666; font-size: 14px; margin: 15px 0 10px 0;">Analyse</h4>`;
-                html += this.createMultiFieldAccordion(levelData.analysis, 'Analyse Level ' + levelNum);
+                html += this.createMultiFieldAccordion(levelData.analysis, 'Eindopdracht level ' + levelNum + ' - De analyse');
             }
 
             if (levelData.message && levelData.message.length > 0) {
                 html += `<h4 style="color: #666; font-size: 14px; margin: 15px 0 10px 0;">Bericht</h4>`;
-                html += this.createMultiFieldAccordion(levelData.message, 'Bericht Level ' + levelNum);
+                html += this.createMultiFieldAccordion(levelData.message, 'Eindopdracht level ' + levelNum + ' - Het bericht');
             }
 
             // Final assignment
@@ -543,20 +543,20 @@ class AdminTimelineDashboard {
     getPageTitle(pageId) {
         const titles = {
             // Level 1
-            'note1_level1': 'Note 1: Waarom weinig jongeren',
-            'note2_level1': 'Note 2: Producten & Kenmerken',
-            'note3_level1': 'Note 3: Toekomst/Veranderingen',
+            'note1_level1': 'Notitie 1 - Er komen weinig jongeren naar SneakSpot omdat...',
+            'note2_level1': 'Notitie 2 - SneakSpot verkoopt op dit moment...',
+            'note3_level1': 'Notitie 3 - SneakSpot moet veranderen om meer jongeren aan te trekken door...',
             'analysis_level1': 'Analyse Level 1',
 
             // Level 2
-            'note1_level2': 'Note 1: Sneakerstyle',
-            'note2_level2': 'Note 2: Urban Flow & Geschiktheid',
+            'note1_level2': 'Notitie 1 - Jongeren vinden de volgende sneakerstyle aantrekkelijk...',
+            'note2_level2': 'Notitie 2 - Urban Flow past bij SneakSpot omdat...',
             'message_level2': 'Bericht Level 2',
 
             // Level 3
-            'note1_level3': 'Note 1: Activiteiten',
-            'note2_level3': 'Note 2: Sasha\'s activiteiten',
-            'note3_level3': 'Note 3: Evenementenbureaus',
+            'note1_level3': 'Notitie 1 - De activiteiten die Loopz organiseert zijn...',
+            'note2_level3': 'Notitie 2 - Sasha raadt de volgende activiteiten aan...',
+            'note3_level3': 'Notitie 3 - Het beste evenementenbureau is... omdat...',
             'final_assignment': 'Eindopdracht',
 
             // Text pages
