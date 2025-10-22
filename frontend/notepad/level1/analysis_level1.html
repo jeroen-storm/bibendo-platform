@@ -76,11 +76,12 @@
         class AnalysisManager {
             constructor() {
                 this.userId = this.getUserId();
-                // Map textareas to their corresponding individual note pageIds
+                this.pageId = 'analysis_level1';  // Analysis has its own pageId
+                // Map textareas to field numbers within the analysis
                 this.textareaMapping = {
-                    'noteTextarea': 'note1_level1',      // Maps to individual note 1
-                    'factorsTextarea': 'note2_level1',   // Maps to individual note 2  
-                    'futureTextarea': 'note3_level1'     // Maps to individual note 3
+                    'noteTextarea': 1,      // Field 1 of analysis
+                    'factorsTextarea': 2,   // Field 2 of analysis
+                    'futureTextarea': 3     // Field 3 of analysis
                 };
                 this.textareas = Object.keys(this.textareaMapping);
                 this.init();
@@ -116,58 +117,62 @@
             }
             
             async saveContent() {
-                // Save each textarea to its corresponding individual note page
+                // Save each textarea as a separate content item with field number
                 const savePromises = this.textareas.map(async (textareaId) => {
                     const textarea = document.getElementById(textareaId);
-                    const pageId = this.textareaMapping[textareaId];
-                    
-                    if (textarea && pageId) {
-                        return fetch('/api/notes/save', {
+                    const fieldNumber = this.textareaMapping[textareaId];
+
+                    if (textarea && fieldNumber) {
+                        return fetch('/api/content/save', {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({
                                 userId: this.userId,
-                                pageId: pageId,  // Save to individual note pageId
-                                content: textarea.value,  // Save as plain text, not JSON
-                                editCount: 1,
-                                timeSpent: 0
+                                pageId: this.pageId,  // Save to analysis_level1
+                                contentType: 'analysis',
+                                content: textarea.value,
+                                fieldNumber: fieldNumber  // Field 1, 2, or 3
                             })
                         });
                     }
                 });
-                
+
                 try {
                     await Promise.all(savePromises.filter(Boolean));
-                    console.log('Saved all textareas to individual notes');
+                    console.log('Saved all analysis fields');
                 } catch (error) {
                     console.error('Error saving:', error);
                 }
             }
             
             async loadExistingContent() {
-                // Load each textarea from its corresponding individual note page
-                const loadPromises = this.textareas.map(async (textareaId) => {
-                    const pageId = this.textareaMapping[textareaId];
-                    const textarea = document.getElementById(textareaId);
-                    
-                    if (!textarea || !pageId) return;
-                    
-                    try {
-                        const response = await fetch(`/api/notes/${this.userId}/${pageId}`);
-                        if (response.ok) {
-                            const data = await response.json();
-                            if (data.content) {
-                                textarea.value = data.content;  // Load plain text content
-                                console.log(`Loaded ${textareaId} from ${pageId}:`, data.content.substring(0, 50));
+                // Load analysis content from V2 API
+                try {
+                    const response = await fetch(`/api/content/${this.userId}/${this.pageId}`);
+                    if (response.ok) {
+                        const contentItems = await response.json();
+
+                        // Load each field by field number
+                        contentItems.forEach(item => {
+                            if (item.field_number) {
+                                // Find textarea by field number
+                                const textareaId = Object.keys(this.textareaMapping).find(
+                                    key => this.textareaMapping[key] === item.field_number
+                                );
+
+                                if (textareaId) {
+                                    const textarea = document.getElementById(textareaId);
+                                    if (textarea && item.content) {
+                                        textarea.value = item.content;
+                                        console.log(`Loaded field ${item.field_number}:`, item.content.substring(0, 50));
+                                    }
+                                }
                             }
-                        }
-                    } catch (error) {
-                        console.error(`Error loading ${textareaId} from ${pageId}:`, error);
+                        });
                     }
-                });
-                
-                await Promise.all(loadPromises);
-                console.log('Loaded all textareas from individual notes');
+                } catch (error) {
+                    console.error('Error loading analysis content:', error);
+                }
             }
             
             async submitToEmma() {
