@@ -128,8 +128,6 @@ class AdminDashboard {
                 <thead>
                     <tr>
                         <th>Leerling ID</th>
-                        <th>Aangemaakt</th>
-                        <th>Laatst Actief</th>
                         <th>Acties</th>
                     </tr>
                 </thead>
@@ -139,8 +137,6 @@ class AdminDashboard {
                             <td>
                                 <div class="user-id">${user.user_id}</div>
                             </td>
-                            <td>${this.formatDateTime(user.created_at)}</td>
-                            <td>${this.formatDateTime(user.last_active)}</td>
                             <td>
                                 <button class="btn-view-user" onclick="adminDashboard.viewUser('${user.user_id}')">
                                     Bekijk Details
