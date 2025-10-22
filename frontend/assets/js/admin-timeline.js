@@ -192,19 +192,15 @@ class AdminTimelineDashboard {
                 });
             }
 
-            // Analysis/Message
+            // Analysis/Message (combined fields)
             if (levelData.analysis && levelData.analysis.length > 0) {
                 html += `<h4 style="color: #666; font-size: 14px; margin: 15px 0 10px 0;">Analyse</h4>`;
-                levelData.analysis.forEach(item => {
-                    html += this.createAccordionItem(item);
-                });
+                html += this.createMultiFieldAccordion(levelData.analysis, 'Analyse Level ' + levelNum);
             }
 
             if (levelData.message && levelData.message.length > 0) {
                 html += `<h4 style="color: #666; font-size: 14px; margin: 15px 0 10px 0;">Bericht</h4>`;
-                levelData.message.forEach(item => {
-                    html += this.createAccordionItem(item);
-                });
+                html += this.createMultiFieldAccordion(levelData.message, 'Bericht Level ' + levelNum);
             }
 
             // Final assignment
@@ -251,6 +247,64 @@ class AdminTimelineDashboard {
                 <div class="accordion-body">
                     <div class="accordion-content">
                         <div class="content-preview">${this.escapeHtml(item.content || 'Geen content')}</div>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
+    createMultiFieldAccordion(items, title) {
+        // Sort items by field_number
+        const sortedItems = items.sort((a, b) => (a.field_number || 0) - (b.field_number || 0));
+
+        // Get the most recent update date
+        const latestUpdate = sortedItems.reduce((latest, item) => {
+            return !latest || new Date(item.updated_at) > new Date(latest) ? item.updated_at : latest;
+        }, null);
+
+        // Field labels for analysis and message
+        const analysisLabels = {
+            1: 'Waarom komen er weinig jongeren naar SneakSpot?',
+            2: 'Wat verkoopt SneakSpot op dit moment?',
+            3: 'Wat moet SneakSpot veranderen om meer jongeren aan te trekken?'
+        };
+
+        const messageLabels = {
+            1: 'Welke sneakerstyle spreekt jongeren aan? Wat hebben de doelgroep gemeen?',
+            2: 'Kenmerken van Urban Flow en waarom het past bij SneakSpot'
+        };
+
+        // Determine which labels to use based on title
+        const labels = title.toLowerCase().includes('analyse') ? analysisLabels : messageLabels;
+
+        // Build the fields HTML
+        let fieldsHtml = '';
+        sortedItems.forEach(item => {
+            const fieldNum = item.field_number || 0;
+            const label = labels[fieldNum] || `Veld ${fieldNum}`;
+
+            fieldsHtml += `
+                <div class="multi-field-item">
+                    <div class="multi-field-label">${fieldNum}. ${label}</div>
+                    <div class="multi-field-content">${this.escapeHtml(item.content || 'Leeg')}</div>
+                </div>
+            `;
+        });
+
+        return `
+            <div class="accordion-item multi-field open" data-pageId="${sortedItems[0]?.page_id}">
+                <div class="accordion-header">
+                    <div>
+                        <div class="accordion-title">${title} (${sortedItems.length} velden)</div>
+                        <div class="accordion-meta">
+                            Laatst aangepast: ${this.formatDate(latestUpdate)}
+                        </div>
+                    </div>
+                    <span class="accordion-toggle">▼</span>
+                </div>
+                <div class="accordion-body">
+                    <div class="accordion-content">
+                        ${fieldsHtml}
                     </div>
                 </div>
             </div>
