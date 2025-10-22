@@ -34,8 +34,8 @@ class AdminTimelineDashboard {
         });
 
         // Export button
-        document.getElementById('exportTimeline')?.addEventListener('click', () => {
-            this.exportTimelineCSV();
+        document.getElementById('exportData')?.addEventListener('click', () => {
+            this.exportCompleteDataCSV();
         });
 
         // Modal close
@@ -408,7 +408,7 @@ class AdminTimelineDashboard {
         html += '</div>';
 
         container.innerHTML = html;
-        document.getElementById('exportTimeline').style.display = 'block';
+        document.getElementById('exportData').style.display = 'block';
     }
 
     createTimelineEvent(event) {
@@ -512,26 +512,80 @@ class AdminTimelineDashboard {
         return grouped;
     }
 
-    exportTimelineCSV() {
-        const csv = ['Timestamp,Event Type,Page ID,Duration,Details'];
+    exportCompleteDataCSV() {
+        const csv = [];
+
+        // Section 1: User Info
+        csv.push('=== LEERLING INFORMATIE ===');
+        csv.push(`Leerling ID,${this.userId}`);
+        csv.push(`Content Items,${this.contentData.length}`);
+        csv.push(`Timeline Events,${this.timelineData.length}`);
+        csv.push('');
+
+        // Section 2: Content Data
+        csv.push('=== CONTENT ===');
+        csv.push('Level,Type,Page ID,Page Title,Field Number,Content,Created At,Updated At');
+
+        this.contentData.forEach(item => {
+            const pageTitle = this.getPageTitle(item.page_id);
+            const content = (item.content || '').replace(/"/g, '""').replace(/\n/g, ' ');
+            const row = [
+                this.extractLevel(item.page_id),
+                item.content_type,
+                item.page_id,
+                pageTitle,
+                item.field_number || '',
+                `"${content}"`,
+                item.created_at,
+                item.updated_at
+            ].join(',');
+            csv.push(row);
+        });
+
+        csv.push('');
+
+        // Section 3: Timeline Data
+        csv.push('=== TIJDLIJN ===');
+        csv.push('Timestamp,Event Type,Event Label,Page ID,Page Title,Duration,Details');
 
         this.timelineData.forEach(event => {
+            const pageTitle = this.getPageTitle(event.page_id);
+            let eventLabel = '';
+
+            // Generate readable event label
+            if (event.event_type === 'page_open' || event.event_type === 'open') {
+                eventLabel = `Pagina geopend: ${pageTitle}`;
+            } else if (event.event_type === 'page_close' || event.event_type === 'close') {
+                eventLabel = `Pagina verlaten: ${pageTitle}`;
+            } else if (event.event_type === 'link_click' || event.event_type === 'hyperlink_click') {
+                eventLabel = `Link geklikt: ${pageTitle}`;
+            } else if (event.event_type === 'note_save') {
+                eventLabel = `Notitie opgeslagen: ${pageTitle}`;
+            } else if (event.event_type === 'assignment_save') {
+                eventLabel = `Eindopdracht opgeslagen`;
+            } else {
+                eventLabel = `${event.event_type}: ${pageTitle}`;
+            }
+
+            const details = (event.event_data || '').replace(/"/g, '""');
             const row = [
                 event.timestamp,
                 event.event_type,
+                `"${eventLabel}"`,
                 event.page_id,
+                `"${pageTitle}"`,
                 event.duration || '',
-                event.event_data || ''
-            ].map(val => `"${val}"`).join(',');
+                `"${details}"`
+            ].join(',');
 
             csv.push(row);
         });
 
-        const blob = new Blob([csv.join('\n')], { type: 'text/csv' });
+        const blob = new Blob([csv.join('\n')], { type: 'text/csv;charset=utf-8;' });
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = `timeline_${this.userId}_${new Date().toISOString().split('T')[0]}.csv`;
+        a.download = `leerling_${this.userId}_${new Date().toISOString().split('T')[0]}.csv`;
         a.click();
         window.URL.revokeObjectURL(url);
     }

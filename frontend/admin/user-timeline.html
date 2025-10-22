@@ -231,11 +231,14 @@
             border-radius: 6px;
             cursor: pointer;
             font-size: 14px;
-            margin-top: 20px;
         }
 
         .export-btn:hover {
             background: #00A0A8;
+        }
+
+        .user-header .export-btn {
+            margin: 0;
         }
 
         /* Empty State */
@@ -387,6 +390,9 @@
                 <div>
                     <h1 class="user-id-large" id="userIdDisplay">Laden...</h1>
                 </div>
+                <button class="export-btn" id="exportData" style="display: none;">
+                    📥 Export Leerling Data (CSV)
+                </button>
             </div>
 
             <div class="user-meta">
@@ -427,9 +433,6 @@
             <div id="timelineContainer">
                 <div class="loading-spinner"></div>
             </div>
-            <button class="export-btn" id="exportTimeline" style="display: none;">
-                📥 Export Tijdlijn CSV
-            </button>
         </div>
     </div>
 
