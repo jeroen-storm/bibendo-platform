@@ -40,7 +40,6 @@ echo "📊 Current data in database:"
 echo "Users: $(sqlite3 bibendo.db 'SELECT COUNT(*) FROM users;')"
 echo "Content: $(sqlite3 bibendo.db 'SELECT COUNT(*) FROM content;')"
 echo "Timeline Events: $(sqlite3 bibendo.db 'SELECT COUNT(*) FROM timeline_events;')"
-echo "CBM Results: $(sqlite3 bibendo.db 'SELECT COUNT(*) FROM cbm_results;' 2>/dev/null || echo '0')"
 echo ""
 
 # Ask for confirmation
@@ -54,21 +53,15 @@ fi
 
 echo "🗑️  Deleting all data..."
 
-# Delete all data from V2 tables
+# Delete all data from V2 tables (only tables that exist)
 sqlite3 bibendo.db <<EOF
+-- Delete from main V2 tables
 DELETE FROM timeline_events;
 DELETE FROM content;
 DELETE FROM users;
-DELETE FROM cbm_results;
-
--- Also clean legacy tables if they exist
-DELETE FROM notes_legacy WHERE 1=1;
-DELETE FROM text_logs_legacy WHERE 1=1;
-DELETE FROM sessions_legacy WHERE 1=1;
-DELETE FROM time_logs_legacy WHERE 1=1;
 
 -- Reset SQLite sequence numbers
-DELETE FROM sqlite_sequence WHERE name IN ('users', 'content', 'timeline_events', 'cbm_results');
+DELETE FROM sqlite_sequence WHERE name IN ('users', 'content', 'timeline_events');
 
 -- Vacuum to reclaim space
 VACUUM;
@@ -82,7 +75,6 @@ echo "📊 Verification - current data counts:"
 echo "Users: $(sqlite3 bibendo.db 'SELECT COUNT(*) FROM users;')"
 echo "Content: $(sqlite3 bibendo.db 'SELECT COUNT(*) FROM content;')"
 echo "Timeline Events: $(sqlite3 bibendo.db 'SELECT COUNT(*) FROM timeline_events;')"
-echo "CBM Results: $(sqlite3 bibendo.db 'SELECT COUNT(*) FROM cbm_results;' 2>/dev/null || echo '0')"
 echo ""
 
 # Ask if user wants to create test data
