@@ -34,22 +34,22 @@
                 <div class="card-description">Actief in laatste 24u</div>
             </div>
 
-            <div class="dashboard-card" id="totalNotes">
+            <div class="dashboard-card" id="totalContent">
                 <div class="card-header">
                     <span class="card-icon">📝</span>
-                    <h3 class="card-title">Notities</h3>
+                    <h3 class="card-title">Content Items</h3>
                 </div>
-                <div class="card-value">~</div>
-                <div class="card-description">Opgeslagen notities</div>
+                <div class="card-value">0</div>
+                <div class="card-description">Opgeslagen content (notities, analyses)</div>
             </div>
 
-            <div class="dashboard-card" id="totalSessions">
+            <div class="dashboard-card" id="totalEvents">
                 <div class="card-header">
                     <span class="card-icon">📈</span>
-                    <h3 class="card-title">Sessies</h3>
+                    <h3 class="card-title">Timeline Events</h3>
                 </div>
-                <div class="card-value">~</div>
-                <div class="card-description">Totaal sessies</div>
+                <div class="card-value">0</div>
+                <div class="card-description">Totaal gebeurtenissen</div>
             </div>
 
             <div class="dashboard-card" id="finalAssignments">
@@ -144,18 +144,19 @@
         <!-- System Info -->
         <section class="users-section">
             <div class="section-header">
-                <h2 class="section-title">ℹ️ Systeem Informatie</h2>
+                <h2 class="section-title">ℹ️ Systeem Informatie V2</h2>
             </div>
-            
+
             <div class="dashboard-grid">
                 <div class="dashboard-card">
                     <div class="card-header">
                         <span class="card-icon">🗄️</span>
-                        <h3 class="card-title">Database</h3>
+                        <h3 class="card-title">Database V2</h3>
                     </div>
                     <p style="color: #666; margin-bottom: 8px;">
                         <strong>Type:</strong> SQLite<br>
-                        <strong>Tabellen:</strong> users, notes, text_logs, time_logs, cbm_results<br>
+                        <strong>Schema:</strong> V2 (Timeline-based)<br>
+                        <strong>Tabellen:</strong> users, content, timeline_events, cbm_results<br>
                         <strong>Status:</strong> <span style="color: #28a745;">Actief</span>
                     </p>
                 </div>
@@ -175,13 +176,13 @@
                 <div class="dashboard-card">
                     <div class="card-header">
                         <span class="card-icon">📊</span>
-                        <h3 class="card-title">Tracking</h3>
+                        <h3 class="card-title">Data Collectie</h3>
                     </div>
                     <p style="color: #666; margin-bottom: 8px;">
-                        <strong>Scroll Tracking:</strong> ✅<br>
+                        <strong>Page Open/Close:</strong> ✅<br>
                         <strong>Click Tracking:</strong> ✅<br>
-                        <strong>Time Tracking:</strong> ✅<br>
-                        <strong>Notes Tracking:</strong> ✅
+                        <strong>Time per Page:</strong> ✅<br>
+                        <strong>Content Versioning:</strong> ✅
                     </p>
                 </div>
             </div>

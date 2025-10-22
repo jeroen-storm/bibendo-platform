@@ -69,58 +69,32 @@ class AdminDashboard {
         return await response.json();
     }
     
-    displayDashboardStats(users) {
-        const totalUsers = users.length;
-        const activeUsers = users.filter(u => {
-            const lastActive = new Date(u.last_active);
-            const dayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
-            return lastActive > dayAgo;
-        }).length;
-        
-        // Update stats cards
-        this.updateStatCard('totalUsers', totalUsers, 'Geregistreerde gebruikers');
-        this.updateStatCard('activeUsers', activeUsers, 'Actief in laatste 24u');
-        
-        // Calculate additional stats if we have detailed data
-        this.loadAdditionalStats();
-    }
-    
-    async loadAdditionalStats() {
+    async displayDashboardStats(users) {
+        // Load all statistics from the new /api/admin/stats endpoint
         try {
-            // Count final assignments
-            let finalAssignmentCount = 0;
-            for (const user of this.users) {
-                try {
-                    const response = await fetch(`/api/notes/${user.user_id}/final_assignment`);
-                    if (response.ok) {
-                        const data = await response.json();
-                        if (data.content) {
-                            const content = JSON.parse(data.content);
-                            // Check if at least 7 out of 10 fields are filled
-                            let filledFields = 0;
-                            for (let i = 1; i <= 10; i++) {
-                                if (content[`field${i}`] && content[`field${i}`].trim()) {
-                                    filledFields++;
-                                }
-                            }
-                            if (filledFields >= 7) {
-                                finalAssignmentCount++;
-                            }
-                        }
-                    }
-                } catch (error) {
-                    console.error(`Error checking final assignment for user ${user.user_id}:`, error);
-                }
+            const response = await fetch('/api/admin/stats');
+            if (response.ok) {
+                const stats = await response.json();
+
+                this.updateStatCard('totalUsers', stats.totalUsers, 'Geregistreerde gebruikers');
+                this.updateStatCard('activeUsers', stats.activeUsers, 'Actief in laatste 24u');
+                this.updateStatCard('totalContent', stats.totalContent, 'Opgeslagen content (notities, analyses)');
+                this.updateStatCard('totalEvents', stats.totalEvents, 'Totaal gebeurtenissen');
+                this.updateStatCard('finalAssignments', stats.finalAssignments, 'Ingeleverde eindopdrachten');
+            } else {
+                // Fallback to calculating from users data
+                const totalUsers = users.length;
+                const activeUsers = users.filter(u => {
+                    const lastActive = new Date(u.last_active);
+                    const dayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
+                    return lastActive > dayAgo;
+                }).length;
+
+                this.updateStatCard('totalUsers', totalUsers, 'Geregistreerde gebruikers');
+                this.updateStatCard('activeUsers', activeUsers, 'Actief in laatste 24u');
             }
-            
-            this.updateStatCard('finalAssignments', finalAssignmentCount, 'Ingeleverde eindopdrachten');
-            
-            // This would require additional API endpoints for aggregated data
-            // For now, we'll show basic stats
-            this.updateStatCard('totalNotes', '~', 'Opgeslagen notities');
-            this.updateStatCard('totalSessions', '~', 'Totaal sessies');
         } catch (error) {
-            console.error('Error loading additional stats:', error);
+            console.error('Error loading dashboard stats:', error);
         }
     }
     

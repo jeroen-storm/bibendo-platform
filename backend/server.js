@@ -582,6 +582,52 @@ app.get('/api/health', (req, res) => {
     res.json({ status: 'OK', timestamp: new Date().toISOString() });
 });
 
+// Dashboard statistics endpoint
+app.get('/api/admin/stats', (req, res) => {
+    try {
+        const stats = {
+            totalUsers: 0,
+            activeUsers: 0,
+            totalContent: 0,
+            totalEvents: 0,
+            finalAssignments: 0
+        };
+
+        // Total users
+        const usersResult = db.prepare('SELECT COUNT(*) as count FROM users').get();
+        stats.totalUsers = usersResult.count;
+
+        // Active users (last 24 hours)
+        const activeResult = db.prepare(`
+            SELECT COUNT(DISTINCT user_id) as count
+            FROM timeline_events
+            WHERE timestamp >= datetime('now', '-1 day')
+        `).get();
+        stats.activeUsers = activeResult.count;
+
+        // Total content items
+        const contentResult = db.prepare('SELECT COUNT(*) as count FROM content').get();
+        stats.totalContent = contentResult.count;
+
+        // Total timeline events
+        const eventsResult = db.prepare('SELECT COUNT(*) as count FROM timeline_events').get();
+        stats.totalEvents = eventsResult.count;
+
+        // Final assignments (users with assignment_field content)
+        const assignmentsResult = db.prepare(`
+            SELECT COUNT(DISTINCT user_id) as count
+            FROM content
+            WHERE content_type = 'assignment_field'
+        `).get();
+        stats.finalAssignments = assignmentsResult.count;
+
+        res.json(stats);
+    } catch (error) {
+        console.error('Error fetching stats:', error);
+        res.status(500).json({ error: 'Failed to fetch statistics' });
+    }
+});
+
 // Error handling middleware
 app.use((err, req, res, next) => {
     console.error(err.stack);
