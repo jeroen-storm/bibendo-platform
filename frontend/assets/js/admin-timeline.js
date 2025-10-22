@@ -252,8 +252,11 @@ class AdminTimelineDashboard {
     }
 
     createMultiFieldAccordion(items, title) {
+        // Filter out items with invalid field_number (null, 0, undefined)
+        const validItems = items.filter(item => item.field_number && item.field_number > 0);
+
         // Sort items by field_number
-        const sortedItems = items.sort((a, b) => (a.field_number || 0) - (b.field_number || 0));
+        const sortedItems = validItems.sort((a, b) => a.field_number - b.field_number);
 
         // Get the most recent update date
         const latestUpdate = sortedItems.reduce((latest, item) => {
@@ -278,7 +281,7 @@ class AdminTimelineDashboard {
         // Build the fields HTML
         let fieldsHtml = '';
         sortedItems.forEach(item => {
-            const fieldNum = item.field_number || 0;
+            const fieldNum = item.field_number;
             const label = labels[fieldNum] || `Veld ${fieldNum}`;
 
             fieldsHtml += `
