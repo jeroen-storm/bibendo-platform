@@ -544,14 +544,14 @@ class AdminTimelineDashboard {
     }
 
     formatDateLong(dateString) {
-        // Parse as UTC and convert to NL timezone
-        const date = new Date(dateString + (dateString.includes('Z') ? '' : 'Z'));
+        // dateString can be YYYY-MM-DD format from groupEventsByDate
+        // Just parse it directly without adding Z
+        const date = new Date(dateString);
         return date.toLocaleDateString('nl-NL', {
             weekday: 'long',
             year: 'numeric',
             month: 'long',
-            day: 'numeric',
-            timeZone: 'Europe/Amsterdam'
+            day: 'numeric'
         });
     }
 
