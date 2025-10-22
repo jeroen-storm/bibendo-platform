@@ -11,61 +11,13 @@
     <div class="admin-container">
         <header class="admin-header">
             <h1 class="admin-title">📊 Bibendo Platform</h1>
-            <p class="admin-subtitle">Admin Dashboard - Gebruikers Data & Analytics</p>
+            <p class="admin-subtitle">Admin Dashboard - Leerlingen Overzicht</p>
         </header>
 
-        <!-- Dashboard Statistics -->
-        <section class="dashboard-grid">
-            <div class="dashboard-card" id="totalUsers">
-                <div class="card-header">
-                    <span class="card-icon">👥</span>
-                    <h3 class="card-title">Totaal Gebruikers</h3>
-                </div>
-                <div class="card-value">0</div>
-                <div class="card-description">Geregistreerde gebruikers</div>
-            </div>
-
-            <div class="dashboard-card" id="activeUsers">
-                <div class="card-header">
-                    <span class="card-icon">🟢</span>
-                    <h3 class="card-title">Actieve Gebruikers</h3>
-                </div>
-                <div class="card-value">0</div>
-                <div class="card-description">Actief in laatste 24u</div>
-            </div>
-
-            <div class="dashboard-card" id="totalContent">
-                <div class="card-header">
-                    <span class="card-icon">📝</span>
-                    <h3 class="card-title">Content Items</h3>
-                </div>
-                <div class="card-value">0</div>
-                <div class="card-description">Opgeslagen content (notities, analyses)</div>
-            </div>
-
-            <div class="dashboard-card" id="totalEvents">
-                <div class="card-header">
-                    <span class="card-icon">📈</span>
-                    <h3 class="card-title">Timeline Events</h3>
-                </div>
-                <div class="card-value">0</div>
-                <div class="card-description">Totaal gebeurtenissen</div>
-            </div>
-
-            <div class="dashboard-card" id="finalAssignments">
-                <div class="card-header">
-                    <span class="card-icon">🎯</span>
-                    <h3 class="card-title">Eindopdrachten</h3>
-                </div>
-                <div class="card-value">0</div>
-                <div class="card-description">Ingeleverde eindopdrachten</div>
-            </div>
-        </section>
-
-        <!-- Users Overview -->
+        <!-- Leerlingen Overview -->
         <section class="users-section">
             <div class="section-header">
-                <h2 class="section-title">👥 Gebruikers Overzicht</h2>
+                <h2 class="section-title">👥 Leerlingen Overzicht</h2>
                 <div class="export-controls">
                     <button class="btn-export csv" id="exportCSV">
                         📊 Export CSV
@@ -79,7 +31,7 @@
             <!-- Loading state -->
             <div id="usersLoading" class="loading" style="display: none;">
                 <div class="loading-spinner"></div>
-                <p>Gebruikers laden...</p>
+                <p>Leerlingen laden...</p>
             </div>
 
             <!-- Users table container -->

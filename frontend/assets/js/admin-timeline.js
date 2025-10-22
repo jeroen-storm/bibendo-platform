@@ -68,7 +68,7 @@ class AdminTimelineDashboard {
 
     async loadUserData() {
         if (!this.userId) {
-            alert('Geen gebruiker ID gevonden');
+            alert('Geen leerling ID gevonden');
             window.location.href = 'dashboard.html';
             return;
         }
@@ -108,7 +108,7 @@ class AdminTimelineDashboard {
 
         } catch (error) {
             console.error('Error loading user data:', error);
-            alert(`Fout bij laden van gebruiker data: ${error.message}\n\nCheck de browser console voor details.`);
+            alert(`Fout bij laden van leerling data: ${error.message}\n\nCheck de browser console voor details.`);
         } finally {
             document.getElementById('userDetailLoading').style.display = 'none';
         }
@@ -143,7 +143,7 @@ class AdminTimelineDashboard {
             container.innerHTML = `
                 <div class="empty-state">
                     <div class="empty-state-icon">📭</div>
-                    <p>Geen content gevonden voor deze gebruiker</p>
+                    <p>Geen content gevonden voor deze leerling</p>
                 </div>
             `;
             return;

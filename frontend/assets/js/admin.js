@@ -117,17 +117,17 @@ class AdminDashboard {
             tableContainer.innerHTML = `
                 <div class="empty-state">
                     <div class="empty-state-icon">👥</div>
-                    <p>Geen gebruikers gevonden</p>
+                    <p>Geen leerlingen gevonden</p>
                 </div>
             `;
             return;
         }
-        
+
         const tableHTML = `
             <table class="users-table">
                 <thead>
                     <tr>
-                        <th>User ID</th>
+                        <th>Leerling ID</th>
                         <th>Aangemaakt</th>
                         <th>Laatst Actief</th>
                         <th>Acties</th>
