@@ -176,8 +176,8 @@ class AdminTimelineDashboard {
         Object.entries(levels).forEach(([levelNum, levelData]) => {
             const hasContent = levelData.notes.length > 0 ||
                              levelData.analysis.length > 0 ||
-                             levelData.message.length > 0 ||
-                             levelData.final.length > 0;
+                             (levelData.message?.length || 0) > 0 ||
+                             (levelData.final?.length || 0) > 0;
 
             if (!hasContent) return;
 
@@ -200,7 +200,7 @@ class AdminTimelineDashboard {
                 });
             }
 
-            if (levelData.message.length > 0) {
+            if (levelData.message && levelData.message.length > 0) {
                 html += `<h4 style="color: #666; font-size: 14px; margin: 15px 0 10px 0;">Bericht</h4>`;
                 levelData.message.forEach(item => {
                     html += this.createAccordionItem(item);
@@ -208,7 +208,7 @@ class AdminTimelineDashboard {
             }
 
             // Final assignment
-            if (levelData.final.length > 0) {
+            if (levelData.final && levelData.final.length > 0) {
                 html += `<h4 style="color: #666; font-size: 14px; margin: 15px 0 10px 0;">Eindopdracht</h4>`;
                 html += `
                     <div class="accordion-item">
