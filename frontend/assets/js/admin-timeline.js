@@ -422,25 +422,39 @@ class AdminTimelineDashboard {
             timeZone: 'Europe/Amsterdam'
         });
 
-        let meta = this.getPageTitle(event.page_id);
+        const pageTitle = this.getPageTitle(event.page_id);
 
-        // Add specific details based on event type
-        if (event.event_type === 'link_click' && event.event_data) {
-            try {
-                const data = JSON.parse(event.event_data);
-                if (data.targetPage) {
-                    meta += ` → ${this.getPageTitle(data.targetPage)}`;
-                }
-            } catch (e) {}
-        }
-
-        if (event.event_type === 'note_save' && event.event_data) {
-            try {
-                const data = JSON.parse(event.event_data);
-                if (data.version) {
-                    meta += ` (v${data.version})`;
-                }
-            } catch (e) {}
+        // Build descriptive label based on event type
+        let label = config.label;
+        if (event.event_type === 'page_open' || event.event_type === 'open') {
+            label = `Pagina geopend: ${pageTitle}`;
+        } else if (event.event_type === 'page_close' || event.event_type === 'close') {
+            label = `Pagina verlaten: ${pageTitle}`;
+        } else if (event.event_type === 'link_click' || event.event_type === 'hyperlink_click') {
+            label = `Link geklikt: ${pageTitle}`;
+            if (event.event_data) {
+                try {
+                    const data = JSON.parse(event.event_data);
+                    if (data.targetPage) {
+                        label += ` → ${this.getPageTitle(data.targetPage)}`;
+                    }
+                } catch (e) {}
+            }
+        } else if (event.event_type === 'note_save') {
+            label = `Notitie opgeslagen: ${pageTitle}`;
+            if (event.event_data) {
+                try {
+                    const data = JSON.parse(event.event_data);
+                    if (data.version) {
+                        label += ` (versie ${data.version})`;
+                    }
+                } catch (e) {}
+            }
+        } else if (event.event_type === 'assignment_save') {
+            label = `Eindopdracht opgeslagen`;
+        } else {
+            // Fallback: generic action
+            label = `${config.label}: ${pageTitle}`;
         }
 
         let durationHtml = '';
@@ -454,8 +468,7 @@ class AdminTimelineDashboard {
                 <div class="timeline-event-content">
                     <div class="timeline-icon">${config.icon}</div>
                     <div class="timeline-details">
-                        <div class="timeline-label">${config.label}</div>
-                        <div class="timeline-meta">${meta}</div>
+                        <div class="timeline-label">${label}</div>
                         ${durationHtml}
                     </div>
                 </div>
