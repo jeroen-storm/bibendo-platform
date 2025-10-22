@@ -442,14 +442,6 @@ class AdminTimelineDashboard {
             }
         } else if (event.event_type === 'note_save') {
             label = `Notitie opgeslagen: ${pageTitle}`;
-            if (event.event_data) {
-                try {
-                    const data = JSON.parse(event.event_data);
-                    if (data.version) {
-                        label += ` (versie ${data.version})`;
-                    }
-                } catch (e) {}
-            }
         } else if (event.event_type === 'assignment_save') {
             label = `Eindopdracht opgeslagen`;
         } else {
