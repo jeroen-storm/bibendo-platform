@@ -47,13 +47,18 @@ This extension adds advanced educational assessment capabilities to the **Bibend
 - **Event Plan**: Colorful, modern event showcase with gradient backgrounds
 - **Launch Plan**: Clean, document-style business plan layout
 
-#### Admin Dashboard
-- **User Management**: Complete overview of all users and activity
-- **Detailed Analytics**: Individual user data with all interactions
-- **Content Overview**: View actual user-written content organized by levels (Analysis, Messages, Planning, Final Assignment)
-- **Final Assignment Tracking**: Comprehensive view of all 8 assessment fields with completion status
-- **Data Export**: CSV and JSON export for all user data
-- **Real-time Statistics**: Active users, completion rates, performance metrics
+#### Admin Dashboard (V2)
+- **Leerlingen Management**: Complete overview of all students ("leerlingen") and activity
+- **Detailed Analytics**: Individual student data with timeline and content views
+- **Content Overview**: View actual student-written content organized by levels with descriptive titles
+  - Readable note titles with context (e.g., "Notitie 1 - Er komen weinig jongeren naar SneakSpot omdat...")
+  - Multi-field accordions for analysis/messages (e.g., "Eindopdracht level 1 - De analyse")
+- **Human-Readable Timeline**: All events displayed with descriptive labels
+  - "Pagina geopend: Notitie 1 - Er komen weinig jongeren naar SneakSpot omdat..."
+  - "Notitie opgeslagen: Notitie 2 - SneakSpot verkoopt op dit moment..."
+  - Duration tracking for time spent on each page
+- **Complete Data Export**: Single CSV export per student with content + timeline
+- **Streamlined Interface**: Simplified dashboard focusing on essential student data
 
 #### Backend Infrastructure
 - **Express.js API** with optimized SQLite database (WAL mode for concurrent access)
@@ -211,14 +216,18 @@ const adminUrl = `https://onderzoek.leeschallenges.nl/admin/dashboard.html`;
 - **Image Integration**: Profile pictures, product shots, event imagery
 - **Navigation**: Back-to-overview links, breadcrumbs, consistent UX
 
-## 📊 Database Schema
+## 📊 Database Schema (V2 - Timeline-based)
 
 ### Tables
 - `users`: User management and activity tracking
-- `notes`: Notepad content with metadata (edit counts, time spent)
-- `text_logs`: Text interaction tracking (scroll, click, time)
-- `time_logs`: Page session time logging
-- `sessions`: Session management and tracking
+- `content`: All user-created content (notes, analysis, messages, final assignments)
+  - Uses `page_id` to identify which page content belongs to
+  - Uses `field_number` for multi-field pages (1, 2, 3)
+  - Tracks `content_type` (note, analysis, message, final)
+- `timeline_events`: All user interactions and events
+  - Tracks page opens/closes, clicks, saves
+  - Includes duration for time-on-page calculations
+- `cbm_results`: CBM assessment results
 
 ## 🚀 Quick Start
 
@@ -540,12 +549,30 @@ For troubleshooting nginx issues, see: [docs/NGINX-TROUBLESHOOTING.md](docs/NGIN
 - [x] **Modern, engaging content styling with educational value preservation**
 
 ### Recent Updates ✨
-- [x] **Added Content Overview to Admin Dashboard** - View actual student-written content organized by learning levels (August 2025)
-- [x] **Enhanced Final Assignment System** - Professional business plan layout with 8-field assessment and Emma popup integration (August 2025) 
-- [x] **Smart Content Prioritization** - Final analyses and messages shown first, individual notes for context (August 2025)
-- [x] **Fixed textarea styling issues** - Consistent main.css styling, visible placeholders, proper auto-save functionality (August 2025)
-- [x] **API endpoint corrections** - Fixed data persistence issues with correct backend route mapping (August 2025)
-- [x] **Fixed JSON display bug** in final page textareas (August 2025)
+
+#### October 2025 - Admin Dashboard V2 UX Overhaul
+- [x] **Human-Readable Timeline** - Events show descriptive labels instead of technical IDs
+  - "Pagina geopend: Notitie 1 - Er komen weinig jongeren naar SneakSpot omdat..."
+  - Removed version numbers from save events for cleaner display
+- [x] **Descriptive Content Titles** - All notes show context in titles
+  - "Notitie 1 - Er komen weinig jongeren naar SneakSpot omdat..."
+  - "Eindopdracht level 1 - De analyse" instead of "Analyse Level 1 (4 velden)"
+- [x] **Complete CSV Export** - Single export button with comprehensive data
+  - Moved to top-right header position
+  - Includes user info, all content, and full timeline
+  - Human-readable labels throughout
+- [x] **Terminology Update** - Changed "Gebruiker" to "Leerlingen" throughout admin interface
+- [x] **Simplified Dashboard** - Removed non-working statistics, focused on essential data
+- [x] **Critical Bug Fix** - Fixed "Veld 0" bug in multi-field accordions (defensive filtering)
+- [x] **UI Refinements** - Right-aligned actions, removed unnecessary timestamps, cleaner layout
+
+#### August 2025 - Content & Assessment
+- [x] **Added Content Overview to Admin Dashboard** - View actual student-written content organized by learning levels
+- [x] **Enhanced Final Assignment System** - Professional business plan layout with 8-field assessment and Emma popup integration
+- [x] **Smart Content Prioritization** - Final analyses and messages shown first, individual notes for context
+- [x] **Fixed textarea styling issues** - Consistent main.css styling, visible placeholders, proper auto-save functionality
+- [x] **API endpoint corrections** - Fixed data persistence issues with correct backend route mapping
+- [x] **Fixed JSON display bug** in final page textareas
 - [x] **Standardized placeholder text** to "Begin hier met typen..." across all notepad fields
 - [x] **Simplified mynotes_level3.html** to show only relevant content (analysis, message to Emma, Level 3 activities)
 - [x] **Enhanced content loading** with proper JSON parsing and backwards compatibility
