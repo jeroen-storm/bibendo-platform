@@ -291,14 +291,13 @@ class AdminTimelineDashboard {
 
         return `
             <div class="accordion-item multi-field open" data-pageId="${sortedItems[0]?.page_id}">
-                <div class="accordion-header">
+                <div class="accordion-header-static">
                     <div>
                         <div class="accordion-title">${title} (${sortedItems.length} velden)</div>
                         <div class="accordion-meta">
                             Laatst aangepast: ${this.formatDate(latestUpdate)}
                         </div>
                     </div>
-                    <span class="accordion-toggle">▼</span>
                 </div>
                 <div class="accordion-body">
                     <div class="accordion-content">
