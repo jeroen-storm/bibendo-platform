@@ -127,10 +127,8 @@ class AdminTimelineDashboard {
             .reduce((sum, e) => sum + e.duration, 0);
         document.querySelector('#totalTimeSpent .meta-value').textContent = this.formatDuration(totalTime);
 
-        // User timestamps
+        // User last active timestamp
         if (this.userData) {
-            document.querySelector('#userCreatedAt .meta-value').textContent =
-                this.formatDate(this.userData.created_at);
             document.querySelector('#userLastActive .meta-value').textContent =
                 this.formatDate(this.userData.last_active);
         }
