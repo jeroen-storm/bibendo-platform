@@ -128,7 +128,7 @@ class AdminDashboard {
                 <thead>
                     <tr>
                         <th>Leerling ID</th>
-                        <th>Acties</th>
+                        <th style="text-align: right;">Acties</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -137,7 +137,7 @@ class AdminDashboard {
                             <td>
                                 <div class="user-id">${user.user_id}</div>
                             </td>
-                            <td>
+                            <td style="text-align: right;">
                                 <button class="btn-view-user" onclick="adminDashboard.viewUser('${user.user_id}')">
                                     Bekijk Details
                                 </button>
