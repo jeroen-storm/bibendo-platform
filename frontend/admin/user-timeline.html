@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gebruiker Tijdlijn - Bibendo Platform</title>
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/admin.css">
+    <style>
+        /* Tab System */
+        .tabs-container {
+            border-bottom: 2px solid #E0E0E0;
+            margin-bottom: 30px;
+            display: flex;
+            gap: 0;
+        }
+
+        .tab {
+            padding: 15px 30px;
+            background: none;
+            border: none;
+            border-bottom: 3px solid transparent;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            color: #666;
+            transition: all 0.3s ease;
+        }
+
+        .tab:hover {
+            color: #00C2CB;
+            background: #F5F5F5;
+        }
+
+        .tab.active {
+            color: #00C2CB;
+            border-bottom-color: #00C2CB;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Accordion Styles */
+        .level-section {
+            margin-bottom: 30px;
+        }
+
+        .level-section h3 {
+            color: #333;
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+
+        .accordion-item {
+            background: white;
+            border: 1px solid #E0E0E0;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
+
+        .accordion-header {
+            padding: 15px 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.2s;
+        }
+
+        .accordion-header:hover {
+            background: #F5F5F5;
+        }
+
+        .accordion-title {
+            font-weight: 500;
+            color: #333;
+        }
+
+        .accordion-meta {
+            font-size: 12px;
+            color: #666;
+            margin-top: 3px;
+        }
+
+        .accordion-toggle {
+            font-size: 18px;
+            color: #00C2CB;
+            transition: transform 0.3s;
+        }
+
+        .accordion-item.open .accordion-toggle {
+            transform: rotate(180deg);
+        }
+
+        .accordion-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+
+        .accordion-item.open .accordion-body {
+            max-height: 500px;
+            transition: max-height 0.3s ease-in;
+        }
+
+        .accordion-content {
+            padding: 20px;
+            border-top: 1px solid #E0E0E0;
+            background: #FAFAFA;
+        }
+
+        .content-preview {
+            background: white;
+            padding: 15px;
+            border-radius: 4px;
+            border-left: 3px solid #00C2CB;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-size: 14px;
+            line-height: 1.6;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        /* Timeline Styles */
+        .timeline {
+            position: relative;
+            padding-left: 0;
+        }
+
+        .timeline-day {
+            margin-bottom: 30px;
+        }
+
+        .timeline-day-header {
+            background: #00C2CB;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 6px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+
+        .timeline-events {
+            padding-left: 20px;
+            border-left: 2px solid #E0E0E0;
+        }
+
+        .timeline-event {
+            position: relative;
+            padding: 15px 20px;
+            margin-bottom: 10px;
+            background: white;
+            border: 1px solid #E0E0E0;
+            border-radius: 8px;
+            margin-left: 20px;
+        }
+
+        .timeline-event::before {
+            content: '';
+            position: absolute;
+            left: -27px;
+            top: 20px;
+            width: 12px;
+            height: 12px;
+            background: #00C2CB;
+            border: 2px solid white;
+            border-radius: 50%;
+            box-shadow: 0 0 0 2px #E0E0E0;
+        }
+
+        .timeline-time {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .timeline-event-content {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .timeline-icon {
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .timeline-details {
+            flex: 1;
+        }
+
+        .timeline-label {
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 3px;
+        }
+
+        .timeline-meta {
+            font-size: 13px;
+            color: #666;
+        }
+
+        .timeline-duration {
+            color: #00C2CB;
+            font-style: italic;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        /* Export Button */
+        .export-btn {
+            background: #00C2CB;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 20px;
+        }
+
+        .export-btn:hover {
+            background: #00A0A8;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+
+        .empty-state-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        /* Loading */
+        .loading-spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #00C2CB;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Assignment Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+        }
+
+        .modal {
+            background: white;
+            border-radius: 12px;
+            max-width: 800px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-header {
+            padding: 20px;
+            border-bottom: 1px solid #E0E0E0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .modal-body {
+            padding: 20px;
+        }
+
+        .assignment-field {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #FAFAFA;
+            border-radius: 6px;
+        }
+
+        .assignment-field-label {
+            font-weight: 600;
+            color: #00C2CB;
+            margin-bottom: 8px;
+        }
+
+        .assignment-field-content {
+            color: #333;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body>
+    <div class="user-detail-container">
+        <!-- Back button -->
+        <div style="margin-bottom: 20px;">
+            <button class="btn btn-secondary" id="backToOverview">
+                ← Terug naar Overzicht
+            </button>
+        </div>
+
+        <!-- Loading state -->
+        <div id="userDetailLoading" class="loading" style="display: none;">
+            <div class="loading-spinner"></div>
+            <p>Gebruiker gegevens laden...</p>
+        </div>
+
+        <!-- User info card -->
+        <div class="user-info-card">
+            <div class="user-header">
+                <div>
+                    <h1 class="user-id-large" id="userIdDisplay">Laden...</h1>
+                    <p style="color: #666; margin-top: 5px;">Gebruiker Tijdlijn & Content</p>
+                </div>
+            </div>
+
+            <div class="user-meta">
+                <div class="meta-item" id="contentCount">
+                    <div class="meta-label">Content Items</div>
+                    <div class="meta-value">0</div>
+                </div>
+                <div class="meta-item" id="timelineCount">
+                    <div class="meta-label">Timeline Events</div>
+                    <div class="meta-value">0</div>
+                </div>
+                <div class="meta-item" id="totalTimeSpent">
+                    <div class="meta-label">Totale Tijd</div>
+                    <div class="meta-value">0s</div>
+                </div>
+                <div class="meta-item" id="userCreatedAt">
+                    <div class="meta-label">Aangemaakt</div>
+                    <div class="meta-value">-</div>
+                </div>
+                <div class="meta-item" id="userLastActive">
+                    <div class="meta-label">Laatst Actief</div>
+                    <div class="meta-value">-</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs-container">
+            <button class="tab active" data-tab="content">📋 Content</button>
+            <button class="tab" data-tab="timeline">🕐 Tijdlijn</button>
+        </div>
+
+        <!-- Content Tab -->
+        <div id="content-tab" class="tab-content active">
+            <div id="contentContainer">
+                <div class="loading-spinner"></div>
+            </div>
+        </div>
+
+        <!-- Timeline Tab -->
+        <div id="timeline-tab" class="tab-content">
+            <div id="timelineContainer">
+                <div class="loading-spinner"></div>
+            </div>
+            <button class="export-btn" id="exportTimeline" style="display: none;">
+                📥 Export Tijdlijn CSV
+            </button>
+        </div>
+    </div>
+
+    <!-- Assignment Modal -->
+    <div id="assignmentModal" class="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>Eindopdracht Details</h2>
+                <button class="modal-close" id="closeModal">×</button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Assignment fields will be inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="../assets/js/admin-timeline.js"></script>
+</body>
+</html>

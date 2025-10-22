@@ -573,8 +573,8 @@ class AdminDashboard {
     }
     
     async viewUser(userId) {
-        // Navigate to user detail page
-        window.location.href = `user-detail.html?userId=${userId}`;
+        // Navigate to user timeline page
+        window.location.href = `user-timeline.html?userId=${userId}`;
     }
     
     async exportData(format) {
