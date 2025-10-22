@@ -78,16 +78,29 @@ class AdminTimelineDashboard {
         try {
             // Load user info
             const userResponse = await fetch(`/api/admin/users`);
+            if (!userResponse.ok) {
+                throw new Error(`Users API failed: ${userResponse.status}`);
+            }
             const allUsers = await userResponse.json();
             this.userData = allUsers.find(u => u.user_id === this.userId);
 
             // Load content data
             const contentResponse = await fetch(`/api/admin/user/${this.userId}/content`);
-            this.contentData = await contentResponse.json();
+            if (!contentResponse.ok) {
+                console.error('Content API failed:', contentResponse.status);
+                this.contentData = [];
+            } else {
+                this.contentData = await contentResponse.json();
+            }
 
             // Load timeline data
             const timelineResponse = await fetch(`/api/admin/user/${this.userId}/timeline`);
-            this.timelineData = await timelineResponse.json();
+            if (!timelineResponse.ok) {
+                console.error('Timeline API failed:', timelineResponse.status);
+                this.timelineData = [];
+            } else {
+                this.timelineData = await timelineResponse.json();
+            }
 
             this.displayUserInfo();
             this.displayContentTab();
@@ -95,7 +108,7 @@ class AdminTimelineDashboard {
 
         } catch (error) {
             console.error('Error loading user data:', error);
-            alert('Fout bij laden van gebruiker data');
+            alert(`Fout bij laden van gebruiker data: ${error.message}\n\nCheck de browser console voor details.`);
         } finally {
             document.getElementById('userDetailLoading').style.display = 'none';
         }
