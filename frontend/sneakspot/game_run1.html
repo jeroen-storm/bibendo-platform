@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game - SneakSpot</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="game-page">
+    <div class="container">
+        <header>
+            <h1 class="logo"></h1>
+        </header>
+
+        <main>
+            <section class="game-section">
+
+                <div class="game-container">
+                    <iframe
+                        id="gameFrame"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen=""
+                        src="https://play.bibendo.nl/#/game/5986266371850240">
+                    </iframe>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // Game ID mapping for Run 1
+        const gameIds = {
+            '1': '5986266371850240',
+            '2': '6394963623411712',
+            '3': '5029286966722560'
+        };
+
+        // Get level from URL parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const level = urlParams.get('level') || '1';
+
+        // Update iframe src with correct game ID
+        const gameFrame = document.getElementById('gameFrame');
+        if (gameIds[level]) {
+            gameFrame.src = `https://play.bibendo.nl/#/game/${gameIds[level]}`;
+        }
+    </script>
+</body>
+</html>
