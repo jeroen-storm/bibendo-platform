@@ -31,13 +31,13 @@ const db = new sqlite3.Database(dbPath, (err) => {
     }
 });
 
-// Initialize database
-const initSQL = fs.readFileSync(path.join(__dirname, 'database', 'init.sql'), 'utf8');
-db.exec(initSQL, (err) => {
+// Initialize database with V2 schema
+const schemaV2 = fs.readFileSync(path.join(__dirname, 'database', 'schema-v2.sql'), 'utf8');
+db.exec(schemaV2, (err) => {
     if (err) {
         console.error('Error initializing database:', err);
     } else {
-        console.log('Database initialized successfully');
+        console.log('Database initialized successfully with schema V2');
     }
 });
 
@@ -129,153 +129,397 @@ const sanitizePageId = (pageId) => {
 
 // API Routes
 
-// Save note
-app.post('/api/notes/save', (req, res) => {
-    const { userId, pageId, content, editCount, timeSpent } = req.body;
-    
+// ============================================
+// NEW V2 API ENDPOINTS (Timeline-based)
+// ============================================
+
+// Save content with versioning
+app.post('/api/content/save', (req, res) => {
+    const { userId, pageId, content, contentType, fieldNumber } = req.body;
+
     if (!userId || !pageId) {
         return res.status(400).json({ error: 'Missing required fields' });
     }
-    
-    // Sanitize all input to prevent XSS and injection attacks
+
     const sanitizedUserId = sanitizeUserId(userId);
     const sanitizedPageId = sanitizePageId(pageId);
     const sanitizedContent = sanitizeContent(content);
-    const level = extractLevel(sanitizedPageId);
-    
-    console.log('Saving note:', { 
-        originalUserId: userId, sanitizedUserId,
-        originalPageId: pageId, sanitizedPageId,
-        contentLength: content?.length || 0,
-        sanitizedContentLength: sanitizedContent.length
-    });
-    
+    const sanitizedContentType = contentType || 'note';
+    const sanitizedFieldNumber = fieldNumber ? parseInt(fieldNumber) : null;
+
+    console.log('Saving content:', { userId: sanitizedUserId, pageId: sanitizedPageId, contentType: sanitizedContentType });
+
     ensureUser(sanitizedUserId, (err) => {
         if (err) {
             return res.status(500).json({ error: 'Database error' });
         }
-        
-        db.run(
-            `INSERT OR REPLACE INTO notes 
-             (user_id, page_id, level, content, edit_count, time_spent, updated_at) 
-             VALUES (?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)`,
-            [sanitizedUserId, sanitizedPageId, level, sanitizedContent, editCount || 0, timeSpent || 0],
-            function(err) {
+
+        // Get current version
+        db.get(
+            `SELECT MAX(version) as max_version FROM content
+             WHERE user_id = ? AND page_id = ? AND (field_number = ? OR (field_number IS NULL AND ? IS NULL))`,
+            [sanitizedUserId, sanitizedPageId, sanitizedFieldNumber, sanitizedFieldNumber],
+            (err, row) => {
                 if (err) {
-                    console.error('Error saving note:', err);
-                    return res.status(500).json({ error: 'Failed to save note' });
+                    console.error('Error getting version:', err);
+                    return res.status(500).json({ error: 'Failed to get version' });
                 }
-                
-                res.json({ 
-                    success: true, 
-                    id: this.lastID,
-                    message: 'Note saved successfully' 
-                });
+
+                const newVersion = (row?.max_version || 0) + 1;
+
+                // Insert new version
+                db.run(
+                    `INSERT INTO content
+                     (user_id, page_id, content_type, content, field_number, version, created_at, updated_at)
+                     VALUES (?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)`,
+                    [sanitizedUserId, sanitizedPageId, sanitizedContentType, sanitizedContent, sanitizedFieldNumber, newVersion],
+                    function(err) {
+                        if (err) {
+                            console.error('Error saving content:', err);
+                            return res.status(500).json({ error: 'Failed to save content' });
+                        }
+
+                        res.json({
+                            success: true,
+                            id: this.lastID,
+                            version: newVersion,
+                            message: 'Content saved successfully'
+                        });
+                    }
+                );
             }
         );
     });
 });
 
-// Get note
-app.get('/api/notes/:userId/:pageId', (req, res) => {
+// Get latest content for a page
+app.get('/api/content/:userId/:pageId', (req, res) => {
     const { userId, pageId } = req.params;
-    
-    // Sanitize parameters
+    const { fieldNumber } = req.query;
+
     const sanitizedUserId = sanitizeUserId(userId);
     const sanitizedPageId = sanitizePageId(pageId);
-    
+
+    let query = `SELECT * FROM latest_content WHERE user_id = ? AND page_id = ?`;
+    let params = [sanitizedUserId, sanitizedPageId];
+
+    if (fieldNumber !== undefined) {
+        query += ` AND field_number = ?`;
+        params.push(parseInt(fieldNumber));
+    }
+
+    db.all(query, params, (err, rows) => {
+        if (err) {
+            console.error('Error fetching content:', err);
+            return res.status(500).json({ error: 'Failed to fetch content' });
+        }
+
+        res.json(rows || []);
+    });
+});
+
+// Get all content for a user
+app.get('/api/content/:userId', (req, res) => {
+    const { userId } = req.params;
+    const sanitizedUserId = sanitizeUserId(userId);
+
+    db.all(
+        `SELECT * FROM latest_content WHERE user_id = ? ORDER BY updated_at DESC`,
+        [sanitizedUserId],
+        (err, rows) => {
+            if (err) {
+                console.error('Error fetching user content:', err);
+                return res.status(500).json({ error: 'Failed to fetch content' });
+            }
+
+            res.json(rows || []);
+        }
+    );
+});
+
+// Get content version history
+app.get('/api/content/:userId/:pageId/history', (req, res) => {
+    const { userId, pageId } = req.params;
+    const { fieldNumber } = req.query;
+
+    const sanitizedUserId = sanitizeUserId(userId);
+    const sanitizedPageId = sanitizePageId(pageId);
+
+    let query = `SELECT * FROM content WHERE user_id = ? AND page_id = ?`;
+    let params = [sanitizedUserId, sanitizedPageId];
+
+    if (fieldNumber !== undefined) {
+        query += ` AND field_number = ?`;
+        params.push(parseInt(fieldNumber));
+    }
+
+    query += ` ORDER BY version DESC`;
+
+    db.all(query, params, (err, rows) => {
+        if (err) {
+            console.error('Error fetching content history:', err);
+            return res.status(500).json({ error: 'Failed to fetch history' });
+        }
+
+        res.json(rows || []);
+    });
+});
+
+// Log timeline event
+app.post('/api/timeline/event', (req, res) => {
+    const { userId, pageId, eventType, duration, eventData } = req.body;
+
+    if (!userId || !pageId || !eventType) {
+        return res.status(400).json({ error: 'Missing required fields' });
+    }
+
+    const sanitizedUserId = sanitizeUserId(userId);
+    const sanitizedPageId = sanitizePageId(pageId);
+    const sanitizedDuration = duration ? parseInt(duration) : null;
+    const sanitizedEventData = eventData ? JSON.stringify(eventData) : null;
+
+    ensureUser(sanitizedUserId, (err) => {
+        if (err) {
+            return res.status(500).json({ error: 'Database error' });
+        }
+
+        db.run(
+            `INSERT INTO timeline_events (user_id, page_id, event_type, duration, event_data)
+             VALUES (?, ?, ?, ?, ?)`,
+            [sanitizedUserId, sanitizedPageId, eventType, sanitizedDuration, sanitizedEventData],
+            function(err) {
+                if (err) {
+                    console.error('Error logging timeline event:', err);
+                    return res.status(500).json({ error: 'Failed to log event' });
+                }
+
+                res.json({ success: true, id: this.lastID });
+            }
+        );
+    });
+});
+
+// Get timeline for a user
+app.get('/api/timeline/:userId', (req, res) => {
+    const { userId } = req.params;
+    const { limit } = req.query;
+
+    const sanitizedUserId = sanitizeUserId(userId);
+    const sanitizedLimit = limit ? parseInt(limit) : 1000;
+
+    db.all(
+        `SELECT * FROM timeline_events
+         WHERE user_id = ?
+         ORDER BY timestamp DESC
+         LIMIT ?`,
+        [sanitizedUserId, sanitizedLimit],
+        (err, rows) => {
+            if (err) {
+                console.error('Error fetching timeline:', err);
+                return res.status(500).json({ error: 'Failed to fetch timeline' });
+            }
+
+            res.json(rows || []);
+        }
+    );
+});
+
+// Get admin user timeline (with all details)
+app.get('/api/admin/user/:userId/timeline', (req, res) => {
+    const { userId } = req.params;
+
+    db.all(
+        `SELECT * FROM timeline_events
+         WHERE user_id = ?
+         ORDER BY timestamp ASC`,
+        [userId],
+        (err, rows) => {
+            if (err) {
+                console.error('Error fetching user timeline:', err);
+                return res.status(500).json({ error: 'Failed to fetch timeline' });
+            }
+
+            res.json(rows || []);
+        }
+    );
+});
+
+// Get admin user content
+app.get('/api/admin/user/:userId/content', (req, res) => {
+    const { userId } = req.params;
+
+    db.all(
+        `SELECT * FROM latest_content WHERE user_id = ? ORDER BY page_id, field_number`,
+        [userId],
+        (err, rows) => {
+            if (err) {
+                console.error('Error fetching user content:', err);
+                return res.status(500).json({ error: 'Failed to fetch content' });
+            }
+
+            res.json(rows || []);
+        }
+    );
+});
+
+// ============================================
+// LEGACY V1 API ENDPOINTS (backwards compatible)
+// ============================================
+
+// Save note (legacy - redirects to new content API)
+app.post('/api/notes/save', (req, res) => {
+    const { userId, pageId, content, editCount, timeSpent } = req.body;
+
+    if (!userId || !pageId) {
+        return res.status(400).json({ error: 'Missing required fields' });
+    }
+
+    // Sanitize all input
+    const sanitizedUserId = sanitizeUserId(userId);
+    const sanitizedPageId = sanitizePageId(pageId);
+    const sanitizedContent = sanitizeContent(content);
+
+    // Determine content type
+    let contentType = 'note';
+    if (sanitizedPageId.includes('analysis')) {
+        contentType = 'analysis';
+    } else if (sanitizedPageId.includes('message')) {
+        contentType = 'message';
+    } else if (sanitizedPageId.includes('final_assignment')) {
+        contentType = 'assignment_field';
+    }
+
+    console.log('[LEGACY] Saving note:', { userId: sanitizedUserId, pageId: sanitizedPageId });
+
+    // Forward to new content API
+    ensureUser(sanitizedUserId, (err) => {
+        if (err) {
+            return res.status(500).json({ error: 'Database error' });
+        }
+
+        // Get current version
+        db.get(
+            `SELECT MAX(version) as max_version FROM content
+             WHERE user_id = ? AND page_id = ? AND field_number IS NULL`,
+            [sanitizedUserId, sanitizedPageId],
+            (err, row) => {
+                if (err) {
+                    console.error('Error getting version:', err);
+                    return res.status(500).json({ error: 'Failed to get version' });
+                }
+
+                const newVersion = (row?.max_version || 0) + 1;
+
+                // Insert new version
+                db.run(
+                    `INSERT INTO content
+                     (user_id, page_id, content_type, content, field_number, version, created_at, updated_at)
+                     VALUES (?, ?, ?, ?, NULL, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)`,
+                    [sanitizedUserId, sanitizedPageId, contentType, sanitizedContent, newVersion],
+                    function(err) {
+                        if (err) {
+                            console.error('Error saving content:', err);
+                            return res.status(500).json({ error: 'Failed to save note' });
+                        }
+
+                        res.json({
+                            success: true,
+                            id: this.lastID,
+                            message: 'Note saved successfully'
+                        });
+                    }
+                );
+            }
+        );
+    });
+});
+
+// Get note (legacy - reads from new content table)
+app.get('/api/notes/:userId/:pageId', (req, res) => {
+    const { userId, pageId } = req.params;
+
+    const sanitizedUserId = sanitizeUserId(userId);
+    const sanitizedPageId = sanitizePageId(pageId);
+
     db.get(
-        'SELECT * FROM notes WHERE user_id = ? AND page_id = ?',
+        `SELECT * FROM latest_content
+         WHERE user_id = ? AND page_id = ? AND field_number IS NULL`,
         [sanitizedUserId, sanitizedPageId],
         (err, row) => {
             if (err) {
                 console.error('Error fetching note:', err);
                 return res.status(500).json({ error: 'Failed to fetch note' });
             }
-            
+
+            // Return in old format for backwards compatibility
             res.json(row || { content: '' });
         }
     );
 });
 
-// Get notes by level for aggregation
+// Get notes by level for aggregation (legacy)
 app.get('/api/notes/:userId/level/:level', (req, res) => {
     const { userId, level } = req.params;
-    
-    // Sanitize parameters
+
     const sanitizedUserId = sanitizeUserId(userId);
     const sanitizedLevel = parseInt(level) || 1;
-    
+
     db.all(
-        'SELECT * FROM notes WHERE user_id = ? AND level = ? AND page_id NOT LIKE "%analysis%" AND page_id NOT LIKE "%message%" AND page_id NOT LIKE "%plan%" ORDER BY created_at',
-        [sanitizedUserId, sanitizedLevel],
+        `SELECT * FROM latest_content
+         WHERE user_id = ? AND page_id LIKE ?
+         AND page_id NOT LIKE '%analysis%'
+         AND page_id NOT LIKE '%message%'
+         AND page_id NOT LIKE '%plan%'
+         AND page_id NOT LIKE '%final_assignment%'
+         ORDER BY created_at`,
+        [sanitizedUserId, `%level${sanitizedLevel}%`],
         (err, rows) => {
             if (err) {
                 console.error('Error fetching notes by level:', err);
                 return res.status(500).json({ error: 'Failed to fetch notes' });
             }
-            
+
             res.json(rows || []);
         }
     );
 });
 
-// Log time spent
+// Log time spent (legacy - deprecated, use timeline events instead)
 app.post('/api/logs/time', (req, res) => {
-    const { userId, pageId, timeSpent, timestamp } = req.body;
-    
-    if (!userId || !pageId || !timeSpent) {
+    // This endpoint is deprecated but kept for backwards compatibility
+    // Time is now tracked via page_close events in timeline
+    console.log('[LEGACY] /api/logs/time is deprecated - use /api/timeline/event with page_close instead');
+    res.json({ success: true, message: 'Endpoint deprecated, use timeline events' });
+});
+
+// Log text interactions (legacy - redirects to timeline events)
+app.post('/api/logs/text', (req, res) => {
+    const { userId, pageId, actionType, data } = req.body;
+
+    if (!userId || !pageId || !actionType) {
         return res.status(400).json({ error: 'Missing required fields' });
     }
-    
-    // Sanitize input
+
     const sanitizedUserId = sanitizeUserId(userId);
     const sanitizedPageId = sanitizePageId(pageId);
-    const sanitizedTimeSpent = parseInt(timeSpent) || 0;
-    const sanitizedTimestamp = timestamp || new Date().toISOString();
-    
+
+    console.log('[LEGACY] /api/logs/text redirecting to timeline events');
+
     ensureUser(sanitizedUserId, (err) => {
         if (err) {
             return res.status(500).json({ error: 'Database error' });
         }
-        
-        db.run(
-            'INSERT INTO time_logs (user_id, page_id, time_spent, timestamp) VALUES (?, ?, ?, ?)',
-            [sanitizedUserId, sanitizedPageId, sanitizedTimeSpent, sanitizedTimestamp],
-            function(err) {
-                if (err) {
-                    console.error('Error logging time:', err);
-                    return res.status(500).json({ error: 'Failed to log time' });
-                }
-                
-                res.json({ success: true });
-            }
-        );
-    });
-});
 
-// Log text interactions
-app.post('/api/logs/text', (req, res) => {
-    const { userId, pageId, actionType, data } = req.body;
-    
-    if (!userId || !pageId || !actionType) {
-        return res.status(400).json({ error: 'Missing required fields' });
-    }
-    
-    ensureUser(userId, (err) => {
-        if (err) {
-            return res.status(500).json({ error: 'Database error' });
-        }
-        
         db.run(
-            'INSERT INTO text_logs (user_id, page_id, action_type, data) VALUES (?, ?, ?, ?)',
-            [userId, pageId, actionType, JSON.stringify(data || {})],
+            `INSERT INTO timeline_events (user_id, page_id, event_type, event_data)
+             VALUES (?, ?, ?, ?)`,
+            [sanitizedUserId, sanitizedPageId, actionType, JSON.stringify(data || {})],
             function(err) {
                 if (err) {
-                    console.error('Error logging text interaction:', err);
+                    console.error('Error logging timeline event:', err);
                     return res.status(500).json({ error: 'Failed to log interaction' });
                 }
-                
+
                 res.json({ success: true });
             }
         );
@@ -298,21 +542,24 @@ app.get('/api/admin/users', (req, res) => {
     );
 });
 
-// Admin: Get user data
+// Admin: Get user data (legacy - returns both old and new data)
 app.get('/api/admin/user/:userId', (req, res) => {
     const { userId } = req.params;
-    
+
     const queries = {
         user: 'SELECT * FROM users WHERE user_id = ?',
-        notes: 'SELECT * FROM notes WHERE user_id = ? ORDER BY updated_at DESC',
-        textLogs: 'SELECT * FROM text_logs WHERE user_id = ? ORDER BY timestamp DESC LIMIT 100',
-        timeLogs: 'SELECT * FROM time_logs WHERE user_id = ? ORDER BY timestamp DESC'
+        content: 'SELECT * FROM latest_content WHERE user_id = ? ORDER BY updated_at DESC',
+        timeline: 'SELECT * FROM timeline_events WHERE user_id = ? ORDER BY timestamp DESC LIMIT 200',
+        // Keep old data for reference
+        notes_legacy: 'SELECT * FROM notes_legacy WHERE user_id = ? ORDER BY updated_at DESC',
+        textLogs_legacy: 'SELECT * FROM text_logs_legacy WHERE user_id = ? ORDER BY timestamp DESC LIMIT 100',
+        timeLogs_legacy: 'SELECT * FROM time_logs_legacy WHERE user_id = ? ORDER BY timestamp DESC'
     };
-    
+
     const userData = {};
     let completed = 0;
     const total = Object.keys(queries).length;
-    
+
     Object.entries(queries).forEach(([key, query]) => {
         db.all(query, [userId], (err, rows) => {
             if (err) {
@@ -321,7 +568,7 @@ app.get('/api/admin/user/:userId', (req, res) => {
             } else {
                 userData[key] = rows || [];
             }
-            
+
             completed++;
             if (completed === total) {
                 res.json(userData);

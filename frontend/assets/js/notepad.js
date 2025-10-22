@@ -1,73 +1,126 @@
-// Bibendo Platform - Notepad JavaScript
+// Bibendo Platform - Notepad JavaScript V2
+// Simplified version with timeline-based tracking
 
 class NotepadManager {
     constructor() {
         this.userId = this.getUserId();
         this.pageId = this.getPageId();
-        this.startTime = Date.now();
-        this.editCount = 0;
+        this.pageOpenTime = Date.now();
         this.isLoading = false;
         this.autoSaveTimer = null;
         this.autoSaveDelay = 1500; // 1.5 seconds after typing stops
         this.hasUnsavedChanges = false;
-        
+
         // Exit intent configuration
         this.exitIntentConfig = {
-            minCharacters: 20,          // Easy to change!
-            triggerZoneHeight: 150,     // Top area (where back button is)
-            triggerZoneWidth: 150,      // Left area 
-            debounceDelay: 500,         // Avoid false positives
-            showOnlyOnce: true,         // Per session
+            minCharacters: 20,
+            triggerZoneHeight: 150,
+            triggerZoneWidth: 150,
+            debounceDelay: 500,
+            showOnlyOnce: true,
             enabled: true
         };
-        
+
         this.exitIntentState = {
-            hasShownModal: false,       // Track if modal was shown this session
+            hasShownModal: false,
             isMouseInTriggerZone: false,
             debounceTimer: null,
             mouseLeaveTimer: null
         };
-        
+
         this.init();
     }
-    
+
     init() {
+        this.logPageOpen();
         this.setupEventListeners();
         this.loadExistingContent();
-        this.startTimeTracking();
         this.setupExitIntent();
     }
-    
+
     getUserId() {
-        // Get user ID from URL parameter or header
+        // Get user ID from URL parameter or sessionStorage
         const urlParams = new URLSearchParams(window.location.search);
-        return urlParams.get('userId') || 'anonymous';
+        const urlUserId = urlParams.get('userId');
+        if (urlUserId) {
+            sessionStorage.setItem('bibendo_userId', urlUserId);
+            return urlUserId;
+        }
+        return sessionStorage.getItem('bibendo_userId') || 'anonymous';
     }
-    
+
     getPageId() {
         // Extract page ID from filename
         const path = window.location.pathname;
         const filename = path.split('/').pop().replace('.html', '');
         return filename;
     }
-    
+
+    // Timeline event logging
+    async logPageOpen() {
+        try {
+            await fetch('/api/timeline/event', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    userId: this.userId,
+                    pageId: this.pageId,
+                    eventType: 'page_open'
+                })
+            });
+        } catch (error) {
+            console.error('Error logging page open:', error);
+        }
+    }
+
+    async logPageClose() {
+        const duration = Math.floor((Date.now() - this.pageOpenTime) / 1000);
+
+        // Use sendBeacon for reliability on page unload
+        const data = JSON.stringify({
+            userId: this.userId,
+            pageId: this.pageId,
+            eventType: 'page_close',
+            duration: duration
+        });
+
+        const blob = new Blob([data], { type: 'application/json' });
+        navigator.sendBeacon('/api/timeline/event', blob);
+    }
+
+    async logNoteSave(version) {
+        try {
+            await fetch('/api/timeline/event', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    userId: this.userId,
+                    pageId: this.pageId,
+                    eventType: 'note_save',
+                    eventData: { version: version }
+                })
+            });
+        } catch (error) {
+            console.error('Error logging note save:', error);
+        }
+    }
+
     setupEventListeners() {
         const textarea = document.getElementById('noteTextarea');
         const saveButton = document.getElementById('saveButton');
-        const charCounter = document.querySelector('.char-counter');
-        
+
         // Hide the save button since we're using auto-save
         if (saveButton) {
             saveButton.style.display = 'none';
         }
-        
+
         if (textarea) {
             textarea.addEventListener('input', () => {
                 this.updateCharCounter();
-                this.incrementEditCount();
+                this.hasUnsavedChanges = true;
                 this.scheduleAutoSave();
             });
-            
+
             textarea.addEventListener('paste', () => {
                 setTimeout(() => {
                     this.updateCharCounter();
@@ -75,44 +128,48 @@ class NotepadManager {
                 }, 10);
             });
         }
-        
+
         // Keep save button functionality as fallback (but button is hidden)
         if (saveButton) {
             saveButton.addEventListener('click', () => this.saveNote());
         }
-        
+
         // Track page visibility changes
         document.addEventListener('visibilitychange', () => {
             if (document.hidden) {
-                this.saveTimeSpent();
-                // Auto-save when user leaves the page
                 if (this.hasUnsavedChanges) {
                     this.saveNote();
                 }
-            } else {
-                this.startTime = Date.now();
             }
         });
-        
-        // Save time and auto-save on page unload
+
+        // Save on page unload
         window.addEventListener('beforeunload', () => {
-            this.saveTimeSpent();
+            this.logPageClose();
             if (this.hasUnsavedChanges) {
-                this.saveNote();
+                // Synchronous save for beforeunload
+                const textarea = document.getElementById('noteTextarea');
+                if (textarea) {
+                    navigator.sendBeacon('/api/notes/save', new Blob([JSON.stringify({
+                        userId: this.userId,
+                        pageId: this.pageId,
+                        content: textarea.value
+                    })], { type: 'application/json' }));
+                }
             }
         });
     }
-    
+
     updateCharCounter() {
         const textarea = document.getElementById('noteTextarea');
         const charCounter = document.querySelector('.char-counter');
-        
+
         if (textarea && charCounter) {
             const currentLength = textarea.value.length;
             const maxLength = 1000;
-            
+
             charCounter.textContent = `${currentLength}/${maxLength}`;
-            
+
             // Update styling based on character count
             charCounter.classList.remove('warning', 'error');
             if (currentLength > maxLength * 0.9) {
@@ -121,28 +178,23 @@ class NotepadManager {
             if (currentLength >= maxLength) {
                 charCounter.classList.add('error');
             }
-            
+
             // Prevent further input if at max length
             if (currentLength >= maxLength) {
                 textarea.value = textarea.value.substring(0, maxLength);
             }
         }
     }
-    
-    incrementEditCount() {
-        this.editCount++;
-        this.hasUnsavedChanges = true;
-    }
-    
+
     scheduleAutoSave() {
         // Clear existing timer
         if (this.autoSaveTimer) {
             clearTimeout(this.autoSaveTimer);
         }
-        
-        // Show saving indicator
+
+        // Show typing indicator
         this.showAutoSaveStatus('Aan het typen...', 'typing');
-        
+
         // Schedule auto-save
         this.autoSaveTimer = setTimeout(() => {
             if (this.hasUnsavedChanges && !this.isLoading) {
@@ -150,11 +202,10 @@ class NotepadManager {
             }
         }, this.autoSaveDelay);
     }
-    
+
     showAutoSaveStatus(message, type = 'info') {
         const statusMessage = document.querySelector('.status-message');
         if (statusMessage) {
-            // Add icons to messages
             let icon = '';
             switch(type) {
                 case 'typing':
@@ -172,12 +223,11 @@ class NotepadManager {
                 default:
                     icon = 'ℹ️ ';
             }
-            
+
             statusMessage.innerHTML = icon + message;
             statusMessage.className = `status-message auto-save-status ${type}`;
             statusMessage.style.display = 'block';
-            
-            // Auto-hide typing indicator after short delay
+
             if (type === 'typing') {
                 setTimeout(() => {
                     if (statusMessage.classList.contains('typing')) {
@@ -185,7 +235,6 @@ class NotepadManager {
                     }
                 }, 1500);
             } else if (type === 'saved') {
-                // Hide success message after longer delay
                 setTimeout(() => {
                     if (statusMessage.classList.contains('saved')) {
                         statusMessage.style.display = 'none';
@@ -194,7 +243,7 @@ class NotepadManager {
             }
         }
     }
-    
+
     async loadExistingContent() {
         try {
             const response = await fetch(`/api/notes/${this.userId}/${this.pageId}`);
@@ -210,27 +259,23 @@ class NotepadManager {
             console.error('Error loading existing content:', error);
         }
     }
-    
+
     async saveNote() {
         const textarea = document.getElementById('noteTextarea');
         const saveButton = document.getElementById('saveButton');
-        
+
         if (!textarea || this.isLoading) return;
-        
+
         this.isLoading = true;
-        
-        // Update save button if it exists (though it's hidden)
+
         if (saveButton) {
             saveButton.disabled = true;
             saveButton.textContent = 'Opslaan...';
         }
-        
-        // Show auto-save feedback
+
         this.showAutoSaveStatus('Opslaan...', 'saving');
-        
+
         try {
-            const timeSpent = this.calculateTimeSpent();
-            
             const response = await fetch('/api/notes/save', {
                 method: 'POST',
                 headers: {
@@ -239,16 +284,17 @@ class NotepadManager {
                 body: JSON.stringify({
                     userId: this.userId,
                     pageId: this.pageId,
-                    content: textarea.value,
-                    editCount: this.editCount,
-                    timeSpent: timeSpent
+                    content: textarea.value
                 })
             });
-            
+
             if (response.ok) {
+                const result = await response.json();
                 this.showAutoSaveStatus('Opgeslagen', 'saved');
-                this.editCount = 0; // Reset edit count after successful save
-                this.hasUnsavedChanges = false; // Mark as saved
+                this.hasUnsavedChanges = false;
+
+                // Log note save event to timeline
+                this.logNoteSave(result.version || 1);
             } else {
                 throw new Error('Failed to save note');
             }
@@ -263,62 +309,18 @@ class NotepadManager {
             }
         }
     }
-    
-    showStatusMessage(message, type = 'success') {
-        const statusMessage = document.querySelector('.status-message');
-        if (statusMessage) {
-            statusMessage.textContent = message;
-            statusMessage.className = `status-message ${type}`;
-            statusMessage.style.display = 'block';
-            
-            // Hide message after 5 seconds
-            setTimeout(() => {
-                statusMessage.style.display = 'none';
-            }, 5000);
-        }
-    }
-    
-    calculateTimeSpent() {
-        return Math.floor((Date.now() - this.startTime) / 1000);
-    }
-    
-    async saveTimeSpent() {
-        const timeSpent = this.calculateTimeSpent();
-        if (timeSpent < 5) return; // Don't save very short sessions
-        
-        try {
-            await fetch('/api/logs/time', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    userId: this.userId,
-                    pageId: this.pageId,
-                    timeSpent: timeSpent,
-                    timestamp: new Date().toISOString()
-                })
-            });
-        } catch (error) {
-            console.error('Error saving time spent:', error);
-        }
-    }
-    
-    startTimeTracking() {
-        this.startTime = Date.now();
-    }
-    
+
     // Exit Intent Methods
     setupExitIntent() {
         if (!this.exitIntentConfig.enabled) return;
-        
-        // Don't show exit intent on final pages (analysis, message, final assignment)
+
+        // Don't show exit intent on final pages
         if (this.isFinalPage()) return;
-        
+
         document.addEventListener('mousemove', (e) => this.handleMouseMove(e));
         document.addEventListener('mouseleave', (e) => this.handleMouseLeave(e));
     }
-    
+
     isFinalPage() {
         const pageId = this.pageId;
         return (
@@ -327,19 +329,18 @@ class NotepadManager {
             pageId.includes('final_assignment')
         );
     }
-    
+
     handleMouseMove(event) {
         if (this.exitIntentState.hasShownModal || !this.exitIntentConfig.enabled) return;
-        
+
         const x = event.clientX;
         const y = event.clientY;
-        
-        // Check if mouse is in trigger zone (top-left area)
+
         const inTriggerZone = (
-            x <= this.exitIntentConfig.triggerZoneWidth && 
+            x <= this.exitIntentConfig.triggerZoneWidth &&
             y <= this.exitIntentConfig.triggerZoneHeight
         );
-        
+
         if (inTriggerZone && !this.exitIntentState.isMouseInTriggerZone) {
             this.exitIntentState.isMouseInTriggerZone = true;
             this.startExitIntentDebounce();
@@ -348,50 +349,47 @@ class NotepadManager {
             this.clearExitIntentDebounce();
         }
     }
-    
+
     handleMouseLeave(event) {
         if (this.exitIntentState.hasShownModal || !this.exitIntentConfig.enabled) return;
-        
-        // Check if mouse left through top of window
+
         if (event.clientY <= 0) {
             this.startExitIntentDebounce();
         }
     }
-    
+
     startExitIntentDebounce() {
         this.clearExitIntentDebounce();
-        
+
         this.exitIntentState.debounceTimer = setTimeout(() => {
             this.checkAndShowExitModal();
         }, this.exitIntentConfig.debounceDelay);
     }
-    
+
     clearExitIntentDebounce() {
         if (this.exitIntentState.debounceTimer) {
             clearTimeout(this.exitIntentState.debounceTimer);
             this.exitIntentState.debounceTimer = null;
         }
     }
-    
+
     checkAndShowExitModal() {
         if (this.exitIntentState.hasShownModal) return;
-        
+
         const textarea = document.getElementById('noteTextarea');
         if (!textarea) return;
-        
+
         const currentText = textarea.value.trim();
         const characterCount = currentText.length;
-        
-        // Only show modal if user hasn't written enough
+
         if (characterCount < this.exitIntentConfig.minCharacters) {
             this.showExitModal(characterCount);
         }
     }
-    
+
     showExitModal(currentCharCount) {
         this.exitIntentState.hasShownModal = true;
-        
-        // Create modal HTML using emma-overlay pattern
+
         const modalHtml = `
             <div class="exit-intent-overlay" id="exitIntentOverlay">
                 <div class="exit-intent-popup">
@@ -405,39 +403,32 @@ class NotepadManager {
                 </div>
             </div>
         `;
-        
-        // Add to DOM
+
         const modalContainer = document.createElement('div');
         modalContainer.innerHTML = modalHtml;
         const modal = modalContainer.firstElementChild;
         document.body.appendChild(modal);
-        
-        // Add event listeners
+
         modal.addEventListener('click', (e) => this.handleModalAction(e, modal));
-        
-        // Show modal with animation (like emma overlay)
+
         setTimeout(() => {
             modal.classList.add('show');
         }, 10);
-        
-        // Focus trap - keep focus in modal
+
         const closeBtn = modal.querySelector('.exit-intent-btn-secondary');
         if (closeBtn) {
             closeBtn.focus();
         }
     }
-    
+
     handleModalAction(event, modal) {
         const action = event.target.getAttribute('data-action');
-        
+
         if (action === 'done') {
-            // Close modal and allow natural exit behavior
             this.closeModal(modal);
-            // User chose to be done, disable exit intent for this session
             this.exitIntentConfig.enabled = false;
         }
-        
-        // Click outside modal to close
+
         if (event.target.classList.contains('exit-intent-overlay')) {
             this.closeModal(modal);
             const textarea = document.getElementById('noteTextarea');
@@ -446,24 +437,22 @@ class NotepadManager {
             }
         }
     }
-    
+
     closeModal(modal) {
-        // Use emma-overlay pattern for closing
         modal.classList.remove('show');
         setTimeout(() => {
             if (modal.parentNode) {
                 modal.parentNode.removeChild(modal);
             }
-        }, 300); // Match transition duration
+        }, 300);
     }
 }
 
 // Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-    // Check if this is a final page by looking for aggregatedContent element
     const isFinalPage = document.getElementById('aggregatedContent');
     console.log('Page initialization:', { isFinalPage: !!isFinalPage });
-    
+
     if (isFinalPage) {
         console.log('Initializing FinalPageManager');
         new FinalPageManager();
@@ -479,15 +468,15 @@ class FinalPageManager extends NotepadManager {
         super();
         this.loadAggregatedContent();
     }
-    
+
     async loadAggregatedContent() {
         try {
             const level = this.getLevel();
             console.log('Loading aggregated content for:', { userId: this.userId, level });
-            
+
             const response = await fetch(`/api/notes/${this.userId}/level/${level}`);
             console.log('API response status:', response.status);
-            
+
             if (response.ok) {
                 const notes = await response.json();
                 console.log('Received notes:', notes);
@@ -499,7 +488,7 @@ class FinalPageManager extends NotepadManager {
             console.error('Error loading aggregated content:', error);
         }
     }
-    
+
     getLevel() {
         const pageId = this.pageId;
         if (pageId.includes('level1')) return 1;
@@ -508,23 +497,23 @@ class FinalPageManager extends NotepadManager {
         if (pageId === 'final_assignment') return 4;
         return 1;
     }
-    
+
     displayAggregatedContent(notes) {
         console.log('Pre-filling textareas with notes:', notes);
-        
-        // Hide the aggregated content container since we're pre-filling textareas
+
+        // Hide the aggregated content container
         const container = document.getElementById('aggregatedContent');
         if (container) {
             container.style.display = 'none';
         }
-        
+
         if (!notes || !notes.length) {
             console.log('No notes to pre-fill');
             return;
         }
-        
-        // Pre-fill the textareas with the saved notes
-        const textareaIds = ['noteTextarea', 'factorsTextarea', 'futureTextarea']; // analysis page
+
+        // Determine textarea IDs based on page type
+        const textareaIds = ['noteTextarea', 'factorsTextarea', 'futureTextarea'];
         if (this.pageId.includes('message')) {
             textareaIds[1] = 'communicationTextarea';
             textareaIds[2] = 'reactionsTextarea';
@@ -532,7 +521,7 @@ class FinalPageManager extends NotepadManager {
             textareaIds[1] = 'resourcesTextarea';
             textareaIds[2] = 'monitoringTextarea';
         }
-        
+
         // Fill textareas with corresponding note content
         notes.forEach((note, index) => {
             if (index < textareaIds.length && note.content) {
@@ -543,7 +532,7 @@ class FinalPageManager extends NotepadManager {
                 }
             }
         });
-        
+
         // Update character counters
         textareaIds.forEach(id => {
             const textarea = document.getElementById(id);
@@ -552,14 +541,14 @@ class FinalPageManager extends NotepadManager {
             }
         });
     }
-    
+
     updateCharCounterForTextarea(textarea) {
         const charCounter = textarea.parentNode.querySelector('.char-counter');
         if (charCounter) {
             const currentLength = textarea.value.length;
             const maxLength = 1000;
             charCounter.textContent = `${currentLength}/${maxLength}`;
-            
+
             charCounter.classList.remove('warning', 'error');
             if (currentLength > maxLength * 0.9) {
                 charCounter.classList.add('warning');
@@ -568,19 +557,5 @@ class FinalPageManager extends NotepadManager {
                 charCounter.classList.add('error');
             }
         }
-    }
-    
-    getPageTitle(pageId) {
-        const titles = {
-            'note1': 'Notitie 1',
-            'note2': 'Notitie 2', 
-            'note3': 'Notitie 3'
-        };
-        
-        for (const [key, title] of Object.entries(titles)) {
-            if (pageId.includes(key)) return title;
-        }
-        
-        return pageId;
     }
 }
