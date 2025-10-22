@@ -359,10 +359,13 @@ class AdminTimelineDashboard {
 
     createTimelineEvent(event) {
         const config = this.getEventConfig(event.event_type);
-        const time = new Date(event.timestamp).toLocaleTimeString('nl-NL', {
+        // Parse as UTC and convert to NL timezone
+        const timestamp = event.timestamp + (event.timestamp.includes('Z') ? '' : 'Z');
+        const time = new Date(timestamp).toLocaleTimeString('nl-NL', {
             hour: '2-digit',
             minute: '2-digit',
-            second: '2-digit'
+            second: '2-digit',
+            timeZone: 'Europe/Amsterdam'
         });
 
         let meta = this.getPageTitle(event.page_id);
@@ -426,7 +429,12 @@ class AdminTimelineDashboard {
         const grouped = {};
 
         events.forEach(event => {
-            const date = event.timestamp.split(' ')[0]; // Get date part only
+            // Parse as UTC and convert to NL date
+            const timestamp = event.timestamp + (event.timestamp.includes('Z') ? '' : 'Z');
+            const date = new Date(timestamp).toLocaleDateString('en-CA', {
+                timeZone: 'Europe/Amsterdam'
+            }); // en-CA gives YYYY-MM-DD format
+
             if (!grouped[date]) {
                 grouped[date] = [];
             }
@@ -435,9 +443,11 @@ class AdminTimelineDashboard {
 
         // Sort events within each day
         Object.keys(grouped).forEach(date => {
-            grouped[date].sort((a, b) =>
-                new Date(a.timestamp) - new Date(b.timestamp)
-            );
+            grouped[date].sort((a, b) => {
+                const aTime = a.timestamp + (a.timestamp.includes('Z') ? '' : 'Z');
+                const bTime = b.timestamp + (b.timestamp.includes('Z') ? '' : 'Z');
+                return new Date(aTime) - new Date(bTime);
+            });
         });
 
         return grouped;
@@ -521,23 +531,27 @@ class AdminTimelineDashboard {
 
     formatDate(dateString) {
         if (!dateString) return '-';
-        const date = new Date(dateString);
+        // Parse as UTC and convert to NL timezone
+        const date = new Date(dateString + (dateString.includes('Z') ? '' : 'Z'));
         return date.toLocaleString('nl-NL', {
             year: 'numeric',
             month: '2-digit',
             day: '2-digit',
             hour: '2-digit',
-            minute: '2-digit'
+            minute: '2-digit',
+            timeZone: 'Europe/Amsterdam'
         });
     }
 
     formatDateLong(dateString) {
-        const date = new Date(dateString);
+        // Parse as UTC and convert to NL timezone
+        const date = new Date(dateString + (dateString.includes('Z') ? '' : 'Z'));
         return date.toLocaleDateString('nl-NL', {
             weekday: 'long',
             year: 'numeric',
             month: 'long',
-            day: 'numeric'
+            day: 'numeric',
+            timeZone: 'Europe/Amsterdam'
         });
     }
 
