@@ -262,6 +262,112 @@ pm2 restart bibendo-platform
 - ✅ All note titles descriptive with context
 - ⚠️ SSH deployment script has authentication issues - use manual deployment
 
+## Bibendo Integration - Production Roadmap
+
+### Production Context
+- **3 games** total
+- **2-3 runs per game** (1 run = 1 school)
+- **~20 users per run** (leerlingen with unique Bibendo user IDs)
+- **Special cases**:
+  - Reflection questions have no right/wrong answers (is_correct = NULL)
+  - Wrong answers lead to alternative game paths
+  - Game branching affects response flow
+
+### Game Structure
+
+#### **Game 1: De analyse**
+- **Game ID**: 5986266371850240
+- **Total items**: 64 items
+- **Content questions**: First 61 items (with correct/incorrect answers)
+- **Reflection questions**: Last 3 items (no right/wrong, opinion-based)
+- **Branching**: Wrong answers trigger alternative paths
+- **Status**: ✅ Tested with 7 responses
+
+#### **Game 2: Sneakerstyle**
+- **Game ID**: 6394963623411712
+- **Total items**: 53 items
+- **Content questions**: First 50 items (with correct/incorrect answers)
+- **Reflection questions**: Last 3 items (no right/wrong, opinion-based)
+- **Structure**: 3 horizontal "lanes" with complex branching
+- **Branching**: Multiple alternative routes based on incorrect answers
+
+#### **Game 3: De lancering**
+- **Game ID**: 5029286966722560
+- **Total items**: 60 items
+- **Content questions**: First 57 items (with correct/incorrect answers)
+- **Reflection questions**: Last 3 items (no right/wrong, opinion-based)
+- **Structure**: 3-4 horizontal "lanes" with branching paths
+- **Branching**: Alternative routes for incorrect responses
+
+**Key Pattern**: All 3 games follow the same structure - the **last 3 questions are always reflection questions** with no correct/incorrect answers.
+
+### 6-Phase Implementation Plan
+
+#### **Phase 1: Proof of Concept** ✅ COMPLETED
+- ✅ Complete response sync with readable data
+- ✅ Smart ID-to-text matching (response IDs → answer text)
+- ✅ Timeline integration with combined view
+- ✅ Test successful: 1 user, 5 games, 96 runs, 7 responses
+- ✅ Code committed and pushed to GitHub
+
+#### **Phase 2: Data Model Adjustments** 🎯 NEXT
+- [ ] Create `bibendo_user_mapping` table
+  - Fields: `platform_user_id`, `bibendo_user_id`, `school`, `run_id`
+- [ ] Implement reflection question detection
+  - Mark questions with no right/wrong as `is_reflection = 1`
+  - Set `is_correct = NULL` for reflection responses
+- [ ] Document game structure (to review together)
+  - Map question types (content vs reflection)
+  - Document branching paths
+  - Identify path triggers (which wrong answers → alternative paths)
+
+#### **Phase 3: Admin Interface Integration**
+- [ ] Test Bibendo data visualization in timeline
+  - Verify purple styling (#6B46C1) for game events
+  - Ensure chronological ordering by timestamp
+- [ ] Add "Game Voortgang" column to leerlingen dashboard
+  - Show: X/Y responses completed per game
+- [ ] Extend CSV export with Bibendo data
+  - Add section: "Game Responses" with all choices
+  - Include: game name, question, answer, correctness, timestamp
+
+#### **Phase 4: Multi-User Sync**
+- [ ] Implement batch sync endpoint
+  - `POST /api/bibendo/sync/batch` - sync all users in a run
+  - Input: `runId`, `userMappings[]`
+- [ ] Create token management for bulk operations
+  - Option 1: Single shared token per school
+  - Option 2: Individual tokens with mapping upload
+- [ ] Add sync progress tracking
+  - Real-time feedback: "Syncing user 5/20..."
+  - Error handling per user (continue on individual failures)
+
+#### **Phase 5: Testing & Validation**
+- [ ] Test with 1 school (~20 users)
+- [ ] Validate data quality
+  - All responses synced correctly
+  - Reflection questions marked properly
+  - Alternative paths tracked
+- [ ] Performance testing
+  - Measure sync time for 20 users
+  - Optimize if needed (parallel requests?)
+
+#### **Phase 6: Production Deployment**
+- [ ] Manual VPS deployment (SSH auth issue documented)
+- [ ] Rollout to all 3 games
+  - Per game: 2-3 runs (schools)
+  - Per run: ~20 users
+  - **Total: ~120-180 users**
+- [ ] Monitor sync success rate
+- [ ] Provide admin documentation
+
+### Next Session: Game Structure Review
+Review together:
+1. Names of the 3 games
+2. Question breakdown (content vs reflection)
+3. Branching logic and alternative paths
+4. Any game-specific considerations
+
 ## Future Considerations
 - Monitor usage of new CSV export feature
 - Consider adding filtering/search in leerlingen overview
@@ -271,5 +377,5 @@ pm2 restart bibendo-platform
 - Consider adding date range filters for timeline
 
 ---
-*Last updated: October 22, 2025*
+*Last updated: October 26, 2025*
 *Generated with Claude Code assistance*
