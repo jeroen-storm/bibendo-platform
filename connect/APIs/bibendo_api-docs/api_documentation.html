@@ -1,0 +1,3988 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bibendo API Documentation</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 10px;
+            margin-top: 40px;
+        }
+        h2 {
+            margin-top: 30px;
+            padding: 10px;
+            background-color: #f5f5f5;
+            border-left: 4px solid #4CAF50;
+        }
+        .endpoint {
+            margin-bottom: 40px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: white;
+        }
+        .method {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        .get { background-color: #61affe; color: white; }
+        .post { background-color: #49cc90; color: white; }
+        .put { background-color: #fca130; color: white; }
+        .delete { background-color: #f93e3e; color: white; }
+        .endpoint-title {
+            margin-top: 0;
+        }
+        pre {
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 4px;
+            overflow: auto;
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+        }
+        .success { color: #49cc90; }
+        .error { color: #f93e3e; }
+        .status { font-weight: bold; }
+        .collapsible {
+            cursor: pointer;
+            padding: 10px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 15px;
+            background-color: #f1f1f1;
+            margin-bottom: 2px;
+        }
+        .active, .collapsible:hover {
+            background-color: #e0e0e0;
+        }
+        .content {
+            padding: 0 18px;
+            display: none;
+            overflow: hidden;
+            background-color: #f9f9f9;
+        }
+        .toc {
+            position: sticky;
+            top: 20px;
+            float: right;
+            width: 250px;
+            margin-left: 20px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .toc a {
+            display: block;
+            padding: 5px 0;
+            text-decoration: none;
+            color: #333;
+        }
+        .toc a:hover {
+            color: #4CAF50;
+        }
+        .main-content {
+            margin-right: 270px;
+        }
+        @media (max-width: 1000px) {
+            .toc {
+                float: none;
+                width: auto;
+                margin-left: 0;
+                margin-bottom: 20px;
+            }
+            .main-content {
+                margin-right: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Bibendo API Documentation</h1>
+
+    <div class="toc">
+        <h3>Table of Contents</h3>
+        <a href="#account">Account Endpoints (1)</a>
+        <a href="#game">Game Endpoints (4)</a>
+        <a href="#run">Run Endpoints (4)</a>
+        <a href="#organization">Organization Endpoints (1)</a>
+        <a href="#player">Player Endpoints (4)</a>
+        <a href="#media">Media Endpoints (2)</a>
+        <a href="#games">Games Endpoints (6)</a>
+        <a href="#generalItems">Generalitems Endpoints (1)</a>
+        <a href="#other">Other Endpoints (3)</a>
+    </div>
+
+    <div class="main-content">
+        <h2>Introduction</h2>
+        <p>This documentation provides details on the Bibendo API endpoints, including request formats and example responses.</p>
+        <p>All endpoints require authentication with a valid Firebase token in the Authorization header.</p>
+        <h2 id="account">Account Endpoints</h2>
+        <div class="endpoint">
+            <h3 class="endpoint-title">
+                <span class="method get">GET</span>
+                /account/accountDetails
+            </h3>
+            <p>Haal accountgegevens op van de ingelogde gebruiker</p>
+
+            <p>Status: <span class="status success">Success (200)</span></p>
+            <button class="collapsible">Example Response (Click to expand)</button>
+            <div class="content">
+                <pre>{
+  "type": "org.celstec.arlearn2.beans.account.Account",
+  "firebaseId": "SUi0jz4F9lOhzWTLLkMxCZRz3Ix2",
+  "localId": "SUi0jz4F9lOhzWTLLkMxCZRz3Ix2",
+  "accountType": 7,
+  "email": "jeroenstorm@gmail.com",
+  "name": "Jeroen Storm",
+  "picture": "https://lh3.googleusercontent.com/a-/AAuE7mDl_AO2inVvFMrlLuipHDziE9ZYX8oVOpUs96bagA",
+  "advanced": false,
+  "admin": false,
+  "suspended": false,
+  "connection": false,
+  "allowTrackLocation": false,
+  "lastModificationDate": "1648540014887",
+  "lastLoginDate": "1743587547135",
+  "fullId": "7:SUi0jz4F9lOhzWTLLkMxCZRz3Ix2"
+}</pre>
+            </div>
+            <button class="collapsible">CURL Example</button>
+            <div class="content">
+                <pre>curl -X GET "https://serious-gaming-platform.appspot.com/api/account/accountDetails" \
+     -H "Authorization: Bearer YOUR_TOKEN" \
+     -H "Content-Type: application/json"</pre>
+            </div>
+        </div>
+        <h2 id="game">Game Endpoints</h2>
+        <div class="endpoint">
+            <h3 class="endpoint-title">
+                <span class="method get">GET</span>
+                /game/list
+            </h3>
+            <p>Haal alle games op die toegankelijk zijn voor de gebruiker</p>
+
+            <p>Status: <span class="status success">Success (200)</span></p>
+            <button class="collapsible">Example Response (Click to expand)</button>
+            <div class="content">
+                <pre>{
+  "type": "org.celstec.arlearn2.beans.game.GamesList",
+  "games": [
+    {
+      "type": "org.celstec.arlearn2.beans.game.Game",
+      "gameId": "4798334378180608",
+      "deleted": false,
+      "lastModificationDate": "1743423538772",
+      "title": "Test game ",
+      "description": "",
+      "config": {
+        "type": "org.celstec.arlearn2.beans.game.Config",
+        "mapAvailable": false,
+        "enableMyLocation": false,
+        "enableExchangeResponses": true,
+        "minZoomLevel": 1,
+        "maxZoomLevel": 20
+      },
+      "sharing": 2,
+      "language": "en",
+      "theme": "1",
+      "privateMode": true,
+      "webEnabled": false,
+      "iconAbbreviation": "",
+      "endsOn": {
+        "type": "org.celstec.arlearn2.beans.dependencies.ActionDependency",
+        "action": "read",
+        "generalItemId": "6441495785635840"
+      },
+      "amountOfPlays": "4"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.Game",
+      "gameId": "5162664749694976",
+      "deleted": false,
+      "lastModificationDate": "1734353060932",
+      "title": "Wie heeft het gedaan? (7&8)",
+      "messageListScreen": "/game/6012606263328768/spelbord/spelbord BB W_600x734.png",
+      "messageListTypes": "1,2",
+      "boardWidth": 600,
+      "boardHeight": 734,
+      "description": "Los jij het BiebBoys mysterie op?\nStart het spel, bekijk de plaats delict en klik op 'play' om te beginnen!\nSucces!",
+      "startButton": "Aan de slag!",
+      "config": {
+        "type": "org.celstec.arlearn2.beans.game.Config",
+        "mapAvailable": false,
+        "enableMyLocation": false,
+        "enableExchangeResponses": true,
+        "minZoomLevel": 1,
+        "maxZoomLevel": 20
+      },
+      "sharing": 3,
+      "licenseCode": "cc-by",
+      "language": "en",
+      "theme": "6388598806937600",
+      "organisationId": "5175622565363712",
+      "privateMode": true,
+      "webEnabled": true,
+      "iconAbbreviation": "Wie?",
+      "endsOn": {
+        "type": "org.celstec.arlearn2.beans.dependencies.ActionDependency",
+        "action": "read",
+        "generalItemId": "5571683075227648"
+      },
+      "amountOfPlays": "837",
+      "playDuration": "30 - 40",
+      "ageSpan": "10 - 12",
+      "devTeam": "Rijnbrink",
+      "showGrid": true,
+      "gridSize": 20
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.Game",
+      "gameId": "6731930653425664",
+      "deleted": false,
+      "lastModificationDate": "1730195292448",
+      "title": "Demo game",
+      "messageListScreen": "/mediaLibrary/Schemer kasteel.png",
+      "boardWidth": 895,
+      "boardHeight": 1443,
+      "description": "",
+      "config": {
+        "type": "org.celstec.arlearn2.beans.game.Config",
+        "mapAvailable": false,
+        "enableMyLocation": false,
+        "enableExchangeResponses": true,
+        "minZoomLevel": 1,
+        "maxZoomLevel": 20
+      },
+      "sharing": 1,
+      "language": "en",
+      "theme": "1",
+      "privateMode": true,
+      "webEnabled": false,
+      "iconAbbreviation": "",
+      "endsOn": {
+        "type": "org.celstec.arlearn2.beans.dependencies.ActionDependency",
+        "action": "complete",
+        "generalItemId": "6572594480283648"
+      },
+      "amountOfPlays": "0"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.Game",
+      "gameId": "5806770463178752",
+      "deleted": false,
+      "lastModificationDate": "1710770269199",
+      "title": "Web - Noah en de verloren verbinding",
+      "messageListScreen": "/game/6194327877320704/Preview 1 - game 1.png",
+      "messageListTypes": "2",
+      "boardWidth": 591,
+      "boardHeight": 1280,
+      "description": "Deze digitale speurtocht door boeken laat kinderen kennismaken met polarisatie en het belang van open communicatie. ",
+      "startButton": "Start de game!",
+      "gameOverHeading": "Het Einde",
+      "gameOverButton": "Speel opnieuw!",
+      "config": {
+        "type": "org.celstec.arlearn2.beans.game.Config",
+        "mapAvailable": false,
+        "enableMyLocation": false,
+        "enableExchangeResponses": true,
+        "minZoomLevel": 1,
+        "maxZoomLevel": 20
+      },
+      "sharing": 3,
+      "licenseCode": "cc-by",
+      "language": "en",
+      "theme": "6540432112615424",
+      "organisationId": "5668173483343872",
+      "chapters": "4",
+      "privateMode": true,
+      "webEnabled": true,
+      "iconAbbreviation": "Noah",
+      "endsOn": {
+        "type": "org.celstec.arlearn2.beans.dependencies.ActionDependency",
+        "action": "complete",
+        "generalItemId": "6284067662200832"
+      },
+      "amountOfPlays": "623",
+      "playDuration": "40 - 50",
+      "ageSpan": "10 - 12",
+      "devTeam": "Skillsdojo",
+      "showGrid": false,
+      "gridSize": 20
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.Game",
+      "gameId": "6194327877320704",
+      "deleted": false,
+      "lastModificationDate": "1710493238402",
+      "title": "Noah en de verloren verbinding",
+      "messageListScreen": "/game/6194327877320704/Preview 1 - game 1.png",
+      "messageListTypes": "2",
+      "boardWidth": 591,
+      "boardHeight": 1280,
+      "description": "Deze digitale speurtocht door boeken laat kinderen kennismaken met polarisatie en het belang van open communicatie. ",
+      "startButton": "Start de game!",
+      "gameOverHeading": "Het Einde",
+      "gameOverButton": "Speel opnieuw!",
+      "config": {
+        "type": "org.celstec.arlearn2.beans.game.Config",
+        "mapAvailable": false,
+        "enableMyLocation": false,
+        "enableExchangeResponses": true,
+        "minZoomLevel": 1,
+        "maxZoomLevel": 20
+      },
+      "sharing": 3,
+      "licenseCode": "cc-by",
+      "language": "en",
+      "theme": "6540432112615424",
+      "organisationId": "5668173483343872",
+      "chapters": "4",
+      "privateMode": true,
+      "webEnabled": false,
+      "iconAbbreviation": "Noah",
+      "endsOn": {
+        "type": "org.celstec.arlearn2.beans.dependencies.ActionDependency",
+        "action": "complete",
+        "generalItemId": "6284067662200832"
+      },
+      "amountOfPlays": "226",
+      "playDuration": "40 - 50",
+      "ageSpan": "10 - 12",
+      "devTeam": "Skillsdojo",
+      "showGrid": false,
+      "gridSize": 20
+    }
+  ],
+  "serverTime": "1743587548034",
+  "from": "1",
+  "resumptionToken": "CooBCiMKGGxhc3RNb2RpZmljYXRpb25EYXRlR2FtZRIHCPiI3orkMRJfahllfnNlcmlvdXMtZ2FtaW5nLXBsYXRmb3JtckILEg1HYW1lQWNjZXNzSkRPIi83OlNVaTBqejRGOWxPaHpXVExMa014Q1pSejNJeDI6NjE5NDMyNzg3NzMyMDcwNAwYACAB"
+}</pre>
+            </div>
+            <button class="collapsible">CURL Example</button>
+            <div class="content">
+                <pre>curl -X GET "https://serious-gaming-platform.appspot.com/api/game/list" \
+     -H "Authorization: Bearer YOUR_TOKEN" \
+     -H "Content-Type: application/json"</pre>
+            </div>
+        </div>
+        <div class="endpoint">
+            <h3 class="endpoint-title">
+                <span class="method get">GET</span>
+                /game/4798334378180608
+            </h3>
+            <p>Haal details op van game 4798334378180608</p>
+
+            <p>Status: <span class="status success">Success (200)</span></p>
+            <button class="collapsible">Example Response (Click to expand)</button>
+            <div class="content">
+                <pre>{
+  "type": "org.celstec.arlearn2.beans.game.Game",
+  "gameId": "4798334378180608",
+  "deleted": false,
+  "lastModificationDate": "1743423538772",
+  "title": "Test game ",
+  "description": "",
+  "config": {
+    "type": "org.celstec.arlearn2.beans.game.Config",
+    "mapAvailable": false,
+    "enableMyLocation": false,
+    "enableExchangeResponses": true,
+    "minZoomLevel": 1,
+    "maxZoomLevel": 20
+  },
+  "sharing": 2,
+  "language": "en",
+  "theme": "1",
+  "privateMode": true,
+  "webEnabled": false,
+  "iconAbbreviation": "",
+  "endsOn": {
+    "type": "org.celstec.arlearn2.beans.dependencies.ActionDependency",
+    "action": "read",
+    "generalItemId": "6441495785635840"
+  },
+  "amountOfPlays": "4"
+}</pre>
+            </div>
+            <button class="collapsible">CURL Example</button>
+            <div class="content">
+                <pre>curl -X GET "https://serious-gaming-platform.appspot.com/api/game/4798334378180608" \
+     -H "Authorization: Bearer YOUR_TOKEN" \
+     -H "Content-Type: application/json"</pre>
+            </div>
+        </div>
+        <div class="endpoint">
+            <h3 class="endpoint-title">
+                <span class="method get">GET</span>
+                /game/theme/list/global
+            </h3>
+            <p>Haal de lijst van globale thema's op</p>
+
+            <p>Status: <span class="status success">Success (200)</span></p>
+            <button class="collapsible">Example Response (Click to expand)</button>
+            <div class="content">
+                <pre>{
+  "items": [
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "1",
+      "primaryColor": "#389fff",
+      "global": true,
+      "category": "",
+      "name": "Default thema",
+      "iconPath": "themes/1/icon.png",
+      "backgroundPath": "themes/1/screenshot-bg.png",
+      "correctPath": "themes/1/screenshot-correct.png",
+      "wrongPath": "themes/1/screenshot-wrong.png",
+      "lastModificationDate": "1660049155949"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "2",
+      "primaryColor": "#ffbe00",
+      "global": true,
+      "category": "tropical",
+      "name": "Thema 2",
+      "iconPath": "/themes/thema_pict-2-icon.png",
+      "backgroundPath": "/themes/thema_pict-2-bg-ffbe00.png",
+      "correctPath": "/themes/thema_pict-2-good.png",
+      "wrongPath": "/themes/thema_pict-2-false.png",
+      "lastModificationDate": "1660049156007"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "3",
+      "primaryColor": "#ea0608",
+      "global": true,
+      "category": "tropical",
+      "name": "Thema 3",
+      "iconPath": "/themes/thema_pict-3-icon.png",
+      "backgroundPath": "/themes/thema_pict-3-bg-ea0608.png",
+      "correctPath": "/themes/thema_pict-3-good.png",
+      "wrongPath": "/themes/thema_pict-3-false.png",
+      "lastModificationDate": "1660049156061"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "4",
+      "primaryColor": "#e02e40",
+      "global": true,
+      "category": "tropical",
+      "name": "Thema 4",
+      "iconPath": "/themes/thema_pict-4-icon.png",
+      "backgroundPath": "/themes/thema_pict-4-bg-e02e40.png",
+      "correctPath": "/themes/thema_pict-4-good.png",
+      "wrongPath": "/themes/thema_pict-4-false.png",
+      "lastModificationDate": "1660049156114"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5",
+      "primaryColor": "#4196e2",
+      "global": true,
+      "category": "tropical",
+      "name": "Thema 5",
+      "iconPath": "/themes/thema_pict-5-icon.png",
+      "backgroundPath": "/themes/thema_pict-5-bg-4196e2.png",
+      "correctPath": "/themes/thema_pict-5-good.png",
+      "wrongPath": "/themes/thema_pict-5-false.png",
+      "lastModificationDate": "1660049156179"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "6",
+      "primaryColor": "#009fb6",
+      "global": true,
+      "category": "tropical",
+      "name": "Thema 6",
+      "iconPath": "/themes/thema_pict-6-icon.png",
+      "backgroundPath": "/themes/thema_pict-6-bg-009fb6.png",
+      "correctPath": "/themes/thema_pict-6-good.png",
+      "wrongPath": "/themes/thema_pict-6-false.png",
+      "lastModificationDate": "1660049156233"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "7",
+      "primaryColor": "#f47a6b",
+      "global": true,
+      "category": "tropical",
+      "name": "Thema 7",
+      "iconPath": "/themes/thema_pict-7-icon.png",
+      "backgroundPath": "/themes/thema_pict-7-bg-f47a6b.png",
+      "correctPath": "/themes/thema_pict-7-good.png",
+      "wrongPath": "/themes/thema_pict-7-false.png",
+      "lastModificationDate": "1660049156295"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "8",
+      "primaryColor": "#f2c53a",
+      "global": true,
+      "category": "tropical",
+      "name": "Thema 8",
+      "iconPath": "/themes/thema_pict-8-icon.png",
+      "backgroundPath": "/themes/thema_pict-8-bg-f2c53a.png",
+      "correctPath": "/themes/thema_pict-8-good.png",
+      "wrongPath": "/themes/thema_pict-8-false.png",
+      "lastModificationDate": "1660049156359"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "9",
+      "primaryColor": "#03bf56",
+      "global": true,
+      "category": "tropical",
+      "name": "Thema 9",
+      "iconPath": "/themes/thema_pict-9-icon.png",
+      "backgroundPath": "/themes/thema_pict-9-bg-03bf56.png",
+      "correctPath": "/themes/thema_pict-9-good.png",
+      "wrongPath": "/themes/thema_pict-9-false.png",
+      "lastModificationDate": "1660049156416"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "10",
+      "primaryColor": "#ffbe00",
+      "global": true,
+      "category": "tropical",
+      "name": "Thema 10",
+      "iconPath": "/themes/thema_pict-10-icon.png",
+      "backgroundPath": "/themes/thema_pict-10-bg-ffbe00.png",
+      "correctPath": "/themes/thema_pict-10-good.png",
+      "wrongPath": "/themes/thema_pict-10-false.png",
+      "lastModificationDate": "1660049156465"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "100",
+      "primaryColor": "#47B3F3",
+      "global": true,
+      "category": "My themes",
+      "name": "Squares 1 - My themes",
+      "backgroundPath": "themes/100/screenshot-bg.png",
+      "correctPath": "themes/100/screenshot-correct.png",
+      "wrongPath": "themes/100/screenshot-wrong.png",
+      "lastModificationDate": "1660049156520"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "102",
+      "primaryColor": "#ff9945",
+      "global": true,
+      "category": "My themes",
+      "name": "Squares 2 - My themes",
+      "backgroundPath": "themes/102/screenshot-bg.png",
+      "correctPath": "themes/102/screenshot-correct.png",
+      "wrongPath": "themes/102/screenshot-wrong.png",
+      "lastModificationDate": "1660049156574"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "4512187557085184",
+      "primaryColor": "#03989E",
+      "global": true,
+      "category": "Colors",
+      "name": "Donkerturqoise",
+      "iconPath": "themes/4512187557085184/icon.png",
+      "backgroundPath": "themes/4512187557085184/screenshot-bg.png",
+      "correctPath": "themes/4512187557085184/screenshot-correct.png",
+      "wrongPath": "themes/4512187557085184/screenshot-wrong.png",
+      "lastModificationDate": "1660049156683"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "4516398168539136",
+      "primaryColor": "#5CE1E6",
+      "global": true,
+      "category": "Colors",
+      "name": "Blauw-turqoise",
+      "iconPath": "themes/4516398168539136/icon.png",
+      "backgroundPath": "themes/4516398168539136/screenshot-bg.png",
+      "correctPath": "themes/4516398168539136/screenshot-correct.png",
+      "wrongPath": "themes/4516398168539136/screenshot-wrong.png",
+      "lastModificationDate": "1660049156735"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "4545104186441728",
+      "primaryColor": "#F0F4F5",
+      "global": true,
+      "category": "Colors",
+      "name": "Bibendo geel",
+      "iconPath": "themes/4545104186441728/icon.png",
+      "backgroundPath": "themes/4545104186441728/screenshot-bg.png",
+      "correctPath": "themes/4545104186441728/screenshot-correct.png",
+      "wrongPath": "themes/4545104186441728/screenshot-wrong.png",
+      "lastModificationDate": "1660049156846"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "4559894174760960",
+      "primaryColor": "#20A894",
+      "global": true,
+      "category": "Flowers",
+      "name": "Bloemen 4",
+      "iconPath": "themes/4559894174760960/icon.png",
+      "backgroundPath": "themes/4559894174760960/screenshot-bg.png",
+      "correctPath": "themes/4559894174760960/screenshot-correct.png",
+      "wrongPath": "themes/4559894174760960/screenshot-wrong.png",
+      "lastModificationDate": "1660049156902"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "4568150645407744",
+      "primaryColor": "#0097A0",
+      "global": true,
+      "category": "Squares",
+      "name": "Squares 4",
+      "iconPath": "themes/4568150645407744/icon.png",
+      "backgroundPath": "themes/4568150645407744/screenshot-bg.png",
+      "correctPath": "themes/4568150645407744/screenshot-correct.png",
+      "wrongPath": "themes/4568150645407744/screenshot-wrong.png",
+      "lastModificationDate": "1660049156951"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "4573437624320000",
+      "primaryColor": "#00C2CB",
+      "global": true,
+      "category": "Colors",
+      "name": "Aquablauw",
+      "iconPath": "themes/4573437624320000/icon.png",
+      "backgroundPath": "themes/4573437624320000/screenshot-bg.png",
+      "correctPath": "themes/4573437624320000/screenshot-correct.png",
+      "wrongPath": "themes/4573437624320000/screenshot-wrong.png",
+      "lastModificationDate": "1660049156994"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "4576500061831168",
+      "primaryColor": "#2E2B70",
+      "global": true,
+      "category": "Draw",
+      "name": "Draw 4",
+      "iconPath": "themes/4576500061831168/icon.png",
+      "backgroundPath": "themes/4576500061831168/screenshot-bg.png",
+      "correctPath": "themes/4576500061831168/screenshot-correct.png",
+      "wrongPath": "themes/4576500061831168/screenshot-wrong.png",
+      "lastModificationDate": "1660049157046"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "4611684433920000",
+      "primaryColor": "#E7B3AC",
+      "global": true,
+      "category": "Flowers",
+      "name": "Bloemen 7",
+      "iconPath": "themes/4611684433920000/icon.png",
+      "backgroundPath": "themes/4611684433920000/screenshot-bg.png",
+      "correctPath": "themes/4611684433920000/screenshot-correct.png",
+      "wrongPath": "themes/4611684433920000/screenshot-wrong.png",
+      "lastModificationDate": "1660049157138"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "4622451312951296",
+      "primaryColor": "#323F65",
+      "global": true,
+      "category": "Swirl",
+      "name": "Swirl 6",
+      "iconPath": "themes/4622451312951296/icon.png",
+      "backgroundPath": "themes/4622451312951296/screenshot-bg.png",
+      "correctPath": "themes/4622451312951296/screenshot-correct.png",
+      "wrongPath": "themes/4622451312951296/screenshot-wrong.png",
+      "lastModificationDate": "1660049157233"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "4638222432862208",
+      "primaryColor": "#FF4477",
+      "global": true,
+      "category": "Squares",
+      "name": "Squares 5",
+      "iconPath": "themes/4638222432862208/icon.png",
+      "backgroundPath": "themes/4638222432862208/screenshot-bg.png",
+      "correctPath": "themes/4638222432862208/screenshot-correct.png",
+      "wrongPath": "themes/4638222432862208/screenshot-wrong.png",
+      "lastModificationDate": "1660049157331"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "4642414186725376",
+      "primaryColor": "#2E2B70",
+      "global": true,
+      "category": "Draw",
+      "name": "Draw 5",
+      "iconPath": "themes/4642414186725376/icon.png",
+      "backgroundPath": "themes/4642414186725376/screenshot-bg.png",
+      "correctPath": "themes/4642414186725376/screenshot-correct.png",
+      "wrongPath": "themes/4642414186725376/screenshot-wrong.png",
+      "lastModificationDate": "1660049157387"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "4644233575137280",
+      "primaryColor": "#6EBF45",
+      "global": true,
+      "category": "Figures",
+      "name": "Figures",
+      "iconPath": "themes/4644233575137280/icon.png",
+      "backgroundPath": "themes/4644233575137280/screenshot-bg.png",
+      "correctPath": "themes/4644233575137280/screenshot-correct.png",
+      "wrongPath": "themes/4644233575137280/screenshot-wrong.png",
+      "lastModificationDate": "1660049157437"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "4651096731549696",
+      "primaryColor": "#E64F3A",
+      "global": true,
+      "category": "Beroepen",
+      "name": "Voetballer",
+      "iconPath": "themes/4651096731549696/icon.png",
+      "backgroundPath": "themes/4651096731549696/screenshot-bg.png",
+      "correctPath": "themes/4651096731549696/screenshot-correct.png",
+      "wrongPath": "themes/4651096731549696/screenshot-wrong.png",
+      "lastModificationDate": "1660049157493"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "4652925045440512",
+      "primaryColor": "#3DA3DB",
+      "global": true,
+      "category": "Squares",
+      "name": "Squares 7",
+      "iconPath": "themes/4652925045440512/icon.png",
+      "backgroundPath": "themes/4652925045440512/screenshot-bg.png",
+      "correctPath": "themes/4652925045440512/screenshot-correct.png",
+      "wrongPath": "themes/4652925045440512/screenshot-wrong.png",
+      "lastModificationDate": "1660049157529"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "4658063369830400",
+      "primaryColor": "#8B82B9",
+      "global": true,
+      "category": "Colors",
+      "name": "Bibendo lichtpaars 2",
+      "iconPath": "themes/4658063369830400/icon.png",
+      "backgroundPath": "themes/4658063369830400/screenshot-bg.png",
+      "correctPath": "themes/4658063369830400/screenshot-correct.png",
+      "wrongPath": "themes/4658063369830400/screenshot-wrong.png",
+      "lastModificationDate": "1660049157585"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "4676840966848512",
+      "primaryColor": "#E64F3A",
+      "global": true,
+      "category": "Beroepen",
+      "name": "Bartender",
+      "iconPath": "themes/4676840966848512/icon.png",
+      "backgroundPath": "themes/4676840966848512/screenshot-bg.png",
+      "correctPath": "themes/4676840966848512/screenshot-correct.png",
+      "wrongPath": "themes/4676840966848512/screenshot-wrong.png",
+      "lastModificationDate": "1660049157747"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "4676968339472384",
+      "primaryColor": "#947A16",
+      "global": true,
+      "category": "Colors",
+      "name": "Bibendo bruin",
+      "iconPath": "themes/4676968339472384/icon.png",
+      "backgroundPath": "themes/4676968339472384/screenshot-bg.png",
+      "correctPath": "themes/4676968339472384/screenshot-correct.png",
+      "wrongPath": "themes/4676968339472384/screenshot-wrong.png",
+      "lastModificationDate": "1660049157820"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "4682580855095296",
+      "primaryColor": "#F0F4F5",
+      "global": true,
+      "category": "Colors",
+      "name": "Geel",
+      "iconPath": "themes/4682580855095296/icon.png",
+      "backgroundPath": "themes/4682580855095296/screenshot-bg.png",
+      "correctPath": "themes/4682580855095296/screenshot-correct.png",
+      "wrongPath": "themes/4682580855095296/screenshot-wrong.png",
+      "lastModificationDate": "1660049157876"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "4694589113892864",
+      "primaryColor": "#E64F3A",
+      "global": true,
+      "category": "Beroepen",
+      "name": "Dierentemmer",
+      "iconPath": "themes/4694589113892864/icon.png",
+      "backgroundPath": "themes/4694589113892864/screenshot-bg.png",
+      "correctPath": "themes/4694589113892864/screenshot-correct.png",
+      "wrongPath": "themes/4694589113892864/screenshot-wrong.png",
+      "lastModificationDate": "1660049157978"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "4708349920673792",
+      "primaryColor": "#E64F3A",
+      "global": true,
+      "category": "Beroepen",
+      "name": "Sportcoach",
+      "iconPath": "themes/4708349920673792/icon.png",
+      "backgroundPath": "themes/4708349920673792/screenshot-bg.png",
+      "correctPath": "themes/4708349920673792/screenshot-correct.png",
+      "wrongPath": "themes/4708349920673792/screenshot-wrong.png",
+      "lastModificationDate": "1660049158027"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "4732433345806336",
+      "primaryColor": "#5E17EB",
+      "global": true,
+      "category": "Colors",
+      "name": "Violet",
+      "iconPath": "themes/4732433345806336/icon.png",
+      "backgroundPath": "themes/4732433345806336/screenshot-bg.png",
+      "correctPath": "themes/4732433345806336/screenshot-correct.png",
+      "wrongPath": "themes/4732433345806336/screenshot-wrong.png",
+      "lastModificationDate": "1660049158246"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "4744632730648576",
+      "primaryColor": "#E64F3A",
+      "global": true,
+      "category": "Beroepen",
+      "name": "Arts",
+      "iconPath": "themes/4744632730648576/icon.png",
+      "backgroundPath": "themes/4744632730648576/screenshot-bg.png",
+      "correctPath": "themes/4744632730648576/screenshot-correct.png",
+      "wrongPath": "themes/4744632730648576/screenshot-wrong.png",
+      "lastModificationDate": "1660049158345"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "4767225600802816",
+      "primaryColor": "#E64F3A",
+      "global": true,
+      "category": "Beroepen",
+      "name": "Architect",
+      "iconPath": "themes/4767225600802816/icon.png",
+      "backgroundPath": "themes/4767225600802816/screenshot-bg.png",
+      "correctPath": "themes/4767225600802816/screenshot-correct.png",
+      "wrongPath": "themes/4767225600802816/screenshot-wrong.png",
+      "lastModificationDate": "1660049158394"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "4773577387671552",
+      "primaryColor": "#FF1616",
+      "global": true,
+      "category": "Colors",
+      "name": "Helderrood",
+      "iconPath": "themes/4773577387671552/icon.png",
+      "backgroundPath": "themes/4773577387671552/screenshot-bg.png",
+      "correctPath": "themes/4773577387671552/screenshot-correct.png",
+      "wrongPath": "themes/4773577387671552/screenshot-wrong.png",
+      "lastModificationDate": "1660049158448"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "4777309554868224",
+      "primaryColor": "#5271FF",
+      "global": true,
+      "category": "Colors",
+      "name": "Koningsblauw",
+      "iconPath": "themes/4777309554868224/icon.png",
+      "backgroundPath": "themes/4777309554868224/screenshot-bg.png",
+      "correctPath": "themes/4777309554868224/screenshot-correct.png",
+      "wrongPath": "themes/4777309554868224/screenshot-wrong.png",
+      "lastModificationDate": "1660049158480"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "4782566594838528",
+      "primaryColor": "#E64F3A",
+      "global": true,
+      "category": "Beroepen",
+      "name": "Bar eigenaar",
+      "iconPath": "themes/4782566594838528/icon.png",
+      "backgroundPath": "themes/4782566594838528/screenshot-bg.png",
+      "correctPath": "themes/4782566594838528/screenshot-correct.png",
+      "wrongPath": "themes/4782566594838528/screenshot-wrong.png",
+      "lastModificationDate": "1660049158541"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "4796100196171776",
+      "primaryColor": "#EA002A",
+      "global": true,
+      "category": "Figures",
+      "name": "Spikes",
+      "iconPath": "themes/4796100196171776/icon.png",
+      "backgroundPath": "themes/4796100196171776/screenshot-bg.png",
+      "correctPath": "themes/4796100196171776/screenshot-correct.png",
+      "wrongPath": "themes/4796100196171776/screenshot-wrong.png",
+      "lastModificationDate": "1660049158623"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "4796232266416128",
+      "primaryColor": "#FF7900",
+      "global": true,
+      "category": "Swirl",
+      "name": "Swirl 2",
+      "iconPath": "themes/4796232266416128/icon.png",
+      "backgroundPath": "themes/4796232266416128/screenshot-bg.png",
+      "correctPath": "themes/4796232266416128/screenshot-correct.png",
+      "wrongPath": "themes/4796232266416128/screenshot-wrong.png",
+      "lastModificationDate": "1660049158654"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "4810637519618048",
+      "primaryColor": "#545454",
+      "global": true,
+      "category": "Colors",
+      "name": "Donkergrijs",
+      "iconPath": "themes/4810637519618048/icon.png",
+      "backgroundPath": "themes/4810637519618048/screenshot-bg.png",
+      "correctPath": "themes/4810637519618048/screenshot-correct.png",
+      "wrongPath": "themes/4810637519618048/screenshot-wrong.png",
+      "lastModificationDate": "1660049158819"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "4828930926182400",
+      "primaryColor": "#47B3F3",
+      "global": true,
+      "category": "Squares",
+      "name": "Squares 1",
+      "iconPath": "themes/4828930926182400/icon.png",
+      "backgroundPath": "themes/4828930926182400/screenshot-bg.png",
+      "correctPath": "themes/4828930926182400/screenshot-correct.png",
+      "wrongPath": "themes/4828930926182400/screenshot-wrong.png",
+      "lastModificationDate": "1660049158984"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "4837668835819520",
+      "primaryColor": "#FF9945",
+      "global": true,
+      "category": "Squares",
+      "name": "Squares 2",
+      "iconPath": "themes/4837668835819520/icon.png",
+      "backgroundPath": "themes/4837668835819520/screenshot-bg.png",
+      "correctPath": "themes/4837668835819520/screenshot-correct.png",
+      "wrongPath": "themes/4837668835819520/screenshot-wrong.png",
+      "lastModificationDate": "1660049159035"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "4840080661282816",
+      "primaryColor": "#E64F3A",
+      "global": true,
+      "category": "Beroepen",
+      "name": "Elektricien",
+      "iconPath": "themes/4840080661282816/icon.png",
+      "backgroundPath": "themes/4840080661282816/screenshot-bg.png",
+      "correctPath": "themes/4840080661282816/screenshot-correct.png",
+      "wrongPath": "themes/4840080661282816/screenshot-wrong.png",
+      "lastModificationDate": "1660049159066"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "4842834540625920",
+      "primaryColor": "#0D161F",
+      "global": true,
+      "category": "Nature",
+      "name": "Moon",
+      "iconPath": "themes/4842834540625920/icon.png",
+      "backgroundPath": "themes/4842834540625920/screenshot-bg.png",
+      "correctPath": "themes/4842834540625920/screenshot-correct.png",
+      "wrongPath": "themes/4842834540625920/screenshot-wrong.png",
+      "lastModificationDate": "1660049159097"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "4843051436474368",
+      "primaryColor": "#474399",
+      "global": true,
+      "category": "Swirl",
+      "name": "Swirl 1",
+      "iconPath": "themes/4843051436474368/icon.png",
+      "backgroundPath": "themes/4843051436474368/screenshot-bg.png",
+      "correctPath": "themes/4843051436474368/screenshot-correct.png",
+      "wrongPath": "themes/4843051436474368/screenshot-wrong.png",
+      "lastModificationDate": "1660049159138"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "4843761918017536",
+      "primaryColor": "#C51315",
+      "global": true,
+      "category": "Colors",
+      "name": "Bibendo rood",
+      "iconPath": "themes/4843761918017536/icon.png",
+      "backgroundPath": "themes/4843761918017536/screenshot-bg.png",
+      "correctPath": "themes/4843761918017536/screenshot-correct.png",
+      "wrongPath": "themes/4843761918017536/screenshot-wrong.png",
+      "lastModificationDate": "1660049159174"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "4844636749168640",
+      "primaryColor": "#2E2B70",
+      "global": true,
+      "category": "Draw",
+      "name": "Draw 3",
+      "iconPath": "themes/4844636749168640/icon.png",
+      "backgroundPath": "themes/4844636749168640/screenshot-bg.png",
+      "correctPath": "themes/4844636749168640/screenshot-correct.png",
+      "wrongPath": "themes/4844636749168640/screenshot-wrong.png",
+      "lastModificationDate": "1660049159205"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "4847198898487296",
+      "primaryColor": "#E64F3A",
+      "global": true,
+      "category": "Beroepen",
+      "name": "Bioloog",
+      "iconPath": "themes/4847198898487296/icon.png",
+      "backgroundPath": "themes/4847198898487296/screenshot-bg.png",
+      "correctPath": "themes/4847198898487296/screenshot-correct.png",
+      "wrongPath": "themes/4847198898487296/screenshot-wrong.png",
+      "lastModificationDate": "1660049159236"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "4849783676076032",
+      "primaryColor": "NBD Biblion",
+      "global": true,
+      "category": "NBD",
+      "name": "NBD Biblion",
+      "iconPath": "/themes/4849783676076032/icon.png",
+      "backgroundPath": "/themes/4849783676076032/background.png",
+      "correctPath": "/themes/4849783676076032/correct.png",
+      "wrongPath": "/themes/4849783676076032/wrong.png",
+      "lastModificationDate": "1683289744717"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "4851905645772800",
+      "primaryColor": "#E64F3A",
+      "global": true,
+      "category": "My themes",
+      "name": "Mysteriespel MT",
+      "iconPath": "themes/4851905645772800/icon.png",
+      "backgroundPath": "themes/4851905645772800/screenshot-bg.png",
+      "correctPath": "themes/4851905645772800/screenshot-correct.png",
+      "wrongPath": "themes/4851905645772800/screenshot-wrong.png",
+      "lastModificationDate": "1660049159301"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "4865225345990656",
+      "primaryColor": "#E64F3C",
+      "global": true,
+      "category": "My themes",
+      "name": "Beroepenspel MT",
+      "iconPath": "themes/4865225345990656/icon.png",
+      "backgroundPath": "themes/4865225345990656/screenshot-bg.png",
+      "correctPath": "themes/4865225345990656/screenshot-correct.png",
+      "wrongPath": "themes/4865225345990656/screenshot-wrong.png",
+      "lastModificationDate": "1660049159399"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "4866394390790144",
+      "primaryColor": "#E64F3A",
+      "global": true,
+      "category": "Beroepen",
+      "name": "Loodgieter",
+      "iconPath": "themes/4866394390790144/icon.png",
+      "backgroundPath": "themes/4866394390790144/screenshot-bg.png",
+      "correctPath": "themes/4866394390790144/screenshot-correct.png",
+      "wrongPath": "themes/4866394390790144/screenshot-wrong.png",
+      "lastModificationDate": "1660049159435"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "4882817532035072",
+      "primaryColor": "#2E2E2E",
+      "global": true,
+      "category": "Flowers",
+      "name": "Bloemen 2",
+      "iconPath": "themes/4882817532035072/icon.png",
+      "backgroundPath": "themes/4882817532035072/screenshot-bg.png",
+      "correctPath": "themes/4882817532035072/screenshot-correct.png",
+      "wrongPath": "themes/4882817532035072/screenshot-wrong.png",
+      "lastModificationDate": "1660049159470"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "4883753767796736",
+      "primaryColor": "#2E2B70",
+      "global": true,
+      "category": "Draw",
+      "name": "Draw 1",
+      "iconPath": "themes/4883753767796736/icon.png",
+      "backgroundPath": "themes/4883753767796736/screenshot-bg.png",
+      "correctPath": "themes/4883753767796736/screenshot-correct.png",
+      "wrongPath": "themes/4883753767796736/screenshot-wrong.png",
+      "lastModificationDate": "1660049159508"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "4884809994207232",
+      "primaryColor": "#786AF7",
+      "global": true,
+      "category": "Squares",
+      "name": "Squares 3",
+      "iconPath": "themes/4884809994207232/icon.png",
+      "backgroundPath": "themes/4884809994207232/screenshot-bg.png",
+      "correctPath": "themes/4884809994207232/screenshot-correct.png",
+      "wrongPath": "themes/4884809994207232/screenshot-wrong.png",
+      "lastModificationDate": "1660049159542"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "4892003326230528",
+      "primaryColor": "#9DC5CB",
+      "global": true,
+      "category": "Flowers",
+      "name": "Bloemen 3",
+      "iconPath": "themes/4892003326230528/icon.png",
+      "backgroundPath": "themes/4892003326230528/screenshot-bg.png",
+      "correctPath": "themes/4892003326230528/screenshot-correct.png",
+      "wrongPath": "themes/4892003326230528/screenshot-wrong.png",
+      "lastModificationDate": "1660049159574"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "4918035861209088",
+      "primaryColor": "#FF4477",
+      "global": true,
+      "category": "My themes",
+      "name": "Squares 5",
+      "iconPath": "themes/4918035861209088/icon.png",
+      "backgroundPath": "themes/4918035861209088/screenshot-bg.png",
+      "correctPath": "themes/4918035861209088/screenshot-correct.png",
+      "wrongPath": "themes/4918035861209088/screenshot-wrong.png",
+      "lastModificationDate": "1660049159607"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "4941240495767552",
+      "primaryColor": "#3EA3DC",
+      "global": true,
+      "category": "Colors",
+      "name": "Bibendo lichtblauw",
+      "iconPath": "themes/4941240495767552/icon.png",
+      "backgroundPath": "themes/4941240495767552/screenshot-bg.png",
+      "correctPath": "themes/4941240495767552/screenshot-correct.png",
+      "wrongPath": "themes/4941240495767552/screenshot-wrong.png",
+      "lastModificationDate": "1660049159678"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "4948693539094528",
+      "primaryColor": "#731700",
+      "global": true,
+      "category": "Swirl",
+      "name": "Swirl 3",
+      "iconPath": "themes/4948693539094528/icon.png",
+      "backgroundPath": "themes/4948693539094528/screenshot-bg.png",
+      "correctPath": "themes/4948693539094528/screenshot-correct.png",
+      "wrongPath": "themes/4948693539094528/screenshot-wrong.png",
+      "lastModificationDate": "1660049159715"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5002080183910400",
+      "primaryColor": "#BEC5CD",
+      "global": true,
+      "category": "Nature",
+      "name": "Mountain river",
+      "iconPath": "themes/5002080183910400/icon.png",
+      "backgroundPath": "themes/5002080183910400/screenshot-bg.png",
+      "correctPath": "themes/5002080183910400/screenshot-correct.png",
+      "wrongPath": "themes/5002080183910400/screenshot-wrong.png",
+      "lastModificationDate": "1660049159779"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5008826302464000",
+      "primaryColor": "#E64F3A",
+      "global": true,
+      "category": "Beroepen",
+      "name": "Leerkracht",
+      "iconPath": "themes/5008826302464000/icon.png",
+      "backgroundPath": "themes/5008826302464000/screenshot-bg.png",
+      "correctPath": "themes/5008826302464000/screenshot-correct.png",
+      "wrongPath": "themes/5008826302464000/screenshot-wrong.png",
+      "lastModificationDate": "1660049159813"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5052475384004608",
+      "primaryColor": "#6A2804",
+      "global": true,
+      "category": "Mysterie",
+      "name": "Detective",
+      "iconPath": "themes/5052475384004608/icon.png",
+      "backgroundPath": "themes/5052475384004608/screenshot-bg.png",
+      "correctPath": "themes/5052475384004608/screenshot-correct.png",
+      "wrongPath": "themes/5052475384004608/screenshot-wrong.png",
+      "lastModificationDate": "1660049159879"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5064626651791360",
+      "primaryColor": "#731700",
+      "global": true,
+      "category": "My themes",
+      "name": "Swirl 3",
+      "iconPath": "themes/5064626651791360/icon.png",
+      "backgroundPath": "themes/5064626651791360/screenshot-bg.png",
+      "correctPath": "themes/5064626651791360/screenshot-correct.png",
+      "wrongPath": "themes/5064626651791360/screenshot-wrong.png",
+      "lastModificationDate": "1660049159947"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5081211475066880",
+      "primaryColor": "#FF7900",
+      "global": true,
+      "category": "My themes",
+      "name": "Swirl 2",
+      "iconPath": "themes/5081211475066880/icon.png",
+      "backgroundPath": "themes/5081211475066880/screenshot-bg.png",
+      "correctPath": "themes/5081211475066880/screenshot-correct.png",
+      "wrongPath": "themes/5081211475066880/screenshot-wrong.png",
+      "lastModificationDate": "1660049159980"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5081440643448832",
+      "primaryColor": "#3DA3DB",
+      "global": true,
+      "category": "Squares",
+      "name": "Squares 8",
+      "iconPath": "themes/5081440643448832/icon.png",
+      "backgroundPath": "themes/5081440643448832/screenshot-bg.png",
+      "correctPath": "themes/5081440643448832/screenshot-correct.png",
+      "wrongPath": "themes/5081440643448832/screenshot-wrong.png",
+      "lastModificationDate": "1660049160012"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5089999640854528",
+      "primaryColor": "123456",
+      "global": true,
+      "category": "My themes",
+      "name": "test - My themes",
+      "backgroundPath": "themes/5089999640854528/screenshot-bg.png",
+      "correctPath": "themes/5089999640854528/screenshot-correct.png",
+      "wrongPath": "themes/5089999640854528/screenshot-wrong.png",
+      "lastModificationDate": "1660049160043"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5096339725615104",
+      "primaryColor": "#47B3F3",
+      "global": true,
+      "category": "My themes",
+      "name": "Squares 1",
+      "iconPath": "themes/5096339725615104/icon.png",
+      "backgroundPath": "themes/5096339725615104/screenshot-bg.png",
+      "correctPath": "themes/5096339725615104/screenshot-correct.png",
+      "wrongPath": "themes/5096339725615104/screenshot-wrong.png",
+      "lastModificationDate": "1660049160074"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5102027839373312",
+      "primaryColor": "#B8C457",
+      "global": true,
+      "category": "Beleven & Vinden",
+      "name": "Dieren",
+      "iconPath": "/themes/5102027839373312/icon.png",
+      "backgroundPath": "/themes/5102027839373312/background.png",
+      "correctPath": "/themes/5102027839373312/correct.png",
+      "wrongPath": "/themes/5102027839373312/wrong.png",
+      "lastModificationDate": "1681982144294"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5116801578958848",
+      "primaryColor": "#E64F3A",
+      "global": true,
+      "category": "Beroepen",
+      "name": "Detective",
+      "iconPath": "themes/5116801578958848/icon.png",
+      "backgroundPath": "themes/5116801578958848/screenshot-bg.png",
+      "correctPath": "themes/5116801578958848/screenshot-correct.png",
+      "wrongPath": "themes/5116801578958848/screenshot-wrong.png",
+      "lastModificationDate": "1660049160334"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5126111725879296",
+      "primaryColor": "#1CB5FF",
+      "global": true,
+      "category": "Swirl",
+      "name": "Swirl 5",
+      "iconPath": "themes/5126111725879296/icon.png",
+      "backgroundPath": "themes/5126111725879296/screenshot-bg.png",
+      "correctPath": "themes/5126111725879296/screenshot-correct.png",
+      "wrongPath": "themes/5126111725879296/screenshot-wrong.png",
+      "lastModificationDate": "1660049160404"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5130803642105856",
+      "primaryColor": "#EE6464",
+      "global": true,
+      "category": "Swirl",
+      "name": "Swirl 4",
+      "iconPath": "themes/5130803642105856/icon.png",
+      "backgroundPath": "themes/5130803642105856/screenshot-bg.png",
+      "correctPath": "themes/5130803642105856/screenshot-correct.png",
+      "wrongPath": "themes/5130803642105856/screenshot-wrong.png",
+      "lastModificationDate": "1660049160442"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5134995395969024",
+      "primaryColor": "#EE6464",
+      "global": true,
+      "category": "My themes",
+      "name": "Swirl 4",
+      "iconPath": "themes/5134995395969024/icon.png",
+      "backgroundPath": "themes/5134995395969024/screenshot-bg.png",
+      "correctPath": "themes/5134995395969024/screenshot-correct.png",
+      "wrongPath": "themes/5134995395969024/screenshot-wrong.png",
+      "lastModificationDate": "1660049160473"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5146220561432576",
+      "primaryColor": "#A21734",
+      "global": true,
+      "category": "Mysterie",
+      "name": "Mystic",
+      "iconPath": "themes/5146220561432576/icon.png",
+      "backgroundPath": "themes/5146220561432576/screenshot-bg.png",
+      "correctPath": "themes/5146220561432576/screenshot-correct.png",
+      "wrongPath": "themes/5146220561432576/screenshot-wrong.png",
+      "lastModificationDate": "1660049160542"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5150756046897152",
+      "primaryColor": "#731700",
+      "global": true,
+      "category": "My themes",
+      "name": "Swirl 3",
+      "iconPath": "themes/5150756046897152/icon.png",
+      "backgroundPath": "themes/5150756046897152/screenshot-bg.png",
+      "correctPath": "themes/5150756046897152/screenshot-correct.png",
+      "wrongPath": "themes/5150756046897152/screenshot-wrong.png",
+      "lastModificationDate": "1660049160578"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5165988014194688",
+      "primaryColor": "#2E2B70",
+      "global": true,
+      "category": "Draw",
+      "name": "Draw 2",
+      "iconPath": "themes/5165988014194688/icon.png",
+      "backgroundPath": "themes/5165988014194688/screenshot-bg.png",
+      "correctPath": "themes/5165988014194688/screenshot-correct.png",
+      "wrongPath": "themes/5165988014194688/screenshot-wrong.png",
+      "lastModificationDate": "1660049160613"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5173478302941184",
+      "primaryColor": "#D9D9D9",
+      "global": true,
+      "category": "Colors",
+      "name": "Lichtgrijs",
+      "iconPath": "themes/5173478302941184/icon.png",
+      "backgroundPath": "themes/5173478302941184/screenshot-bg.png",
+      "correctPath": "themes/5173478302941184/screenshot-correct.png",
+      "wrongPath": "themes/5173478302941184/screenshot-wrong.png",
+      "lastModificationDate": "1660049160644"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5175376007397376",
+      "primaryColor": "#2E2B70",
+      "global": true,
+      "category": "My themes",
+      "name": "Draw 4",
+      "iconPath": "themes/5175376007397376/icon.png",
+      "backgroundPath": "themes/5175376007397376/screenshot-bg.png",
+      "correctPath": "themes/5175376007397376/screenshot-correct.png",
+      "wrongPath": "themes/5175376007397376/screenshot-wrong.png",
+      "lastModificationDate": "1660049160682"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5189454616592384",
+      "primaryColor": "#0097A0",
+      "global": true,
+      "category": "My themes",
+      "name": "Squares 4",
+      "iconPath": "themes/5189454616592384/icon.png",
+      "backgroundPath": "themes/5189454616592384/screenshot-bg.png",
+      "correctPath": "themes/5189454616592384/screenshot-correct.png",
+      "wrongPath": "themes/5189454616592384/screenshot-wrong.png",
+      "lastModificationDate": "1660049160749"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5192968193441792",
+      "primaryColor": "#737373",
+      "global": true,
+      "category": "Colors",
+      "name": "Grijs",
+      "iconPath": "themes/5192968193441792/icon.png",
+      "backgroundPath": "themes/5192968193441792/screenshot-bg.png",
+      "correctPath": "themes/5192968193441792/screenshot-correct.png",
+      "wrongPath": "themes/5192968193441792/screenshot-wrong.png",
+      "lastModificationDate": "1660049160784"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5205849429508096",
+      "primaryColor": "#5b4b3c",
+      "global": true,
+      "category": "cultuur",
+      "name": "Cultureel erfgoed",
+      "iconPath": "/themes/version2/Cultureel_erfgoed_pictogram.jpg",
+      "backgroundPath": "/themes/version2/Cultureel_erfgoed.jpg",
+      "correctPath": "/themes/version2/Cultureel_erfgoed_fout.jpg",
+      "wrongPath": "/themes/version2/Cultureel_erfgoed_goed.jpg",
+      "lastModificationDate": "1660049160886"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5206756321918976",
+      "primaryColor": "#731700",
+      "global": true,
+      "category": "My themes",
+      "name": "Swirl 3",
+      "iconPath": "themes/5206756321918976/icon.png",
+      "backgroundPath": "themes/5206756321918976/screenshot-bg.png",
+      "correctPath": "themes/5206756321918976/screenshot-correct.png",
+      "wrongPath": "themes/5206756321918976/screenshot-wrong.png",
+      "lastModificationDate": "1660049160920"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5214366525816832",
+      "primaryColor": "#123D2F",
+      "global": true,
+      "category": "Flowers",
+      "name": "Bloemen 8",
+      "iconPath": "themes/5214366525816832/icon.png",
+      "backgroundPath": "themes/5214366525816832/screenshot-bg.png",
+      "correctPath": "themes/5214366525816832/screenshot-correct.png",
+      "wrongPath": "themes/5214366525816832/screenshot-wrong.png",
+      "lastModificationDate": "1660049160984"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5239918292893696",
+      "primaryColor": "#FCCA2E",
+      "global": true,
+      "category": "Beleven & Vinden",
+      "name": "Grappig",
+      "iconPath": "themes/5239918292893696/icon.png",
+      "backgroundPath": "themes/5239918292893696/screenshot-bg.png",
+      "correctPath": "themes/5239918292893696/screenshot-correct.png",
+      "wrongPath": "themes/5239918292893696/screenshot-wrong.png",
+      "lastModificationDate": "1660049161084"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5245314046885888",
+      "primaryColor": "#E64F3A",
+      "global": true,
+      "category": "Beroepen",
+      "name": "Concierge",
+      "iconPath": "themes/5245314046885888/icon.png",
+      "backgroundPath": "themes/5245314046885888/screenshot-bg.png",
+      "correctPath": "themes/5245314046885888/screenshot-correct.png",
+      "wrongPath": "themes/5245314046885888/screenshot-wrong.png",
+      "lastModificationDate": "1660049161116"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5297654397403136",
+      "primaryColor": "#F48ECE",
+      "global": true,
+      "category": "Draw",
+      "name": "Draw 8",
+      "iconPath": "themes/5297654397403136/icon.png",
+      "backgroundPath": "themes/5297654397403136/screenshot-bg.png",
+      "correctPath": "themes/5297654397403136/screenshot-correct.png",
+      "wrongPath": "themes/5297654397403136/screenshot-wrong.png",
+      "lastModificationDate": "1660049161190"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5316842633560064",
+      "primaryColor": "#2E2B70",
+      "global": true,
+      "category": "My themes",
+      "name": "Draw 4",
+      "iconPath": "themes/5316842633560064/icon.png",
+      "backgroundPath": "themes/5316842633560064/screenshot-bg.png",
+      "correctPath": "themes/5316842633560064/screenshot-correct.png",
+      "wrongPath": "themes/5316842633560064/screenshot-wrong.png",
+      "lastModificationDate": "1660049161259"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5335721632071680",
+      "primaryColor": "#FFBD59",
+      "global": true,
+      "category": "Colors",
+      "name": "Lichtoranje",
+      "iconPath": "themes/5335721632071680/icon.png",
+      "backgroundPath": "themes/5335721632071680/screenshot-bg.png",
+      "correctPath": "themes/5335721632071680/screenshot-correct.png",
+      "wrongPath": "themes/5335721632071680/screenshot-wrong.png",
+      "lastModificationDate": "1660049161360"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5343959178018816",
+      "primaryColor": "#731700",
+      "global": true,
+      "category": "My themes",
+      "name": "Swirl 3",
+      "iconPath": "themes/5343959178018816/icon.png",
+      "backgroundPath": "themes/5343959178018816/screenshot-bg.png",
+      "correctPath": "themes/5343959178018816/screenshot-correct.png",
+      "wrongPath": "themes/5343959178018816/screenshot-wrong.png",
+      "lastModificationDate": "1660049161457"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5355106832744448",
+      "primaryColor": "#3E5E38",
+      "global": true,
+      "category": "Bos",
+      "name": "Boswachter",
+      "iconPath": "themes/5355106832744448/icon.png",
+      "backgroundPath": "themes/5355106832744448/screenshot-bg.png",
+      "correctPath": "themes/5355106832744448/screenshot-correct.png",
+      "wrongPath": "themes/5355106832744448/screenshot-wrong.png",
+      "lastModificationDate": "1660049161488"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5373587473039360",
+      "primaryColor": "#EE6464",
+      "global": true,
+      "category": "Beleven & Vinden",
+      "name": "Fantasie",
+      "iconPath": "themes/5373587473039360/icon.png",
+      "backgroundPath": "themes/5373587473039360/screenshot-bg.png",
+      "correctPath": "themes/5373587473039360/screenshot-correct.png",
+      "wrongPath": "themes/5373587473039360/screenshot-wrong.png",
+      "lastModificationDate": "1660049161555"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5375478869262336",
+      "primaryColor": "#255886",
+      "global": true,
+      "category": "Nature",
+      "name": "Beach",
+      "iconPath": "themes/5375478869262336/icon.png",
+      "backgroundPath": "themes/5375478869262336/screenshot-bg.png",
+      "correctPath": "themes/5375478869262336/screenshot-correct.png",
+      "wrongPath": "themes/5375478869262336/screenshot-wrong.png",
+      "lastModificationDate": "1660049161600"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5376301288390656",
+      "primaryColor": "#008037",
+      "global": true,
+      "category": "Colors",
+      "name": "Groen",
+      "iconPath": "themes/5376301288390656/icon.png",
+      "backgroundPath": "themes/5376301288390656/screenshot-bg.png",
+      "correctPath": "themes/5376301288390656/screenshot-correct.png",
+      "wrongPath": "themes/5376301288390656/screenshot-wrong.png",
+      "lastModificationDate": "1660049161636"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5383472877142016",
+      "primaryColor": "#2E2B70",
+      "global": true,
+      "category": "My themes",
+      "name": "Draw 2",
+      "iconPath": "themes/5383472877142016/icon.png",
+      "backgroundPath": "themes/5383472877142016/screenshot-bg.png",
+      "correctPath": "themes/5383472877142016/screenshot-correct.png",
+      "wrongPath": "themes/5383472877142016/screenshot-wrong.png",
+      "lastModificationDate": "1660049161673"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5400618789240832",
+      "primaryColor": "#474399",
+      "global": true,
+      "category": "My themes",
+      "name": "Swirl 1",
+      "iconPath": "themes/5400618789240832/icon.png",
+      "backgroundPath": "themes/5400618789240832/screenshot-bg.png",
+      "correctPath": "themes/5400618789240832/screenshot-correct.png",
+      "wrongPath": "themes/5400618789240832/screenshot-wrong.png",
+      "lastModificationDate": "1660049161740"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5465057995522048",
+      "primaryColor": "#1CB5FF",
+      "global": true,
+      "category": "My themes",
+      "name": "Swirl 5",
+      "iconPath": "themes/5465057995522048/icon.png",
+      "backgroundPath": "themes/5465057995522048/screenshot-bg.png",
+      "correctPath": "themes/5465057995522048/screenshot-correct.png",
+      "wrongPath": "themes/5465057995522048/screenshot-wrong.png",
+      "lastModificationDate": "1660049161981"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5475731660341248",
+      "primaryColor": "#E64F3A",
+      "global": true,
+      "category": "Beroepen",
+      "name": "Vlogger",
+      "iconPath": "themes/5475731660341248/icon.png",
+      "backgroundPath": "themes/5475731660341248/screenshot-bg.png",
+      "correctPath": "themes/5475731660341248/screenshot-correct.png",
+      "wrongPath": "themes/5475731660341248/screenshot-wrong.png",
+      "lastModificationDate": "1660049162044"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5523208295940096",
+      "primaryColor": "#B0729F",
+      "global": true,
+      "category": "Nature",
+      "name": "City",
+      "iconPath": "themes/5523208295940096/icon.png",
+      "backgroundPath": "themes/5523208295940096/screenshot-bg.png",
+      "correctPath": "themes/5523208295940096/screenshot-correct.png",
+      "wrongPath": "themes/5523208295940096/screenshot-wrong.png",
+      "lastModificationDate": "1660049162173"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5555593087549440",
+      "primaryColor": "#0097A0",
+      "global": true,
+      "category": "My themes",
+      "name": "Squares 4",
+      "iconPath": "themes/5555593087549440/icon.png",
+      "backgroundPath": "themes/5555593087549440/screenshot-bg.png",
+      "correctPath": "themes/5555593087549440/screenshot-correct.png",
+      "wrongPath": "themes/5555593087549440/screenshot-wrong.png",
+      "lastModificationDate": "1660049162309"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5580572147580928",
+      "primaryColor": "#5E9433",
+      "global": true,
+      "category": "Colors",
+      "name": "Bibendo groen",
+      "iconPath": "themes/5580572147580928/icon.png",
+      "backgroundPath": "themes/5580572147580928/screenshot-bg.png",
+      "correctPath": "themes/5580572147580928/screenshot-correct.png",
+      "wrongPath": "themes/5580572147580928/screenshot-wrong.png",
+      "lastModificationDate": "1660049162409"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5585065094414336",
+      "primaryColor": "#0075D0",
+      "global": true,
+      "category": "Figures",
+      "name": "Lines",
+      "iconPath": "themes/5585065094414336/icon.png",
+      "backgroundPath": "themes/5585065094414336/screenshot-bg.png",
+      "correctPath": "themes/5585065094414336/screenshot-correct.png",
+      "wrongPath": "themes/5585065094414336/screenshot-wrong.png",
+      "lastModificationDate": "1660049162443"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5605472824459264",
+      "primaryColor": "#632173",
+      "global": true,
+      "category": "Squares",
+      "name": "Squares 6",
+      "iconPath": "themes/5605472824459264/icon.png",
+      "backgroundPath": "themes/5605472824459264/screenshot-bg.png",
+      "correctPath": "themes/5605472824459264/screenshot-correct.png",
+      "wrongPath": "themes/5605472824459264/screenshot-wrong.png",
+      "lastModificationDate": "1660049162515"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5616237329514496",
+      "primaryColor": "#E64F3C",
+      "global": true,
+      "category": "My themes",
+      "name": "Beroepskeuze - My themes",
+      "iconPath": "themes/5616237329514496/icon.png",
+      "backgroundPath": "themes/5616237329514496/screenshot-bg.png",
+      "correctPath": "themes/5616237329514496/screenshot-correct.png",
+      "wrongPath": "themes/5616237329514496/screenshot-wrong.png",
+      "lastModificationDate": "1660049162614"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5636337734516736",
+      "primaryColor": "#FDC0BF",
+      "global": true,
+      "category": "Draw",
+      "name": "Draw 6",
+      "iconPath": "themes/5636337734516736/icon.png",
+      "backgroundPath": "themes/5636337734516736/screenshot-bg.png",
+      "correctPath": "themes/5636337734516736/screenshot-correct.png",
+      "wrongPath": "themes/5636337734516736/screenshot-wrong.png",
+      "lastModificationDate": "1660049162650"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5640184079056896",
+      "primaryColor": "#ff7900",
+      "global": true,
+      "category": "My themes",
+      "name": "Swirl 2 - My themes",
+      "iconPath": "themes/5640184079056896/icon.png",
+      "backgroundPath": "themes/5640184079056896/screenshot-bg.png",
+      "correctPath": "themes/5640184079056896/screenshot-correct.png",
+      "wrongPath": "themes/5640184079056896/screenshot-wrong.png",
+      "lastModificationDate": "1660049162820"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5640735781027840",
+      "primaryColor": "#C9E265",
+      "global": true,
+      "category": "Colors",
+      "name": "Lichtgroen",
+      "iconPath": "themes/5640735781027840/icon.png",
+      "backgroundPath": "themes/5640735781027840/screenshot-bg.png",
+      "correctPath": "themes/5640735781027840/screenshot-correct.png",
+      "wrongPath": "themes/5640735781027840/screenshot-wrong.png",
+      "lastModificationDate": "1660049162853"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5642298075381760",
+      "primaryColor": "#7A8F7D",
+      "global": true,
+      "category": "Flowers",
+      "name": "Bloemen 5",
+      "iconPath": "themes/5642298075381760/icon.png",
+      "backgroundPath": "themes/5642298075381760/screenshot-bg.png",
+      "correctPath": "themes/5642298075381760/screenshot-correct.png",
+      "wrongPath": "themes/5642298075381760/screenshot-wrong.png",
+      "lastModificationDate": "1660049162887"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5644161428488192",
+      "primaryColor": "#01B001",
+      "global": true,
+      "category": "My themes",
+      "name": "Green screen",
+      "iconPath": "themes/5644161428488192/icon.png",
+      "backgroundPath": "themes/5644161428488192/screenshot-bg.png",
+      "correctPath": "themes/5644161428488192/screenshot-correct.png",
+      "wrongPath": "themes/5644161428488192/screenshot-wrong.png",
+      "lastModificationDate": "1660049162955"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5647385606750208",
+      "primaryColor": "#80A9AB",
+      "global": true,
+      "category": "Bouwen",
+      "name": "Bouwbaas",
+      "iconPath": "themes/5647385606750208/icon.png",
+      "backgroundPath": "themes/5647385606750208/screenshot-bg.png",
+      "correctPath": "themes/5647385606750208/screenshot-correct.png",
+      "wrongPath": "themes/5647385606750208/screenshot-wrong.png",
+      "lastModificationDate": "1660049162989"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5652949594275840",
+      "primaryColor": "#474399",
+      "global": true,
+      "category": "My themes",
+      "name": "Swirl 1 - My themes",
+      "iconPath": "themes/5652949594275840/icon.png",
+      "backgroundPath": "themes/5652949594275840/screenshot-bg.png",
+      "correctPath": "themes/5652949594275840/screenshot-correct.png",
+      "wrongPath": "themes/5652949594275840/screenshot-wrong.png",
+      "lastModificationDate": "1660049163057"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5653411907239936",
+      "primaryColor": "#F44336",
+      "global": true,
+      "category": "Kids",
+      "name": "Kids 3",
+      "iconPath": "themes/5653411907239936/icon.png",
+      "backgroundPath": "themes/5653411907239936/screenshot-bg.png",
+      "correctPath": "themes/5653411907239936/screenshot-correct.png",
+      "wrongPath": "themes/5653411907239936/screenshot-wrong.png",
+      "lastModificationDate": "1660049163094"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5655433838592000",
+      "primaryColor": "#E64F3A",
+      "global": true,
+      "category": "Beroepen",
+      "name": "Directeur",
+      "iconPath": "themes/5655433838592000/icon.png",
+      "backgroundPath": "themes/5655433838592000/screenshot-bg.png",
+      "correctPath": "themes/5655433838592000/screenshot-correct.png",
+      "wrongPath": "themes/5655433838592000/screenshot-wrong.png",
+      "lastModificationDate": "1660049163196"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5662577031905280",
+      "primaryColor": "#731700",
+      "global": true,
+      "category": "My themes",
+      "name": "Swirl 3 - My themes",
+      "iconPath": "themes/5662577031905280/icon.png",
+      "backgroundPath": "themes/5662577031905280/screenshot-bg.png",
+      "correctPath": "themes/5662577031905280/screenshot-correct.png",
+      "wrongPath": "themes/5662577031905280/screenshot-wrong.png",
+      "lastModificationDate": "1660049163262"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5662959040724992",
+      "primaryColor": "#eb2434",
+      "global": true,
+      "category": "cultuur",
+      "name": "Mediawijsheid",
+      "iconPath": "/themes/version2/Mediawijsheid_pictogram.jpg",
+      "backgroundPath": "/themes/version2/Mediawijsheid.jpg",
+      "correctPath": "/themes/version2/Mediawijsheid_fout.jpg",
+      "wrongPath": "/themes/version2/Mediawijsheid_goed.jpg",
+      "lastModificationDate": "1660049163295"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5664977792794624",
+      "primaryColor": "#000000",
+      "global": true,
+      "category": "Colors",
+      "name": "Zwart",
+      "iconPath": "themes/5664977792794624/icon.png",
+      "backgroundPath": "themes/5664977792794624/screenshot-bg.png",
+      "correctPath": "themes/5664977792794624/screenshot-correct.png",
+      "wrongPath": "themes/5664977792794624/screenshot-wrong.png",
+      "lastModificationDate": "1660049163328"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5696330575904768",
+      "primaryColor": "#0097a0",
+      "global": true,
+      "category": "My themes",
+      "name": "Squares 5  - My themes",
+      "iconPath": "themes/5696330575904768/icon.png",
+      "backgroundPath": "themes/5696330575904768/screenshot-bg.png",
+      "correctPath": "themes/5696330575904768/screenshot-correct.png",
+      "wrongPath": "themes/5696330575904768/screenshot-wrong.png",
+      "lastModificationDate": "1660049163533"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5708540228403200",
+      "primaryColor": "#ff4477",
+      "global": true,
+      "category": "My themes",
+      "name": "Squares 4 - My themes",
+      "iconPath": "themes/5708540228403200/icon.png",
+      "backgroundPath": "themes/5708540228403200/screenshot-bg.png",
+      "correctPath": "themes/5708540228403200/screenshot-correct.png",
+      "wrongPath": "themes/5708540228403200/screenshot-wrong.png",
+      "lastModificationDate": "1660049163603"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5709650276122624",
+      "primaryColor": "#123456",
+      "global": true,
+      "category": "My themes",
+      "name": "fout - My themes",
+      "iconPath": "themes/5709650276122624/icon.png",
+      "backgroundPath": "themes/5709650276122624/screenshot-bg.png",
+      "correctPath": "themes/5709650276122624/screenshot-correct.png",
+      "wrongPath": "themes/5709650276122624/screenshot-wrong.png",
+      "lastModificationDate": "1660049163636"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5715603704774656",
+      "primaryColor": "#ee6464",
+      "global": true,
+      "category": "My themes",
+      "name": "Swirl 4 - My themes",
+      "iconPath": "themes/5715603704774656/icon.png",
+      "backgroundPath": "themes/5715603704774656/screenshot-bg.png",
+      "correctPath": "themes/5715603704774656/screenshot-correct.png",
+      "wrongPath": "themes/5715603704774656/screenshot-wrong.png",
+      "lastModificationDate": "1660049163669"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5736428256362496",
+      "primaryColor": "#7ED957",
+      "global": true,
+      "category": "Colors",
+      "name": "Grasgroen",
+      "iconPath": "themes/5736428256362496/icon.png",
+      "backgroundPath": "themes/5736428256362496/screenshot-bg.png",
+      "correctPath": "themes/5736428256362496/screenshot-correct.png",
+      "wrongPath": "themes/5736428256362496/screenshot-wrong.png",
+      "lastModificationDate": "1660049163773"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5737764930715648",
+      "primaryColor": "#1cb5ff",
+      "global": true,
+      "category": "My themes",
+      "name": "Swirl 5 - My themes",
+      "iconPath": "themes/5737764930715648/icon.png",
+      "backgroundPath": "themes/5737764930715648/screenshot-bg.png",
+      "correctPath": "themes/5737764930715648/screenshot-correct.png",
+      "wrongPath": "themes/5737764930715648/screenshot-wrong.png",
+      "lastModificationDate": "1660049163837"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5739055098626048",
+      "primaryColor": "#786af7",
+      "global": true,
+      "category": "My themes",
+      "name": "Squares 3 - My themes",
+      "iconPath": "themes/5739055098626048/icon.png",
+      "backgroundPath": "themes/5739055098626048/screenshot-bg.png",
+      "correctPath": "themes/5739055098626048/screenshot-correct.png",
+      "wrongPath": "themes/5739055098626048/screenshot-wrong.png",
+      "lastModificationDate": "1660049163870"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5741147620114432",
+      "primaryColor": "#731700",
+      "global": true,
+      "category": "My themes",
+      "name": "Swirl 3",
+      "iconPath": "themes/5741147620114432/icon.png",
+      "backgroundPath": "themes/5741147620114432/screenshot-bg.png",
+      "correctPath": "themes/5741147620114432/screenshot-correct.png",
+      "wrongPath": "themes/5741147620114432/screenshot-wrong.png",
+      "lastModificationDate": "1660049163905"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5745559851761664",
+      "primaryColor": "#647b71",
+      "global": true,
+      "category": "cultuur",
+      "name": "Inburgering",
+      "iconPath": "/themes/version2/Inburgering_pictogram.jpg",
+      "backgroundPath": "/themes/version2/Inburgering.jpg",
+      "correctPath": "/themes/version2/Inburgering_fout.jpg",
+      "wrongPath": "/themes/version2/Inburgering_goed.jpg",
+      "lastModificationDate": "1660049163936"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5755513413304320",
+      "primaryColor": "#EA0608",
+      "global": true,
+      "category": "My themes",
+      "name": "Kerst",
+      "iconPath": "themes/5755513413304320/icon.png",
+      "backgroundPath": "themes/5755513413304320/screenshot-bg.png",
+      "correctPath": "themes/5755513413304320/screenshot-correct.png",
+      "wrongPath": "themes/5755513413304320/screenshot-wrong.png",
+      "lastModificationDate": "1660049164076"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5762464356499456",
+      "primaryColor": "#a07e6b",
+      "global": true,
+      "category": "cultuur",
+      "name": "digitale geletterdheid",
+      "iconPath": "/themes/version2/digitale_geletterdheid_pictogram.jpg",
+      "backgroundPath": "/themes/version2/digitale_geletterdheid.jpg",
+      "correctPath": "/themes/version2/digitale_geletterdheid_fout.jpg",
+      "wrongPath": "/themes/version2/digitale_geletterdheid_goed.jpg",
+      "lastModificationDate": "1660049164140"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5769881546915840",
+      "primaryColor": "#424242",
+      "global": true,
+      "category": "cultuur",
+      "name": "leesbevordering",
+      "iconPath": "/themes/version2/leesbevordering_pictogram.jpg",
+      "backgroundPath": "/themes/version2/leesbevordering.jpg",
+      "correctPath": "/themes/version2/leesbevordering_fout.jpg",
+      "wrongPath": "/themes/version2/leesbevordering_goed.jpg",
+      "lastModificationDate": "1660049164178"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5770133481979904",
+      "primaryColor": "#F2E1D6",
+      "global": true,
+      "category": "Nature",
+      "name": "Mountaintop",
+      "iconPath": "themes/5770133481979904/icon.png",
+      "backgroundPath": "themes/5770133481979904/screenshot-bg.png",
+      "correctPath": "themes/5770133481979904/screenshot-correct.png",
+      "wrongPath": "themes/5770133481979904/screenshot-wrong.png",
+      "lastModificationDate": "1660049164209"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5802868246315008",
+      "primaryColor": "#ff7320",
+      "global": true,
+      "category": "Bibliotheek",
+      "name": "Bibliotheeklogo",
+      "iconPath": "themes/5802868246315008/icon.png",
+      "backgroundPath": "themes/5802868246315008/screenshot-bg.png",
+      "correctPath": "themes/5802868246315008/screenshot-correct.png",
+      "wrongPath": "themes/5802868246315008/screenshot-wrong.png",
+      "lastModificationDate": "1660049164308"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5837110988767232",
+      "primaryColor": "#e64f3a",
+      "global": true,
+      "category": "My themes",
+      "name": "Mysterie Game  - My themes",
+      "iconPath": "themes/5837110988767232/icon.png",
+      "backgroundPath": "themes/5837110988767232/screenshot-bg.png",
+      "correctPath": "themes/5837110988767232/screenshot-correct.png",
+      "wrongPath": "themes/5837110988767232/screenshot-wrong.png",
+      "lastModificationDate": "1660049164468"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5858333252648960",
+      "primaryColor": "#141A28",
+      "global": true,
+      "category": "Beleven & Vinden",
+      "name": "Toekomst",
+      "iconPath": "themes/5858333252648960/icon.png",
+      "backgroundPath": "themes/5858333252648960/screenshot-bg.png",
+      "correctPath": "themes/5858333252648960/screenshot-correct.png",
+      "wrongPath": "themes/5858333252648960/screenshot-wrong.png",
+      "lastModificationDate": "1660049164580"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5873933379174400",
+      "primaryColor": "#FF66C4",
+      "global": true,
+      "category": "Colors",
+      "name": "Roze",
+      "iconPath": "themes/5873933379174400/icon.png",
+      "backgroundPath": "themes/5873933379174400/screenshot-bg.png",
+      "correctPath": "themes/5873933379174400/screenshot-correct.png",
+      "wrongPath": "themes/5873933379174400/screenshot-wrong.png",
+      "lastModificationDate": "1660049164615"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5888435604684800",
+      "primaryColor": "#F0F4F5",
+      "global": true,
+      "category": "Squares",
+      "name": "Squares 10",
+      "iconPath": "themes/5888435604684800/icon.png",
+      "backgroundPath": "themes/5888435604684800/screenshot-bg.png",
+      "correctPath": "themes/5888435604684800/screenshot-correct.png",
+      "wrongPath": "themes/5888435604684800/screenshot-wrong.png",
+      "lastModificationDate": "1660049164678"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5898671585492992",
+      "primaryColor": "#6F82BE",
+      "global": true,
+      "category": "Colors",
+      "name": "Bibendo lichtpaars 1",
+      "iconPath": "themes/5898671585492992/icon.png",
+      "backgroundPath": "themes/5898671585492992/screenshot-bg.png",
+      "correctPath": "themes/5898671585492992/screenshot-correct.png",
+      "wrongPath": "themes/5898671585492992/screenshot-wrong.png",
+      "lastModificationDate": "1660049164708"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5906368301105152",
+      "primaryColor": "#E02E40",
+      "global": true,
+      "category": "Holidays",
+      "name": "Valentijnsdag",
+      "iconPath": "themes/5906368301105152/icon.png",
+      "backgroundPath": "themes/5906368301105152/screenshot-bg.png",
+      "correctPath": "themes/5906368301105152/screenshot-correct.png",
+      "wrongPath": "themes/5906368301105152/screenshot-wrong.png",
+      "lastModificationDate": "1660049164776"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5907436808437760",
+      "primaryColor": "#731700",
+      "global": true,
+      "category": "My themes",
+      "name": "Swirl 3",
+      "iconPath": "themes/5907436808437760/icon.png",
+      "backgroundPath": "themes/5907436808437760/screenshot-bg.png",
+      "correctPath": "themes/5907436808437760/screenshot-correct.png",
+      "wrongPath": "themes/5907436808437760/screenshot-wrong.png",
+      "lastModificationDate": "1660049164807"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5922000103014400",
+      "primaryColor": "#070602",
+      "global": true,
+      "category": "Figures",
+      "name": "Stripes",
+      "iconPath": "themes/5922000103014400/icon.png",
+      "backgroundPath": "themes/5922000103014400/screenshot-bg.png",
+      "correctPath": "themes/5922000103014400/screenshot-correct.png",
+      "wrongPath": "themes/5922000103014400/screenshot-wrong.png",
+      "lastModificationDate": "1660049164839"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5926554311852032",
+      "primaryColor": "#E64F3A",
+      "global": true,
+      "category": "Beroepen",
+      "name": "Journalist",
+      "iconPath": "themes/5926554311852032/icon.png",
+      "backgroundPath": "themes/5926554311852032/screenshot-bg.png",
+      "correctPath": "themes/5926554311852032/screenshot-correct.png",
+      "wrongPath": "themes/5926554311852032/screenshot-wrong.png",
+      "lastModificationDate": "1660049164871"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5935648972210176",
+      "primaryColor": "#E64F3A",
+      "global": true,
+      "category": "Beroepen",
+      "name": "Dierenarts",
+      "iconPath": "themes/5935648972210176/icon.png",
+      "backgroundPath": "themes/5935648972210176/screenshot-bg.png",
+      "correctPath": "themes/5935648972210176/screenshot-correct.png",
+      "wrongPath": "themes/5935648972210176/screenshot-wrong.png",
+      "lastModificationDate": "1660049164905"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5936537426460672",
+      "primaryColor": "#FF5757",
+      "global": true,
+      "category": "Colors",
+      "name": "Koraalrood",
+      "iconPath": "themes/5936537426460672/icon.png",
+      "backgroundPath": "themes/5936537426460672/screenshot-bg.png",
+      "correctPath": "themes/5936537426460672/screenshot-correct.png",
+      "wrongPath": "themes/5936537426460672/screenshot-wrong.png",
+      "lastModificationDate": "1660049164938"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5958899047858176",
+      "primaryColor": "#FF7900",
+      "global": true,
+      "category": "My themes",
+      "name": "Swirl 2",
+      "iconPath": "themes/5958899047858176/icon.png",
+      "backgroundPath": "themes/5958899047858176/screenshot-bg.png",
+      "correctPath": "themes/5958899047858176/screenshot-correct.png",
+      "wrongPath": "themes/5958899047858176/screenshot-wrong.png",
+      "lastModificationDate": "1660049165077"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5963568742662144",
+      "primaryColor": "#0097A0",
+      "global": true,
+      "category": "My themes",
+      "name": "Squares 4",
+      "iconPath": "themes/5963568742662144/icon.png",
+      "backgroundPath": "themes/5963568742662144/screenshot-bg.png",
+      "correctPath": "themes/5963568742662144/screenshot-correct.png",
+      "wrongPath": "themes/5963568742662144/screenshot-wrong.png",
+      "lastModificationDate": "1660049165110"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5968734447468544",
+      "primaryColor": "#8FBCD6",
+      "global": true,
+      "category": "Nature",
+      "name": "Ocean",
+      "iconPath": "themes/5968734447468544/icon.png",
+      "backgroundPath": "themes/5968734447468544/screenshot-bg.png",
+      "correctPath": "themes/5968734447468544/screenshot-correct.png",
+      "wrongPath": "themes/5968734447468544/screenshot-wrong.png",
+      "lastModificationDate": "1660049165177"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5969661824860160",
+      "primaryColor": "#435477",
+      "global": true,
+      "category": "Flowers",
+      "name": "Bloemen1",
+      "iconPath": "themes/5969661824860160/icon.png",
+      "backgroundPath": "themes/5969661824860160/screenshot-bg.png",
+      "correctPath": "themes/5969661824860160/screenshot-correct.png",
+      "wrongPath": "themes/5969661824860160/screenshot-wrong.png",
+      "lastModificationDate": "1660049165209"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "5974987315871744",
+      "primaryColor": "#E64F3A",
+      "global": true,
+      "category": "Beroepen",
+      "name": "Bouwvakker",
+      "iconPath": "themes/5974987315871744/icon.png",
+      "backgroundPath": "themes/5974987315871744/screenshot-bg.png",
+      "correctPath": "themes/5974987315871744/screenshot-correct.png",
+      "wrongPath": "themes/5974987315871744/screenshot-wrong.png",
+      "lastModificationDate": "1660049165240"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "6009653674639360",
+      "primaryColor": "#2E2B70",
+      "global": true,
+      "category": "My themes",
+      "name": "Draw 5",
+      "iconPath": "themes/6009653674639360/icon.png",
+      "backgroundPath": "themes/6009653674639360/screenshot-bg.png",
+      "correctPath": "themes/6009653674639360/screenshot-correct.png",
+      "wrongPath": "themes/6009653674639360/screenshot-wrong.png",
+      "lastModificationDate": "1660049165493"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "6021030103482368",
+      "primaryColor": "#EA0608",
+      "global": true,
+      "category": "Holidays",
+      "name": "Kerst",
+      "iconPath": "themes/6021030103482368/icon.png",
+      "backgroundPath": "themes/6021030103482368/screenshot-bg.png",
+      "correctPath": "themes/6021030103482368/screenshot-correct.png",
+      "wrongPath": "themes/6021030103482368/screenshot-wrong.png",
+      "lastModificationDate": "1660049165524"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "6031234677342208",
+      "primaryColor": "#E64F3A",
+      "global": true,
+      "category": "Beroepen",
+      "name": "Kok",
+      "iconPath": "themes/6031234677342208/icon.png",
+      "backgroundPath": "themes/6031234677342208/screenshot-bg.png",
+      "correctPath": "themes/6031234677342208/screenshot-correct.png",
+      "wrongPath": "themes/6031234677342208/screenshot-wrong.png",
+      "lastModificationDate": "1660049165733"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "6071835875606528",
+      "primaryColor": "#ED405E",
+      "global": true,
+      "category": "Restaurant",
+      "name": "Ober",
+      "iconPath": "themes/6071835875606528/icon.png",
+      "backgroundPath": "themes/6071835875606528/screenshot-bg.png",
+      "correctPath": "themes/6071835875606528/screenshot-correct.png",
+      "wrongPath": "themes/6071835875606528/screenshot-wrong.png",
+      "lastModificationDate": "1660049165932"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "6086158249361408",
+      "primaryColor": "#738CBB",
+      "global": true,
+      "category": "Figures",
+      "name": "Triangles",
+      "iconPath": "themes/6086158249361408/icon.png",
+      "backgroundPath": "themes/6086158249361408/screenshot-bg.png",
+      "correctPath": "themes/6086158249361408/screenshot-correct.png",
+      "wrongPath": "themes/6086158249361408/screenshot-wrong.png",
+      "lastModificationDate": "1660049166027"
+    }
+  ]
+}</pre>
+            </div>
+            <button class="collapsible">CURL Example</button>
+            <div class="content">
+                <pre>curl -X GET "https://serious-gaming-platform.appspot.com/api/game/theme/list/global" \
+     -H "Authorization: Bearer YOUR_TOKEN" \
+     -H "Content-Type: application/json"</pre>
+            </div>
+        </div>
+        <div class="endpoint">
+            <h3 class="endpoint-title">
+                <span class="method get">GET</span>
+                /game/theme/list/custom
+            </h3>
+            <p>Haal de lijst van aangepaste thema's op</p>
+
+            <p>Status: <span class="status success">Success (200)</span></p>
+            <button class="collapsible">Example Response (Click to expand)</button>
+            <div class="content">
+                <pre>{
+  "items": [
+    {
+      "type": "org.celstec.arlearn2.beans.game.GameTheme",
+      "themeId": "6540432112615424",
+      "primaryColor": "#622272",
+      "global": false,
+      "fullAccount": "7:SUi0jz4F9lOhzWTLLkMxCZRz3Ix2",
+      "category": "My themes",
+      "name": "De verloren verbinding",
+      "iconPath": "/customthemes/SUi0jz4F9lOhzWTLLkMxCZRz3Ix2/6540432112615424/icon.png",
+      "backgroundPath": "/customthemes/SUi0jz4F9lOhzWTLLkMxCZRz3Ix2/6540432112615424/background.png",
+      "correctPath": "/customthemes/SUi0jz4F9lOhzWTLLkMxCZRz3Ix2/6540432112615424/correct.png",
+      "wrongPath": "/customthemes/SUi0jz4F9lOhzWTLLkMxCZRz3Ix2/6540432112615424/wrong.png",
+      "lastModificationDate": "1708421187866"
+    }
+  ]
+}</pre>
+            </div>
+            <button class="collapsible">CURL Example</button>
+            <div class="content">
+                <pre>curl -X GET "https://serious-gaming-platform.appspot.com/api/game/theme/list/custom" \
+     -H "Authorization: Bearer YOUR_TOKEN" \
+     -H "Content-Type: application/json"</pre>
+            </div>
+        </div>
+        <h2 id="run">Run Endpoints</h2>
+        <div class="endpoint">
+            <h3 class="endpoint-title">
+                <span class="method get">GET</span>
+                /run/4549554202476544
+            </h3>
+            <p>Haal details op van run 4549554202476544</p>
+
+            <p>Status: <span class="status success">Success (200)</span></p>
+            <button class="collapsible">Example Response (Click to expand)</button>
+            <div class="content">
+                <pre>{
+  "type": "org.celstec.arlearn2.beans.run.Run",
+  "runId": "4549554202476544",
+  "deleted": false,
+  "gameId": "4798334378180608",
+  "title": "demo",
+  "startTime": "0",
+  "serverCreationTime": "1743423350638",
+  "lastModificationDate": "1743423350639",
+  "game": {
+    "type": "org.celstec.arlearn2.beans.game.Game",
+    "gameId": "4798334378180608",
+    "deleted": false,
+    "lastModificationDate": "1743423538772",
+    "title": "Test game ",
+    "description": "",
+    "config": {
+      "type": "org.celstec.arlearn2.beans.game.Config",
+      "mapAvailable": false,
+      "enableMyLocation": false,
+      "enableExchangeResponses": true,
+      "minZoomLevel": 1,
+      "maxZoomLevel": 20
+    },
+    "sharing": 2,
+    "language": "en",
+    "theme": "1",
+    "privateMode": true,
+    "webEnabled": false,
+    "iconAbbreviation": "",
+    "endsOn": {
+      "type": "org.celstec.arlearn2.beans.dependencies.ActionDependency",
+      "action": "read",
+      "generalItemId": "6441495785635840"
+    },
+    "amountOfPlays": "4"
+  }
+}</pre>
+            </div>
+            <button class="collapsible">CURL Example</button>
+            <div class="content">
+                <pre>curl -X GET "https://serious-gaming-platform.appspot.com/api/run/4549554202476544" \
+     -H "Authorization: Bearer YOUR_TOKEN" \
+     -H "Content-Type: application/json"</pre>
+            </div>
+        </div>
+        <div class="endpoint">
+            <h3 class="endpoint-title">
+                <span class="method get">GET</span>
+                /run/4549554202476544/users
+            </h3>
+            <p>Haal gebruikers op van run 4549554202476544</p>
+
+            <p>Status: <span class="status success">Success (200)</span></p>
+            <button class="collapsible">Example Response (Click to expand)</button>
+            <div class="content">
+                <pre>{
+  "type": "org.celstec.arlearn2.beans.run.UserList",
+  "runId": "4549554202476544",
+  "deleted": false,
+  "users": [
+    {
+      "type": "org.celstec.arlearn2.beans.run.User",
+      "localId": "Q6aLiZU1JVRSnYL7qV3rBGYNOxU2",
+      "accountType": 8,
+      "suspended": false,
+      "connection": false,
+      "allowTrackLocation": false,
+      "identifier": "4549554202476544:8:Q6aLiZU1JVRSnYL7qV3rBGYNOxU2",
+      "runId": "4549554202476544",
+      "deleted": false,
+      "gameId": "4798334378180608",
+      "lastModificationDateGame": "1743423350714",
+      "fullId": "8:Q6aLiZU1JVRSnYL7qV3rBGYNOxU2"
+    }
+  ]
+}</pre>
+            </div>
+            <button class="collapsible">CURL Example</button>
+            <div class="content">
+                <pre>curl -X GET "https://serious-gaming-platform.appspot.com/api/run/4549554202476544/users" \
+     -H "Authorization: Bearer YOUR_TOKEN" \
+     -H "Content-Type: application/json"</pre>
+            </div>
+        </div>
+        <div class="endpoint">
+            <h3 class="endpoint-title">
+                <span class="method get">GET</span>
+                /run/access/4549554202476544/list
+            </h3>
+            <p>Haal toegangsrechten op voor run 4549554202476544</p>
+
+            <p>Status: <span class="status success">Success (200)</span></p>
+            <button class="collapsible">Example Response (Click to expand)</button>
+            <div class="content">
+                <pre>{
+  "type": "org.celstec.arlearn2.beans.run.RunAccessList",
+  "runAccess": [
+    {
+      "type": "org.celstec.arlearn2.beans.run.RunAccess",
+      "timestamp": "1743423350667",
+      "identifier": "8:Q6aLiZU1JVRSnYL7qV3rBGYNOxU2:4549554202476544",
+      "account": "8:Q6aLiZU1JVRSnYL7qV3rBGYNOxU2",
+      "accessRights": 1,
+      "runId": "4549554202476544",
+      "gameId": "4798334378180608"
+    }
+  ]
+}</pre>
+            </div>
+            <button class="collapsible">CURL Example</button>
+            <div class="content">
+                <pre>curl -X GET "https://serious-gaming-platform.appspot.com/api/run/access/4549554202476544/list" \
+     -H "Authorization: Bearer YOUR_TOKEN" \
+     -H "Content-Type: application/json"</pre>
+            </div>
+        </div>
+        <div class="endpoint">
+            <h3 class="endpoint-title">
+                <span class="method get">GET</span>
+                /run/response/runId/4549554202476544/from/0/until/1743587550993/cursor/
+            </h3>
+            <p>GET /run/response/runId/4549554202476544/from/0/until/1743587550993/cursor/</p>
+
+            <p>Status: <span class="status error">Failed (404)</span></p>
+            <p class="error">Error: Geen geldige JSON response</p>
+            <button class="collapsible">CURL Example</button>
+            <div class="content">
+                <pre>curl -X GET "https://serious-gaming-platform.appspot.com/api/run/response/runId/4549554202476544/from/0/until/1743587550993/cursor/" \
+     -H "Authorization: Bearer YOUR_TOKEN" \
+     -H "Content-Type: application/json"</pre>
+            </div>
+        </div>
+        <h2 id="organization">Organization Endpoints</h2>
+        <div class="endpoint">
+            <h3 class="endpoint-title">
+                <span class="method get">GET</span>
+                /organization/list
+            </h3>
+            <p>Haal alle organisaties op</p>
+
+            <p>Status: <span class="status error">Failed (403)</span></p>
+            <button class="collapsible">Example Response (Click to expand)</button>
+            <div class="content">
+                <pre>{
+  "error": {
+    "errors": [
+      {
+        "domain": "global",
+        "reason": "forbidden",
+        "message": "only admin can call this method"
+      }
+    ],
+    "code": 403,
+    "message": "only admin can call this method"
+  }
+}</pre>
+            </div>
+            <button class="collapsible">CURL Example</button>
+            <div class="content">
+                <pre>curl -X GET "https://serious-gaming-platform.appspot.com/api/organization/list" \
+     -H "Authorization: Bearer YOUR_TOKEN" \
+     -H "Content-Type: application/json"</pre>
+            </div>
+        </div>
+        <h2 id="player">Player Endpoints</h2>
+        <div class="endpoint">
+            <h3 class="endpoint-title">
+                <span class="method get">GET</span>
+                /player/myContacts
+            </h3>
+            <p>Haal contacten op van de huidige gebruiker</p>
+
+            <p>Status: <span class="status success">Success (200)</span></p>
+            <button class="collapsible">Example Response (Click to expand)</button>
+            <div class="content">
+                <pre>{
+  "type": "org.celstec.arlearn2.beans.account.AccountList",
+  "accountList": [
+    {
+      "type": "org.celstec.arlearn2.beans.account.Account",
+      "firebaseId": "QkllNlUtDRSHhsjpGvYEyqZzCEB2",
+      "localId": "QkllNlUtDRSHhsjpGvYEyqZzCEB2",
+      "accountType": 7,
+      "email": "kevin.van.den.bos@nbdbiblion.nl",
+      "name": "Kevin van den Bos",
+      "label": "NBD",
+      "expirationDate": "2082668400000",
+      "advanced": true,
+      "admin": true,
+      "suspended": false,
+      "connection": false,
+      "allowTrackLocation": false,
+      "lastModificationDate": "1730975865029",
+      "lastLoginDate": "1743578758624",
+      "initPasswordToken": "2a3d80ee-39f7-464c-9927-24bca758b75f",
+      "tokenExpirationDate": "1713261998777",
+      "fullId": "7:QkllNlUtDRSHhsjpGvYEyqZzCEB2"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.account.Account",
+      "firebaseId": "c9drXOQmlve3ezt1W5cakBcIeG43",
+      "localId": "c9drXOQmlve3ezt1W5cakBcIeG43",
+      "accountType": 7,
+      "email": "stefaan@io-things.eu",
+      "name": "stefaan io-t",
+      "label": "io-things;NBD",
+      "expirationDate": "2840050800000",
+      "organisationId": "5668173483343872",
+      "advanced": false,
+      "admin": false,
+      "suspended": false,
+      "connection": false,
+      "allowTrackLocation": false,
+      "lastModificationDate": "1669286109988",
+      "lastLoginDate": "1741684532597",
+      "initPasswordToken": "c8c55c96-ab31-4136-985e-d5a5e9ced7dc",
+      "tokenExpirationDate": "1659964346620",
+      "fullId": "7:c9drXOQmlve3ezt1W5cakBcIeG43"
+    }
+  ],
+  "serverTime": "1743587551933"
+}</pre>
+            </div>
+            <button class="collapsible">CURL Example</button>
+            <div class="content">
+                <pre>curl -X GET "https://serious-gaming-platform.appspot.com/api/player/myContacts" \
+     -H "Authorization: Bearer YOUR_TOKEN" \
+     -H "Content-Type: application/json"</pre>
+            </div>
+        </div>
+        <div class="endpoint">
+            <h3 class="endpoint-title">
+                <span class="method get">GET</span>
+                /player/pendingInvitations
+            </h3>
+            <p>Haal openstaande uitnodigingen op</p>
+
+            <p>Status: <span class="status success">Success (200)</span></p>
+            <button class="collapsible">Example Response (Click to expand)</button>
+            <div class="content">
+                <pre>{
+  "type": "org.celstec.arlearn2.beans.account.AccountList",
+  "accountList": [
+    {
+      "type": "org.celstec.arlearn2.beans.account.Account",
+      "timestamp": "1710745531324",
+      "localId": "50024d39-478c-4401-beec-284250155620",
+      "email": "stefaan.ternier@gmail.com",
+      "suspended": false,
+      "connection": false,
+      "allowTrackLocation": false,
+      "fullId": "null:50024d39-478c-4401-beec-284250155620"
+    }
+  ],
+  "serverTime": "1743587552262"
+}</pre>
+            </div>
+            <button class="collapsible">CURL Example</button>
+            <div class="content">
+                <pre>curl -X GET "https://serious-gaming-platform.appspot.com/api/player/pendingInvitations" \
+     -H "Authorization: Bearer YOUR_TOKEN" \
+     -H "Content-Type: application/json"</pre>
+            </div>
+        </div>
+        <div class="endpoint">
+            <h3 class="endpoint-title">
+                <span class="method get">GET</span>
+                /player/invitationsToMe
+            </h3>
+            <p>Haal uitnodigingen aan de huidige gebruiker op</p>
+
+            <p>Status: <span class="status success">Success (200)</span></p>
+            <button class="collapsible">Example Response (Click to expand)</button>
+            <div class="content">
+                <pre>{
+  "type": "org.celstec.arlearn2.beans.account.AccountList",
+  "serverTime": "1743587552495"
+}</pre>
+            </div>
+            <button class="collapsible">CURL Example</button>
+            <div class="content">
+                <pre>curl -X GET "https://serious-gaming-platform.appspot.com/api/player/invitationsToMe" \
+     -H "Authorization: Bearer YOUR_TOKEN" \
+     -H "Content-Type: application/json"</pre>
+            </div>
+        </div>
+        <div class="endpoint">
+            <h3 class="endpoint-title">
+                <span class="method get">GET</span>
+                /player/contact/7:SUi0jz4F9lOhzWTLLkMxCZRz3Ix2
+            </h3>
+            <p>Haal contact details op van de huidige gebruiker</p>
+
+            <p>Status: <span class="status success">Success (200)</span></p>
+            <button class="collapsible">Example Response (Click to expand)</button>
+            <div class="content">
+                <pre>{
+  "type": "org.celstec.arlearn2.beans.account.Account",
+  "firebaseId": "SUi0jz4F9lOhzWTLLkMxCZRz3Ix2",
+  "localId": "SUi0jz4F9lOhzWTLLkMxCZRz3Ix2",
+  "accountType": 7,
+  "email": "jeroenstorm@gmail.com",
+  "name": "Jeroen Storm",
+  "picture": "https://lh3.googleusercontent.com/a-/AAuE7mDl_AO2inVvFMrlLuipHDziE9ZYX8oVOpUs96bagA",
+  "advanced": false,
+  "admin": false,
+  "suspended": false,
+  "connection": false,
+  "allowTrackLocation": false,
+  "lastModificationDate": "1648540014887",
+  "lastLoginDate": "1743587547135",
+  "fullId": "7:SUi0jz4F9lOhzWTLLkMxCZRz3Ix2"
+}</pre>
+            </div>
+            <button class="collapsible">CURL Example</button>
+            <div class="content">
+                <pre>curl -X GET "https://serious-gaming-platform.appspot.com/api/player/contact/7:SUi0jz4F9lOhzWTLLkMxCZRz3Ix2" \
+     -H "Authorization: Bearer YOUR_TOKEN" \
+     -H "Content-Type: application/json"</pre>
+            </div>
+        </div>
+        <h2 id="media">Media Endpoints</h2>
+        <div class="endpoint">
+            <h3 class="endpoint-title">
+                <span class="method get">GET</span>
+                /media/list?path=/
+            </h3>
+            <p>Haal bestanden op in de root van de mediabibliotheek</p>
+
+            <p>Status: <span class="status success">Success (200)</span></p>
+            <button class="collapsible">Example Response (Click to expand)</button>
+            <div class="content">
+                <pre>{
+  "items": [
+    {
+      "type": "org.celstec.arlearn2.beans.medialibrary.MediaLibraryFile",
+      "lastModificationDate": "1660050286120",
+      "tags": "Halloween",
+      "name": "Schemer kasteel",
+      "path": "/"
+    }
+  ]
+}</pre>
+            </div>
+            <button class="collapsible">CURL Example</button>
+            <div class="content">
+                <pre>curl -X GET "https://serious-gaming-platform.appspot.com/api/media/list?path=/" \
+     -H "Authorization: Bearer YOUR_TOKEN" \
+     -H "Content-Type: application/json"</pre>
+            </div>
+        </div>
+        <div class="endpoint">
+            <h3 class="endpoint-title">
+                <span class="method get">GET</span>
+                /media/search/background
+            </h3>
+            <p>Zoek naar media met 'background' in de naam</p>
+
+            <p>Status: <span class="status success">Success (200)</span></p>
+            <button class="collapsible">CURL Example</button>
+            <div class="content">
+                <pre>curl -X GET "https://serious-gaming-platform.appspot.com/api/media/search/background" \
+     -H "Authorization: Bearer YOUR_TOKEN" \
+     -H "Content-Type: application/json"</pre>
+            </div>
+        </div>
+        <h2 id="games">Games Endpoints</h2>
+        <div class="endpoint">
+            <h3 class="endpoint-title">
+                <span class="method get">GET</span>
+                /games/featured/gameId/4798334378180608
+            </h3>
+            <p>Controleer of game 4798334378180608 uitgelicht is</p>
+
+            <p>Status: <span class="status success">Success (200)</span></p>
+            <button class="collapsible">Example Response (Click to expand)</button>
+            <div class="content">
+                <pre>{
+  "type": "org.celstec.arlearn2.beans.game.GamesList"
+}</pre>
+            </div>
+            <button class="collapsible">CURL Example</button>
+            <div class="content">
+                <pre>curl -X GET "https://serious-gaming-platform.appspot.com/api/games/featured/gameId/4798334378180608" \
+     -H "Authorization: Bearer YOUR_TOKEN" \
+     -H "Content-Type: application/json"</pre>
+            </div>
+        </div>
+        <div class="endpoint">
+            <h3 class="endpoint-title">
+                <span class="method get">GET</span>
+                /games/library/recent
+            </h3>
+            <p>Haal recent gepubliceerde games op</p>
+
+            <p>Status: <span class="status success">Success (200)</span></p>
+            <button class="collapsible">Example Response (Click to expand)</button>
+            <div class="content">
+                <pre>{
+  "type": "org.celstec.arlearn2.beans.game.GamesList",
+  "games": [
+    {
+      "type": "org.celstec.arlearn2.beans.game.Game",
+      "gameId": "6740250093158400",
+      "deleted": false,
+      "lastModificationDate": "1741951531057",
+      "title": "In de voetsporen van Simon Vestdijk",
+      "messageListTypes": "2",
+      "description": "Door de Bibliotheek Z-O-U-T: een literaire wandelroute door Doorn en de Kaapse bossen. Tijdens deze route loop je langs tien bekende locaties die gelinkt zijn aan het werk van schrijver Simon Vestdijk. Gaandeweg beluister je fragmenten uit de romans van Vestdijk die op deze locaties zijn ge\u00efnspireerd. De fragmenten zijn ingesproken door de zoon van de schrijver, Dick Vestdijk. De wandeling start en eindigt bij het beeld van Vestdijk op het Kerkplein in Doorn.\u202f",
+      "config": {
+        "type": "org.celstec.arlearn2.beans.game.Config",
+        "mapAvailable": false,
+        "enableMyLocation": false,
+        "enableExchangeResponses": true,
+        "minZoomLevel": 1,
+        "maxZoomLevel": 20
+      },
+      "sharing": 3,
+      "language": "en",
+      "theme": "4820768810598400",
+      "organisationId": "5657837267058688",
+      "chapters": "0",
+      "privateMode": true,
+      "webEnabled": true,
+      "iconAbbreviation": "",
+      "amountOfPlays": "119",
+      "playDuration": "30 - 40",
+      "devTeam": "Bibliotheek Z-O-U-T",
+      "showGrid": false,
+      "gridSize": 20
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.Game",
+      "gameId": "5162664749694976",
+      "deleted": false,
+      "lastModificationDate": "1734353060932",
+      "title": "Wie heeft het gedaan? (7&8)",
+      "messageListScreen": "/game/6012606263328768/spelbord/spelbord BB W_600x734.png",
+      "messageListTypes": "1,2",
+      "boardWidth": 600,
+      "boardHeight": 734,
+      "description": "Los jij het BiebBoys mysterie op?\nStart het spel, bekijk de plaats delict en klik op 'play' om te beginnen!\nSucces!",
+      "startButton": "Aan de slag!",
+      "config": {
+        "type": "org.celstec.arlearn2.beans.game.Config",
+        "mapAvailable": false,
+        "enableMyLocation": false,
+        "enableExchangeResponses": true,
+        "minZoomLevel": 1,
+        "maxZoomLevel": 20
+      },
+      "sharing": 3,
+      "licenseCode": "cc-by",
+      "language": "en",
+      "theme": "6388598806937600",
+      "organisationId": "5175622565363712",
+      "privateMode": true,
+      "webEnabled": true,
+      "iconAbbreviation": "Wie?",
+      "endsOn": {
+        "type": "org.celstec.arlearn2.beans.dependencies.ActionDependency",
+        "action": "read",
+        "generalItemId": "5571683075227648"
+      },
+      "amountOfPlays": "837",
+      "playDuration": "30 - 40",
+      "ageSpan": "10 - 12",
+      "devTeam": "Rijnbrink",
+      "showGrid": true,
+      "gridSize": 20
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.Game",
+      "gameId": "5587657056845824",
+      "deleted": false,
+      "lastModificationDate": "1733129471237",
+      "title": "Library De Boekenberg",
+      "splashScreen": "/game/5726971199750144/stratscherm.jpg",
+      "description": "Welcome at De Boekenberg, open since 2012! You'll quite literally be on top of a mountain of books! This is where we start our interactive tour.",
+      "config": {
+        "type": "org.celstec.arlearn2.beans.game.Config",
+        "mapAvailable": false,
+        "enableMyLocation": false,
+        "enableExchangeResponses": true,
+        "minZoomLevel": 1,
+        "maxZoomLevel": 20,
+        "primaryColor": "#ed7000",
+        "secondaryColor": "#3EA3DC"
+      },
+      "sharing": 3,
+      "licenseCode": "cc-by",
+      "language": "en",
+      "theme": "6259280529326080",
+      "organisationId": "5668173483343872",
+      "privateMode": true,
+      "webEnabled": true,
+      "iconAbbreviation": "En",
+      "amountOfPlays": "172",
+      "playDuration": "30 - 40",
+      "devTeam": "De Boekenberg"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.Game",
+      "gameId": "5726971199750144",
+      "deleted": false,
+      "lastModificationDate": "1725874727805",
+      "title": "Bibliotheek De Boekenberg ",
+      "splashScreen": "/game/5726971199750144/stratscherm.jpg",
+      "description": "Welkom bij De Boekenberg, geopend in 2012! Je bevindt je letterlijk op een berg van boeken. Hier start onze interactieve tour.",
+      "config": {
+        "type": "org.celstec.arlearn2.beans.game.Config",
+        "mapAvailable": false,
+        "enableMyLocation": false,
+        "enableExchangeResponses": true,
+        "minZoomLevel": 1,
+        "maxZoomLevel": 20,
+        "primaryColor": "#ed7000",
+        "secondaryColor": "#3EA3DC"
+      },
+      "sharing": 3,
+      "licenseCode": "cc-by",
+      "language": "en",
+      "theme": "6425350649151488",
+      "organisationId": "5668173483343872",
+      "privateMode": true,
+      "webEnabled": true,
+      "iconAbbreviation": "",
+      "amountOfPlays": "383",
+      "playDuration": "30 - 40",
+      "ageSpan": "18 - 35",
+      "devTeam": "De Boekenberg"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.Game",
+      "gameId": "5646021333876736",
+      "deleted": false,
+      "lastModificationDate": "1722276035448",
+      "title": "Beleven & Vinden",
+      "messageListScreen": "/game/5646021333876736/Spelbord B&V cirkels.png",
+      "messageListTypes": "2",
+      "boardWidth": 720,
+      "boardHeight": 1600,
+      "splashScreen": "/game/5646021333876736/Fotografie/splashscreen.png",
+      "description": "Waar heb jij zin in? Scan een 'mood' en vind een leuk boek!",
+      "config": {
+        "type": "org.celstec.arlearn2.beans.game.Config",
+        "mapAvailable": false,
+        "enableMyLocation": false,
+        "enableExchangeResponses": true,
+        "minZoomLevel": 1,
+        "maxZoomLevel": 20,
+        "primaryColor": "#373155",
+        "secondaryColor": "#635a8d"
+      },
+      "sharing": 3,
+      "licenseCode": "cc-by",
+      "language": "en",
+      "theme": "6074348976734208",
+      "organisationId": "5668173483343872",
+      "privateMode": true,
+      "webEnabled": false,
+      "iconAbbreviation": "BV",
+      "amountOfPlays": "72",
+      "playDuration": "20 - 30",
+      "ageSpan": "5 - 8",
+      "devTeam": "Bibendo"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.Game",
+      "gameId": "6195885851541504",
+      "deleted": false,
+      "lastModificationDate": "1718020244933",
+      "title": "Wie heeft het gedaan? (Doetinchem)",
+      "messageListScreen": "/game/6012606263328768/spelbord/spelbord BB W_600x734.png",
+      "messageListTypes": "1,2",
+      "boardWidth": 600,
+      "boardHeight": 734,
+      "description": "Los jij het BiebBoys mysterie op?\nStart het spel, bekijk de plaats delict en klik op 'play' om te beginnen!\nSucces!",
+      "startButton": "Aan de slag!",
+      "gameOverButton": "",
+      "config": {
+        "type": "org.celstec.arlearn2.beans.game.Config",
+        "mapAvailable": false,
+        "enableMyLocation": false,
+        "enableExchangeResponses": true,
+        "minZoomLevel": 1,
+        "maxZoomLevel": 20
+      },
+      "sharing": 3,
+      "licenseCode": "cc-by",
+      "language": "en",
+      "theme": "6388598806937600",
+      "organisationId": "5668173483343872",
+      "privateMode": true,
+      "webEnabled": true,
+      "iconAbbreviation": "Wie?",
+      "amountOfPlays": "650",
+      "playDuration": "30 - 40",
+      "ageSpan": "10 - 12",
+      "devTeam": "Bibendo",
+      "showGrid": true,
+      "gridSize": 20
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.Game",
+      "gameId": "6402121054289920",
+      "deleted": false,
+      "lastModificationDate": "1718020227531",
+      "title": "Wie heeft het gedaan? (Vorden) (copy) ",
+      "messageListScreen": "/game/6012606263328768/spelbord/spelbord BB W_600x734.png",
+      "messageListTypes": "1,2",
+      "boardWidth": 600,
+      "boardHeight": 734,
+      "description": "Los jij het BiebBoys mysterie op?\nStart het spel, bekijk de plaats delict en klik op 'play' om te beginnen!\nSucces!",
+      "startButton": "Aan de slag!",
+      "gameOverButton": "",
+      "config": {
+        "type": "org.celstec.arlearn2.beans.game.Config",
+        "mapAvailable": false,
+        "enableMyLocation": false,
+        "enableExchangeResponses": true,
+        "minZoomLevel": 1,
+        "maxZoomLevel": 20
+      },
+      "sharing": 3,
+      "licenseCode": "cc-by",
+      "language": "en",
+      "theme": "6388598806937600",
+      "organisationId": "5668173483343872",
+      "privateMode": true,
+      "webEnabled": true,
+      "iconAbbreviation": "Wie?",
+      "amountOfPlays": "490",
+      "playDuration": "30 - 40",
+      "ageSpan": "10 - 12",
+      "devTeam": "Bibendo",
+      "showGrid": true,
+      "gridSize": 20
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.Game",
+      "gameId": "6576288118603776",
+      "deleted": false,
+      "lastModificationDate": "1718020205908",
+      "title": "Wie heeft het gedaan? (Hengelo Gld) ",
+      "messageListScreen": "/game/6012606263328768/spelbord/spelbord BB W_600x734.png",
+      "messageListTypes": "1,2",
+      "boardWidth": 600,
+      "boardHeight": 734,
+      "description": "Los jij het BiebBoys mysterie op?\nStart het spel, bekijk de plaats delict en klik op 'play' om te beginnen!\nSucces!",
+      "startButton": "Aan de slag!",
+      "gameOverButton": "",
+      "config": {
+        "type": "org.celstec.arlearn2.beans.game.Config",
+        "mapAvailable": false,
+        "enableMyLocation": false,
+        "enableExchangeResponses": true,
+        "minZoomLevel": 1,
+        "maxZoomLevel": 20
+      },
+      "sharing": 3,
+      "licenseCode": "cc-by",
+      "language": "en",
+      "theme": "6388598806937600",
+      "organisationId": "5668173483343872",
+      "privateMode": true,
+      "webEnabled": true,
+      "iconAbbreviation": "Wie?",
+      "endsOn": {
+        "type": "org.celstec.arlearn2.beans.dependencies.ActionDependency",
+        "action": "read",
+        "generalItemId": "5084669229924352"
+      },
+      "amountOfPlays": "510",
+      "playDuration": "30 - 40",
+      "ageSpan": "10 - 12",
+      "devTeam": "Bibendo",
+      "showGrid": true,
+      "gridSize": 20
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.Game",
+      "gameId": "5024408892604416",
+      "deleted": false,
+      "lastModificationDate": "1718019943233",
+      "title": "Wie heeft het gedaan? (Doesburg)",
+      "messageListScreen": "/game/6012606263328768/spelbord/spelbord BB W_600x734.png",
+      "messageListTypes": "1,2",
+      "boardWidth": 600,
+      "boardHeight": 734,
+      "description": "Los jij het BiebBoys mysterie op?\nStart het spel, bekijk de plaats delict en klik op 'play' om te beginnen!\nSucces!",
+      "startButton": "Aan de slag!",
+      "gameOverButton": "",
+      "config": {
+        "type": "org.celstec.arlearn2.beans.game.Config",
+        "mapAvailable": false,
+        "enableMyLocation": false,
+        "enableExchangeResponses": true,
+        "minZoomLevel": 1,
+        "maxZoomLevel": 20
+      },
+      "sharing": 3,
+      "licenseCode": "cc-by",
+      "language": "en",
+      "theme": "6388598806937600",
+      "organisationId": "5668173483343872",
+      "privateMode": true,
+      "webEnabled": true,
+      "iconAbbreviation": "Wie?",
+      "amountOfPlays": "519",
+      "playDuration": "30 - 40",
+      "ageSpan": "10 - 12",
+      "devTeam": "Bibendo",
+      "showGrid": true,
+      "gridSize": 20
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.game.Game",
+      "gameId": "5801028570054656",
+      "deleted": false,
+      "lastModificationDate": "1718019923554",
+      "title": "Wie heeft het gedaan? (Zelhem) ",
+      "messageListScreen": "/game/6012606263328768/spelbord/spelbord BB W_600x734.png",
+      "messageListTypes": "1,2",
+      "boardWidth": 600,
+      "boardHeight": 734,
+      "description": "Los jij het BiebBoys mysterie op?\nStart het spel, bekijk de plaats delict en klik op 'play' om te beginnen!\nSucces!",
+      "startButton": "Aan de slag!",
+      "gameOverButton": "",
+      "config": {
+        "type": "org.celstec.arlearn2.beans.game.Config",
+        "mapAvailable": false,
+        "enableMyLocation": false,
+        "enableExchangeResponses": true,
+        "minZoomLevel": 1,
+        "maxZoomLevel": 20
+      },
+      "sharing": 3,
+      "licenseCode": "cc-by",
+      "language": "en",
+      "theme": "6388598806937600",
+      "organisationId": "5668173483343872",
+      "privateMode": true,
+      "webEnabled": true,
+      "iconAbbreviation": "Wie?",
+      "amountOfPlays": "592",
+      "playDuration": "30 - 40",
+      "ageSpan": "10 - 12",
+      "devTeam": "Bibendo",
+      "showGrid": true,
+      "gridSize": 20
+    }
+  ],
+  "serverTime": "1743587553835",
+  "resumptionToken": "ClgKHwoUbGFzdE1vZGlmaWNhdGlvbkRhdGUSBwjivN6PgDISMWoZZX5zZXJpb3VzLWdhbWluZy1wbGF0Zm9ybXIUCxIHR2FtZUpETxiAgIC6k4CnCgwYACAB"
+}</pre>
+            </div>
+            <button class="collapsible">CURL Example</button>
+            <div class="content">
+                <pre>curl -X GET "https://serious-gaming-platform.appspot.com/api/games/library/recent" \
+     -H "Authorization: Bearer YOUR_TOKEN" \
+     -H "Content-Type: application/json"</pre>
+            </div>
+        </div>
+        <div class="endpoint">
+            <h3 class="endpoint-title">
+                <span class="method get">GET</span>
+                /games/library/search/quiz
+            </h3>
+            <p>Zoek naar games met 'quiz' in de naam</p>
+
+            <p>Status: <span class="status success">Success (200)</span></p>
+            <button class="collapsible">Example Response (Click to expand)</button>
+            <div class="content">
+                <pre>{
+  "type": "org.celstec.arlearn2.beans.game.GamesList",
+  "games": [
+    {
+      "type": "org.celstec.arlearn2.beans.game.Game",
+      "gameId": "5643576591515648",
+      "deleted": false,
+      "title": "Volvo quiz test",
+      "config": {
+        "type": "org.celstec.arlearn2.beans.game.Config",
+        "mapAvailable": false,
+        "enableMyLocation": false,
+        "enableExchangeResponses": true,
+        "minZoomLevel": 1,
+        "maxZoomLevel": 20
+      },
+      "language": "en",
+      "theme": "1"
+    }
+  ]
+}</pre>
+            </div>
+            <button class="collapsible">CURL Example</button>
+            <div class="content">
+                <pre>curl -X GET "https://serious-gaming-platform.appspot.com/api/games/library/search/quiz" \
+     -H "Authorization: Bearer YOUR_TOKEN" \
+     -H "Content-Type: application/json"</pre>
+            </div>
+        </div>
+        <div class="endpoint">
+            <h3 class="endpoint-title">
+                <span class="method get">GET</span>
+                /games/featured/en
+            </h3>
+            <p>Haal uitgelichte games op in het Engels</p>
+
+            <p>Status: <span class="status success">Success (200)</span></p>
+            <button class="collapsible">Example Response (Click to expand)</button>
+            <div class="content">
+                <pre>{
+  "type": "org.celstec.arlearn2.beans.game.GamesList"
+}</pre>
+            </div>
+            <button class="collapsible">CURL Example</button>
+            <div class="content">
+                <pre>curl -X GET "https://serious-gaming-platform.appspot.com/api/games/featured/en" \
+     -H "Authorization: Bearer YOUR_TOKEN" \
+     -H "Content-Type: application/json"</pre>
+            </div>
+        </div>
+        <div class="endpoint">
+            <h3 class="endpoint-title">
+                <span class="method get">GET</span>
+                /games/library/categories/game/4798334378180608/en
+            </h3>
+            <p>Haal categorieën op voor game 4798334378180608 in het Engels</p>
+
+            <p>Status: <span class="status error">Failed (503)</span></p>
+            <button class="collapsible">Example Response (Click to expand)</button>
+            <div class="content">
+                <pre>{
+  "error": {
+    "errors": [
+      {
+        "domain": "global",
+        "reason": "backendError",
+        "message": "java.lang.NullPointerException"
+      }
+    ],
+    "code": 503,
+    "message": "java.lang.NullPointerException"
+  }
+}</pre>
+            </div>
+            <button class="collapsible">CURL Example</button>
+            <div class="content">
+                <pre>curl -X GET "https://serious-gaming-platform.appspot.com/api/games/library/categories/game/4798334378180608/en" \
+     -H "Authorization: Bearer YOUR_TOKEN" \
+     -H "Content-Type: application/json"</pre>
+            </div>
+        </div>
+        <div class="endpoint">
+            <h3 class="endpoint-title">
+                <span class="method get">GET</span>
+                /games/library/category/en
+            </h3>
+            <p>Haal categorieën op in het Engels</p>
+
+            <p>Status: <span class="status success">Success (200)</span></p>
+            <button class="collapsible">Example Response (Click to expand)</button>
+            <div class="content">
+                <pre>{
+  "type": "org.celstec.arlearn2.beans.store.CategoryList"
+}</pre>
+            </div>
+            <button class="collapsible">CURL Example</button>
+            <div class="content">
+                <pre>curl -X GET "https://serious-gaming-platform.appspot.com/api/games/library/category/en" \
+     -H "Authorization: Bearer YOUR_TOKEN" \
+     -H "Content-Type: application/json"</pre>
+            </div>
+        </div>
+        <h2 id="generalItems">Generalitems Endpoints</h2>
+        <div class="endpoint">
+            <h3 class="endpoint-title">
+                <span class="method get">GET</span>
+                /generalItems/gameId/4798334378180608
+            </h3>
+            <p>Haal alle items op van game 4798334378180608</p>
+
+            <p>Status: <span class="status success">Success (200)</span></p>
+            <button class="collapsible">Example Response (Click to expand)</button>
+            <div class="content">
+                <pre>{
+  "type": "org.celstec.arlearn2.beans.generalItem.GeneralItemList",
+  "generalItems": [
+    {
+      "type": "org.celstec.arlearn2.beans.generalItem.OpenUrl",
+      "gameId": "4798334378180608",
+      "deleted": false,
+      "lastModificationDate": "1743423395409",
+      "id": "6441495785635840",
+      "scope": "user",
+      "name": "Immer teksten",
+      "description": "",
+      "label": "",
+      "icon": "atlas",
+      "dependsOn": {
+        "type": "org.celstec.arlearn2.beans.dependencies.ActionDependency",
+        "action": "read",
+        "generalItemId": "6441718654173184"
+      },
+      "autoLaunch": false,
+      "authoringX": 832.0,
+      "authoringY": 341.0,
+      "url": "https://immer.app/vpro-club-lees/",
+      "message": true
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.generalItem.NarratorItem",
+      "gameId": "4798334378180608",
+      "deleted": false,
+      "lastModificationDate": "1743587493248",
+      "id": "6441718654173184",
+      "scope": "user",
+      "name": "Start",
+      "description": "Verder",
+      "label": "",
+      "icon": "plane",
+      "autoLaunch": false,
+      "authoringX": 470.0,
+      "authoringY": 340.0,
+      "richText": "Start dit spel...",
+      "message": true
+    }
+  ],
+  "serverTime": "1743587549038"
+}</pre>
+            </div>
+            <button class="collapsible">CURL Example</button>
+            <div class="content">
+                <pre>curl -X GET "https://serious-gaming-platform.appspot.com/api/generalItems/gameId/4798334378180608" \
+     -H "Authorization: Bearer YOUR_TOKEN" \
+     -H "Content-Type: application/json"</pre>
+            </div>
+        </div>
+        <h2 id="other">Other Endpoints</h2>
+        <div class="endpoint">
+            <h3 class="endpoint-title">
+                <span class="method get">GET</span>
+                /usermgt/accounts/test
+            </h3>
+            <p>Zoek naar accounts met 'test' in de naam of email</p>
+
+            <p>Status: <span class="status error">Failed (403)</span></p>
+            <button class="collapsible">Example Response (Click to expand)</button>
+            <div class="content">
+                <pre>{
+  "error": {
+    "errors": [
+      {
+        "domain": "global",
+        "reason": "forbidden",
+        "message": "only admin can call this method"
+      }
+    ],
+    "code": 403,
+    "message": "only admin can call this method"
+  }
+}</pre>
+            </div>
+            <button class="collapsible">CURL Example</button>
+            <div class="content">
+                <pre>curl -X GET "https://serious-gaming-platform.appspot.com/api/usermgt/accounts/test" \
+     -H "Authorization: Bearer YOUR_TOKEN" \
+     -H "Content-Type: application/json"</pre>
+            </div>
+        </div>
+        <div class="endpoint">
+            <h3 class="endpoint-title">
+                <span class="method get">GET</span>
+                /usermgt/recent
+            </h3>
+            <p>Haal recent aangemaakte accounts op</p>
+
+            <p>Status: <span class="status success">Success (200)</span></p>
+            <button class="collapsible">Example Response (Click to expand)</button>
+            <div class="content">
+                <pre>{
+  "type": "org.celstec.arlearn2.beans.account.AccountList",
+  "accountList": [
+    {
+      "type": "org.celstec.arlearn2.beans.account.Account",
+      "firebaseId": "SUi0jz4F9lOhzWTLLkMxCZRz3Ix2",
+      "localId": "SUi0jz4F9lOhzWTLLkMxCZRz3Ix2",
+      "accountType": 7,
+      "email": "jeroenstorm@gmail.com",
+      "name": "Jeroen Storm",
+      "picture": "https://lh3.googleusercontent.com/a-/AAuE7mDl_AO2inVvFMrlLuipHDziE9ZYX8oVOpUs96bagA",
+      "advanced": false,
+      "admin": false,
+      "suspended": false,
+      "connection": false,
+      "allowTrackLocation": false,
+      "lastModificationDate": "1648540014887",
+      "lastLoginDate": "1743587547135",
+      "fullId": "7:SUi0jz4F9lOhzWTLLkMxCZRz3Ix2"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.account.Account",
+      "firebaseId": "QkllNlUtDRSHhsjpGvYEyqZzCEB2",
+      "localId": "QkllNlUtDRSHhsjpGvYEyqZzCEB2",
+      "accountType": 7,
+      "email": "kevin.van.den.bos@nbdbiblion.nl",
+      "name": "Kevin van den Bos",
+      "label": "NBD",
+      "expirationDate": "2082668400000",
+      "advanced": true,
+      "admin": true,
+      "suspended": false,
+      "connection": false,
+      "allowTrackLocation": false,
+      "lastModificationDate": "1730975865029",
+      "lastLoginDate": "1743578758624",
+      "initPasswordToken": "2a3d80ee-39f7-464c-9927-24bca758b75f",
+      "tokenExpirationDate": "1713261998777",
+      "fullId": "7:QkllNlUtDRSHhsjpGvYEyqZzCEB2"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.account.Account",
+      "localId": "UHv7zBZlDJQEBWlmqSgVhO50W5D2",
+      "accountType": 7,
+      "email": "stefaan.ternier@gmail.com",
+      "name": "Stefaan Ternier",
+      "picture": "https://lh3.googleusercontent.com/a-/AAuE7mAef8ckla4oidgVEstZRNJOYHjnQQ7vKnOQ_jJeGk0=s96-c",
+      "advanced": false,
+      "admin": false,
+      "suspended": false,
+      "connection": false,
+      "allowTrackLocation": false,
+      "lastModificationDate": "1575466159138",
+      "lastLoginDate": "1743149121540",
+      "fullId": "7:UHv7zBZlDJQEBWlmqSgVhO50W5D2"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.account.Account",
+      "firebaseId": "zbHsXbbVgyVQQ8zw5h9Gez2jn672",
+      "localId": "zbHsXbbVgyVQQ8zw5h9Gez2jn672",
+      "accountType": 7,
+      "email": "karin.vandendikkenberg@oostachterhoek.nl",
+      "name": "Karin van den Dikkenberg",
+      "label": "Oost-Achterhoek",
+      "expirationDate": "1719698400000",
+      "advanced": false,
+      "admin": false,
+      "suspended": false,
+      "connection": false,
+      "allowTrackLocation": false,
+      "lastModificationDate": "1700651058967",
+      "lastLoginDate": "1743079841429",
+      "fullId": "7:zbHsXbbVgyVQQ8zw5h9Gez2jn672"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.account.Account",
+      "firebaseId": "ua1GAWNoXcbPspng3NMGrdMxQqH3",
+      "localId": "ua1GAWNoXcbPspng3NMGrdMxQqH3",
+      "accountType": 7,
+      "email": "annita.oonk@oostachterhoek.nl",
+      "name": "Annita Oonk",
+      "label": "Oost-Achterhoek",
+      "expirationDate": "1667170800000",
+      "advanced": false,
+      "admin": false,
+      "suspended": false,
+      "connection": false,
+      "allowTrackLocation": false,
+      "lastModificationDate": "1738862302854",
+      "lastLoginDate": "1743075999039",
+      "initPasswordToken": "c5edd632-b8fd-432d-821a-6a3a4fe98829",
+      "tokenExpirationDate": "1738865302854",
+      "fullId": "7:ua1GAWNoXcbPspng3NMGrdMxQqH3"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.account.Account",
+      "firebaseId": "UccO6HfBHGRep474gQgXGccfXYI3",
+      "localId": "UccO6HfBHGRep474gQgXGccfXYI3",
+      "accountType": 7,
+      "email": "b.jaeken@avans.nl",
+      "name": "Bjorn Jaeken",
+      "label": "Avans",
+      "expirationDate": "2208898800000",
+      "advanced": false,
+      "admin": false,
+      "suspended": false,
+      "connection": false,
+      "allowTrackLocation": false,
+      "lastModificationDate": "1742200762716",
+      "lastLoginDate": "1742549890381",
+      "fullId": "7:UccO6HfBHGRep474gQgXGccfXYI3"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.account.Account",
+      "firebaseId": "mJ7ino82m1P1hYd9MWcuzIyCrsG2",
+      "localId": "mJ7ino82m1P1hYd9MWcuzIyCrsG2",
+      "accountType": 7,
+      "email": "levy.hoeven@nbdbiblion.nl",
+      "name": "Levy Hoeven",
+      "label": "NBD",
+      "expirationDate": "2208898800000",
+      "organisationId": "5668173483343872",
+      "advanced": true,
+      "admin": true,
+      "suspended": false,
+      "connection": false,
+      "allowTrackLocation": false,
+      "lastModificationDate": "1742217647376",
+      "lastLoginDate": "1742213750824",
+      "fullId": "7:mJ7ino82m1P1hYd9MWcuzIyCrsG2"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.account.Account",
+      "firebaseId": "pQADdhqrPaTmcorknf17zfIQbB32",
+      "localId": "pQADdhqrPaTmcorknf17zfIQbB32",
+      "accountType": 7,
+      "email": "cultuurcoachuh@bibliotheekzout.nl",
+      "name": "Maja van Eijndthoven",
+      "label": "ZOUT",
+      "expirationDate": "1748642400000",
+      "organisationId": "5657837267058688",
+      "advanced": false,
+      "admin": false,
+      "suspended": false,
+      "connection": false,
+      "allowTrackLocation": false,
+      "lastModificationDate": "1722276346106",
+      "lastLoginDate": "1741951456280",
+      "fullId": "7:pQADdhqrPaTmcorknf17zfIQbB32"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.account.Account",
+      "firebaseId": "c9drXOQmlve3ezt1W5cakBcIeG43",
+      "localId": "c9drXOQmlve3ezt1W5cakBcIeG43",
+      "accountType": 7,
+      "email": "stefaan@io-things.eu",
+      "name": "stefaan io-t",
+      "label": "io-things;NBD",
+      "expirationDate": "2840050800000",
+      "organisationId": "5668173483343872",
+      "advanced": false,
+      "admin": false,
+      "suspended": false,
+      "connection": false,
+      "allowTrackLocation": false,
+      "lastModificationDate": "1669286109988",
+      "lastLoginDate": "1741684532597",
+      "initPasswordToken": "c8c55c96-ab31-4136-985e-d5a5e9ced7dc",
+      "tokenExpirationDate": "1659964346620",
+      "fullId": "7:c9drXOQmlve3ezt1W5cakBcIeG43"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.account.Account",
+      "firebaseId": "nefpZrCkxURzmgNnLCtDGCSw3Fv1",
+      "localId": "nefpZrCkxURzmgNnLCtDGCSw3Fv1",
+      "accountType": 7,
+      "email": "lmc@dnk.nl",
+      "name": "Leesmediaconsulent",
+      "label": "app_account",
+      "expirationDate": "-1",
+      "advanced": false,
+      "admin": false,
+      "suspended": false,
+      "connection": false,
+      "allowTrackLocation": false,
+      "lastModificationDate": "1717518704915",
+      "lastLoginDate": "1741111029906",
+      "fullId": "7:nefpZrCkxURzmgNnLCtDGCSw3Fv1"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.account.Account",
+      "firebaseId": "UjcrAJbr8yOaOhVqWRvoEWUQtD52",
+      "localId": "UjcrAJbr8yOaOhVqWRvoEWUQtD52",
+      "accountType": 7,
+      "email": "groep1@dnk.nl",
+      "name": "Groepje 1",
+      "label": "app_account",
+      "expirationDate": "-1",
+      "advanced": false,
+      "admin": false,
+      "suspended": false,
+      "connection": false,
+      "allowTrackLocation": false,
+      "lastModificationDate": "1717517366537",
+      "lastLoginDate": "1741109418904",
+      "fullId": "7:UjcrAJbr8yOaOhVqWRvoEWUQtD52"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.account.Account",
+      "firebaseId": "MV1d0CsmjHYS2Ivo7dg81vVEahj2",
+      "localId": "MV1d0CsmjHYS2Ivo7dg81vVEahj2",
+      "accountType": 7,
+      "email": "g.hoff@bnfrl.nl",
+      "name": "Geeske Hoff",
+      "label": "BNFRL",
+      "expirationDate": "1672441200000",
+      "organisationId": "5675746743812096",
+      "advanced": false,
+      "admin": false,
+      "suspended": false,
+      "connection": false,
+      "allowTrackLocation": false,
+      "lastModificationDate": "1643794931928",
+      "lastLoginDate": "1733132252655",
+      "fullId": "7:MV1d0CsmjHYS2Ivo7dg81vVEahj2"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.account.Account",
+      "firebaseId": "6DWoaXwKK9eHDxd1UOSEuvI4k292",
+      "localId": "6DWoaXwKK9eHDxd1UOSEuvI4k292",
+      "accountType": 7,
+      "email": "wanda.bolte@nbdbiblion.nl",
+      "name": "Wanda Bolte",
+      "label": "NBD",
+      "expirationDate": "2208898800000",
+      "advanced": true,
+      "admin": true,
+      "suspended": false,
+      "connection": false,
+      "allowTrackLocation": false,
+      "lastModificationDate": "1730975877342",
+      "lastLoginDate": "1730978003076",
+      "fullId": "7:6DWoaXwKK9eHDxd1UOSEuvI4k292"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.account.Account",
+      "firebaseId": "Bt1NCG2vKUTCQnFs6AoBdujDW3g1",
+      "localId": "Bt1NCG2vKUTCQnFs6AoBdujDW3g1",
+      "accountType": 7,
+      "email": "rheemskerk@bibliotheekbollenstreek.nl",
+      "name": "Roxanne Heemskerk",
+      "label": "Bollenstreek",
+      "expirationDate": "1735599600000",
+      "advanced": false,
+      "admin": false,
+      "suspended": false,
+      "connection": false,
+      "allowTrackLocation": false,
+      "lastModificationDate": "1718097085975",
+      "lastLoginDate": "1725967359449",
+      "initPasswordToken": "c180265b-d12f-44c1-8b53-27f1c34f8b55",
+      "tokenExpirationDate": "1718100085975",
+      "fullId": "7:Bt1NCG2vKUTCQnFs6AoBdujDW3g1"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.account.Account",
+      "firebaseId": "ctzaiMuSqXd0agkvevl4YK5WWlg2",
+      "localId": "ctzaiMuSqXd0agkvevl4YK5WWlg2",
+      "accountType": 7,
+      "email": "k.strijker@dnk.nl",
+      "name": "K. Strijker",
+      "label": "DNK",
+      "expirationDate": "1732921200000",
+      "organisationId": "5550064722247680",
+      "advanced": false,
+      "admin": false,
+      "suspended": false,
+      "connection": false,
+      "allowTrackLocation": false,
+      "lastModificationDate": "1718184992545",
+      "lastLoginDate": "1725547435072",
+      "fullId": "7:ctzaiMuSqXd0agkvevl4YK5WWlg2"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.account.Account",
+      "firebaseId": "gnJ9eTvaIERog6ujaclMUh0vP8Q2",
+      "localId": "gnJ9eTvaIERog6ujaclMUh0vP8Q2",
+      "accountType": 7,
+      "email": "m.lammertink@bibliotheekgouda.nl",
+      "name": "Mink Lammertink",
+      "label": "Gouda;app_account",
+      "expirationDate": "1725055200000",
+      "advanced": false,
+      "admin": false,
+      "suspended": false,
+      "connection": false,
+      "allowTrackLocation": false,
+      "lastModificationDate": "1713264689094",
+      "lastLoginDate": "1724836860828",
+      "initPasswordToken": "f5c03976-18fd-4d56-9774-c58f052a00e2",
+      "tokenExpirationDate": "1713267689094",
+      "fullId": "7:gnJ9eTvaIERog6ujaclMUh0vP8Q2"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.account.Account",
+      "firebaseId": "r4O0RTD5PLdVk6nHFVb0nkBQmf62",
+      "localId": "117901638295763143899",
+      "accountType": 2,
+      "email": "t4lliutslsoazdkbt6icveswui-00@cloudtestlabaccounts.com",
+      "name": "Nuage Laboratoire",
+      "picture": "https://lh3.googleusercontent.com/a/ALm5wu0g0PPJk7Xv8Aqek3Tb6BechhMOcTsOmI3Jt3yY=s96-c",
+      "advanced": false,
+      "admin": false,
+      "suspended": false,
+      "connection": false,
+      "allowTrackLocation": false,
+      "lastModificationDate": "1668691186530",
+      "lastLoginDate": "1720379329175",
+      "fullId": "2:117901638295763143899"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.account.Account",
+      "firebaseId": "bJEBqedCzHUM2O1FZUTqbuOrE8F3",
+      "localId": "bJEBqedCzHUM2O1FZUTqbuOrE8F3",
+      "accountType": 7,
+      "email": "r.raven@dnk.nl",
+      "name": "R. Raven",
+      "label": "DNK",
+      "expirationDate": "1732921200000",
+      "organisationId": "5550064722247680",
+      "advanced": false,
+      "admin": false,
+      "suspended": false,
+      "connection": false,
+      "allowTrackLocation": false,
+      "lastModificationDate": "1718184991422",
+      "lastLoginDate": "1718354607438",
+      "fullId": "7:bJEBqedCzHUM2O1FZUTqbuOrE8F3"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.account.Account",
+      "firebaseId": "RJd92pMPbMYEahAmv6qH3EFGTgv2",
+      "localId": "RJd92pMPbMYEahAmv6qH3EFGTgv2",
+      "accountType": 7,
+      "email": "m.vandenberg@dnk.nl",
+      "name": "Marloes van den Berg",
+      "label": "DNK",
+      "expirationDate": "2206220400000",
+      "advanced": false,
+      "admin": false,
+      "suspended": false,
+      "connection": false,
+      "allowTrackLocation": false,
+      "lastModificationDate": "1707836075493",
+      "lastLoginDate": "1718002061094",
+      "fullId": "7:RJd92pMPbMYEahAmv6qH3EFGTgv2"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.account.Account",
+      "localId": "CaGcP2DRujfbn8uIIGJvgMU39XN2",
+      "accountType": 7,
+      "email": "levyhoeven@gmail.com",
+      "name": "Levy Hoeven (Gmail)",
+      "picture": "https://lh5.googleusercontent.com/-2SGfwXGHR_8/AAAAAAAAAAI/AAAAAAAAAAA/ACHi3rf-yoRyFb890S_LDJlobFI6ht2H0g/photo.jpg",
+      "advanced": false,
+      "admin": false,
+      "suspended": false,
+      "connection": false,
+      "allowTrackLocation": false,
+      "lastModificationDate": "1587728790796",
+      "lastLoginDate": "1716816223363",
+      "fullId": "7:CaGcP2DRujfbn8uIIGJvgMU39XN2"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.account.Account",
+      "firebaseId": "ecWDSSBcoMbIxp52mhM3dv404U53",
+      "localId": "ecWDSSBcoMbIxp52mhM3dv404U53",
+      "accountType": 7,
+      "email": "taalpanel@nieuweveste.nl",
+      "name": "Taalpanel Nieuwe Veste",
+      "label": "nieuwe veste",
+      "expirationDate": "1656540000000",
+      "organisationId": "5456918495625216",
+      "advanced": false,
+      "admin": false,
+      "suspended": false,
+      "connection": false,
+      "allowTrackLocation": false,
+      "lastModificationDate": "1643794854932",
+      "lastLoginDate": "1715863921247",
+      "fullId": "7:ecWDSSBcoMbIxp52mhM3dv404U53"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.account.Account",
+      "firebaseId": "Jd0hBUXeBESeiNWjSltk26r8LJb2",
+      "localId": "Jd0hBUXeBESeiNWjSltk26r8LJb2",
+      "accountType": 7,
+      "email": "s.hoogeveen@dok.info",
+      "name": "Suzanne Hoogeveen",
+      "label": "dok",
+      "expirationDate": "1767135600000",
+      "organisationId": "5171052585943040",
+      "advanced": false,
+      "admin": false,
+      "suspended": false,
+      "connection": false,
+      "allowTrackLocation": false,
+      "lastModificationDate": "1740404852246",
+      "lastLoginDate": "1715840720924",
+      "fullId": "7:Jd0hBUXeBESeiNWjSltk26r8LJb2"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.account.Account",
+      "firebaseId": "NuJJYDiigyZ7To6v5eTStmx651G3",
+      "localId": "NuJJYDiigyZ7To6v5eTStmx651G3",
+      "accountType": 7,
+      "email": "j.vanhaaften@theek5.nl",
+      "name": "John van Haaften",
+      "label": "Theek5",
+      "expirationDate": "1717106400000",
+      "organisationId": "4634356257652736",
+      "advanced": false,
+      "admin": false,
+      "suspended": false,
+      "connection": false,
+      "allowTrackLocation": false,
+      "lastModificationDate": "1740404795593",
+      "lastLoginDate": "1714043402448",
+      "initPasswordToken": "d2448d29-050d-418c-8c0e-245aa9f52a1c",
+      "tokenExpirationDate": "1675779902327",
+      "fullId": "7:NuJJYDiigyZ7To6v5eTStmx651G3"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.account.Account",
+      "firebaseId": "LmMQHfwXMFea7QNXBrOqPiPpTA42",
+      "localId": "LmMQHfwXMFea7QNXBrOqPiPpTA42",
+      "accountType": 7,
+      "email": "c.bellaard@theek5.nl",
+      "name": "Carla Bellaard",
+      "label": "Theek5",
+      "expirationDate": "1717106400000",
+      "organisationId": "4634356257652736",
+      "advanced": false,
+      "admin": false,
+      "suspended": false,
+      "connection": false,
+      "allowTrackLocation": false,
+      "lastModificationDate": "1740404794622",
+      "lastLoginDate": "1711538482475",
+      "fullId": "7:LmMQHfwXMFea7QNXBrOqPiPpTA42"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.account.Account",
+      "firebaseId": "zOYINao2B9bwjbwaeIsEpP83IiU2",
+      "localId": "zOYINao2B9bwjbwaeIsEpP83IiU2",
+      "accountType": 7,
+      "email": "a.tiddens@biblionetgroningen.nl",
+      "name": "Anneke Tiddens",
+      "label": "groningen",
+      "expirationDate": "1767135600000",
+      "organisationId": "5742520667471872",
+      "advanced": false,
+      "admin": false,
+      "suspended": false,
+      "connection": false,
+      "allowTrackLocation": false,
+      "lastModificationDate": "1740404675494",
+      "lastLoginDate": "1706101612581",
+      "fullId": "7:zOYINao2B9bwjbwaeIsEpP83IiU2"
+    }
+  ],
+  "resumptionToken": "CmsKGAoNbGFzdExvZ2luRGF0ZRIHCKXA0tzTMRJLahllfnNlcmlvdXMtZ2FtaW5nLXBsYXRmb3Jtci4LEgpBY2NvdW50SkRPIh43OnpPWUlOYW8yQjlid2pid2FlSXNFcFA4M0lpVTIMGAAgAQ"
+}</pre>
+            </div>
+            <button class="collapsible">CURL Example</button>
+            <div class="content">
+                <pre>curl -X GET "https://serious-gaming-platform.appspot.com/api/usermgt/recent" \
+     -H "Authorization: Bearer YOUR_TOKEN" \
+     -H "Content-Type: application/json"</pre>
+            </div>
+        </div>
+        <div class="endpoint">
+            <h3 class="endpoint-title">
+                <span class="method get">GET</span>
+                /runs/4798334378180608/list
+            </h3>
+            <p>Haal alle runs op voor game 4798334378180608</p>
+
+            <p>Status: <span class="status success">Success (200)</span></p>
+            <button class="collapsible">Example Response (Click to expand)</button>
+            <div class="content">
+                <pre>{
+  "items": [
+    {
+      "type": "org.celstec.arlearn2.beans.run.Run",
+      "runId": "4549554202476544",
+      "deleted": false,
+      "gameId": "4798334378180608",
+      "title": "demo",
+      "startTime": "0",
+      "serverCreationTime": "1743423350638",
+      "lastModificationDate": "1743423350639"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.run.Run",
+      "runId": "4567045557452800",
+      "deleted": false,
+      "gameId": "4798334378180608",
+      "title": "demo",
+      "startTime": "0",
+      "serverCreationTime": "1743423479031",
+      "lastModificationDate": "1743423479033"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.run.Run",
+      "runId": "5400514294448128",
+      "deleted": false,
+      "gameId": "4798334378180608",
+      "title": "TEST",
+      "startTime": "1743154768652",
+      "serverCreationTime": "1743154768652",
+      "lastModificationDate": "1743154768655"
+    },
+    {
+      "type": "org.celstec.arlearn2.beans.run.Run",
+      "runId": "5858844817227776",
+      "deleted": false,
+      "gameId": "4798334378180608",
+      "title": "demo",
+      "startTime": "0",
+      "serverCreationTime": "1743154810253",
+      "lastModificationDate": "1743154810255"
+    }
+  ]
+}</pre>
+            </div>
+            <button class="collapsible">CURL Example</button>
+            <div class="content">
+                <pre>curl -X GET "https://serious-gaming-platform.appspot.com/api/runs/4798334378180608/list" \
+     -H "Authorization: Bearer YOUR_TOKEN" \
+     -H "Content-Type: application/json"</pre>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Script voor uitklapbare secties
+        var coll = document.getElementsByClassName("collapsible");
+        for (var i = 0; i < coll.length; i++) {
+            coll[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var content = this.nextElementSibling;
+                if (content.style.display === "block") {
+                    content.style.display = "none";
+                } else {
+                    content.style.display = "block";
+                }
+            });
+        }
+    </script>
+</body>
+</html>

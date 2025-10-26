@@ -1,0 +1,9739 @@
+{
+ "swagger": "2.0",
+ "info": {
+  "version": "1.0.0",
+  "title": "serious-gaming-platform.appspot.com"
+ },
+ "host": "serious-gaming-platform.appspot.com",
+ "basePath": "/api",
+ "schemes": [
+  "https"
+ ],
+ "consumes": [
+  "application/json"
+ ],
+ "produces": [
+  "application/json"
+ ],
+ "paths": {
+  "/account/accountDetails": {
+   "get": {
+    "operationId": "AccountGetUserEmail",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/EnhancedUser"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/Account"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/account/create": {
+   "post": {
+    "operationId": "AccountCreateAccount",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/Account"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/Account"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/account/deleteMe": {
+   "get": {
+    "operationId": "AccountDeleteMe",
+    "parameters": [ ],
+    "responses": {
+     "200": {
+      "description": "A successful response"
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/account/eraseAnonAccount": {
+   "delete": {
+    "operationId": "AccountEraseAnonAccount",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/EnhancedUser"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/Account"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/account/myContacts/list/{since}": {
+   "get": {
+    "operationId": "PlayerMyAccountsSince",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/EnhancedUser"
+      }
+     },
+     {
+      "name": "since",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     },
+     {
+      "name": "resumptionToken",
+      "in": "query",
+      "required": false,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/AccountList"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/account/organisation/{organisationId}/list": {
+   "get": {
+    "operationId": "AccountListOrganisation",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/EnhancedUser"
+      }
+     },
+     {
+      "name": "organisationId",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/AccountList"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/account/remove/old": {
+   "delete": {
+    "operationId": "AccountRemoveOldAccounts",
+    "parameters": [ ],
+    "responses": {
+     "200": {
+      "description": "A successful response"
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/account/resetIndex": {
+   "post": {
+    "operationId": "AccountResetAccountIndex",
+    "parameters": [ ],
+    "responses": {
+     "200": {
+      "description": "A successful response"
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/account/resetPwToken/{token}": {
+   "get": {
+    "operationId": "AccountGetAccountViaResetToken",
+    "parameters": [
+     {
+      "name": "token",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/Account"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/account/resetpw/{email}": {
+   "post": {
+    "operationId": "AccountResetPw",
+    "parameters": [
+     {
+      "name": "email",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response"
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/account/setPw/{token}": {
+   "post": {
+    "operationId": "AccountSetNewPw",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/Password"
+      }
+     },
+     {
+      "name": "token",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/Account"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/account/suspend/{fullId}": {
+   "post": {
+    "operationId": "AccountSuspendAccount",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/EnhancedUser"
+      }
+     },
+     {
+      "name": "fullId",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/Account"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/account/unsuspend/{fullId}": {
+   "post": {
+    "operationId": "AccountUnSuspendAccount",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/EnhancedUser"
+      }
+     },
+     {
+      "name": "fullId",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/Account"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/account/update": {
+   "post": {
+    "operationId": "AccountUpdateAccount",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/Account"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/Account"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/account/update/displayName/asUser": {
+   "post": {
+    "operationId": "AccountUpdateDisplayName",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/Account"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/Account"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/account/updateOnce": {
+   "get": {
+    "operationId": "AccountUpdateOnce",
+    "parameters": [ ],
+    "responses": {
+     "200": {
+      "description": "A successful response"
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/account/{fullId}": {
+   "get": {
+    "operationId": "AccountGetFullAccount",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/EnhancedUser"
+      }
+     },
+     {
+      "name": "fullId",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/Account"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   },
+   "delete": {
+    "operationId": "AccountDeleteAccount",
+    "parameters": [
+     {
+      "name": "fullId",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/Account"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/account/{fullId}/admin/{value}": {
+   "post": {
+    "operationId": "AccountMakeAdmin",
+    "parameters": [
+     {
+      "name": "fullId",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     },
+     {
+      "name": "value",
+      "in": "path",
+      "required": true,
+      "type": "boolean"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/Account"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/account/{fullId}/advanced/{value}": {
+   "post": {
+    "operationId": "AccountSetAdvanced",
+    "parameters": [
+     {
+      "name": "fullId",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     },
+     {
+      "name": "value",
+      "in": "path",
+      "required": true,
+      "type": "boolean"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/Account"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/account/{fullId}/canAddUsers/{value}": {
+   "post": {
+    "operationId": "AccountCanAddUsers",
+    "parameters": [
+     {
+      "name": "fullId",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     },
+     {
+      "name": "value",
+      "in": "path",
+      "required": true,
+      "type": "boolean"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/Account"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/account/{fullId}/canPublishGames/{value}": {
+   "post": {
+    "operationId": "AccountCanPublishGames",
+    "parameters": [
+     {
+      "name": "fullId",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     },
+     {
+      "name": "value",
+      "in": "path",
+      "required": true,
+      "type": "boolean"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/Account"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/account/{fullId}/expiration/{dateAsEpoch}": {
+   "post": {
+    "operationId": "AccountSetExpirationDate",
+    "parameters": [
+     {
+      "name": "fullId",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     },
+     {
+      "name": "dateAsEpoch",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response"
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/account/{fullId}/organisation/{organisationId}": {
+   "post": {
+    "operationId": "AccountSetOrganisationId",
+    "parameters": [
+     {
+      "name": "fullId",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     },
+     {
+      "name": "organisationId",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/Account"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/accounts/{fullIds}": {
+   "get": {
+    "operationId": "AccountGetFullIdAccounts",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/EnhancedUser"
+      }
+     },
+     {
+      "name": "fullIds",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/AccountList"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/action/create": {
+   "post": {
+    "operationId": "ActionCreateAction",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/Action"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/Action"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/actions/run/{runId}/from/{from}/{cursor}": {
+   "get": {
+    "operationId": "ActionGetActionList",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/EnhancedUser"
+      }
+     },
+     {
+      "name": "runId",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     },
+     {
+      "name": "from",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     },
+     {
+      "name": "cursor",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/ActionList"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/admin/account/{fullId}": {
+   "get": {
+    "operationId": "AccountGetFullAccountAsAdmin",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/EnhancedUser"
+      }
+     },
+     {
+      "name": "fullId",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/Account"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/deleteImage/featuredGames/backgrounds/{gameId}": {
+   "delete": {
+    "operationId": "GamesDeleteFeaturedGameFile",
+    "parameters": [
+     {
+      "name": "gameId",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response"
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/deleteImage/featuredGames/screenshots/{gameId}/{shot}": {
+   "delete": {
+    "operationId": "GamesDeleteFeaturedGameScreenshot",
+    "parameters": [
+     {
+      "name": "gameId",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     },
+     {
+      "name": "shot",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response"
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/game/access/cleanup": {
+   "get": {
+    "operationId": "RunsGameAccessCleanup",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/EnhancedUser"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response"
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/game/access/cleanup/{gameId}": {
+   "get": {
+    "operationId": "RunsGameAccessCleanupGameId",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/EnhancedUser"
+      }
+     },
+     {
+      "name": "gameId",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response"
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/game/access/revoke/{gameId}/{fullId}": {
+   "delete": {
+    "operationId": "GamesRevokeGameAccess",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/EnhancedUser"
+      }
+     },
+     {
+      "name": "gameId",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     },
+     {
+      "name": "fullId",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/GameAccess"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/game/access/user/{since}": {
+   "get": {
+    "operationId": "GamesGetGameAccessUser",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/EnhancedUser"
+      }
+     },
+     {
+      "name": "since",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     },
+     {
+      "name": "resumptionToken",
+      "in": "query",
+      "required": false,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/GameAccessList"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/game/access/{gameId}": {
+   "get": {
+    "operationId": "GamesGetGameAccess",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/EnhancedUser"
+      }
+     },
+     {
+      "name": "gameId",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/GameAccessList"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/game/access/{gameId}/{fullId}/{rights}": {
+   "post": {
+    "operationId": "GamesGiveGameAccess",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/EnhancedUser"
+      }
+     },
+     {
+      "name": "gameId",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     },
+     {
+      "name": "fullId",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     },
+     {
+      "name": "rights",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int32"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/GameAccess"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/game/clone/{gameId}": {
+   "get": {
+    "operationId": "GamesCloneGame",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/EnhancedUser"
+      }
+     },
+     {
+      "name": "gameId",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/Game"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/game/create": {
+   "post": {
+    "operationId": "GamesCreateGame",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/Game"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/Game"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/game/create/demo": {
+   "post": {
+    "operationId": "GamesCreateGameDemo",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/Game"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/Game"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/game/create_wrapper": {
+   "post": {
+    "operationId": "GamesCreateGameWrapper",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/DependencyWrapper"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/Game"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/game/endstate/{gameId}": {
+   "post": {
+    "operationId": "GamesUpdateEndState",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/DependencyWrapper"
+      }
+     },
+     {
+      "name": "gameId",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/Game"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/game/list": {
+   "get": {
+    "operationId": "GamesMyGames",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/EnhancedUser"
+      }
+     },
+     {
+      "name": "resumptionToken",
+      "in": "query",
+      "required": false,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/GamesList"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/game/list/{since}": {
+   "get": {
+    "operationId": "GamesMyGamesSince",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/EnhancedUser"
+      }
+     },
+     {
+      "name": "since",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     },
+     {
+      "name": "resumptionToken",
+      "in": "query",
+      "required": false,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/GamesList"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/game/participate/list/{since}": {
+   "get": {
+    "operationId": "GamesGetGamesParticipateSince",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/EnhancedUser"
+      }
+     },
+     {
+      "name": "since",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     },
+     {
+      "name": "resumptionToken",
+      "in": "query",
+      "required": false,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/GamesList"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/game/theme/create": {
+   "post": {
+    "operationId": "GameThemesCreateTheme",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/GameTheme"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/GameTheme"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/game/theme/list/custom": {
+   "get": {
+    "operationId": "GameThemesGetMyGameThemes",
+    "parameters": [ ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/CollectionResponse_GameTheme"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/game/theme/list/global": {
+   "get": {
+    "operationId": "GameThemesGetGameThemes",
+    "parameters": [ ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/CollectionResponse_GameTheme"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/game/theme/list/{since}": {
+   "get": {
+    "operationId": "GameThemesGetGameThemesSince",
+    "parameters": [
+     {
+      "name": "since",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     },
+     {
+      "name": "resumptionToken",
+      "in": "query",
+      "required": false,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/GameThemesList"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/game/theme/listMy/{since}": {
+   "get": {
+    "operationId": "GameThemesGetMyGameThemesSince",
+    "parameters": [
+     {
+      "name": "since",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     },
+     {
+      "name": "resumptionToken",
+      "in": "query",
+      "required": false,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/GameThemesList"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/game/theme/updateOnce": {
+   "get": {
+    "operationId": "GameThemesUpdateOnce",
+    "parameters": [ ],
+    "responses": {
+     "200": {
+      "description": "A successful response"
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/game/theme/{identifier}": {
+   "get": {
+    "operationId": "GameThemesGetGameTheme",
+    "parameters": [
+     {
+      "name": "identifier",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/GameTheme"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   },
+   "delete": {
+    "operationId": "GameThemesDeleteGameTheme",
+    "parameters": [
+     {
+      "name": "identifier",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/GameTheme"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/game/{gameId}": {
+   "get": {
+    "operationId": "GamesGetGame",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/EnhancedUser"
+      }
+     },
+     {
+      "name": "gameId",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/Game"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   },
+   "delete": {
+    "operationId": "GamesDeleteGame",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/EnhancedUser"
+      }
+     },
+     {
+      "name": "gameId",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/Game"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/game/{gameId}/grid/show/{show}": {
+   "post": {
+    "operationId": "GamesUpdateShowGrid",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/DependencyWrapper"
+      }
+     },
+     {
+      "name": "gameId",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     },
+     {
+      "name": "show",
+      "in": "path",
+      "required": true,
+      "type": "boolean"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/Game"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/game/{gameId}/grid/size/{size}": {
+   "post": {
+    "operationId": "GamesUpdateGridSize",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/DependencyWrapper"
+      }
+     },
+     {
+      "name": "gameId",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     },
+     {
+      "name": "size",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int32"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/Game"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/game/{gameId}/unauth": {
+   "get": {
+    "operationId": "GamesGetGameUnauth",
+    "parameters": [
+     {
+      "name": "gameId",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/Game"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/game/{gameId}/update": {
+   "put": {
+    "operationId": "GamesUpdateGame",
+    "parameters": [
+     {
+      "name": "gameId",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     },
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/Game"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/Game"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/games/featured/create/{lang}/{gameId}/{rank}": {
+   "post": {
+    "operationId": "StoreCreateFeatured",
+    "parameters": [
+     {
+      "name": "lang",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     },
+     {
+      "name": "gameId",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     },
+     {
+      "name": "rank",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int32"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/Game"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/games/featured/delete/{lang}/{gameId}": {
+   "delete": {
+    "operationId": "StoreDeleteFeatured",
+    "parameters": [
+     {
+      "name": "lang",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     },
+     {
+      "name": "gameId",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response"
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/games/featured/gameId/{gameId}": {
+   "get": {
+    "operationId": "FeaturedGamesGetFeaturedGames",
+    "parameters": [
+     {
+      "name": "gameId",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/GamesList"
+      }
+     }
+    }
+   }
+  },
+  "/games/featured/image/gameId/{gameId}": {
+   "delete": {
+    "operationId": "StoreDeleteFeaturedGameImage",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/EnhancedUser"
+      }
+     },
+     {
+      "name": "gameId",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response"
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/games/featured/{lang}": {
+   "get": {
+    "operationId": "FeaturedGamesGetFeatured",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/EnhancedUser"
+      }
+     },
+     {
+      "name": "lang",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/GamesList"
+      }
+     }
+    }
+   }
+  },
+  "/games/library/categories/game/{gameId}/{lang}": {
+   "get": {
+    "operationId": "StoreGetCategoriesForGame",
+    "parameters": [
+     {
+      "name": "lang",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     },
+     {
+      "name": "gameId",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/CategoryList"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/games/library/categoriesMappings/game/{gameId}": {
+   "get": {
+    "operationId": "StoreGetCategoriesMappingsForGame",
+    "parameters": [
+     {
+      "name": "gameId",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/GameCategoryList"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/games/library/categoriesMappings/game/{id}": {
+   "delete": {
+    "operationId": "StoreDeleteCategoriesMappingsForGame",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/GameCategory"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/games/library/category": {
+   "post": {
+    "operationId": "StoreCreateCategory",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/Category"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/Category"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/games/library/category/games/{categoryId}": {
+   "get": {
+    "operationId": "StoreGetGamesForCategory",
+    "parameters": [
+     {
+      "name": "categoryId",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/GameCategoryList"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/games/library/category/{gameId}/{categoryId}": {
+   "post": {
+    "operationId": "StoreLinkGame",
+    "parameters": [
+     {
+      "name": "gameId",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     },
+     {
+      "name": "categoryId",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/GameCategory"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/games/library/category/{lang}": {
+   "get": {
+    "operationId": "StoreGetLibraryCategories",
+    "parameters": [
+     {
+      "name": "lang",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/CategoryList"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/games/library/game/{gameId}": {
+   "get": {
+    "operationId": "StoreGetLibraryGame",
+    "parameters": [
+     {
+      "name": "gameId",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/Game"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/games/library/organisation/games/{organisationId}": {
+   "get": {
+    "operationId": "StoreGetGamesForOrganisation",
+    "parameters": [
+     {
+      "name": "organisationId",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/GameOrganisationList"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/games/library/organisation/{gameId}/{organisationId}": {
+   "post": {
+    "operationId": "StoreLinkGameToOrg",
+    "parameters": [
+     {
+      "name": "gameId",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     },
+     {
+      "name": "organisationId",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/GameOrganisation"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/games/library/organisationsMappings/game/{gameId}": {
+   "get": {
+    "operationId": "StoreGetOrganisationsMappingsForGame",
+    "parameters": [
+     {
+      "name": "gameId",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/GameOrganisationList"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/games/library/organisationsMappings/game/{id}": {
+   "delete": {
+    "operationId": "StoreDeleteOrganisationsMappingsForGame",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/GameOrganisation"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/games/library/recent": {
+   "get": {
+    "operationId": "StoreRecent",
+    "parameters": [
+     {
+      "name": "resumptionToken",
+      "in": "query",
+      "required": false,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/GamesList"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/games/library/search/{query}": {
+   "get": {
+    "operationId": "StoreSearchUsers",
+    "parameters": [
+     {
+      "name": "query",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/GamesList"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/games/participate": {
+   "get": {
+    "operationId": "GamesGetUserEmail",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/EnhancedUser"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/GamesList"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/games/participateIds": {
+   "get": {
+    "operationId": "GamesParticipateIds",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/EnhancedUser"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/CollectionResponse_Long"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/games/participateWithCursor/{cursor}": {
+   "get": {
+    "operationId": "GamesGetGamesParticipate",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/EnhancedUser"
+      }
+     },
+     {
+      "name": "cursor",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/GameIdentifierList"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/generalItems/createAudioObject": {
+   "post": {
+    "operationId": "GeneralItemsCreateAudioObject",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/AudioObject"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/GeneralItem"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/generalItems/createMultipleChoice": {
+   "post": {
+    "operationId": "GeneralItemsCreateMultipleChoice",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/MultipleChoiceTest"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/GeneralItem"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/generalItems/createMultipleChoiceImage": {
+   "post": {
+    "operationId": "GeneralItemsCreateMultipleChoiceImage",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/MultipleChoiceImageTest"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/GeneralItem"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/generalItems/createNarrator": {
+   "post": {
+    "operationId": "GeneralItemsCreateNarrator",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/NarratorItem"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/GeneralItem"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/generalItems/createScanTag": {
+   "post": {
+    "operationId": "GeneralItemsCreateScanTag",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/ScanTag"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/GeneralItem"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/generalItems/createSingleChoice": {
+   "post": {
+    "operationId": "GeneralItemsCreateSingleChoice",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/SingleChoiceTest"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/GeneralItem"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/generalItems/createSingleChoiceImage": {
+   "post": {
+    "operationId": "GeneralItemsCreateSingleChoiceImage",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/SingleChoiceImageTest"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/GeneralItem"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/generalItems/createVideoObject": {
+   "post": {
+    "operationId": "GeneralItemsCreateVideoObject",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/VideoObject"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/GeneralItem"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/generalItems/gameId/{gameId}": {
+   "get": {
+    "operationId": "GeneralItemsGetItems",
+    "parameters": [
+     {
+      "name": "gameId",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/GeneralItemList"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/generalItems/gameId/{gameId}/cursor/{cursor}": {
+   "get": {
+    "operationId": "GeneralItemsGetItemsWithCursor",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/EnhancedUser"
+      }
+     },
+     {
+      "name": "gameId",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     },
+     {
+      "name": "cursor",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/GeneralItemList"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/generalItems/gameId/{gameId}/itemId/{itemId}": {
+   "delete": {
+    "operationId": "GeneralItemsDelete",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/EnhancedUser"
+      }
+     },
+     {
+      "name": "gameId",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     },
+     {
+      "name": "itemId",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/GeneralItem"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/generalItems/itemId/{itemId}": {
+   "get": {
+    "operationId": "GeneralItemsGetMessage",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/EnhancedUser"
+      }
+     },
+     {
+      "name": "itemId",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/GeneralItem"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/generalItems/visible/runId/{runId}": {
+   "get": {
+    "operationId": "GeneralItemsGetVisibilityStatements",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/EnhancedUser"
+      }
+     },
+     {
+      "name": "runId",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/GeneralItemVisibilityList"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/generalItems/wrapperpost": {
+   "post": {
+    "operationId": "GeneralItemsWrapperPost",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/DependencyWrapper"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/GeneralItem"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/media": {
+   "post": {
+    "operationId": "GamesCreateMediaLibraryFile",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/MediaLibraryFile"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/MediaLibraryFile"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/media/list": {
+   "get": {
+    "operationId": "GamesListFiles",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/EnhancedUser"
+      }
+     },
+     {
+      "name": "path",
+      "in": "query",
+      "required": true,
+      "type": "string"
+     },
+     {
+      "name": "cursor",
+      "in": "query",
+      "required": false,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/CollectionResponse_MediaLibraryFile"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/media/search/{query}": {
+   "get": {
+    "operationId": "GamesSearchMedia",
+    "parameters": [
+     {
+      "name": "query",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/CollectionResponse_MediaLibraryFile"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/media/{assetId}": {
+   "delete": {
+    "operationId": "GamesDeleteMediaLibraryFile",
+    "parameters": [
+     {
+      "name": "assetId",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response"
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/organization/create": {
+   "post": {
+    "operationId": "OrganizationCreateOrganisation",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/Organization"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/Organization"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/organization/list": {
+   "get": {
+    "operationId": "OrganizationGetUserEmail",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/EnhancedUser"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/CollectionResponse_Organization"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/organization/{id}": {
+   "get": {
+    "operationId": "OrganizationGetOrganisation",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/Organization"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   },
+   "delete": {
+    "operationId": "OrganizationDeleteOrganisation",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/Organization"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/organization/{id}/games": {
+   "get": {
+    "operationId": "OrganizationGetOrganisationGames",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/GamesList"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/organization/{organisationId}/exp/{expirationDate}": {
+   "post": {
+    "operationId": "OrganizationUpdateOrganisationExpiration",
+    "parameters": [
+     {
+      "name": "organisationId",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     },
+     {
+      "name": "expirationDate",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/Organization"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/player/add": {
+   "post": {
+    "operationId": "PlayerAddContacts",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/ConnectionInvitation"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response"
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/player/confirmInvitation/{invitationId}": {
+   "get": {
+    "operationId": "PlayerConfirmInvitation",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/EnhancedUser"
+      }
+     },
+     {
+      "name": "invitationId",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response"
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/player/contact/{userFullId}": {
+   "get": {
+    "operationId": "PlayerGetOneContact",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/EnhancedUser"
+      }
+     },
+     {
+      "name": "userFullId",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/Account"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/player/delete/{accountType}/{localId}": {
+   "delete": {
+    "operationId": "PlayerDeleteContacts",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/EnhancedUser"
+      }
+     },
+     {
+      "name": "accountType",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int32"
+     },
+     {
+      "name": "localId",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response"
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/player/invitation/{invitationId}": {
+   "get": {
+    "operationId": "PlayerGetAccountForInvitation",
+    "parameters": [
+     {
+      "name": "invitationId",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/Account"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/player/invitationsToMe": {
+   "get": {
+    "operationId": "PlayerGetPendingInvitationsToMe",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/EnhancedUser"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/AccountList"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/player/myContacts": {
+   "get": {
+    "operationId": "PlayerGetMyContacts",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/EnhancedUser"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/AccountList"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/player/myContacts/cursor/{cursor}": {
+   "get": {
+    "operationId": "PlayerGetMyContactsCursor",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/EnhancedUser"
+      }
+     },
+     {
+      "name": "cursor",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/AccountList"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/player/myContacts/{cursor}/{time}": {
+   "get": {
+    "operationId": "PlayerGetContactsWithCursor",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/EnhancedUser"
+      }
+     },
+     {
+      "name": "time",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     },
+     {
+      "name": "cursor",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/AccountList"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/player/myContacts/{tillTime}": {
+   "get": {
+    "operationId": "PlayerGetContacts",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/EnhancedUser"
+      }
+     },
+     {
+      "name": "tillTime",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/AccountList"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/player/pending/{identifier}": {
+   "delete": {
+    "operationId": "PlayerRemovePending",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/EnhancedUser"
+      }
+     },
+     {
+      "name": "identifier",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response"
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/player/pendingInvitations": {
+   "get": {
+    "operationId": "PlayerGetPending",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/EnhancedUser"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/AccountList"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/player/reinvite/{invitationId}": {
+   "get": {
+    "operationId": "PlayerResendInvitation",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/EnhancedUser"
+      }
+     },
+     {
+      "name": "invitationId",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response"
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/player/remove/{accountType}/{localId}": {
+   "get": {
+    "operationId": "PlayerRemoveContacts",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/EnhancedUser"
+      }
+     },
+     {
+      "name": "accountType",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int32"
+     },
+     {
+      "name": "localId",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response"
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/run/access/game/{gameId}/list": {
+   "get": {
+    "operationId": "RunsGetRunAccessListGame",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/EnhancedUser"
+      }
+     },
+     {
+      "name": "gameId",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/RunAccessList"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/run/access/revoke/{runId}/{fullId}": {
+   "delete": {
+    "operationId": "RunsRevokeRunAccess",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/EnhancedUser"
+      }
+     },
+     {
+      "name": "runId",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     },
+     {
+      "name": "fullId",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response"
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/run/access/user/cleanup": {
+   "get": {
+    "operationId": "RunsRunAccessCleanup",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/EnhancedUser"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response"
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/run/access/user/cleanup/{gameId}": {
+   "get": {
+    "operationId": "RunsRunAccessCleanupGameId",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/EnhancedUser"
+      }
+     },
+     {
+      "name": "gameId",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response"
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/run/access/user/{since}": {
+   "get": {
+    "operationId": "RunsGetRunAccessUser",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/EnhancedUser"
+      }
+     },
+     {
+      "name": "since",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     },
+     {
+      "name": "resumptionToken",
+      "in": "query",
+      "required": false,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/RunAccessList"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/run/access/{runId}/list": {
+   "get": {
+    "operationId": "RunsGetRunAccessList",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/EnhancedUser"
+      }
+     },
+     {
+      "name": "runId",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/RunAccessList"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/run/access/{runId}/{fullId}/{rights}": {
+   "post": {
+    "operationId": "RunsGiveRunAccess",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/EnhancedUser"
+      }
+     },
+     {
+      "name": "runId",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     },
+     {
+      "name": "fullId",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     },
+     {
+      "name": "rights",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int32"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/RunAccess"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/run/create": {
+   "post": {
+    "operationId": "RunsCreateRun",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/Run"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/Run"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/run/create/withSelf": {
+   "post": {
+    "operationId": "RunsCreateRunWithSelf",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/Run"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/Run"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/run/delete/{runId}": {
+   "delete": {
+    "operationId": "RunsDeleteRun",
+    "parameters": [
+     {
+      "name": "runId",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/Run"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/run/game/{gameId}": {
+   "get": {
+    "operationId": "RunsGetGame",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/EnhancedUser"
+      }
+     },
+     {
+      "name": "gameId",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/Game"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/run/game/{gameId}/users/{since}": {
+   "get": {
+    "operationId": "RunUserGetRunGameUsersSince",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/EnhancedUser"
+      }
+     },
+     {
+      "name": "gameId",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     },
+     {
+      "name": "since",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     },
+     {
+      "name": "resumptionToken",
+      "in": "query",
+      "required": false,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/UserList"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/run/player/cleanup": {
+   "get": {
+    "operationId": "RunsRunPlayerCleanup",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/EnhancedUser"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response"
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/run/player/cleanup/{gameId}": {
+   "get": {
+    "operationId": "RunsRunPlayerCleanupGameId",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/EnhancedUser"
+      }
+     },
+     {
+      "name": "gameId",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response"
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/run/response": {
+   "post": {
+    "operationId": "RunResponsesCreateRunResponse",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/Response"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/Response"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/run/response/runId/{runId}/from/{from}/until/{until}/cursor/{cursor}": {
+   "get": {
+    "operationId": "RunResponsesGetAllResponses",
+    "parameters": [
+     {
+      "name": "runId",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     },
+     {
+      "name": "from",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     },
+     {
+      "name": "until",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     },
+     {
+      "name": "cursor",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/ResponseList"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/run/response/runId/{runId}/from/{from}/until/{until}/cursor/{cursor}/me": {
+   "get": {
+    "operationId": "RunResponsesGetAllResponsesMe",
+    "parameters": [
+     {
+      "name": "runId",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     },
+     {
+      "name": "from",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     },
+     {
+      "name": "until",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     },
+     {
+      "name": "cursor",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/ResponseList"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/run/response/runId/{runId}/item/{itemId}/from/{from}/until/{until}/cursor/{cursor}": {
+   "get": {
+    "operationId": "RunResponsesGetAllResponsesForItem",
+    "parameters": [
+     {
+      "name": "runId",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     },
+     {
+      "name": "itemId",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     },
+     {
+      "name": "from",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     },
+     {
+      "name": "until",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     },
+     {
+      "name": "cursor",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/ResponseList"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/run/response/runId/{runId}/item/{itemId}/me": {
+   "get": {
+    "operationId": "RunResponsesGetMyResponsesForRun",
+    "parameters": [
+     {
+      "name": "runId",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     },
+     {
+      "name": "itemId",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/ResponseList"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/run/response/runId/{runId}/item/{itemId}/{cursor}/all": {
+   "get": {
+    "operationId": "RunResponsesGetResponsesForRun",
+    "parameters": [
+     {
+      "name": "runId",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     },
+     {
+      "name": "itemId",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     },
+     {
+      "name": "cursor",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/ResponseList"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/run/response/{reponseId}": {
+   "delete": {
+    "operationId": "RunResponsesDeleteRunResponse",
+    "parameters": [
+     {
+      "name": "reponseId",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/Response"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/run/user/list/{since}": {
+   "get": {
+    "operationId": "RunUserGetRunUsersSince",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/EnhancedUser"
+      }
+     },
+     {
+      "name": "since",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     },
+     {
+      "name": "resumptionToken",
+      "in": "query",
+      "required": false,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/UserList"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/run/users": {
+   "get": {
+    "operationId": "RunUserGetUserEmail",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/EnhancedUser"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/UserList"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/run/{runId}": {
+   "get": {
+    "operationId": "RunsGetRun",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/EnhancedUser"
+      }
+     },
+     {
+      "name": "runId",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/Run"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/run/{runId}/addMe": {
+   "get": {
+    "operationId": "RunsAddMe",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/EnhancedUser"
+      }
+     },
+     {
+      "name": "runId",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/Run"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/run/{runId}/addUser/{fullId}": {
+   "get": {
+    "operationId": "RunsAddUserToRun",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/EnhancedUser"
+      }
+     },
+     {
+      "name": "runId",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     },
+     {
+      "name": "fullId",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/User"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/run/{runId}/unauth": {
+   "get": {
+    "operationId": "RunsGetRunUnAuth",
+    "parameters": [
+     {
+      "name": "runId",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/Run"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/run/{runId}/user/{fullId}": {
+   "delete": {
+    "operationId": "RunUserDeleteUser",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/EnhancedUser"
+      }
+     },
+     {
+      "name": "runId",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     },
+     {
+      "name": "fullId",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response"
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/run/{runId}/users": {
+   "get": {
+    "operationId": "RunUserUserForRunId",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/EnhancedUser"
+      }
+     },
+     {
+      "name": "runId",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/UserList"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/runs/participate/ignoreDeleted/{gameId}": {
+   "get": {
+    "operationId": "RunsGetUserEmailIgnoreDeleted",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/EnhancedUser"
+      }
+     },
+     {
+      "name": "gameId",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/RunList"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/runs/participate/{gameId}": {
+   "get": {
+    "operationId": "RunsGetUserEmail",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/EnhancedUser"
+      }
+     },
+     {
+      "name": "gameId",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/RunList"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/runs/player/me/{runId}": {
+   "delete": {
+    "operationId": "RunUserDeleteMe",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/EnhancedUser"
+      }
+     },
+     {
+      "name": "runId",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response"
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/runs/{gameId}/list": {
+   "get": {
+    "operationId": "RunsGetRuns",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/EnhancedUser"
+      }
+     },
+     {
+      "name": "gameId",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/CollectionResponse_Run"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/runs/{gameId}/myList": {
+   "get": {
+    "operationId": "RunsGetMyRuns",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/EnhancedUser"
+      }
+     },
+     {
+      "name": "gameId",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int64"
+     },
+     {
+      "name": "resumptionToken",
+      "in": "query",
+      "required": false,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/RunList"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/store/v1/games/featured/lang/{lang}": {
+   "get": {
+    "operationId": "StoreFeatured_games",
+    "parameters": [
+     {
+      "name": "lang",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/GamesList"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/usermgt/accounts/{query}": {
+   "get": {
+    "operationId": "AccountSearchUsers",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/EnhancedUser"
+      }
+     },
+     {
+      "name": "query",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/AccountList"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/usermgt/recent": {
+   "get": {
+    "operationId": "AccountGetRecentAccounts",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/EnhancedUser"
+      }
+     },
+     {
+      "name": "resumptionToken",
+      "in": "query",
+      "required": false,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/AccountList"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "serious-gaming-platform"
+       ]
+      }
+     }
+    ]
+   }
+  }
+ },
+ "securityDefinitions": {
+  "firebase": {
+   "type": "oauth2",
+   "authorizationUrl": "",
+   "flow": "implicit",
+   "x-google-issuer": "https://securetoken.google.com/serious-gaming-platform",
+   "x-google-jwks_uri": "https://www.googleapis.com/robot/v1/metadata/x509/securetoken@system.gserviceaccount.com"
+  }
+ },
+ "definitions": {
+  "Account": {
+   "properties": {
+    "accountLevel": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "accountType": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "admin": {
+     "type": "boolean"
+    },
+    "advanced": {
+     "type": "boolean"
+    },
+    "allowTrackLocation": {
+     "type": "boolean"
+    },
+    "canAddUsersToOrganisation": {
+     "type": "boolean"
+    },
+    "canPublishGames": {
+     "type": "boolean"
+    },
+    "claims": {
+     "type": "string"
+    },
+    "claimsFromMap": {
+     "$ref": "#/definitions/JsonMap"
+    },
+    "connection": {
+     "type": "boolean"
+    },
+    "email": {
+     "type": "string"
+    },
+    "error": {
+     "type": "string"
+    },
+    "errorCode": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "expirationDate": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "familyName": {
+     "type": "string"
+    },
+    "firebaseId": {
+     "type": "string"
+    },
+    "fullId": {
+     "type": "string"
+    },
+    "fullid": {
+     "type": "string"
+    },
+    "givenName": {
+     "type": "string"
+    },
+    "initPasswordToken": {
+     "type": "string"
+    },
+    "label": {
+     "type": "string"
+    },
+    "lastLoginDate": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "lastModificationDate": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "localId": {
+     "type": "string"
+    },
+    "name": {
+     "type": "string"
+    },
+    "organisationId": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "password": {
+     "type": "string"
+    },
+    "picture": {
+     "type": "string"
+    },
+    "suspended": {
+     "type": "boolean"
+    },
+    "timestamp": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "tokenExpirationDate": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "type": {
+     "type": "string"
+    }
+   }
+  },
+  "GameOrganisationList": {
+   "properties": {
+    "error": {
+     "type": "string"
+    },
+    "errorCode": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "gameOrganisationList": {
+     "type": "array",
+     "items": {
+      "$ref": "#/definitions/GameOrganisation"
+     }
+    },
+    "timestamp": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "type": {
+     "type": "string"
+    }
+   }
+  },
+  "GameCategoryList": {
+   "properties": {
+    "error": {
+     "type": "string"
+    },
+    "errorCode": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "gameCategoryList": {
+     "type": "array",
+     "items": {
+      "$ref": "#/definitions/GameCategory"
+     }
+    },
+    "timestamp": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "type": {
+     "type": "string"
+    }
+   }
+  },
+  "LocationUpdateConfig": {
+   "properties": {
+    "delay": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "error": {
+     "type": "string"
+    },
+    "errorCode": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "role": {
+     "type": "string"
+    },
+    "scope": {
+     "type": "string"
+    },
+    "timeBetweenUpdates": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "timestamp": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "type": {
+     "type": "string"
+    }
+   }
+  },
+  "GeneralItemVisibilityList": {
+   "properties": {
+    "error": {
+     "type": "string"
+    },
+    "errorCode": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "generalItemsVisibility": {
+     "type": "array",
+     "items": {
+      "$ref": "#/definitions/GeneralItemVisibility"
+     }
+    },
+    "serverTime": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "timestamp": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "type": {
+     "type": "string"
+    }
+   }
+  },
+  "CollectionResponse_Organization": {
+   "properties": {
+    "items": {
+     "type": "array",
+     "items": {
+      "$ref": "#/definitions/Organization"
+     }
+    },
+    "nextPageToken": {
+     "type": "string"
+    }
+   }
+  },
+  "MultipleChoiceTest": {
+   "properties": {
+    "answers": {
+     "type": "array",
+     "items": {
+      "$ref": "#/definitions/MultipleChoiceAnswerItem"
+     }
+    },
+    "authoringX": {
+     "type": "number",
+     "format": "double"
+    },
+    "authoringY": {
+     "type": "number",
+     "format": "double"
+    },
+    "autoLaunch": {
+     "type": "boolean"
+    },
+    "chapter": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "customMapX": {
+     "type": "number",
+     "format": "double"
+    },
+    "customMapY": {
+     "type": "number",
+     "format": "double"
+    },
+    "deleted": {
+     "type": "boolean"
+    },
+    "dependsOn": {
+     "$ref": "#/definitions/Dependency"
+    },
+    "description": {
+     "type": "string"
+    },
+    "disappearAt": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "disappearOn": {
+     "$ref": "#/definitions/Dependency"
+    },
+    "error": {
+     "type": "string"
+    },
+    "errorCode": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "fileReferences": {
+     "type": "array",
+     "items": {
+      "$ref": "#/definitions/FileReference"
+     }
+    },
+    "gameId": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "icon": {
+     "type": "string"
+    },
+    "iconUrl": {
+     "type": "string"
+    },
+    "iconUrlMd5Hash": {
+     "type": "string"
+    },
+    "id": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "label": {
+     "type": "string"
+    },
+    "lastModificationDate": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "lat": {
+     "type": "number",
+     "format": "double"
+    },
+    "lng": {
+     "type": "number",
+     "format": "double"
+    },
+    "message": {
+     "type": "boolean"
+    },
+    "name": {
+     "type": "string"
+    },
+    "notification": {
+     "$ref": "#/definitions/Notification"
+    },
+    "primaryColor": {
+     "type": "string"
+    },
+    "radius": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "relX": {
+     "type": "number",
+     "format": "double"
+    },
+    "relY": {
+     "type": "number",
+     "format": "double"
+    },
+    "richText": {
+     "type": "string"
+    },
+    "roles": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    },
+    "scope": {
+     "type": "string"
+    },
+    "secondaryColor": {
+     "type": "string"
+    },
+    "section": {
+     "type": "string"
+    },
+    "showCountDown": {
+     "type": "boolean"
+    },
+    "showFeedback": {
+     "type": "boolean"
+    },
+    "showInList": {
+     "type": "boolean"
+    },
+    "showOnMap": {
+     "type": "boolean"
+    },
+    "sortKey": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "tags": {
+     "type": "string"
+    },
+    "text": {
+     "type": "string"
+    },
+    "timestamp": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "type": {
+     "type": "string"
+    },
+    "visibleAt": {
+     "type": "integer",
+     "format": "int64"
+    }
+   }
+  },
+  "ResponseList": {
+   "properties": {
+    "deleted": {
+     "type": "boolean"
+    },
+    "error": {
+     "type": "string"
+    },
+    "errorCode": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "responses": {
+     "type": "array",
+     "items": {
+      "$ref": "#/definitions/Response"
+     }
+    },
+    "resumptionToken": {
+     "type": "string"
+    },
+    "runId": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "serverTime": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "timestamp": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "type": {
+     "type": "string"
+    }
+   }
+  },
+  "GameIdentifierList": {
+   "properties": {
+    "gameIds": {
+     "type": "array",
+     "items": {
+      "type": "integer",
+      "format": "int64"
+     }
+    },
+    "resumptionToken": {
+     "type": "string"
+    }
+   }
+  },
+  "MultipleChoiceImageTest": {
+   "properties": {
+    "answers": {
+     "type": "array",
+     "items": {
+      "$ref": "#/definitions/MultipleChoiceAnswerItem"
+     }
+    },
+    "audioQuestion": {
+     "type": "string"
+    },
+    "authoringX": {
+     "type": "number",
+     "format": "double"
+    },
+    "authoringY": {
+     "type": "number",
+     "format": "double"
+    },
+    "autoLaunch": {
+     "type": "boolean"
+    },
+    "chapter": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "columns": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "customMapX": {
+     "type": "number",
+     "format": "double"
+    },
+    "customMapY": {
+     "type": "number",
+     "format": "double"
+    },
+    "deleted": {
+     "type": "boolean"
+    },
+    "dependsOn": {
+     "$ref": "#/definitions/Dependency"
+    },
+    "description": {
+     "type": "string"
+    },
+    "disappearAt": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "disappearOn": {
+     "$ref": "#/definitions/Dependency"
+    },
+    "error": {
+     "type": "string"
+    },
+    "errorCode": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "fileReferences": {
+     "type": "array",
+     "items": {
+      "$ref": "#/definitions/FileReference"
+     }
+    },
+    "gameId": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "icon": {
+     "type": "string"
+    },
+    "iconUrl": {
+     "type": "string"
+    },
+    "iconUrlMd5Hash": {
+     "type": "string"
+    },
+    "id": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "label": {
+     "type": "string"
+    },
+    "lastModificationDate": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "lat": {
+     "type": "number",
+     "format": "double"
+    },
+    "lng": {
+     "type": "number",
+     "format": "double"
+    },
+    "md5Hash": {
+     "type": "string"
+    },
+    "message": {
+     "type": "boolean"
+    },
+    "name": {
+     "type": "string"
+    },
+    "notification": {
+     "$ref": "#/definitions/Notification"
+    },
+    "primaryColor": {
+     "type": "string"
+    },
+    "radius": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "relX": {
+     "type": "number",
+     "format": "double"
+    },
+    "relY": {
+     "type": "number",
+     "format": "double"
+    },
+    "richText": {
+     "type": "string"
+    },
+    "roles": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    },
+    "scope": {
+     "type": "string"
+    },
+    "secondaryColor": {
+     "type": "string"
+    },
+    "section": {
+     "type": "string"
+    },
+    "showCountDown": {
+     "type": "boolean"
+    },
+    "showFeedback": {
+     "type": "boolean"
+    },
+    "showInList": {
+     "type": "boolean"
+    },
+    "showOnMap": {
+     "type": "boolean"
+    },
+    "sortKey": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "tags": {
+     "type": "string"
+    },
+    "text": {
+     "type": "string"
+    },
+    "timestamp": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "type": {
+     "type": "string"
+    },
+    "visibleAt": {
+     "type": "integer",
+     "format": "int64"
+    }
+   }
+  },
+  "GameAccessList": {
+   "properties": {
+    "error": {
+     "type": "string"
+    },
+    "errorCode": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "from": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "gameAccess": {
+     "type": "array",
+     "items": {
+      "$ref": "#/definitions/GameAccess"
+     }
+    },
+    "myFullId": {
+     "type": "string"
+    },
+    "resumptionToken": {
+     "type": "string"
+    },
+    "serverTime": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "timestamp": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "type": {
+     "type": "string"
+    }
+   }
+  },
+  "GameAccess": {
+   "properties": {
+    "accessRights": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "account": {
+     "type": "string"
+    },
+    "error": {
+     "type": "string"
+    },
+    "errorCode": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "gameId": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "identifier": {
+     "type": "string"
+    },
+    "timestamp": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "type": {
+     "type": "string"
+    }
+   }
+  },
+  "MapRegion": {
+   "properties": {
+    "error": {
+     "type": "string"
+    },
+    "errorCode": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "latDown": {
+     "type": "number",
+     "format": "double"
+    },
+    "latUp": {
+     "type": "number",
+     "format": "double"
+    },
+    "lngLeft": {
+     "type": "number",
+     "format": "double"
+    },
+    "lngRight": {
+     "type": "number",
+     "format": "double"
+    },
+    "maxZoom": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "minZoom": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "timestamp": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "type": {
+     "type": "string"
+    }
+   }
+  },
+  "CollectionResponse_Long": {
+   "properties": {
+    "items": {
+     "type": "array",
+     "items": {
+      "type": "integer",
+      "format": "int64"
+     }
+    },
+    "nextPageToken": {
+     "type": "string"
+    }
+   }
+  },
+  "ScanTag": {
+   "properties": {
+    "audioUrl": {
+     "type": "string"
+    },
+    "authoringX": {
+     "type": "number",
+     "format": "double"
+    },
+    "authoringY": {
+     "type": "number",
+     "format": "double"
+    },
+    "autoLaunch": {
+     "type": "boolean"
+    },
+    "autoLaunchQrReader": {
+     "type": "boolean"
+    },
+    "button": {
+     "type": "string"
+    },
+    "chapter": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "customMapX": {
+     "type": "number",
+     "format": "double"
+    },
+    "customMapY": {
+     "type": "number",
+     "format": "double"
+    },
+    "deleted": {
+     "type": "boolean"
+    },
+    "dependsOn": {
+     "$ref": "#/definitions/Dependency"
+    },
+    "description": {
+     "type": "string"
+    },
+    "disappearAt": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "disappearOn": {
+     "$ref": "#/definitions/Dependency"
+    },
+    "error": {
+     "type": "string"
+    },
+    "errorCode": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "fileReferences": {
+     "type": "array",
+     "items": {
+      "$ref": "#/definitions/FileReference"
+     }
+    },
+    "gameId": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "heading": {
+     "type": "string"
+    },
+    "icon": {
+     "type": "string"
+    },
+    "iconUrl": {
+     "type": "string"
+    },
+    "iconUrlMd5Hash": {
+     "type": "string"
+    },
+    "id": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "imageUrl": {
+     "type": "string"
+    },
+    "label": {
+     "type": "string"
+    },
+    "lastModificationDate": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "lat": {
+     "type": "number",
+     "format": "double"
+    },
+    "lng": {
+     "type": "number",
+     "format": "double"
+    },
+    "message": {
+     "type": "boolean"
+    },
+    "name": {
+     "type": "string"
+    },
+    "notification": {
+     "$ref": "#/definitions/Notification"
+    },
+    "openQuestion": {
+     "$ref": "#/definitions/OpenQuestion"
+    },
+    "primaryColor": {
+     "type": "string"
+    },
+    "radius": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "relX": {
+     "type": "number",
+     "format": "double"
+    },
+    "relY": {
+     "type": "number",
+     "format": "double"
+    },
+    "richText": {
+     "type": "string"
+    },
+    "roles": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    },
+    "scope": {
+     "type": "string"
+    },
+    "secondaryColor": {
+     "type": "string"
+    },
+    "section": {
+     "type": "string"
+    },
+    "showCountDown": {
+     "type": "boolean"
+    },
+    "showInList": {
+     "type": "boolean"
+    },
+    "showOnMap": {
+     "type": "boolean"
+    },
+    "sortKey": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "tags": {
+     "type": "string"
+    },
+    "text": {
+     "type": "string"
+    },
+    "timestamp": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "type": {
+     "type": "string"
+    },
+    "videoUrl": {
+     "type": "string"
+    },
+    "visibleAt": {
+     "type": "integer",
+     "format": "int64"
+    }
+   }
+  },
+  "GameThemesList": {
+   "properties": {
+    "error": {
+     "type": "string"
+    },
+    "errorCode": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "from": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "resumptionToken": {
+     "type": "string"
+    },
+    "serverTime": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "themes": {
+     "type": "array",
+     "items": {
+      "$ref": "#/definitions/GameTheme"
+     }
+    },
+    "timestamp": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "type": {
+     "type": "string"
+    }
+   }
+  },
+  "Invitation": {
+   "properties": {
+    "accountType": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "error": {
+     "type": "string"
+    },
+    "errorCode": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "fromName": {
+     "type": "string"
+    },
+    "invitationId": {
+     "type": "string"
+    },
+    "lastModificationDate": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "localId": {
+     "type": "string"
+    },
+    "timestamp": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "type": {
+     "type": "string"
+    }
+   }
+  },
+  "GameTheme": {
+   "properties": {
+    "backgroundPath": {
+     "type": "string"
+    },
+    "category": {
+     "type": "string"
+    },
+    "correctPath": {
+     "type": "string"
+    },
+    "error": {
+     "type": "string"
+    },
+    "errorCode": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "firebaseAccount": {
+     "type": "string"
+    },
+    "fullAccount": {
+     "type": "string"
+    },
+    "global": {
+     "type": "boolean"
+    },
+    "iconPath": {
+     "type": "string"
+    },
+    "lastModificationDate": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "name": {
+     "type": "string"
+    },
+    "primaryColor": {
+     "type": "string"
+    },
+    "secondaryColor": {
+     "type": "string"
+    },
+    "themeId": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "timestamp": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "type": {
+     "type": "string"
+    },
+    "wrongPath": {
+     "type": "string"
+    }
+   }
+  },
+  "Dependency": {
+   "properties": {
+    "error": {
+     "type": "string"
+    },
+    "errorCode": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "timestamp": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "type": {
+     "type": "string"
+    }
+   }
+  },
+  "CollectionResponse_Run": {
+   "properties": {
+    "items": {
+     "type": "array",
+     "items": {
+      "$ref": "#/definitions/Run"
+     }
+    },
+    "nextPageToken": {
+     "type": "string"
+    }
+   }
+  },
+  "SingleChoiceImageTest": {
+   "properties": {
+    "answers": {
+     "type": "array",
+     "items": {
+      "$ref": "#/definitions/MultipleChoiceAnswerItem"
+     }
+    },
+    "audioQuestion": {
+     "type": "string"
+    },
+    "authoringX": {
+     "type": "number",
+     "format": "double"
+    },
+    "authoringY": {
+     "type": "number",
+     "format": "double"
+    },
+    "autoLaunch": {
+     "type": "boolean"
+    },
+    "chapter": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "columns": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "customMapX": {
+     "type": "number",
+     "format": "double"
+    },
+    "customMapY": {
+     "type": "number",
+     "format": "double"
+    },
+    "deleted": {
+     "type": "boolean"
+    },
+    "dependsOn": {
+     "$ref": "#/definitions/Dependency"
+    },
+    "description": {
+     "type": "string"
+    },
+    "disappearAt": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "disappearOn": {
+     "$ref": "#/definitions/Dependency"
+    },
+    "error": {
+     "type": "string"
+    },
+    "errorCode": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "fileReferences": {
+     "type": "array",
+     "items": {
+      "$ref": "#/definitions/FileReference"
+     }
+    },
+    "gameId": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "icon": {
+     "type": "string"
+    },
+    "iconUrl": {
+     "type": "string"
+    },
+    "iconUrlMd5Hash": {
+     "type": "string"
+    },
+    "id": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "label": {
+     "type": "string"
+    },
+    "lastModificationDate": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "lat": {
+     "type": "number",
+     "format": "double"
+    },
+    "lng": {
+     "type": "number",
+     "format": "double"
+    },
+    "md5Hash": {
+     "type": "string"
+    },
+    "message": {
+     "type": "boolean"
+    },
+    "name": {
+     "type": "string"
+    },
+    "notification": {
+     "$ref": "#/definitions/Notification"
+    },
+    "primaryColor": {
+     "type": "string"
+    },
+    "radius": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "relX": {
+     "type": "number",
+     "format": "double"
+    },
+    "relY": {
+     "type": "number",
+     "format": "double"
+    },
+    "richText": {
+     "type": "string"
+    },
+    "roles": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    },
+    "scope": {
+     "type": "string"
+    },
+    "secondaryColor": {
+     "type": "string"
+    },
+    "section": {
+     "type": "string"
+    },
+    "showCountDown": {
+     "type": "boolean"
+    },
+    "showFeedback": {
+     "type": "boolean"
+    },
+    "showInList": {
+     "type": "boolean"
+    },
+    "showOnMap": {
+     "type": "boolean"
+    },
+    "sortKey": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "tags": {
+     "type": "string"
+    },
+    "text": {
+     "type": "string"
+    },
+    "timestamp": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "type": {
+     "type": "string"
+    },
+    "visibleAt": {
+     "type": "integer",
+     "format": "int64"
+    }
+   }
+  },
+  "JsonMap": { },
+  "RunList": {
+   "properties": {
+    "error": {
+     "type": "string"
+    },
+    "errorCode": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "resumptionToken": {
+     "type": "string"
+    },
+    "runs": {
+     "type": "array",
+     "items": {
+      "$ref": "#/definitions/Run"
+     }
+    },
+    "serverTime": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "timestamp": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "type": {
+     "type": "string"
+    }
+   }
+  },
+  "NarratorItem": {
+   "properties": {
+    "audioUrl": {
+     "type": "string"
+    },
+    "authoringX": {
+     "type": "number",
+     "format": "double"
+    },
+    "authoringY": {
+     "type": "number",
+     "format": "double"
+    },
+    "autoLaunch": {
+     "type": "boolean"
+    },
+    "button": {
+     "type": "string"
+    },
+    "chapter": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "customMapX": {
+     "type": "number",
+     "format": "double"
+    },
+    "customMapY": {
+     "type": "number",
+     "format": "double"
+    },
+    "deleted": {
+     "type": "boolean"
+    },
+    "dependsOn": {
+     "$ref": "#/definitions/Dependency"
+    },
+    "description": {
+     "type": "string"
+    },
+    "disappearAt": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "disappearOn": {
+     "$ref": "#/definitions/Dependency"
+    },
+    "error": {
+     "type": "string"
+    },
+    "errorCode": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "fileReferences": {
+     "type": "array",
+     "items": {
+      "$ref": "#/definitions/FileReference"
+     }
+    },
+    "gameId": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "heading": {
+     "type": "string"
+    },
+    "icon": {
+     "type": "string"
+    },
+    "iconUrl": {
+     "type": "string"
+    },
+    "iconUrlMd5Hash": {
+     "type": "string"
+    },
+    "id": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "imageUrl": {
+     "type": "string"
+    },
+    "label": {
+     "type": "string"
+    },
+    "lastModificationDate": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "lat": {
+     "type": "number",
+     "format": "double"
+    },
+    "lng": {
+     "type": "number",
+     "format": "double"
+    },
+    "message": {
+     "type": "boolean"
+    },
+    "name": {
+     "type": "string"
+    },
+    "notification": {
+     "$ref": "#/definitions/Notification"
+    },
+    "openQuestion": {
+     "$ref": "#/definitions/OpenQuestion"
+    },
+    "primaryColor": {
+     "type": "string"
+    },
+    "radius": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "relX": {
+     "type": "number",
+     "format": "double"
+    },
+    "relY": {
+     "type": "number",
+     "format": "double"
+    },
+    "richText": {
+     "type": "string"
+    },
+    "roles": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    },
+    "scope": {
+     "type": "string"
+    },
+    "secondaryColor": {
+     "type": "string"
+    },
+    "section": {
+     "type": "string"
+    },
+    "showCountDown": {
+     "type": "boolean"
+    },
+    "showInList": {
+     "type": "boolean"
+    },
+    "showOnMap": {
+     "type": "boolean"
+    },
+    "sortKey": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "tags": {
+     "type": "string"
+    },
+    "text": {
+     "type": "string"
+    },
+    "timestamp": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "type": {
+     "type": "string"
+    },
+    "videoUrl": {
+     "type": "string"
+    },
+    "visibleAt": {
+     "type": "integer",
+     "format": "int64"
+    }
+   }
+  },
+  "Game": {
+   "properties": {
+    "ageSpan": {
+     "type": "string"
+    },
+    "amountOfPlays": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "boardHeight": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "boardWidth": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "chapters": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "config": {
+     "$ref": "#/definitions/Config"
+    },
+    "creator": {
+     "type": "string"
+    },
+    "deleted": {
+     "type": "boolean"
+    },
+    "description": {
+     "type": "string"
+    },
+    "devTeam": {
+     "type": "string"
+    },
+    "endsOn": {
+     "$ref": "#/definitions/Dependency"
+    },
+    "error": {
+     "type": "string"
+    },
+    "errorCode": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "feedUrl": {
+     "type": "string"
+    },
+    "gameId": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "gameOverButton": {
+     "type": "string"
+    },
+    "gameOverDescription": {
+     "type": "string"
+    },
+    "gameOverHeading": {
+     "type": "string"
+    },
+    "gridSize": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "iconAbbreviation": {
+     "type": "string"
+    },
+    "language": {
+     "type": "string"
+    },
+    "lastModificationDate": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "lat": {
+     "type": "number",
+     "format": "double"
+    },
+    "licenseCode": {
+     "type": "string"
+    },
+    "lng": {
+     "type": "number",
+     "format": "double"
+    },
+    "messageListScreen": {
+     "type": "string"
+    },
+    "messageListTypes": {
+     "type": "string"
+    },
+    "organisationId": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "owner": {
+     "type": "string"
+    },
+    "playDuration": {
+     "type": "string"
+    },
+    "privateMode": {
+     "type": "boolean"
+    },
+    "rank": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "sharing": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "showGrid": {
+     "type": "boolean"
+    },
+    "splashScreen": {
+     "type": "string"
+    },
+    "startButton": {
+     "type": "string"
+    },
+    "theme": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "timestamp": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "title": {
+     "type": "string"
+    },
+    "type": {
+     "type": "string"
+    },
+    "webEnabled": {
+     "type": "boolean"
+    }
+   }
+  },
+  "EnhancedUser": {
+   "properties": {
+    "admin": {
+     "type": "boolean"
+    },
+    "allIds": {
+     "$ref": "#/definitions/JsonMap"
+    },
+    "email": {
+     "type": "string"
+    },
+    "id": {
+     "type": "string"
+    },
+    "localId": {
+     "type": "string"
+    },
+    "name": {
+     "type": "string"
+    },
+    "picture": {
+     "type": "string"
+    },
+    "provider": {
+     "type": "integer",
+     "format": "int32"
+    }
+   }
+  },
+  "MultipleChoiceAnswerItem": {
+   "properties": {
+    "answer": {
+     "type": "string"
+    },
+    "error": {
+     "type": "string"
+    },
+    "errorCode": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "feedback": {
+     "type": "string"
+    },
+    "id": {
+     "type": "string"
+    },
+    "isCorrect": {
+     "type": "boolean"
+    },
+    "nfcTag": {
+     "type": "string"
+    },
+    "timestamp": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "type": {
+     "type": "string"
+    }
+   }
+  },
+  "ActionList": {
+   "properties": {
+    "actions": {
+     "type": "array",
+     "items": {
+      "$ref": "#/definitions/Action"
+     }
+    },
+    "deleted": {
+     "type": "boolean"
+    },
+    "error": {
+     "type": "string"
+    },
+    "errorCode": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "resumptionToken": {
+     "type": "string"
+    },
+    "runId": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "serverTime": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "timestamp": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "type": {
+     "type": "string"
+    }
+   }
+  },
+  "GeneralItem": {
+   "properties": {
+    "authoringX": {
+     "type": "number",
+     "format": "double"
+    },
+    "authoringY": {
+     "type": "number",
+     "format": "double"
+    },
+    "autoLaunch": {
+     "type": "boolean"
+    },
+    "chapter": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "customMapX": {
+     "type": "number",
+     "format": "double"
+    },
+    "customMapY": {
+     "type": "number",
+     "format": "double"
+    },
+    "deleted": {
+     "type": "boolean"
+    },
+    "dependsOn": {
+     "$ref": "#/definitions/Dependency"
+    },
+    "description": {
+     "type": "string"
+    },
+    "disappearAt": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "disappearOn": {
+     "$ref": "#/definitions/Dependency"
+    },
+    "error": {
+     "type": "string"
+    },
+    "errorCode": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "fileReferences": {
+     "type": "array",
+     "items": {
+      "$ref": "#/definitions/FileReference"
+     }
+    },
+    "gameId": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "icon": {
+     "type": "string"
+    },
+    "iconUrl": {
+     "type": "string"
+    },
+    "iconUrlMd5Hash": {
+     "type": "string"
+    },
+    "id": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "label": {
+     "type": "string"
+    },
+    "lastModificationDate": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "lat": {
+     "type": "number",
+     "format": "double"
+    },
+    "lng": {
+     "type": "number",
+     "format": "double"
+    },
+    "message": {
+     "type": "boolean"
+    },
+    "name": {
+     "type": "string"
+    },
+    "notification": {
+     "$ref": "#/definitions/Notification"
+    },
+    "primaryColor": {
+     "type": "string"
+    },
+    "radius": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "relX": {
+     "type": "number",
+     "format": "double"
+    },
+    "relY": {
+     "type": "number",
+     "format": "double"
+    },
+    "roles": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    },
+    "scope": {
+     "type": "string"
+    },
+    "secondaryColor": {
+     "type": "string"
+    },
+    "section": {
+     "type": "string"
+    },
+    "showCountDown": {
+     "type": "boolean"
+    },
+    "showInList": {
+     "type": "boolean"
+    },
+    "showOnMap": {
+     "type": "boolean"
+    },
+    "sortKey": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "tags": {
+     "type": "string"
+    },
+    "timestamp": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "type": {
+     "type": "string"
+    },
+    "visibleAt": {
+     "type": "integer",
+     "format": "int64"
+    }
+   }
+  },
+  "GameCategory": {
+   "properties": {
+    "categoryId": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "deleted": {
+     "type": "boolean"
+    },
+    "error": {
+     "type": "string"
+    },
+    "errorCode": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "gameId": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "id": {
+     "type": "string"
+    },
+    "timestamp": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "type": {
+     "type": "string"
+    }
+   }
+  },
+  "Action": {
+   "properties": {
+    "action": {
+     "type": "string"
+    },
+    "deleted": {
+     "type": "boolean"
+    },
+    "error": {
+     "type": "string"
+    },
+    "errorCode": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "generalItemId": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "generalItemType": {
+     "type": "string"
+    },
+    "identifier": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "runId": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "time": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "timestamp": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "type": {
+     "type": "string"
+    },
+    "userId": {
+     "type": "string"
+    }
+   }
+  },
+  "Organization": {
+   "properties": {
+    "expirationDate": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "id": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "name": {
+     "type": "string"
+    }
+   }
+  },
+  "Category": {
+   "properties": {
+    "categoryId": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "deleted": {
+     "type": "boolean"
+    },
+    "error": {
+     "type": "string"
+    },
+    "errorCode": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "id": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "lang": {
+     "type": "string"
+    },
+    "timestamp": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "title": {
+     "type": "string"
+    },
+    "type": {
+     "type": "string"
+    }
+   }
+  },
+  "User": {
+   "properties": {
+    "accountData": {
+     "$ref": "#/definitions/Account"
+    },
+    "accountLevel": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "accountType": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "admin": {
+     "type": "boolean"
+    },
+    "advanced": {
+     "type": "boolean"
+    },
+    "allowTrackLocation": {
+     "type": "boolean"
+    },
+    "canAddUsersToOrganisation": {
+     "type": "boolean"
+    },
+    "canPublishGames": {
+     "type": "boolean"
+    },
+    "claims": {
+     "type": "string"
+    },
+    "claimsFromMap": {
+     "$ref": "#/definitions/JsonMap"
+    },
+    "connection": {
+     "type": "boolean"
+    },
+    "deleted": {
+     "type": "boolean"
+    },
+    "email": {
+     "type": "string"
+    },
+    "error": {
+     "type": "string"
+    },
+    "errorCode": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "expirationDate": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "familyName": {
+     "type": "string"
+    },
+    "firebaseId": {
+     "type": "string"
+    },
+    "fullId": {
+     "type": "string"
+    },
+    "fullIdentifier": {
+     "type": "string"
+    },
+    "fullid": {
+     "type": "string"
+    },
+    "gameId": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "givenName": {
+     "type": "string"
+    },
+    "identifier": {
+     "type": "string"
+    },
+    "initPasswordToken": {
+     "type": "string"
+    },
+    "label": {
+     "type": "string"
+    },
+    "lastLoginDate": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "lastModificationDate": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "lastModificationDateGame": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "localId": {
+     "type": "string"
+    },
+    "name": {
+     "type": "string"
+    },
+    "organisationId": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "password": {
+     "type": "string"
+    },
+    "picture": {
+     "type": "string"
+    },
+    "roles": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    },
+    "runId": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "suspended": {
+     "type": "boolean"
+    },
+    "teamId": {
+     "type": "string"
+    },
+    "timestamp": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "tokenExpirationDate": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "type": {
+     "type": "string"
+    }
+   }
+  },
+  "RunAccessList": {
+   "properties": {
+    "error": {
+     "type": "string"
+    },
+    "errorCode": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "from": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "resumptionToken": {
+     "type": "string"
+    },
+    "runAccess": {
+     "type": "array",
+     "items": {
+      "$ref": "#/definitions/RunAccess"
+     }
+    },
+    "serverTime": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "timestamp": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "type": {
+     "type": "string"
+    }
+   }
+  },
+  "VideoObject": {
+   "properties": {
+    "audioUrl": {
+     "type": "string"
+    },
+    "authoringX": {
+     "type": "number",
+     "format": "double"
+    },
+    "authoringY": {
+     "type": "number",
+     "format": "double"
+    },
+    "autoLaunch": {
+     "type": "boolean"
+    },
+    "autoPlay": {
+     "type": "boolean"
+    },
+    "button": {
+     "type": "string"
+    },
+    "chapter": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "customMapX": {
+     "type": "number",
+     "format": "double"
+    },
+    "customMapY": {
+     "type": "number",
+     "format": "double"
+    },
+    "deleted": {
+     "type": "boolean"
+    },
+    "dependsOn": {
+     "$ref": "#/definitions/Dependency"
+    },
+    "description": {
+     "type": "string"
+    },
+    "disappearAt": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "disappearOn": {
+     "$ref": "#/definitions/Dependency"
+    },
+    "error": {
+     "type": "string"
+    },
+    "errorCode": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "fileReferences": {
+     "type": "array",
+     "items": {
+      "$ref": "#/definitions/FileReference"
+     }
+    },
+    "gameId": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "heading": {
+     "type": "string"
+    },
+    "icon": {
+     "type": "string"
+    },
+    "iconUrl": {
+     "type": "string"
+    },
+    "iconUrlMd5Hash": {
+     "type": "string"
+    },
+    "id": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "imageUrl": {
+     "type": "string"
+    },
+    "label": {
+     "type": "string"
+    },
+    "lastModificationDate": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "lat": {
+     "type": "number",
+     "format": "double"
+    },
+    "lng": {
+     "type": "number",
+     "format": "double"
+    },
+    "md5Hash": {
+     "type": "string"
+    },
+    "message": {
+     "type": "boolean"
+    },
+    "name": {
+     "type": "string"
+    },
+    "notification": {
+     "$ref": "#/definitions/Notification"
+    },
+    "openQuestion": {
+     "$ref": "#/definitions/OpenQuestion"
+    },
+    "primaryColor": {
+     "type": "string"
+    },
+    "radius": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "relX": {
+     "type": "number",
+     "format": "double"
+    },
+    "relY": {
+     "type": "number",
+     "format": "double"
+    },
+    "richText": {
+     "type": "string"
+    },
+    "roles": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    },
+    "scope": {
+     "type": "string"
+    },
+    "secondaryColor": {
+     "type": "string"
+    },
+    "section": {
+     "type": "string"
+    },
+    "showCountDown": {
+     "type": "boolean"
+    },
+    "showInList": {
+     "type": "boolean"
+    },
+    "showOnMap": {
+     "type": "boolean"
+    },
+    "sortKey": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "tags": {
+     "type": "string"
+    },
+    "text": {
+     "type": "string"
+    },
+    "timestamp": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "type": {
+     "type": "string"
+    },
+    "videoFeed": {
+     "type": "string"
+    },
+    "videoUrl": {
+     "type": "string"
+    },
+    "visibleAt": {
+     "type": "integer",
+     "format": "int64"
+    }
+   }
+  },
+  "Config": {
+   "properties": {
+    "boundingBoxEast": {
+     "type": "number",
+     "format": "double"
+    },
+    "boundingBoxNorth": {
+     "type": "number",
+     "format": "double"
+    },
+    "boundingBoxSouth": {
+     "type": "number",
+     "format": "double"
+    },
+    "boundingBoxWest": {
+     "type": "number",
+     "format": "double"
+    },
+    "enableExchangeResponses": {
+     "type": "boolean"
+    },
+    "enableMyLocation": {
+     "type": "boolean"
+    },
+    "error": {
+     "type": "string"
+    },
+    "errorCode": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "htmlMessageList": {
+     "type": "string"
+    },
+    "locationUpdates": {
+     "type": "array",
+     "items": {
+      "$ref": "#/definitions/LocationUpdateConfig"
+     }
+    },
+    "manualItems": {
+     "type": "array",
+     "items": {
+      "$ref": "#/definitions/GeneralItem"
+     }
+    },
+    "mapAvailable": {
+     "type": "boolean"
+    },
+    "mapRegions": {
+     "type": "array",
+     "items": {
+      "$ref": "#/definitions/MapRegion"
+     }
+    },
+    "mapType": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "maxZoomLevel": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "messageViews": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "minZoomLevel": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "primaryColor": {
+     "type": "string"
+    },
+    "roles": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    },
+    "scoring": {
+     "type": "boolean"
+    },
+    "secondaryColor": {
+     "type": "string"
+    },
+    "tileSource": {
+     "type": "string"
+    },
+    "timestamp": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "type": {
+     "type": "string"
+    }
+   }
+  },
+  "AccountList": {
+   "properties": {
+    "accountList": {
+     "type": "array",
+     "items": {
+      "$ref": "#/definitions/Account"
+     }
+    },
+    "error": {
+     "type": "string"
+    },
+    "errorCode": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "from": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "invitationList": {
+     "type": "array",
+     "items": {
+      "$ref": "#/definitions/Invitation"
+     }
+    },
+    "resumptionToken": {
+     "type": "string"
+    },
+    "serverTime": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "timestamp": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "type": {
+     "type": "string"
+    }
+   }
+  },
+  "GeneralItemVisibility": {
+   "properties": {
+    "deleted": {
+     "type": "boolean"
+    },
+    "email": {
+     "type": "string"
+    },
+    "error": {
+     "type": "string"
+    },
+    "errorCode": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "generalItemId": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "lastModificationDate": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "runId": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "status": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "timeStamp": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "timestamp": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "type": {
+     "type": "string"
+    }
+   }
+  },
+  "Notification": {
+   "properties": {
+    "error": {
+     "type": "string"
+    },
+    "errorCode": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "message": {
+     "type": "string"
+    },
+    "notificationType": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "readMessage": {
+     "type": "string"
+    },
+    "timestamp": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "type": {
+     "type": "string"
+    }
+   }
+  },
+  "CollectionResponse_GameTheme": {
+   "properties": {
+    "items": {
+     "type": "array",
+     "items": {
+      "$ref": "#/definitions/GameTheme"
+     }
+    },
+    "nextPageToken": {
+     "type": "string"
+    }
+   }
+  },
+  "GameOrganisation": {
+   "properties": {
+    "deleted": {
+     "type": "boolean"
+    },
+    "error": {
+     "type": "string"
+    },
+    "errorCode": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "gameId": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "id": {
+     "type": "string"
+    },
+    "organisationId": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "timestamp": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "type": {
+     "type": "string"
+    }
+   }
+  },
+  "UserList": {
+   "properties": {
+    "deleted": {
+     "type": "boolean"
+    },
+    "error": {
+     "type": "string"
+    },
+    "errorCode": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "from": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "resumptionToken": {
+     "type": "string"
+    },
+    "runId": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "serverTime": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "timestamp": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "type": {
+     "type": "string"
+    },
+    "users": {
+     "type": "array",
+     "items": {
+      "$ref": "#/definitions/User"
+     }
+    }
+   }
+  },
+  "MediaLibraryFile": {
+   "properties": {
+    "assetId": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "error": {
+     "type": "string"
+    },
+    "errorCode": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "lastModificationDate": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "name": {
+     "type": "string"
+    },
+    "path": {
+     "type": "string"
+    },
+    "tags": {
+     "type": "string"
+    },
+    "timestamp": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "type": {
+     "type": "string"
+    }
+   }
+  },
+  "ConnectionInvitation": {
+   "properties": {
+    "addpers": {
+     "type": "boolean"
+    },
+    "email": {
+     "type": "string"
+    },
+    "note": {
+     "type": "string"
+    }
+   }
+  },
+  "Password": {
+   "properties": {
+    "displayName": {
+     "type": "string"
+    },
+    "password": {
+     "type": "string"
+    }
+   }
+  },
+  "RunAccess": {
+   "properties": {
+    "accessRights": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "account": {
+     "type": "string"
+    },
+    "error": {
+     "type": "string"
+    },
+    "errorCode": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "gameId": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "identifier": {
+     "type": "string"
+    },
+    "runId": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "timestamp": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "type": {
+     "type": "string"
+    }
+   }
+  },
+  "AudioObject": {
+   "properties": {
+    "audioFeed": {
+     "type": "string"
+    },
+    "audioUrl": {
+     "type": "string"
+    },
+    "authoringX": {
+     "type": "number",
+     "format": "double"
+    },
+    "authoringY": {
+     "type": "number",
+     "format": "double"
+    },
+    "autoLaunch": {
+     "type": "boolean"
+    },
+    "autoPlay": {
+     "type": "boolean"
+    },
+    "button": {
+     "type": "string"
+    },
+    "chapter": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "customMapX": {
+     "type": "number",
+     "format": "double"
+    },
+    "customMapY": {
+     "type": "number",
+     "format": "double"
+    },
+    "deleted": {
+     "type": "boolean"
+    },
+    "dependsOn": {
+     "$ref": "#/definitions/Dependency"
+    },
+    "description": {
+     "type": "string"
+    },
+    "disappearAt": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "disappearOn": {
+     "$ref": "#/definitions/Dependency"
+    },
+    "error": {
+     "type": "string"
+    },
+    "errorCode": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "fileReferences": {
+     "type": "array",
+     "items": {
+      "$ref": "#/definitions/FileReference"
+     }
+    },
+    "gameId": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "heading": {
+     "type": "string"
+    },
+    "icon": {
+     "type": "string"
+    },
+    "iconUrl": {
+     "type": "string"
+    },
+    "iconUrlMd5Hash": {
+     "type": "string"
+    },
+    "id": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "imageUrl": {
+     "type": "string"
+    },
+    "label": {
+     "type": "string"
+    },
+    "lastModificationDate": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "lat": {
+     "type": "number",
+     "format": "double"
+    },
+    "lng": {
+     "type": "number",
+     "format": "double"
+    },
+    "message": {
+     "type": "boolean"
+    },
+    "name": {
+     "type": "string"
+    },
+    "notification": {
+     "$ref": "#/definitions/Notification"
+    },
+    "openQuestion": {
+     "$ref": "#/definitions/OpenQuestion"
+    },
+    "primaryColor": {
+     "type": "string"
+    },
+    "radius": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "relX": {
+     "type": "number",
+     "format": "double"
+    },
+    "relY": {
+     "type": "number",
+     "format": "double"
+    },
+    "richText": {
+     "type": "string"
+    },
+    "roles": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    },
+    "scope": {
+     "type": "string"
+    },
+    "secondaryColor": {
+     "type": "string"
+    },
+    "section": {
+     "type": "string"
+    },
+    "showCountDown": {
+     "type": "boolean"
+    },
+    "showInList": {
+     "type": "boolean"
+    },
+    "showOnMap": {
+     "type": "boolean"
+    },
+    "sortKey": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "tags": {
+     "type": "string"
+    },
+    "text": {
+     "type": "string"
+    },
+    "timestamp": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "type": {
+     "type": "string"
+    },
+    "videoUrl": {
+     "type": "string"
+    },
+    "visibleAt": {
+     "type": "integer",
+     "format": "int64"
+    }
+   }
+  },
+  "Run": {
+   "properties": {
+    "deleted": {
+     "type": "boolean"
+    },
+    "error": {
+     "type": "string"
+    },
+    "errorCode": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "game": {
+     "$ref": "#/definitions/Game"
+    },
+    "gameId": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "lastModificationDate": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "owner": {
+     "type": "string"
+    },
+    "runConfig": {
+     "$ref": "#/definitions/RunConfig"
+    },
+    "runId": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "serverCreationTime": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "startTime": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "tagId": {
+     "type": "string"
+    },
+    "timestamp": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "title": {
+     "type": "string"
+    },
+    "type": {
+     "type": "string"
+    }
+   }
+  },
+  "RunConfig": {
+   "properties": {
+    "error": {
+     "type": "string"
+    },
+    "errorCode": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "selfRegistration": {
+     "type": "boolean"
+    },
+    "timestamp": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "type": {
+     "type": "string"
+    }
+   }
+  },
+  "SingleChoiceTest": {
+   "properties": {
+    "answers": {
+     "type": "array",
+     "items": {
+      "$ref": "#/definitions/MultipleChoiceAnswerItem"
+     }
+    },
+    "authoringX": {
+     "type": "number",
+     "format": "double"
+    },
+    "authoringY": {
+     "type": "number",
+     "format": "double"
+    },
+    "autoLaunch": {
+     "type": "boolean"
+    },
+    "chapter": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "customMapX": {
+     "type": "number",
+     "format": "double"
+    },
+    "customMapY": {
+     "type": "number",
+     "format": "double"
+    },
+    "deleted": {
+     "type": "boolean"
+    },
+    "dependsOn": {
+     "$ref": "#/definitions/Dependency"
+    },
+    "description": {
+     "type": "string"
+    },
+    "disappearAt": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "disappearOn": {
+     "$ref": "#/definitions/Dependency"
+    },
+    "error": {
+     "type": "string"
+    },
+    "errorCode": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "fileReferences": {
+     "type": "array",
+     "items": {
+      "$ref": "#/definitions/FileReference"
+     }
+    },
+    "gameId": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "icon": {
+     "type": "string"
+    },
+    "iconUrl": {
+     "type": "string"
+    },
+    "iconUrlMd5Hash": {
+     "type": "string"
+    },
+    "id": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "label": {
+     "type": "string"
+    },
+    "lastModificationDate": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "lat": {
+     "type": "number",
+     "format": "double"
+    },
+    "lng": {
+     "type": "number",
+     "format": "double"
+    },
+    "message": {
+     "type": "boolean"
+    },
+    "name": {
+     "type": "string"
+    },
+    "notification": {
+     "$ref": "#/definitions/Notification"
+    },
+    "primaryColor": {
+     "type": "string"
+    },
+    "radius": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "relX": {
+     "type": "number",
+     "format": "double"
+    },
+    "relY": {
+     "type": "number",
+     "format": "double"
+    },
+    "richText": {
+     "type": "string"
+    },
+    "roles": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    },
+    "scope": {
+     "type": "string"
+    },
+    "secondaryColor": {
+     "type": "string"
+    },
+    "section": {
+     "type": "string"
+    },
+    "showCountDown": {
+     "type": "boolean"
+    },
+    "showFeedback": {
+     "type": "boolean"
+    },
+    "showInList": {
+     "type": "boolean"
+    },
+    "showOnMap": {
+     "type": "boolean"
+    },
+    "sortKey": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "tags": {
+     "type": "string"
+    },
+    "text": {
+     "type": "string"
+    },
+    "timestamp": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "type": {
+     "type": "string"
+    },
+    "visibleAt": {
+     "type": "integer",
+     "format": "int64"
+    }
+   }
+  },
+  "CollectionResponse_MediaLibraryFile": {
+   "properties": {
+    "items": {
+     "type": "array",
+     "items": {
+      "$ref": "#/definitions/MediaLibraryFile"
+     }
+    },
+    "nextPageToken": {
+     "type": "string"
+    }
+   }
+  },
+  "OpenQuestion": {
+   "properties": {
+    "audioDescription": {
+     "type": "string"
+    },
+    "error": {
+     "type": "string"
+    },
+    "errorCode": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "textDescription": {
+     "type": "string"
+    },
+    "timestamp": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "type": {
+     "type": "string"
+    },
+    "valueDescription": {
+     "type": "string"
+    },
+    "withAudio": {
+     "type": "boolean"
+    },
+    "withPicture": {
+     "type": "boolean"
+    },
+    "withText": {
+     "type": "boolean"
+    },
+    "withValue": {
+     "type": "boolean"
+    },
+    "withVideo": {
+     "type": "boolean"
+    }
+   }
+  },
+  "Response": {
+   "properties": {
+    "deleted": {
+     "type": "boolean"
+    },
+    "error": {
+     "type": "string"
+    },
+    "errorCode": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "generalItemId": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "lastModificationDate": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "lat": {
+     "type": "number",
+     "format": "double"
+    },
+    "length": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "lng": {
+     "type": "number",
+     "format": "double"
+    },
+    "responseId": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "responseItemId": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "responseValue": {
+     "type": "string"
+    },
+    "revoked": {
+     "type": "boolean"
+    },
+    "runId": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "text": {
+     "type": "string"
+    },
+    "timestamp": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "type": {
+     "type": "string"
+    },
+    "userId": {
+     "type": "string"
+    }
+   }
+  },
+  "CategoryList": {
+   "properties": {
+    "categoryList": {
+     "type": "array",
+     "items": {
+      "$ref": "#/definitions/Category"
+     }
+    },
+    "error": {
+     "type": "string"
+    },
+    "errorCode": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "timestamp": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "type": {
+     "type": "string"
+    }
+   }
+  },
+  "DependencyWrapper": {
+   "properties": {
+    "dependencyAsString": {
+     "type": "string"
+    }
+   }
+  },
+  "GeneralItemList": {
+   "properties": {
+    "error": {
+     "type": "string"
+    },
+    "errorCode": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "generalItems": {
+     "type": "array",
+     "items": {
+      "$ref": "#/definitions/GeneralItem"
+     }
+    },
+    "resumptionToken": {
+     "type": "string"
+    },
+    "serverTime": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "timestamp": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "type": {
+     "type": "string"
+    }
+   }
+  },
+  "GamesList": {
+   "properties": {
+    "error": {
+     "type": "string"
+    },
+    "errorCode": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "from": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "games": {
+     "type": "array",
+     "items": {
+      "$ref": "#/definitions/Game"
+     }
+    },
+    "resumptionToken": {
+     "type": "string"
+    },
+    "serverTime": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "timestamp": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "type": {
+     "type": "string"
+    }
+   }
+  },
+  "FileReference": {
+   "properties": {
+    "error": {
+     "type": "string"
+    },
+    "errorCode": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "fileReference": {
+     "type": "string"
+    },
+    "key": {
+     "type": "string"
+    },
+    "md5Hash": {
+     "type": "string"
+    },
+    "timestamp": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "type": {
+     "type": "string"
+    }
+   }
+  }
+ }
+}

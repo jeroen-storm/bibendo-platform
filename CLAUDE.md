@@ -3,7 +3,66 @@
 ## Project Overview
 Bibendo Platform - Interactive educational platform about SneakSpot sneaker store targeting youth audience.
 
-## Recent Major Updates (October 22, 2025)
+## Recent Major Updates (October 26, 2025)
+
+### 🎮 Bibendo Game Integration - Complete Response Sync
+
+#### **Overview**
+Successfully integrated Bibendo serious gaming platform data into the research platform, enabling comprehensive tracking of student game responses alongside platform interactions.
+
+#### **Core Implementation**
+- **Complete response sync flow** - Fetches student answers from Bibendo games with full question/answer data
+- **Smart data matching** - Maps response IDs to actual answer text using item metadata
+- **Timeline integration** - Game choices appear in combined timeline alongside platform events
+- **Proper error handling** - Timeline events require page_id field (defaults to 'bibendo_sync')
+
+#### **Key Technical Achievement**
+The Bibendo API returns response values as IDs (e.g., "MQ6iY") rather than human-readable text. Implementation solves this by:
+1. Fetching game items (questions) via `/generalItems/gameId/{gameId}`
+2. For each item, fetching responses via `/run/response/runId/{runId}/item/{itemId}/me`
+3. Matching `response.responseValue` with `item.answers[].id` to extract:
+   - Full question text (`item.text`)
+   - Readable answer text (`answer.answer`)
+   - Correctness (`answer.isCorrect`)
+   - Points awarded (`answer.points`)
+
+#### **Database Schema**
+Extended with three new tables:
+- **bibendo_tokens** - Secure Bearer token storage per user
+- **bibendo_game_runs** - Game session metadata (run_id, game_id, status, timestamps)
+- **bibendo_game_choices** - Complete response data with question/answer text, correctness, points
+- **combined_timeline** view - Merges app events with game choices for unified timeline
+
+#### **API Endpoints**
+- `POST /api/bibendo/auth` - Store/validate Bearer token
+- `POST /api/bibendo/sync` - Trigger full sync (games → runs → responses)
+- `GET /api/bibendo/timeline/:userId` - Combined timeline view
+- `GET /api/bibendo/choices/:userId/:runId?` - Filtered game responses
+
+#### **Example Timeline Data**
+```
+Q: Wat is de vraag van Emma?
+A: Emma is op zoek naar manieren om meer jongeren naar de winkel te laten komen.
+Correct: Ja | Tijd: 2025-10-26 06:27:14
+
+Q: Ik hield mij bewust bezig met de aanpak van de taken.
+A: Altijd
+Correct: Nee | Tijd: 2025-10-26 06:30:26
+```
+
+#### **Files Modified**
+- `backend/bibendo-sync.js` (lines 106-221) - Complete sync implementation with item matching
+- `backend/bibendo-token-manager.js` - Token lifecycle management
+- `backend/server.js` - New Bibendo API endpoints
+- `backend/database/schema.sql` - Extended with bibendo tables
+- `connect/bibendo-schema.sql` - Initial schema definition
+
+#### **Testing**
+- Verified with test user: SUi0jz4F9lOhzWTLLkMxCZRz3Ix2
+- Successfully synced: 5 games, 96 runs, 7 responses with full data
+- All responses contain readable question/answer text and correctness tracking
+
+## Previous Major Updates (October 22, 2025)
 
 ### 🎯 Admin Dashboard V2 - Major UX Overhaul
 

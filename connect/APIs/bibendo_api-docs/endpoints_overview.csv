@@ -1,0 +1,27 @@
+Method,Endpoint,Status,Success,Description
+GET,/account/accountDetails,200,True,Haal accountgegevens op van de ingelogde gebruiker
+GET,/game/4798334378180608,200,True,Haal details op van game 4798334378180608
+GET,/game/list,200,True,Haal alle games op die toegankelijk zijn voor de gebruiker
+GET,/game/theme/list/custom,200,True,Haal de lijst van aangepaste thema's op
+GET,/game/theme/list/global,200,True,Haal de lijst van globale thema's op
+GET,/games/featured/en,200,True,Haal uitgelichte games op in het Engels
+GET,/games/featured/gameId/4798334378180608,200,True,Controleer of game 4798334378180608 uitgelicht is
+GET,/games/library/categories/game/4798334378180608/en,503,False,Haal categorieën op voor game 4798334378180608 in het Engels
+GET,/games/library/category/en,200,True,Haal categorieën op in het Engels
+GET,/games/library/recent,200,True,Haal recent gepubliceerde games op
+GET,/games/library/search/quiz,200,True,Zoek naar games met 'quiz' in de naam
+GET,/generalItems/gameId/4798334378180608,200,True,Haal alle items op van game 4798334378180608
+GET,/media/list?path=/,200,True,Haal bestanden op in de root van de mediabibliotheek
+GET,/media/search/background,200,True,Zoek naar media met 'background' in de naam
+GET,/organization/list,403,False,Haal alle organisaties op
+GET,/player/contact/7:SUi0jz4F9lOhzWTLLkMxCZRz3Ix2,200,True,Haal contact details op van de huidige gebruiker
+GET,/player/invitationsToMe,200,True,Haal uitnodigingen aan de huidige gebruiker op
+GET,/player/myContacts,200,True,Haal contacten op van de huidige gebruiker
+GET,/player/pendingInvitations,200,True,Haal openstaande uitnodigingen op
+GET,/run/4549554202476544,200,True,Haal details op van run 4549554202476544
+GET,/run/4549554202476544/users,200,True,Haal gebruikers op van run 4549554202476544
+GET,/run/access/4549554202476544/list,200,True,Haal toegangsrechten op voor run 4549554202476544
+GET,/run/response/runId/4549554202476544/from/0/until/1743587550993/cursor/,404,False,
+GET,/runs/4798334378180608/list,200,True,Haal alle runs op voor game 4798334378180608
+GET,/usermgt/accounts/test,403,False,Zoek naar accounts met 'test' in de naam of email
+GET,/usermgt/recent,200,True,Haal recent aangemaakte accounts op

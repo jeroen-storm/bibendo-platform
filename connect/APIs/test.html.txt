@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>YouPlay Test</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 2rem;
+      background-color: #f9f9f9;
+    }
+    button {
+      padding: 1rem 2rem;
+      font-size: 1.2rem;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+<h1>YouPlay JavaScriptChannel Test</h1>
+<p>Click the button below to send a message from JavaScript to Flutter.</p>
+
+<button onclick="sendMessage()">Send Message</button>
+
+<script>
+  function sendMessage() {
+    if (window.YouPlayBridge) {
+      window.YouPlayBridge.postMessage("help");
+    } else {
+      alert("YouPlayBridge is not available.");
+    }
+  }
+</script>
+
+</body>
+</html>

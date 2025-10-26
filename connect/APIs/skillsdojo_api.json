@@ -1,0 +1,3257 @@
+{
+ "swagger": "2.0",
+ "info": {
+  "version": "1.0.0",
+  "title": "${endpoints.project.id}.appspot.com"
+ },
+ "host": "${endpoints.project.id}.appspot.com",
+ "basePath": "/api",
+ "schemes": [
+  "https"
+ ],
+ "consumes": [
+  "application/json"
+ ],
+ "produces": [
+  "application/json"
+ ],
+ "paths": {
+  "/account/admin/{uid}": {
+   "post": {
+    "operationId": "AccountMakeAdmin",
+    "parameters": [
+     {
+      "name": "uid",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/Account"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "skillsdojo"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/account/create": {
+   "post": {
+    "operationId": "AccountCreateAccount",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/EnhancedUser"
+      }
+     },
+     {
+      "name": "email",
+      "in": "query",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/Account"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "skillsdojo"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/account/create/demo": {
+   "post": {
+    "operationId": "AccountCreateDemoAccount",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/Account"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/Account"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "skillsdojo"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/account/resetPwToken/{token}": {
+   "get": {
+    "operationId": "AccountGetAccountViaResetToken",
+    "parameters": [
+     {
+      "name": "token",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/Account"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "skillsdojo"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/account/resetpw/{email}": {
+   "post": {
+    "operationId": "AccountResetPw",
+    "parameters": [
+     {
+      "name": "email",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response"
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "skillsdojo"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/account/setPw/{token}": {
+   "post": {
+    "operationId": "AccountSetNewPw",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/Password"
+      }
+     },
+     {
+      "name": "token",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/Account"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "skillsdojo"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/account/switchOffInit": {
+   "get": {
+    "operationId": "AccountSwitchOffInit",
+    "parameters": [ ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/Account"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "skillsdojo"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/account/update": {
+   "put": {
+    "operationId": "AccountUpdateAccount",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/Account"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/Account"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "skillsdojo"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/account/update/{uid}": {
+   "post": {
+    "operationId": "AccountUpdateSubscriptionId",
+    "parameters": [
+     {
+      "name": "uid",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     },
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/Account"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/Account"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "skillsdojo"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/admin/account/setInit/{uid}": {
+   "post": {
+    "operationId": "AccountSetInit",
+    "parameters": [
+     {
+      "name": "uid",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/Account"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "skillsdojo"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/admin/account/{uid}": {
+   "delete": {
+    "operationId": "AccountDeleteAccount",
+    "parameters": [
+     {
+      "name": "uid",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/WriteResult"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "skillsdojo"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/asset/admin/{assetId}/delete": {
+   "delete": {
+    "operationId": "AssetsDeleteMissionAssetAsAdmin",
+    "parameters": [
+     {
+      "name": "assetId",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/AbstractAsset"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "skillsdojo"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/asset/create/assignment/{missionId}/{index}": {
+   "post": {
+    "operationId": "AssetsCreateAssignmentMissionAsset",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/AssignmentAsset"
+      }
+     },
+     {
+      "name": "index",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int32"
+     },
+     {
+      "name": "missionId",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     },
+     {
+      "name": "assetAttribute",
+      "in": "query",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/AssignmentAsset"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "skillsdojo"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/asset/create/bibendo/{missionId}/{index}": {
+   "post": {
+    "operationId": "AssetsCreateBibendoMissionAsset",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/BibendoGameAsset"
+      }
+     },
+     {
+      "name": "index",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int32"
+     },
+     {
+      "name": "missionId",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     },
+     {
+      "name": "assetAttribute",
+      "in": "query",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/BibendoGameAsset"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "skillsdojo"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/asset/create/books/{missionId}/{index}": {
+   "post": {
+    "operationId": "AssetsCreateBookList",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/BookListAsset"
+      }
+     },
+     {
+      "name": "index",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int32"
+     },
+     {
+      "name": "missionId",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     },
+     {
+      "name": "assetAttribute",
+      "in": "query",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/AbstractAsset"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "skillsdojo"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/asset/create/bulletlist/{missionId}/{index}": {
+   "post": {
+    "operationId": "AssetsCreateBulletListMissionAsset",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/BulletListAsset"
+      }
+     },
+     {
+      "name": "index",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int32"
+     },
+     {
+      "name": "missionId",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     },
+     {
+      "name": "assetAttribute",
+      "in": "query",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/BulletListAsset"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "skillsdojo"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/asset/create/comment/{missionId}/{index}": {
+   "post": {
+    "operationId": "AssetsCreateCommentMissionAsset",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/CommentAsset"
+      }
+     },
+     {
+      "name": "index",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int32"
+     },
+     {
+      "name": "missionId",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     },
+     {
+      "name": "assetAttribute",
+      "in": "query",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/CommentAsset"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "skillsdojo"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/asset/create/doubleImage/{missionId}/{index}": {
+   "post": {
+    "operationId": "AssetsCreateDoubleImageAsset",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/ImageAsset"
+      }
+     },
+     {
+      "name": "index",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int32"
+     },
+     {
+      "name": "missionId",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     },
+     {
+      "name": "assetAttribute",
+      "in": "query",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/DoubleImageAsset"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "skillsdojo"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/asset/create/faq/{missionId}/{index}": {
+   "post": {
+    "operationId": "AssetsCreateFaqMissionAsset",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/FaqAsset"
+      }
+     },
+     {
+      "name": "index",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int32"
+     },
+     {
+      "name": "missionId",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     },
+     {
+      "name": "assetAttribute",
+      "in": "query",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/FaqAsset"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "skillsdojo"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/asset/create/image/{missionId}/{index}": {
+   "post": {
+    "operationId": "AssetsCreateImageAsset",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/ImageAsset"
+      }
+     },
+     {
+      "name": "index",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int32"
+     },
+     {
+      "name": "missionId",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     },
+     {
+      "name": "assetAttribute",
+      "in": "query",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/ImageAsset"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "skillsdojo"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/asset/create/instruction/{missionId}/{index}": {
+   "post": {
+    "operationId": "AssetsCreateMissionAsset",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/InstructionAsset"
+      }
+     },
+     {
+      "name": "index",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int32"
+     },
+     {
+      "name": "missionId",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     },
+     {
+      "name": "assetAttribute",
+      "in": "query",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/InstructionAsset"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "skillsdojo"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/asset/create/instructionImage/{missionId}/{index}": {
+   "post": {
+    "operationId": "AssetsCreateInstructionImageAsset",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/ImageAsset"
+      }
+     },
+     {
+      "name": "index",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int32"
+     },
+     {
+      "name": "missionId",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     },
+     {
+      "name": "assetAttribute",
+      "in": "query",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/InstructionWithPictureAsset"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "skillsdojo"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/asset/create/link/{missionId}/{index}": {
+   "post": {
+    "operationId": "AssetsCreateLinkAsset",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/LinkAsset"
+      }
+     },
+     {
+      "name": "index",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int32"
+     },
+     {
+      "name": "missionId",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     },
+     {
+      "name": "assetAttribute",
+      "in": "query",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/LinkAsset"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "skillsdojo"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/asset/create/material/{missionId}/{index}": {
+   "post": {
+    "operationId": "AssetsCreateMaterialAsset",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/MaterialAsset"
+      }
+     },
+     {
+      "name": "index",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int32"
+     },
+     {
+      "name": "missionId",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/MaterialAsset"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "skillsdojo"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/asset/create/popup/{missionId}/{index}": {
+   "post": {
+    "operationId": "AssetsCreatePopupAsset",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/PopupAsset"
+      }
+     },
+     {
+      "name": "index",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int32"
+     },
+     {
+      "name": "missionId",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     },
+     {
+      "name": "assetAttribute",
+      "in": "query",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/PopupAsset"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "skillsdojo"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/asset/create/richtext/{missionId}/{index}": {
+   "post": {
+    "operationId": "AssetsCreateRichtextAsset",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/RichtextAsset"
+      }
+     },
+     {
+      "name": "index",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int32"
+     },
+     {
+      "name": "missionId",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     },
+     {
+      "name": "assetAttribute",
+      "in": "query",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/RichtextAsset"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "skillsdojo"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/asset/create/upload/{missionId}/{index}": {
+   "post": {
+    "operationId": "AssetsCreateUploadAsset",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/UploadAsset"
+      }
+     },
+     {
+      "name": "index",
+      "in": "path",
+      "required": true,
+      "type": "integer",
+      "format": "int32"
+     },
+     {
+      "name": "missionId",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     },
+     {
+      "name": "assetAttribute",
+      "in": "query",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/UploadAsset"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "skillsdojo"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/asset/create/{missionId}": {
+   "post": {
+    "operationId": "AssetsCreateAsset",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/AbstractAsset"
+      }
+     },
+     {
+      "name": "missionId",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/AbstractAsset"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "skillsdojo"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/asset/createWithUrl/{missionId}": {
+   "post": {
+    "operationId": "AssetsCreateAssetWithUrl",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/ImageAsset"
+      }
+     },
+     {
+      "name": "missionId",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     },
+     {
+      "name": "assetAttribute",
+      "in": "query",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/AbstractAsset"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "skillsdojo"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/asset/update/{assetId}": {
+   "post": {
+    "operationId": "AssetsUpdateAsset",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/AbstractAsset"
+      }
+     },
+     {
+      "name": "assetId",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/AbstractAsset"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "skillsdojo"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/asset/update2/{assetId}": {
+   "post": {
+    "operationId": "AssetsUpdateAsset2",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/JsonMap"
+      }
+     },
+     {
+      "name": "assetId",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/AbstractAsset"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "skillsdojo"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/asset/{assetId}": {
+   "get": {
+    "operationId": "AssetsGetAsset",
+    "parameters": [
+     {
+      "name": "assetId",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/AbstractAsset"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "skillsdojo"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/asset/{missionId}/{assetId}/delete": {
+   "delete": {
+    "operationId": "AssetsDeleteMissionAsset",
+    "parameters": [
+     {
+      "name": "assetId",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     },
+     {
+      "name": "missionId",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/AbstractAsset"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "skillsdojo"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/community/mission/{missionId}/like": {
+   "post": {
+    "operationId": "CommunityLikeMission",
+    "parameters": [
+     {
+      "name": "missionId",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/WriteResult"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "skillsdojo"
+       ]
+      }
+     }
+    ]
+   },
+   "delete": {
+    "operationId": "CommunityUnlikeMission",
+    "parameters": [
+     {
+      "name": "missionId",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/WriteResult"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "skillsdojo"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/key/missions/new": {
+   "get": {
+    "operationId": "ApiKeyAccessNewMissions",
+    "parameters": [ ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/CollectionResponse_Mission"
+      }
+     }
+    }
+   }
+  },
+  "/mission/admin/toplevel/{missionId}": {
+   "post": {
+    "operationId": "MissionsAdminMakeTopLevel",
+    "parameters": [
+     {
+      "name": "missionId",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/Mission"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "skillsdojo"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/mission/cleanup": {
+   "get": {
+    "operationId": "MissionsCleanup",
+    "parameters": [ ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/Mission"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "skillsdojo"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/mission/cleanupassets": {
+   "get": {
+    "operationId": "MissionsCleanupAssets",
+    "parameters": [ ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/Mission"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "skillsdojo"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/mission/clone/{missionId}": {
+   "post": {
+    "operationId": "MissionsCloneMission",
+    "parameters": [
+     {
+      "name": "missionId",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/Mission"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "skillsdojo"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/mission/code/{missionId}": {
+   "put": {
+    "operationId": "MissionsUpdateMissionCode",
+    "parameters": [
+     {
+      "name": "missionId",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/Mission"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "skillsdojo"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/mission/create": {
+   "post": {
+    "operationId": "MissionsCreateMission",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/Mission"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/Mission"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "skillsdojo"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/mission/create/topLevel": {
+   "post": {
+    "operationId": "MissionsCreateTopLevelMission",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/Mission"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/Mission"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "skillsdojo"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/mission/style/{missionId}/{styleId}": {
+   "post": {
+    "operationId": "MissionsSetStyle",
+    "parameters": [
+     {
+      "name": "missionId",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     },
+     {
+      "name": "styleId",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/Mission"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "skillsdojo"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/mission/update/{missionId}": {
+   "put": {
+    "operationId": "MissionsUpdateMission",
+    "parameters": [
+     {
+      "name": "missionId",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     },
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/Mission"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/Mission"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "skillsdojo"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/mission/{missionId}": {
+   "get": {
+    "operationId": "MissionsGetMission",
+    "parameters": [
+     {
+      "name": "missionId",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/Mission"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "skillsdojo"
+       ]
+      }
+     }
+    ]
+   },
+   "delete": {
+    "operationId": "MissionsDeleteMission",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/EnhancedUser"
+      }
+     },
+     {
+      "name": "missionId",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/Mission"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "skillsdojo"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/mission/{missionId}/asset/{assetId}/{visible}": {
+   "post": {
+    "operationId": "MissionsSetAssetVisibility",
+    "parameters": [
+     {
+      "name": "missionId",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     },
+     {
+      "name": "assetId",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     },
+     {
+      "name": "visible",
+      "in": "path",
+      "required": true,
+      "type": "boolean"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/Mission"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "skillsdojo"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/subscription/create/{uid}": {
+   "post": {
+    "operationId": "SubscriptionCreateSubscription",
+    "parameters": [
+     {
+      "name": "uid",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/Subscription"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "skillsdojo"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/subscription/manager/{uid}/subscriptionId/{subscriptionId}": {
+   "post": {
+    "operationId": "SubscriptionSetSubcriptionMgr",
+    "parameters": [
+     {
+      "name": "uid",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     },
+     {
+      "name": "subscriptionId",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/Account"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "skillsdojo"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/subscription/user/{uid}/subscriptionId/{subscriptionId}": {
+   "post": {
+    "operationId": "SubscriptionSetSubscription",
+    "parameters": [
+     {
+      "name": "uid",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     },
+     {
+      "name": "subscriptionId",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/Account"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "skillsdojo"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/subscription/{subscriptionId}": {
+   "delete": {
+    "operationId": "SubscriptionDeleteSubscription",
+    "parameters": [
+     {
+      "name": "subscriptionId",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/WriteResult"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "skillsdojo"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/subscription/{subscriptionId}/makeowner/{uid}": {
+   "post": {
+    "operationId": "SubscriptionMakeOwnerSubscription",
+    "parameters": [
+     {
+      "name": "uid",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     },
+     {
+      "name": "subscriptionId",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/WriteResult"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "skillsdojo"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/subscription/{subscriptionId}/user/email/{email}": {
+   "post": {
+    "operationId": "SubscriptionAddSeatToSubscription",
+    "parameters": [
+     {
+      "name": "subscriptionId",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     },
+     {
+      "name": "email",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/Subscription"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "skillsdojo"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/subscription/{subscriptionId}/user/{uid}": {
+   "delete": {
+    "operationId": "SubscriptionDeleteSeatFromSubscription",
+    "parameters": [
+     {
+      "name": "subscriptionId",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     },
+     {
+      "name": "uid",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/Subscription"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "skillsdojo"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/theme/{themeId}": {
+   "post": {
+    "operationId": "ThemeNewTheme",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/Theme"
+      }
+     },
+     {
+      "name": "themeId",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/Theme"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "skillsdojo"
+       ]
+      }
+     }
+    ]
+   },
+   "delete": {
+    "operationId": "ThemeDeleteTheme",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "$ref": "#/definitions/EnhancedUser"
+      }
+     },
+     {
+      "name": "themeId",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/Theme"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "skillsdojo"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/user/{uid}/admin/{value}": {
+   "post": {
+    "operationId": "UserMakeAdmin",
+    "parameters": [
+     {
+      "name": "uid",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     },
+     {
+      "name": "value",
+      "in": "path",
+      "required": true,
+      "type": "boolean"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "A successful response",
+      "schema": {
+       "$ref": "#/definitions/User"
+      }
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "skillsdojo"
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "/wakeup": {
+   "get": {
+    "operationId": "AccountWakeUp",
+    "parameters": [ ],
+    "responses": {
+     "200": {
+      "description": "A successful response"
+     }
+    },
+    "security": [
+     {
+      "firebase": [ ]
+     }
+    ],
+    "x-security": [
+     {
+      "firebase": {
+       "audiences": [
+        "skillsdojo"
+       ]
+      }
+     }
+    ]
+   }
+  }
+ },
+ "securityDefinitions": {
+  "firebase": {
+   "type": "oauth2",
+   "authorizationUrl": "",
+   "flow": "implicit",
+   "x-google-issuer": "https://securetoken.google.com/skillsdojo",
+   "x-google-jwks_uri": "https://www.googleapis.com/service_accounts/v1/metadata/x509/securetoken@system.gserviceaccount.com"
+  }
+ },
+ "definitions": {
+  "PopupAsset": {
+   "properties": {
+    "id": {
+     "type": "string"
+    },
+    "materialen": {
+     "type": "string"
+    },
+    "missions": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    },
+    "text": {
+     "type": "string"
+    },
+    "title": {
+     "type": "string"
+    },
+    "type": {
+     "type": "string"
+    },
+    "userId": {
+     "type": "string"
+    }
+   }
+  },
+  "Account": {
+   "properties": {
+    "accountCreationDate": {
+     "$ref": "#/definitions/Timestamp"
+    },
+    "demo": {
+     "type": "boolean"
+    },
+    "displayName": {
+     "type": "string"
+    },
+    "email": {
+     "type": "string"
+    },
+    "initPasswordToken": {
+     "type": "string"
+    },
+    "introduction": {
+     "type": "boolean"
+    },
+    "lastLoginDate": {
+     "$ref": "#/definitions/Timestamp"
+    },
+    "news": {
+     "type": "boolean"
+    },
+    "position": {
+     "type": "string"
+    },
+    "school": {
+     "type": "string"
+    },
+    "subscriptionId": {
+     "type": "string"
+    },
+    "tokenExpirationDate": {
+     "$ref": "#/definitions/Timestamp"
+    },
+    "uid": {
+     "type": "string"
+    }
+   }
+  },
+  "User": {
+   "properties": {
+    "email": {
+     "type": "string"
+    },
+    "id": {
+     "type": "string"
+    }
+   }
+  },
+  "AssignmentAsset": {
+   "properties": {
+    "id": {
+     "type": "string"
+    },
+    "missions": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    },
+    "text": {
+     "type": "string"
+    },
+    "title": {
+     "type": "string"
+    },
+    "type": {
+     "type": "string"
+    },
+    "userId": {
+     "type": "string"
+    }
+   }
+  },
+  "LinkAsset": {
+   "properties": {
+    "id": {
+     "type": "string"
+    },
+    "missions": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    },
+    "text": {
+     "type": "string"
+    },
+    "title": {
+     "type": "string"
+    },
+    "type": {
+     "type": "string"
+    },
+    "url": {
+     "type": "string"
+    },
+    "userId": {
+     "type": "string"
+    }
+   }
+  },
+  "Timestamp": {
+   "properties": {
+    "nanos": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "seconds": {
+     "type": "integer",
+     "format": "int64"
+    }
+   }
+  },
+  "BulletListAsset": {
+   "properties": {
+    "id": {
+     "type": "string"
+    },
+    "missions": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    },
+    "text": {
+     "type": "string"
+    },
+    "title": {
+     "type": "string"
+    },
+    "type": {
+     "type": "string"
+    },
+    "userId": {
+     "type": "string"
+    }
+   }
+  },
+  "MaterialAsset": {
+   "properties": {
+    "filename": {
+     "type": "string"
+    },
+    "id": {
+     "type": "string"
+    },
+    "missions": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    },
+    "path": {
+     "type": "string"
+    },
+    "title": {
+     "type": "string"
+    },
+    "type": {
+     "type": "string"
+    },
+    "userId": {
+     "type": "string"
+    }
+   }
+  },
+  "BookListAsset": {
+   "properties": {
+    "id": {
+     "type": "string"
+    },
+    "missions": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    },
+    "title": {
+     "type": "string"
+    },
+    "type": {
+     "type": "string"
+    },
+    "userId": {
+     "type": "string"
+    }
+   }
+  },
+  "InstructionWithPictureAsset": {
+   "properties": {
+    "fullPath": {
+     "type": "string"
+    },
+    "id": {
+     "type": "string"
+    },
+    "missions": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    },
+    "text": {
+     "type": "string"
+    },
+    "title": {
+     "type": "string"
+    },
+    "type": {
+     "type": "string"
+    },
+    "userId": {
+     "type": "string"
+    }
+   }
+  },
+  "AbstractAsset": {
+   "properties": {
+    "id": {
+     "type": "string"
+    },
+    "missions": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    },
+    "title": {
+     "type": "string"
+    },
+    "type": {
+     "type": "string"
+    },
+    "userId": {
+     "type": "string"
+    }
+   }
+  },
+  "CollectionResponse_Mission": {
+   "properties": {
+    "items": {
+     "type": "array",
+     "items": {
+      "$ref": "#/definitions/Mission"
+     }
+    },
+    "nextPageToken": {
+     "type": "string"
+    }
+   }
+  },
+  "DoubleImageAsset": {
+   "properties": {
+    "fullPath1": {
+     "type": "string"
+    },
+    "fullPath2": {
+     "type": "string"
+    },
+    "id": {
+     "type": "string"
+    },
+    "missions": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    },
+    "title": {
+     "type": "string"
+    },
+    "type": {
+     "type": "string"
+    },
+    "userId": {
+     "type": "string"
+    }
+   }
+  },
+  "Mission": {
+   "properties": {
+    "aboutThisMission": {
+     "type": "string"
+    },
+    "assets": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    },
+    "clip": {
+     "type": "boolean"
+    },
+    "code": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "description": {
+     "type": "string"
+    },
+    "digiSkills": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    },
+    "duration": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "durationString": {
+     "type": "string"
+    },
+    "featured": {
+     "type": "boolean"
+    },
+    "hiddenAssets": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    },
+    "id": {
+     "type": "string"
+    },
+    "kerndoelen": {
+     "type": "string"
+    },
+    "key1": {
+     "type": "string"
+    },
+    "key2": {
+     "type": "string"
+    },
+    "key3": {
+     "type": "string"
+    },
+    "lesson": {
+     "type": "boolean"
+    },
+    "likesCounter": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "masterclass": {
+     "type": "string"
+    },
+    "masterclassUrl": {
+     "type": "string"
+    },
+    "materials": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    },
+    "maxAge": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "minAge": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "objectID": {
+     "type": "string"
+    },
+    "parentId": {
+     "type": "string"
+    },
+    "popup": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    },
+    "prepare": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    },
+    "published": {
+     "type": "boolean"
+    },
+    "styleId": {
+     "type": "string"
+    },
+    "subjects": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    },
+    "subscriptionId": {
+     "type": "string"
+    },
+    "subtitle": {
+     "type": "string"
+    },
+    "tags": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    },
+    "template": {
+     "type": "boolean"
+    },
+    "title": {
+     "type": "string"
+    },
+    "topics": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    },
+    "types": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    },
+    "userId": {
+     "type": "string"
+    },
+    "userName": {
+     "type": "string"
+    },
+    "voorWie": {
+     "type": "string"
+    },
+    "workshop": {
+     "type": "boolean"
+    }
+   }
+  },
+  "RichtextAsset": {
+   "properties": {
+    "id": {
+     "type": "string"
+    },
+    "missions": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    },
+    "text": {
+     "type": "string"
+    },
+    "title": {
+     "type": "string"
+    },
+    "type": {
+     "type": "string"
+    },
+    "userId": {
+     "type": "string"
+    }
+   }
+  },
+  "Subscription": {
+   "properties": {
+    "id": {
+     "type": "string"
+    },
+    "maxSeats": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "owner": {
+     "type": "string"
+    },
+    "seats": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    },
+    "status": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "subscriptionType": {
+     "type": "string"
+    }
+   }
+  },
+  "ImageAsset": {
+   "properties": {
+    "fullPath": {
+     "type": "string"
+    },
+    "id": {
+     "type": "string"
+    },
+    "missions": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    },
+    "title": {
+     "type": "string"
+    },
+    "type": {
+     "type": "string"
+    },
+    "userId": {
+     "type": "string"
+    }
+   }
+  },
+  "Password": {
+   "properties": {
+    "displayName": {
+     "type": "string"
+    },
+    "password": {
+     "type": "string"
+    }
+   }
+  },
+  "CommentAsset": {
+   "properties": {
+    "id": {
+     "type": "string"
+    },
+    "missions": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    },
+    "text": {
+     "type": "string"
+    },
+    "title": {
+     "type": "string"
+    },
+    "type": {
+     "type": "string"
+    },
+    "userId": {
+     "type": "string"
+    }
+   }
+  },
+  "BibendoGameAsset": {
+   "properties": {
+    "gameId": {
+     "type": "integer",
+     "format": "int64"
+    },
+    "id": {
+     "type": "string"
+    },
+    "missions": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    },
+    "title": {
+     "type": "string"
+    },
+    "type": {
+     "type": "string"
+    },
+    "userId": {
+     "type": "string"
+    }
+   }
+  },
+  "JsonMap": { },
+  "UploadAsset": {
+   "properties": {
+    "fieldLabels": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    },
+    "fields": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    },
+    "id": {
+     "type": "string"
+    },
+    "missions": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    },
+    "title": {
+     "type": "string"
+    },
+    "type": {
+     "type": "string"
+    },
+    "userId": {
+     "type": "string"
+    }
+   }
+  },
+  "WriteResult": {
+   "properties": {
+    "updateTime": {
+     "$ref": "#/definitions/Timestamp"
+    }
+   }
+  },
+  "EnhancedUser": {
+   "properties": {
+    "admin": {
+     "type": "boolean"
+    },
+    "displayName": {
+     "type": "string"
+    },
+    "email": {
+     "type": "string"
+    },
+    "id": {
+     "type": "string"
+    },
+    "name": {
+     "type": "string"
+    },
+    "subscription": {
+     "type": "boolean"
+    },
+    "subscriptionMgr": {
+     "type": "string"
+    }
+   }
+  },
+  "FaqAsset": {
+   "properties": {
+    "answers": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    },
+    "id": {
+     "type": "string"
+    },
+    "missions": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    },
+    "questions": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    },
+    "title": {
+     "type": "string"
+    },
+    "type": {
+     "type": "string"
+    },
+    "userId": {
+     "type": "string"
+    }
+   }
+  },
+  "Theme": {
+   "properties": {
+    "color": {
+     "type": "string"
+    },
+    "css": {
+     "type": "string"
+    },
+    "id": {
+     "type": "string"
+    },
+    "name": {
+     "type": "string"
+    }
+   }
+  },
+  "InstructionAsset": {
+   "properties": {
+    "id": {
+     "type": "string"
+    },
+    "missions": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    },
+    "text": {
+     "type": "string"
+    },
+    "title": {
+     "type": "string"
+    },
+    "type": {
+     "type": "string"
+    },
+    "userId": {
+     "type": "string"
+    }
+   }
+  }
+ }
+}

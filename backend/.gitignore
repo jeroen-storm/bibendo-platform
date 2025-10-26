@@ -1,0 +1,36 @@
+# Node modules
+node_modules/
+
+# Environment variables
+.env
+
+# Database files
+database/bibendo.db
+database/bibendo.db-shm
+database/bibendo.db-wal
+database/*.backup.*
+
+# Bibendo sensitive data
+database/.bibendo_tokens.json
+.bibendo-token-temp.txt
+.test-data.json
+.test-game-id.txt
+
+# Test scripts (temporary)
+test-*.js
+login-temp*.js
+save-token.js
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo

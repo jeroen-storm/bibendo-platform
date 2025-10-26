@@ -9,6 +9,10 @@ const { JSDOM } = require('jsdom');
 const createDOMPurify = require('dompurify');
 require('dotenv').config();
 
+// Bibendo integration modules
+const BibendoTokenManager = require('./bibendo-token-manager');
+const BibendoDataSync = require('./bibendo-sync');
+
 // Setup DOMPurify for server-side HTML sanitization
 const window = new JSDOM('').window;
 const DOMPurify = createDOMPurify(window);
@@ -40,6 +44,10 @@ db.exec(schemaV2, (err) => {
         console.log('Database initialized successfully with schema V2');
     }
 });
+
+// Initialize Bibendo modules
+const tokenManager = new BibendoTokenManager();
+const bibendoSync = new BibendoDataSync(dbPath, tokenManager);
 
 // Middleware - disable helmet for development
 // app.use(helmet());
@@ -625,6 +633,151 @@ app.get('/api/admin/stats', (req, res) => {
     } catch (error) {
         console.error('Error fetching stats:', error);
         res.status(500).json({ error: 'Failed to fetch statistics' });
+    }
+});
+
+// ============================================
+// BIBENDO INTEGRATION ENDPOINTS
+// ============================================
+
+// Endpoint 1: Set Bearer Token
+app.post('/api/bibendo/auth', async (req, res) => {
+    const { userId, bearerToken } = req.body;
+
+    if (!userId || !bearerToken) {
+        return res.status(400).json({
+            error: 'userId and bearerToken are required'
+        });
+    }
+
+    try {
+        // Valideer token bij Bibendo
+        const isValid = await tokenManager.validateToken(bearerToken);
+
+        if (!isValid) {
+            return res.status(401).json({
+                error: 'Invalid bearer token'
+            });
+        }
+
+        // Sla token op
+        tokenManager.setToken(userId, bearerToken);
+
+        res.json({
+            success: true,
+            message: 'Token stored successfully',
+            userId: userId
+        });
+    } catch (error) {
+        console.error('Auth error:', error);
+        res.status(500).json({ error: 'Authentication failed' });
+    }
+});
+
+// Endpoint 2: Manual Sync Trigger
+app.post('/api/bibendo/sync', async (req, res) => {
+    const { userId } = req.body;
+
+    if (!userId) {
+        return res.status(400).json({
+            error: 'userId is required'
+        });
+    }
+
+    try {
+        const success = await bibendoSync.fullSync(userId);
+
+        if (success) {
+            res.json({
+                success: true,
+                message: 'Sync completed successfully'
+            });
+        } else {
+            res.status(500).json({
+                error: 'Sync failed'
+            });
+        }
+    } catch (error) {
+        console.error('Sync error:', error);
+        res.status(500).json({ error: 'Sync failed' });
+    }
+});
+
+// Endpoint 3: Get Combined Timeline
+app.get('/api/bibendo/timeline/:userId', async (req, res) => {
+    const { userId } = req.params;
+    const limit = parseInt(req.query.limit) || 50;
+
+    try {
+        const timeline = await bibendoSync.getCombinedTimeline(userId, limit);
+        res.json(timeline);
+    } catch (error) {
+        console.error('Timeline error:', error);
+        res.status(500).json({ error: 'Failed to get timeline' });
+    }
+});
+
+// Endpoint 4: Get Game Choices
+app.get('/api/bibendo/choices/:userId/:runId?', async (req, res) => {
+    const { userId, runId } = req.params;
+
+    try {
+        let sql, params;
+
+        if (runId) {
+            sql = `
+                SELECT * FROM bibendo_game_choices
+                WHERE user_id = ? AND run_id = ?
+                ORDER BY timestamp DESC
+            `;
+            params = [userId, runId];
+        } else {
+            sql = `
+                SELECT * FROM bibendo_game_choices
+                WHERE user_id = ?
+                ORDER BY timestamp DESC
+                LIMIT 100
+            `;
+            params = [userId];
+        }
+
+        db.all(sql, params, (err, rows) => {
+            if (err) {
+                console.error('Database error:', err);
+                res.status(500).json({ error: 'Database error' });
+            } else {
+                res.json(rows || []);
+            }
+        });
+    } catch (error) {
+        console.error('Choices error:', error);
+        res.status(500).json({ error: 'Failed to get choices' });
+    }
+});
+
+// Endpoint 5: Test Bibendo Connection
+app.get('/api/bibendo/test/:userId', async (req, res) => {
+    const { userId } = req.params;
+
+    try {
+        const token = tokenManager.getToken(userId);
+
+        if (!token) {
+            return res.status(401).json({
+                error: 'No token found for user'
+            });
+        }
+
+        const isValid = await tokenManager.validateToken(token);
+
+        res.json({
+            success: isValid,
+            hasToken: true,
+            message: isValid ? 'Token is valid' : 'Token is expired or invalid'
+        });
+    } catch (error) {
+        console.error('Test error:', error);
+        res.status(500).json({ error: 'Test failed' });
     }
 });
 

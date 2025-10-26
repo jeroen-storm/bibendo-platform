@@ -1,0 +1,103 @@
+[09:52:26] INFO: ================================================================================
+[09:52:26] INFO: BIBENDO API TESTS GESTART
+[09:52:26] INFO: ================================================================================
+[09:52:26] INFO: 
+==================================================
+[09:52:26] INFO: ACCOUNT ENDPOINTS
+[09:52:26] INFO: ==================================================
+[09:52:26] INFO: Testing GET /account/accountDetails...
+[09:52:27] INFO: ✓ Succes: GET /account/accountDetails (Status: 200)
+[09:52:27] INFO: Huidige gebruiker fullId: 7:SUi0jz4F9lOhzWTLLkMxCZRz3Ix2
+[09:52:27] INFO: Testing GET /usermgt/accounts/test...
+[09:52:27] INFO: ✓ Succes: GET /usermgt/accounts/test (Status: 403)
+[09:52:27] INFO: Testing GET /usermgt/recent...
+[09:52:27] INFO: ✓ Succes: GET /usermgt/recent (Status: 200)
+[09:52:27] INFO: 
+==================================================
+[09:52:27] INFO: GAME ENDPOINTS
+[09:52:27] INFO: ==================================================
+[09:52:27] INFO: Testing GET /game/list...
+[09:52:28] INFO: ✓ Succes: GET /game/list (Status: 200)
+[09:52:28] INFO: Gevonden game ID: 4798334378180608
+[09:52:28] INFO: Testing GET /game/4798334378180608...
+[09:52:28] INFO: ✓ Succes: GET /game/4798334378180608 (Status: 200)
+[09:52:28] INFO: Testing GET /generalItems/gameId/4798334378180608...
+[09:52:29] INFO: ✓ Succes: GET /generalItems/gameId/4798334378180608 (Status: 200)
+[09:52:29] INFO: Testing GET /games/featured/gameId/4798334378180608...
+[09:52:29] INFO: ✓ Succes: GET /games/featured/gameId/4798334378180608 (Status: 200)
+[09:52:29] INFO: Testing GET /game/theme/list/global...
+[09:52:29] INFO: ✓ Succes: GET /game/theme/list/global (Status: 200)
+[09:52:29] INFO: Testing GET /game/theme/list/custom...
+[09:52:29] INFO: ✓ Succes: GET /game/theme/list/custom (Status: 200)
+[09:52:29] INFO: 
+==================================================
+[09:52:29] INFO: RUN ENDPOINTS
+[09:52:29] INFO: ==================================================
+[09:52:29] INFO: Testing GET /runs/4798334378180608/list...
+[09:52:30] INFO: ✓ Succes: GET /runs/4798334378180608/list (Status: 200)
+[09:52:30] INFO: Gevonden run ID: 4549554202476544
+[09:52:30] INFO: Testing GET /run/4549554202476544...
+[09:52:30] INFO: ✓ Succes: GET /run/4549554202476544 (Status: 200)
+[09:52:30] INFO: Testing GET /run/4549554202476544/users...
+[09:52:30] INFO: ✓ Succes: GET /run/4549554202476544/users (Status: 200)
+[09:52:30] INFO: Testing GET /run/access/4549554202476544/list...
+[09:52:30] INFO: ✓ Succes: GET /run/access/4549554202476544/list (Status: 200)
+[09:52:30] INFO: Testing GET /run/response/runId/4549554202476544/from/0/until/1743587550993/cursor/...
+[09:52:31] WARNING: Geen geldige JSON response van GET /run/response/runId/4549554202476544/from/0/until/1743587550993/cursor/
+[09:52:31] INFO: Status code: 404
+[09:52:31] INFO: Response tekst: Not Found...
+[09:52:31] INFO: 
+==================================================
+[09:52:31] INFO: ORGANIZATION ENDPOINTS
+[09:52:31] INFO: ==================================================
+[09:52:31] INFO: Testing GET /organization/list...
+[09:52:31] INFO: ✓ Succes: GET /organization/list (Status: 403)
+[09:52:31] INFO: 
+==================================================
+[09:52:31] INFO: PLAYER ENDPOINTS
+[09:52:31] INFO: ==================================================
+[09:52:31] INFO: Testing GET /player/myContacts...
+[09:52:32] INFO: ✓ Succes: GET /player/myContacts (Status: 200)
+[09:52:32] INFO: Testing GET /player/pendingInvitations...
+[09:52:32] INFO: ✓ Succes: GET /player/pendingInvitations (Status: 200)
+[09:52:32] INFO: Testing GET /player/invitationsToMe...
+[09:52:32] INFO: ✓ Succes: GET /player/invitationsToMe (Status: 200)
+[09:52:32] INFO: Testing GET /player/contact/7:SUi0jz4F9lOhzWTLLkMxCZRz3Ix2...
+[09:52:32] INFO: ✓ Succes: GET /player/contact/7:SUi0jz4F9lOhzWTLLkMxCZRz3Ix2 (Status: 200)
+[09:52:32] INFO: 
+==================================================
+[09:52:32] INFO: MEDIA ENDPOINTS
+[09:52:32] INFO: ==================================================
+[09:52:32] INFO: Testing GET /media/list?path=/...
+[09:52:33] INFO: ✓ Succes: GET /media/list?path=/ (Status: 200)
+[09:52:33] INFO: Testing GET /media/search/background...
+[09:52:33] INFO: ✓ Succes: GET /media/search/background (Status: 200)
+[09:52:33] INFO: 
+==================================================
+[09:52:33] INFO: GAME LIBRARY ENDPOINTS
+[09:52:33] INFO: ==================================================
+[09:52:33] INFO: Testing GET /games/library/recent...
+[09:52:33] INFO: ✓ Succes: GET /games/library/recent (Status: 200)
+[09:52:33] INFO: Testing GET /games/library/search/quiz...
+[09:52:34] INFO: ✓ Succes: GET /games/library/search/quiz (Status: 200)
+[09:52:34] INFO: Testing GET /games/featured/en...
+[09:52:34] INFO: ✓ Succes: GET /games/featured/en (Status: 200)
+[09:52:34] INFO: Testing GET /games/library/categories/game/4798334378180608/en...
+[09:52:34] INFO: ✓ Succes: GET /games/library/categories/game/4798334378180608/en (Status: 503)
+[09:52:34] INFO: 
+==================================================
+[09:52:34] INFO: GAME CATEGORIES ENDPOINTS
+[09:52:34] INFO: ==================================================
+[09:52:34] INFO: Testing GET /games/library/category/en...
+[09:52:34] INFO: ✓ Succes: GET /games/library/category/en (Status: 200)
+[09:52:34] INFO: 
+Alle tests zijn afgerond. Resultaten worden opgeslagen...
+[09:52:34] INFO: Alle resultaten zijn opgeslagen in: /content/bibendo_api_docs/all_api_results.json
+[09:52:34] INFO: Genereren van HTML documentatie...
+[09:52:34] INFO: HTML documentatie gegenereerd in: /content/bibendo_api_docs/api_documentation.html
+[09:52:34] INFO: 
+Test Statistieken:
+[09:52:34] INFO: Totaal aantal endpoints getest: 26
+[09:52:34] INFO: Succesvolle tests: 22 (84.6%)
+[09:52:34] INFO: Mislukte tests: 4
+[09:52:34] INFO: Endpoints overzicht opgeslagen als: /content/bibendo_api_docs/endpoints_overview.csv
