@@ -310,10 +310,10 @@
 
             <p>We zijn op zoek gegaan naar een evenementenbureau dat geschikt is om de lancering van SneakSpot te organiseren. <strong>Voor de lancering van SneakSpot adviseren wij om...</strong></p>
 
-            <!-- Field 10: Evenementenbureau advice -->
+            <!-- Field 9: Evenementenbureau advice -->
             <div class="email-field">
                 <textarea
-                    id="field10"
+                    id="field9"
                     placeholder="Begin hier met typen..."
                     maxlength="500"
                     style="height: 60px;"
@@ -321,15 +321,15 @@
                 <div class="char-counter">0/500</div>
             </div>
 
-            <!-- Note display for field 10 (note3_level3) -->
-            <p class="field-explanation" id="note-display-10" style="background-color: #fff9e6; padding: 12px; border-radius: 4px; margin-top: 8px; margin-bottom: 20px;"><em>Je eerdere aantekening wordt hier getoond...</em></p>
+            <!-- Note display for field 9 (note3_level3) -->
+            <p class="field-explanation" id="note-display-9" style="background-color: #fff9e6; padding: 12px; border-radius: 4px; margin-top: 8px; margin-bottom: 20px;"><em>Je eerdere aantekening wordt hier getoond...</em></p>
 
             <p>Als laatste zouden wij u graag een antwoord willen geven op de vraag die u ons stelde: <em>Wat moet er aan SneakSpot veranderen, zodat jongeren weer naar de winkel komen?</em> <strong>Om meer jongeren naar SneakSpot te laten komen, zouden wij adviseren om</strong> ...</p>
-            
-            <!-- Field 9: Final conclusion -->
+
+            <!-- Field 10: Final conclusion (no note reference) -->
             <div class="email-field">
-                <textarea 
-                    id="field9" 
+                <textarea
+                    id="field10"
                     placeholder="Begin hier met typen..."
                     maxlength="500"
                     style="height: 50px;"
@@ -452,8 +452,8 @@
                     6: { pageId: 'note2_level2', field: 'reason' },       // Waarom past het bij SneakSpot
                     7: { pageId: 'note1_level3', field: 'single' },       // Loopz activiteiten
                     8: { pageId: 'note2_level3', field: 'single' },       // Sasha activiteiten
-                    10: { pageId: 'note3_level3', field: 'single' },      // Evenementenbureau advice
-                    9: { pageId: null, field: 'new' }                     // New conclusion field
+                    9: { pageId: 'note3_level3', field: 'single' },       // Evenementenbureau advice
+                    10: { pageId: null, field: 'new' }                    // New conclusion field (no note)
                 };
 
                 // Initialize all fields (now 10 instead of 9)
@@ -646,7 +646,7 @@
                 console.log('User ID:', this.userId);
 
                 for (let i = 1; i <= 10; i++) {
-                    if (i === 9) continue; // Skip field 9 (no note display)
+                    if (i === 10) continue; // Skip field 10 (no note display)
 
                     const mapping = this.noteMapping[i];
                     if (!mapping || !mapping.pageId) continue;
