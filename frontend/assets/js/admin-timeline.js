@@ -334,18 +334,18 @@ class AdminTimelineDashboard {
     }
 
     createFinalAssignmentAccordion(items) {
-        // Field labels - exact text from email template (final_assignment.html)
+        // Field labels - exact text from email + which note it corresponds to
         const fieldLabels = {
-            1: 'SneakSpot verkoopt op dit moment',
-            2: 'Er komen weinig jongeren naar SneakSpot, omdat',
-            3: 'Om meer jongeren aan te trekken, moet SneakSpot sneakers verkopen die',
-            4: 'Jongeren zijn op zoek naar een sneakerstyle',
-            5: 'De sneakerstyle die volgens ons goed past bij SneakSpot is',
-            6: 'Deze sneakerstyle past goed bij SneakSpot, omdat',
-            7: 'We hebben de activiteiten van kledingwinkel Loopz bekeken, en denken dat de volgende twee activiteiten goed zouden passen bij SneakSpot:',
-            8: 'Sasha gaf aan dat de volgende activiteiten geschikt zijn voor de lancering van SneakSpot:',
-            9: 'Om meer jongeren naar SneakSpot te laten komen, zouden wij adviseren om',
-            10: 'Voor de lancering van SneakSpot adviseren wij om...'
+            1: 'SneakSpot verkoopt op dit moment ... (Notitie 1 – level 1)',
+            2: 'Er komen weinig jongeren naar SneakSpot, omdat ... (Notitie 2 – level 1)',
+            3: 'Om meer jongeren aan te trekken, moet SneakSpot sneakers verkopen die ... (Notitie 3 – level 1)',
+            4: 'Jongeren zijn op zoek naar een sneakerstyle ... (Notitie 1 – level 2)',
+            5: 'De sneakerstyle die volgens ons goed past bij SneakSpot is ... (Notitie 2a – level 2)',
+            6: 'Deze sneakerstyle past goed bij SneakSpot, omdat ... (Notitie 2b – level 2)',
+            7: 'We hebben de activiteiten van kledingwinkel Loopz bekeken, en denken dat de volgende twee activiteiten goed zouden passen bij SneakSpot: (Notitie 1 – level 3)',
+            8: 'Sasha gaf aan dat de volgende activiteiten geschikt zijn voor de lancering van SneakSpot: (Notitie 2 – level 3)',
+            9: 'Om meer jongeren naar SneakSpot te laten komen, zouden wij adviseren om ... (geen notitie)',
+            10: 'Voor de lancering van SneakSpot adviseren wij om... (Notitie 3 – level 3)'
         };
 
         // Check for new format (individual fields with field_number)
@@ -446,16 +446,16 @@ class AdminTimelineDashboard {
         }
 
         const fieldLabels = {
-            1: 'SneakSpot verkoopt op dit moment',
-            2: 'Er komen weinig jongeren naar SneakSpot, omdat',
-            3: 'Om meer jongeren aan te trekken, moet SneakSpot sneakers verkopen die',
-            4: 'Jongeren zijn op zoek naar een sneakerstyle',
-            5: 'De sneakerstyle die volgens ons goed past bij SneakSpot is',
-            6: 'Deze sneakerstyle past goed bij SneakSpot, omdat',
-            7: 'We hebben de activiteiten van kledingwinkel Loopz bekeken, en denken dat de volgende twee activiteiten goed zouden passen bij SneakSpot:',
-            8: 'Sasha gaf aan dat de volgende activiteiten geschikt zijn voor de lancering van SneakSpot:',
-            9: 'Om meer jongeren naar SneakSpot te laten komen, zouden wij adviseren om',
-            10: 'Voor de lancering van SneakSpot adviseren wij om...'
+            1: 'SneakSpot verkoopt op dit moment ... (Notitie 1 – level 1)',
+            2: 'Er komen weinig jongeren naar SneakSpot, omdat ... (Notitie 2 – level 1)',
+            3: 'Om meer jongeren aan te trekken, moet SneakSpot sneakers verkopen die ... (Notitie 3 – level 1)',
+            4: 'Jongeren zijn op zoek naar een sneakerstyle ... (Notitie 1 – level 2)',
+            5: 'De sneakerstyle die volgens ons goed past bij SneakSpot is ... (Notitie 2a – level 2)',
+            6: 'Deze sneakerstyle past goed bij SneakSpot, omdat ... (Notitie 2b – level 2)',
+            7: 'We hebben de activiteiten van kledingwinkel Loopz bekeken, en denken dat de volgende twee activiteiten goed zouden passen bij SneakSpot: (Notitie 1 – level 3)',
+            8: 'Sasha gaf aan dat de volgende activiteiten geschikt zijn voor de lancering van SneakSpot: (Notitie 2 – level 3)',
+            9: 'Om meer jongeren naar SneakSpot te laten komen, zouden wij adviseren om ... (geen notitie)',
+            10: 'Voor de lancering van SneakSpot adviseren wij om... (Notitie 3 – level 3)'
         };
 
         let html = '';
