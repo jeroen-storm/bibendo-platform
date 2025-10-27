@@ -334,17 +334,17 @@ class AdminTimelineDashboard {
     }
 
     createFinalAssignmentAccordion(items) {
-        // Field labels with lead-in text for final assignment (10 fields)
+        // Field labels - exact text from email template (final_assignment.html)
         const fieldLabels = {
-            1: 'SneakSpot verkoopt op dit moment...',
-            2: 'Er komen weinig jongeren naar SneakSpot, omdat...',
-            3: 'Om meer jongeren aan te trekken, moet SneakSpot sneakers verkopen die...',
-            4: 'Jongeren zijn op zoek naar een sneakerstyle...',
-            5: 'De sneakerstyle die volgens ons goed past bij SneakSpot is...',
-            6: 'Deze sneakerstyle past goed bij SneakSpot, omdat...',
+            1: 'SneakSpot verkoopt op dit moment',
+            2: 'Er komen weinig jongeren naar SneakSpot, omdat',
+            3: 'Om meer jongeren aan te trekken, moet SneakSpot sneakers verkopen die',
+            4: 'Jongeren zijn op zoek naar een sneakerstyle',
+            5: 'De sneakerstyle die volgens ons goed past bij SneakSpot is',
+            6: 'Deze sneakerstyle past goed bij SneakSpot, omdat',
             7: 'We hebben de activiteiten van kledingwinkel Loopz bekeken, en denken dat de volgende twee activiteiten goed zouden passen bij SneakSpot:',
             8: 'Sasha gaf aan dat de volgende activiteiten geschikt zijn voor de lancering van SneakSpot:',
-            9: 'Om meer jongeren naar SneakSpot te laten komen, zouden wij adviseren om... (Conclusie - laatste veld)',
+            9: 'Om meer jongeren naar SneakSpot te laten komen, zouden wij adviseren om',
             10: 'Voor de lancering van SneakSpot adviseren wij om...'
         };
 
@@ -446,15 +446,15 @@ class AdminTimelineDashboard {
         }
 
         const fieldLabels = {
-            1: 'SneakSpot verkoopt op dit moment...',
-            2: 'Er komen weinig jongeren naar SneakSpot, omdat...',
-            3: 'Om meer jongeren aan te trekken, moet SneakSpot sneakers verkopen die...',
-            4: 'Jongeren zijn op zoek naar een sneakerstyle...',
-            5: 'De sneakerstyle die volgens ons goed past bij SneakSpot is...',
-            6: 'Deze sneakerstyle past goed bij SneakSpot, omdat...',
+            1: 'SneakSpot verkoopt op dit moment',
+            2: 'Er komen weinig jongeren naar SneakSpot, omdat',
+            3: 'Om meer jongeren aan te trekken, moet SneakSpot sneakers verkopen die',
+            4: 'Jongeren zijn op zoek naar een sneakerstyle',
+            5: 'De sneakerstyle die volgens ons goed past bij SneakSpot is',
+            6: 'Deze sneakerstyle past goed bij SneakSpot, omdat',
             7: 'We hebben de activiteiten van kledingwinkel Loopz bekeken, en denken dat de volgende twee activiteiten goed zouden passen bij SneakSpot:',
             8: 'Sasha gaf aan dat de volgende activiteiten geschikt zijn voor de lancering van SneakSpot:',
-            9: 'Om meer jongeren naar SneakSpot te laten komen, zouden wij adviseren om... (Conclusie - laatste veld)',
+            9: 'Om meer jongeren naar SneakSpot te laten komen, zouden wij adviseren om',
             10: 'Voor de lancering van SneakSpot adviseren wij om...'
         };
 
