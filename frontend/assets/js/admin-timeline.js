@@ -344,7 +344,7 @@ class AdminTimelineDashboard {
             6: 'Deze sneakerstyle past goed bij SneakSpot, omdat...',
             7: 'We hebben de activiteiten van kledingwinkel Loopz bekeken, en denken dat de volgende twee activiteiten goed zouden passen bij SneakSpot:',
             8: 'Sasha gaf aan dat de volgende activiteiten geschikt zijn voor de lancering van SneakSpot:',
-            9: 'Om meer jongeren naar SneakSpot te laten komen, zouden wij adviseren om...',
+            9: 'Om meer jongeren naar SneakSpot te laten komen, zouden wij adviseren om... (Conclusie - laatste veld)',
             10: 'Voor de lancering van SneakSpot adviseren wij om...'
         };
 
@@ -454,7 +454,7 @@ class AdminTimelineDashboard {
             6: 'Deze sneakerstyle past goed bij SneakSpot, omdat...',
             7: 'We hebben de activiteiten van kledingwinkel Loopz bekeken, en denken dat de volgende twee activiteiten goed zouden passen bij SneakSpot:',
             8: 'Sasha gaf aan dat de volgende activiteiten geschikt zijn voor de lancering van SneakSpot:',
-            9: 'Om meer jongeren naar SneakSpot te laten komen, zouden wij adviseren om...',
+            9: 'Om meer jongeren naar SneakSpot te laten komen, zouden wij adviseren om... (Conclusie - laatste veld)',
             10: 'Voor de lancering van SneakSpot adviseren wij om...'
         };
 
