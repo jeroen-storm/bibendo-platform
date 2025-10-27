@@ -302,17 +302,6 @@ class AdminTimelineDashboard {
     }
 
     createFinalAssignmentAccordion(items) {
-        // Filter out items with invalid field_number (null, 0, undefined)
-        const validItems = items.filter(item => item.field_number && item.field_number > 0);
-
-        // Sort items by field_number
-        const sortedItems = validItems.sort((a, b) => a.field_number - b.field_number);
-
-        // Get the most recent update date
-        const latestUpdate = sortedItems.reduce((latest, item) => {
-            return !latest || new Date(item.updated_at) > new Date(latest) ? item.updated_at : latest;
-        }, null);
-
         // Field labels for final assignment (10 fields)
         const fieldLabels = {
             1: 'Huidige producten SneakSpot',
@@ -327,25 +316,69 @@ class AdminTimelineDashboard {
             10: 'Advies evenementenbureau'
         };
 
-        // Build the fields HTML
-        let fieldsHtml = '';
-        sortedItems.forEach(item => {
-            const fieldNum = item.field_number;
-            const label = fieldLabels[fieldNum] || `Veld ${fieldNum}`;
+        // Check for new format (individual fields with field_number)
+        const newFormatItems = items.filter(item => item.field_number && item.field_number > 0);
 
-            fieldsHtml += `
-                <div class="multi-field-item">
-                    <div class="multi-field-label">${fieldNum}. ${label}</div>
-                    <div class="multi-field-content">${this.escapeHtml(item.content || 'Leeg')}</div>
-                </div>
-            `;
-        });
+        let fieldsHtml = '';
+        let latestUpdate = null;
+        let totalFields = 0;
+
+        if (newFormatItems.length > 0) {
+            // NEW FORMAT: individual fields with field_number
+            const sortedItems = newFormatItems.sort((a, b) => a.field_number - b.field_number);
+            latestUpdate = sortedItems.reduce((latest, item) => {
+                return !latest || new Date(item.updated_at) > new Date(latest) ? item.updated_at : latest;
+            }, null);
+
+            sortedItems.forEach(item => {
+                const fieldNum = item.field_number;
+                const label = fieldLabels[fieldNum] || `Veld ${fieldNum}`;
+                fieldsHtml += `
+                    <div class="multi-field-item">
+                        <div class="multi-field-label">${fieldNum}. ${label}</div>
+                        <div class="multi-field-content">${this.escapeHtml(item.content || 'Leeg')}</div>
+                    </div>
+                `;
+            });
+            totalFields = sortedItems.length;
+        } else {
+            // OLD FORMAT: single JSON object (backward compatibility)
+            const oldFormatItem = items.find(item => !item.field_number || item.field_number === 0);
+            if (oldFormatItem && oldFormatItem.content) {
+                try {
+                    const parsedContent = JSON.parse(oldFormatItem.content);
+                    latestUpdate = oldFormatItem.updated_at;
+
+                    // Extract fields from JSON (field1, field2, ..., field10)
+                    for (let i = 1; i <= 10; i++) {
+                        const fieldKey = `field${i}`;
+                        if (parsedContent[fieldKey] && parsedContent[fieldKey].trim()) {
+                            const label = fieldLabels[i] || `Veld ${i}`;
+                            fieldsHtml += `
+                                <div class="multi-field-item">
+                                    <div class="multi-field-label">${i}. ${label}</div>
+                                    <div class="multi-field-content">${this.escapeHtml(parsedContent[fieldKey])}</div>
+                                </div>
+                            `;
+                            totalFields++;
+                        }
+                    }
+                } catch (e) {
+                    console.error('Error parsing old final assignment format:', e);
+                    fieldsHtml = `<div class="multi-field-item"><div class="multi-field-content">Fout bij laden oude data</div></div>`;
+                }
+            }
+        }
+
+        if (!fieldsHtml) {
+            fieldsHtml = `<div class="multi-field-item"><div class="multi-field-content">Geen velden ingevuld</div></div>`;
+        }
 
         return `
             <div class="accordion-item multi-field open" data-pageId="final_assignment">
                 <div class="accordion-header-static">
                     <div>
-                        <div class="accordion-title">Email naar Emma (${sortedItems.length} velden)</div>
+                        <div class="accordion-title">Email naar Emma (${totalFields} velden)</div>
                         <div class="accordion-meta">
                             Laatst aangepast: ${this.formatDate(latestUpdate)}
                         </div>
