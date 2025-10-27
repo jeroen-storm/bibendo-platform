@@ -334,18 +334,18 @@ class AdminTimelineDashboard {
     }
 
     createFinalAssignmentAccordion(items) {
-        // Field labels for final assignment (10 fields)
+        // Field labels with lead-in text for final assignment (10 fields)
         const fieldLabels = {
-            1: 'Huidige producten SneakSpot',
-            2: 'Waarom weinig jongeren',
-            3: 'Sneakers die SneakSpot moet verkopen',
-            4: 'Sneakerstyle van jongeren',
-            5: 'Geschikte sneakerstyle voor SneakSpot',
-            6: 'Waarom geschikt voor SneakSpot',
-            7: 'Activiteiten Loopz analyse',
-            8: 'Aanbevolen activiteiten van Sasha',
-            9: 'Conclusie & aanbevelingen',
-            10: 'Advies evenementenbureau'
+            1: 'SneakSpot verkoopt op dit moment...',
+            2: 'Er komen weinig jongeren naar SneakSpot, omdat...',
+            3: 'Om meer jongeren aan te trekken, moet SneakSpot sneakers verkopen die...',
+            4: 'Jongeren zijn op zoek naar een sneakerstyle...',
+            5: 'De sneakerstyle die volgens ons goed past bij SneakSpot is...',
+            6: 'Deze sneakerstyle past goed bij SneakSpot, omdat...',
+            7: 'We hebben de activiteiten van kledingwinkel Loopz bekeken, en denken dat de volgende twee activiteiten goed zouden passen bij SneakSpot:',
+            8: 'Sasha gaf aan dat de volgende activiteiten geschikt zijn voor de lancering van SneakSpot:',
+            9: 'Om meer jongeren naar SneakSpot te laten komen, zouden wij adviseren om...',
+            10: 'Voor de lancering van SneakSpot adviseren wij om...'
         };
 
         // Check for new format (individual fields with field_number)
@@ -446,15 +446,16 @@ class AdminTimelineDashboard {
         }
 
         const fieldLabels = {
-            1: 'Huidige producten SneakSpot',
-            2: 'Waarom weinig jongeren',
-            3: 'Sneakers die SneakSpot moet verkopen',
-            4: 'Sneakerstyle van jongeren',
-            5: 'Geschikte sneakerstyle voor SneakSpot',
-            6: 'Waarom geschikt voor SneakSpot',
-            7: 'Activiteiten Loopz analyse',
-            8: 'Aanbevolen activiteiten van Sasha',
-            9: 'Conclusie & aanbevelingen'
+            1: 'SneakSpot verkoopt op dit moment...',
+            2: 'Er komen weinig jongeren naar SneakSpot, omdat...',
+            3: 'Om meer jongeren aan te trekken, moet SneakSpot sneakers verkopen die...',
+            4: 'Jongeren zijn op zoek naar een sneakerstyle...',
+            5: 'De sneakerstyle die volgens ons goed past bij SneakSpot is...',
+            6: 'Deze sneakerstyle past goed bij SneakSpot, omdat...',
+            7: 'We hebben de activiteiten van kledingwinkel Loopz bekeken, en denken dat de volgende twee activiteiten goed zouden passen bij SneakSpot:',
+            8: 'Sasha gaf aan dat de volgende activiteiten geschikt zijn voor de lancering van SneakSpot:',
+            9: 'Om meer jongeren naar SneakSpot te laten komen, zouden wij adviseren om...',
+            10: 'Voor de lancering van SneakSpot adviseren wij om...'
         };
 
         let html = '';
