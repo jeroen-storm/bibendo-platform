@@ -93,7 +93,7 @@ class AdminTimelineDashboard {
                 this.contentData = await contentResponse.json();
             }
 
-            // Load timeline data
+            // Load timeline data (app events)
             const timelineResponse = await fetch(`/api/admin/user/${this.userId}/timeline`);
             if (!timelineResponse.ok) {
                 console.error('Timeline API failed:', timelineResponse.status);
@@ -101,6 +101,21 @@ class AdminTimelineDashboard {
             } else {
                 this.timelineData = await timelineResponse.json();
             }
+
+            // Load Bibendo game choices
+            let bibendoChoices = [];
+            try {
+                const bibendoResponse = await fetch(`/api/bibendo/choices/${this.userId}`);
+                if (bibendoResponse.ok) {
+                    bibendoChoices = await bibendoResponse.json();
+                    console.log('Loaded Bibendo choices:', bibendoChoices.length);
+                }
+            } catch (error) {
+                console.log('No Bibendo data available for this user');
+            }
+
+            // Merge timeline events and game choices
+            this.timelineData = this.mergeTimelines(this.timelineData, bibendoChoices);
 
             this.displayUserInfo();
             this.displayContentTab();
@@ -112,6 +127,23 @@ class AdminTimelineDashboard {
         } finally {
             document.getElementById('userDetailLoading').style.display = 'none';
         }
+    }
+
+    mergeTimelines(appEvents, gameChoices) {
+        // Convert game choices to timeline event format
+        const gameEvents = gameChoices.map(choice => ({
+            ...choice,
+            event_type: 'game_choice',
+            source: 'bibendo_game',
+            // Use timestamp from game choice or created_at
+            timestamp: choice.timestamp || choice.created_at
+        }));
+
+        // Combine and sort by timestamp (descending - newest first)
+        const combined = [...appEvents, ...gameEvents];
+        combined.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+        return combined;
     }
 
     displayUserInfo() {
@@ -494,6 +526,11 @@ class AdminTimelineDashboard {
     }
 
     createTimelineEvent(event) {
+        // Check if this is a Bibendo game choice
+        if (event.event_type === 'game_choice' || event.source === 'bibendo_game') {
+            return this.createGameChoiceEvent(event);
+        }
+
         const config = this.getEventConfig(event.event_type);
         // Parse as UTC and convert to NL timezone
         const timestamp = event.timestamp + (event.timestamp.includes('Z') ? '' : 'Z');
@@ -544,6 +581,56 @@ class AdminTimelineDashboard {
                     <div class="timeline-details">
                         <div class="timeline-label">${label}</div>
                         ${durationHtml}
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
+    createGameChoiceEvent(event) {
+        // Parse timestamp
+        const timestamp = event.timestamp + (event.timestamp.includes('Z') ? '' : 'Z');
+        const time = new Date(timestamp).toLocaleTimeString('nl-NL', {
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            timeZone: 'Europe/Amsterdam'
+        });
+
+        // Determine if this is a reflection question (no correct/incorrect)
+        const isReflection = event.is_correct === null;
+
+        // Build correctness indicator (only for non-reflection questions)
+        let correctnessHtml = '';
+        if (!isReflection) {
+            const icon = event.is_correct ? '✅' : '❌';
+            const text = event.is_correct ? 'Juist' : 'Onjuist';
+            const cssClass = event.is_correct ? 'correct' : 'incorrect';
+            correctnessHtml = `<span class="game-correctness ${cssClass}">${icon} ${text}</span>`;
+        }
+
+        return `
+            <div class="timeline-event game-choice-event">
+                <div class="timeline-time">${time}</div>
+                <div class="timeline-event-content">
+                    <div class="timeline-icon">🎮</div>
+                    <div class="timeline-details">
+                        <div class="timeline-label game-choice-label">
+                            <strong>Game Keuze</strong>
+                            ${correctnessHtml}
+                        </div>
+                        <div class="game-choice-details">
+                            ${event.question_text ? `
+                                <div class="game-question">
+                                    <strong>Vraag:</strong> ${this.escapeHtml(event.question_text)}
+                                </div>
+                            ` : ''}
+                            ${event.answer_text ? `
+                                <div class="game-answer">
+                                    <strong>Antwoord:</strong> ${this.escapeHtml(event.answer_text)}
+                                </div>
+                            ` : ''}
+                        </div>
                     </div>
                 </div>
             </div>

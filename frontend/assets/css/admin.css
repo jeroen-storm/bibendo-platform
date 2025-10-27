@@ -489,3 +489,65 @@
         grid-template-columns: 1fr;
     }
 }
+
+/* Bibendo Game Choice Events */
+.game-choice-event {
+    border-left: 3px solid #6B46C1;
+    background: linear-gradient(to right, #F3F0FF 0%, #FFFFFF 100%);
+}
+
+.game-choice-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.game-correctness {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    margin-left: 8px;
+}
+
+.game-correctness.correct {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+}
+
+.game-correctness.incorrect {
+    background-color: #ffebee;
+    color: #c62828;
+}
+
+.game-choice-details {
+    margin-top: 10px;
+    padding: 10px;
+    background: white;
+    border-radius: 6px;
+    border: 1px solid #E8E4F3;
+}
+
+.game-question {
+    margin-bottom: 8px;
+    padding: 8px;
+    background: #F9F8FD;
+    border-radius: 4px;
+}
+
+.game-answer {
+    padding: 8px;
+    background: #FAFAFA;
+    border-radius: 4px;
+}
+
+.game-question strong,
+.game-answer strong {
+    color: #6B46C1;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
