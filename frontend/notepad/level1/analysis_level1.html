@@ -97,18 +97,38 @@
                 this.textareas.forEach(id => {
                     const textarea = document.getElementById(id);
                     if (textarea) {
-                        textarea.addEventListener('input', () => this.scheduleAutoSave());
+                        textarea.addEventListener('input', () => {
+                            this.updateCharCounter(textarea);
+                            this.scheduleAutoSave();
+                        });
                     }
                 });
-                
+
                 // Submit to Emma
                 const submitButton = document.getElementById('submitToEmma');
                 if (submitButton) {
                     submitButton.addEventListener('click', () => this.submitToEmma());
                 }
-                
+
                 // Load existing content
                 this.loadExistingContent();
+            }
+
+            updateCharCounter(textarea) {
+                const charCounter = textarea.parentNode.querySelector('.char-counter');
+                if (charCounter) {
+                    const currentLength = textarea.value.length;
+                    const maxLength = 1000;
+                    charCounter.textContent = `${currentLength}/${maxLength}`;
+
+                    charCounter.classList.remove('warning', 'error');
+                    if (currentLength > maxLength * 0.9) {
+                        charCounter.classList.add('warning');
+                    }
+                    if (currentLength >= maxLength) {
+                        charCounter.classList.add('error');
+                    }
+                }
             }
             
             scheduleAutoSave() {
@@ -164,6 +184,7 @@
                                     const textarea = document.getElementById(textareaId);
                                     if (textarea && item.content) {
                                         textarea.value = item.content;
+                                        this.updateCharCounter(textarea);
                                         console.log(`Loaded field ${item.field_number}:`, item.content.substring(0, 50));
                                     }
                                 }

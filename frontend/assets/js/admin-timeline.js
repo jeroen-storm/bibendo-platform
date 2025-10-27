@@ -204,17 +204,7 @@ class AdminTimelineDashboard {
             // Final assignment
             if (levelData.final && levelData.final.length > 0) {
                 html += `<h4 style="color: #666; font-size: 14px; margin: 15px 0 10px 0;">Eindopdracht</h4>`;
-                html += `
-                    <div class="accordion-item">
-                        <div class="accordion-header" onclick="adminDashboard.showAssignmentModal()">
-                            <div>
-                                <div class="accordion-title">Email naar Emma (${levelData.final.length} velden)</div>
-                                <div class="accordion-meta">Klik om alle velden te bekijken</div>
-                            </div>
-                            <span class="accordion-toggle">→</span>
-                        </div>
-                    </div>
-                `;
+                html += this.createFinalAssignmentAccordion(levelData.final);
             }
 
             html += `</div>`;
@@ -297,6 +287,65 @@ class AdminTimelineDashboard {
                 <div class="accordion-header-static">
                     <div>
                         <div class="accordion-title">${title} (${sortedItems.length} velden)</div>
+                        <div class="accordion-meta">
+                            Laatst aangepast: ${this.formatDate(latestUpdate)}
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-body">
+                    <div class="accordion-content">
+                        ${fieldsHtml}
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
+    createFinalAssignmentAccordion(items) {
+        // Filter out items with invalid field_number (null, 0, undefined)
+        const validItems = items.filter(item => item.field_number && item.field_number > 0);
+
+        // Sort items by field_number
+        const sortedItems = validItems.sort((a, b) => a.field_number - b.field_number);
+
+        // Get the most recent update date
+        const latestUpdate = sortedItems.reduce((latest, item) => {
+            return !latest || new Date(item.updated_at) > new Date(latest) ? item.updated_at : latest;
+        }, null);
+
+        // Field labels for final assignment (10 fields)
+        const fieldLabels = {
+            1: 'Huidige producten SneakSpot',
+            2: 'Waarom weinig jongeren',
+            3: 'Sneakers die SneakSpot moet verkopen',
+            4: 'Sneakerstyle van jongeren',
+            5: 'Geschikte sneakerstyle voor SneakSpot',
+            6: 'Waarom geschikt voor SneakSpot',
+            7: 'Activiteiten Loopz analyse',
+            8: 'Aanbevolen activiteiten van Sasha',
+            9: 'Conclusie & aanbevelingen',
+            10: 'Advies evenementenbureau'
+        };
+
+        // Build the fields HTML
+        let fieldsHtml = '';
+        sortedItems.forEach(item => {
+            const fieldNum = item.field_number;
+            const label = fieldLabels[fieldNum] || `Veld ${fieldNum}`;
+
+            fieldsHtml += `
+                <div class="multi-field-item">
+                    <div class="multi-field-label">${fieldNum}. ${label}</div>
+                    <div class="multi-field-content">${this.escapeHtml(item.content || 'Leeg')}</div>
+                </div>
+            `;
+        });
+
+        return `
+            <div class="accordion-item multi-field open" data-pageId="final_assignment">
+                <div class="accordion-header-static">
+                    <div>
+                        <div class="accordion-title">Email naar Emma (${sortedItems.length} velden)</div>
                         <div class="accordion-meta">
                             Laatst aangepast: ${this.formatDate(latestUpdate)}
                         </div>

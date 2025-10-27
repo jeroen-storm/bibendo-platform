@@ -165,9 +165,9 @@
                 
                 if (!textarea1 || !textarea2) return;
                 
-                // Combine both textareas with separator for backward compatibility
-                const combinedContent = textarea1.value.trim() + 
-                    (textarea1.value.trim() && textarea2.value.trim() ? '\n\n--- Waarom geschikt ---\n\n' : '') + 
+                // Combine both textareas with simple newline separator
+                const combinedContent = textarea1.value.trim() +
+                    (textarea1.value.trim() && textarea2.value.trim() ? '\n\n' : '') +
                     textarea2.value.trim();
                 
                 const statusMessage = document.getElementById('statusMessage');
@@ -224,21 +224,33 @@
                     if (response.ok) {
                         const data = await response.json();
                         if (data.content) {
-                            // Split the content back into two parts
-                            const separator = '--- Waarom geschikt ---';
-                            const parts = data.content.split(separator);
-                            
                             const textarea1 = document.getElementById('characteristicsTextarea');
                             const textarea2 = document.getElementById('reasonTextarea');
-                            
-                            if (textarea1 && parts[0]) {
-                                textarea1.value = parts[0].trim();
-                                this.updateCharCounter(textarea1);
-                            }
-                            
-                            if (textarea2 && parts[1]) {
-                                textarea2.value = parts[1].trim();
-                                this.updateCharCounter(textarea2);
+
+                            // Check if old separator exists (backward compatibility)
+                            const oldSeparator = '--- Waarom geschikt ---';
+                            if (data.content.includes(oldSeparator)) {
+                                // Old format: split by separator
+                                const parts = data.content.split(oldSeparator);
+                                if (textarea1 && parts[0]) {
+                                    textarea1.value = parts[0].trim();
+                                    this.updateCharCounter(textarea1);
+                                }
+                                if (textarea2 && parts[1]) {
+                                    textarea2.value = parts[1].trim();
+                                    this.updateCharCounter(textarea2);
+                                }
+                            } else {
+                                // New format: split by double newline
+                                const parts = data.content.split('\n\n');
+                                if (textarea1 && parts[0]) {
+                                    textarea1.value = parts[0].trim();
+                                    this.updateCharCounter(textarea1);
+                                }
+                                if (textarea2 && parts[1]) {
+                                    textarea2.value = parts[1].trim();
+                                    this.updateCharCounter(textarea2);
+                                }
                             }
                         }
                     }

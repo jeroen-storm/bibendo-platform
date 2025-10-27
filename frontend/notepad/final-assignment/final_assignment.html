@@ -487,21 +487,39 @@
             setupFieldListeners(fieldNumber) {
                 const field = this.fields[fieldNumber];
                 if (!field) return;
-                
+
                 // Focus event - start timer
                 field.addEventListener('focus', () => {
                     this.startFieldTimer(fieldNumber);
                 });
-                
+
                 // Blur event - stop timer
                 field.addEventListener('blur', () => {
                     this.stopFieldTimer(fieldNumber);
                 });
-                
+
                 // Input event - handle changes
                 field.addEventListener('input', () => {
+                    this.updateCharCounter(field);
                     this.handleFieldChange(fieldNumber);
                 });
+            }
+
+            updateCharCounter(textarea) {
+                const charCounter = textarea.parentNode.querySelector('.char-counter');
+                if (charCounter) {
+                    const currentLength = textarea.value.length;
+                    const maxLength = parseInt(textarea.getAttribute('maxlength')) || 500;
+                    charCounter.textContent = `${currentLength}/${maxLength}`;
+
+                    charCounter.classList.remove('warning', 'error');
+                    if (currentLength > maxLength * 0.9) {
+                        charCounter.classList.add('warning');
+                    }
+                    if (currentLength >= maxLength) {
+                        charCounter.classList.add('error');
+                    }
+                }
             }
             
             async loadPreviousNotes() {
@@ -592,40 +610,31 @@
             
             async saveData() {
                 try {
-                    // Prepare content data
-                    const content = {};
+                    // Save each field as a separate content item with field number (V2 API)
+                    const savePromises = [];
+
                     for (let i = 1; i <= 10; i++) {
-                        if (this.fields[i]) {
-                            content[`field${i}`] = this.fields[i].value;
+                        const field = this.fields[i];
+                        if (field) {
+                            savePromises.push(
+                                fetch('/api/content/save', {
+                                    method: 'POST',
+                                    headers: { 'Content-Type': 'application/json' },
+                                    body: JSON.stringify({
+                                        userId: this.userId,
+                                        pageId: this.pageId,
+                                        contentType: 'assignment_field',
+                                        content: field.value,
+                                        fieldNumber: i
+                                    })
+                                })
+                            );
                         }
                     }
-                    
-                    // Calculate total time spent and edits
-                    const totalTimeSpent = Object.values(this.timeSpent).reduce((sum, time) => sum + time, 0);
-                    const totalEdits = Object.values(this.editCounts).reduce((sum, count) => sum + count, 0);
-                    
-                    const data = {
-                        userId: this.userId,
-                        pageId: this.pageId,
-                        content: JSON.stringify(content),
-                        editCount: totalEdits,
-                        timeSpent: totalTimeSpent
-                    };
-                    
-                    const response = await fetch('/api/notes/save', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(data)
-                    });
-                    
-                    if (response.ok) {
-                        this.showSaveStatus('Opgeslagen', 'saved');
-                    } else {
-                        throw new Error('Save failed');
-                    }
-                    
+
+                    await Promise.all(savePromises.filter(Boolean));
+                    this.showSaveStatus('Opgeslagen', 'saved');
+
                 } catch (error) {
                     console.error('Error saving final assignment:', error);
                     this.showSaveStatus('Fout bij opslaan', 'error');
@@ -663,7 +672,9 @@
                                 
                                 // Handle dual-textarea pages - show both parts
                                 if (mapping.pageId === 'note2_level2') {
-                                    const separator = '--- Waarom geschikt ---';
+                                    // Check for old separator first (backward compatibility)
+                                    const oldSeparator = '--- Waarom geschikt ---';
+                                    const separator = data.content.includes(oldSeparator) ? oldSeparator : '\n\n';
                                     const parts = data.content.split(separator);
                                     if (mapping.field === 'characteristics') {
                                         // Field 5: Show characteristics part
@@ -697,28 +708,21 @@
 
             async loadData() {
                 try {
-                    const response = await fetch(`/api/notes/${this.userId}/${this.pageId}`);
+                    // Load from V2 API with field_number
+                    const response = await fetch(`/api/content/${this.userId}/${this.pageId}`);
                     if (response.ok) {
-                        const data = await response.json();
-                        if (data.content) {
-                            const content = JSON.parse(data.content);
-                            
-                            // Load field contents
-                            for (let i = 1; i <= 10; i++) {
-                                if (this.fields[i] && content[`field${i}`]) {
-                                    this.fields[i].value = content[`field${i}`];
+                        const contentItems = await response.json();
+
+                        // Load each field by field number
+                        contentItems.forEach(item => {
+                            if (item.field_number && item.field_number >= 1 && item.field_number <= 10) {
+                                const field = this.fields[item.field_number];
+                                if (field && item.content) {
+                                    field.value = item.content;
+                                    this.updateCharCounter(field);
                                 }
                             }
-
-                            // Load stats if available
-                            this.editCounts = data.edit_counts || {};
-                            this.timeSpent = data.time_spent || {};
-
-                            // Update display
-                            for (let i = 1; i <= 10; i++) {
-                                this.updateFieldStats(i);
-                            }
-                        }
+                        });
                     }
                 } catch (error) {
                     console.error('Error loading final assignment:', error);
