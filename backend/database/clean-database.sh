@@ -40,6 +40,9 @@ echo "📊 Current data in database:"
 echo "Users: $(sqlite3 bibendo.db 'SELECT COUNT(*) FROM users;')"
 echo "Content: $(sqlite3 bibendo.db 'SELECT COUNT(*) FROM content;')"
 echo "Timeline Events: $(sqlite3 bibendo.db 'SELECT COUNT(*) FROM timeline_events;')"
+echo "Bibendo Tokens: $(sqlite3 bibendo.db 'SELECT COUNT(*) FROM bibendo_tokens;' 2>/dev/null || echo '0')"
+echo "Bibendo Runs: $(sqlite3 bibendo.db 'SELECT COUNT(*) FROM bibendo_game_runs;' 2>/dev/null || echo '0')"
+echo "Bibendo Choices: $(sqlite3 bibendo.db 'SELECT COUNT(*) FROM bibendo_game_choices;' 2>/dev/null || echo '0')"
 echo ""
 
 # Ask for confirmation
@@ -55,13 +58,18 @@ echo "🗑️  Deleting all data..."
 
 # Delete all data from V2 tables (only tables that exist)
 sqlite3 bibendo.db <<EOF
+-- Delete from Bibendo tables first (due to foreign keys)
+DELETE FROM bibendo_game_choices;
+DELETE FROM bibendo_game_runs;
+DELETE FROM bibendo_tokens;
+
 -- Delete from main V2 tables
 DELETE FROM timeline_events;
 DELETE FROM content;
 DELETE FROM users;
 
 -- Reset SQLite sequence numbers
-DELETE FROM sqlite_sequence WHERE name IN ('users', 'content', 'timeline_events');
+DELETE FROM sqlite_sequence WHERE name IN ('users', 'content', 'timeline_events', 'bibendo_tokens', 'bibendo_game_runs', 'bibendo_game_choices');
 
 -- Vacuum to reclaim space
 VACUUM;
@@ -75,6 +83,9 @@ echo "📊 Verification - current data counts:"
 echo "Users: $(sqlite3 bibendo.db 'SELECT COUNT(*) FROM users;')"
 echo "Content: $(sqlite3 bibendo.db 'SELECT COUNT(*) FROM content;')"
 echo "Timeline Events: $(sqlite3 bibendo.db 'SELECT COUNT(*) FROM timeline_events;')"
+echo "Bibendo Tokens: $(sqlite3 bibendo.db 'SELECT COUNT(*) FROM bibendo_tokens;' 2>/dev/null || echo '0')"
+echo "Bibendo Runs: $(sqlite3 bibendo.db 'SELECT COUNT(*) FROM bibendo_game_runs;' 2>/dev/null || echo '0')"
+echo "Bibendo Choices: $(sqlite3 bibendo.db 'SELECT COUNT(*) FROM bibendo_game_choices;' 2>/dev/null || echo '0')"
 echo ""
 
 # Ask if user wants to create test data
