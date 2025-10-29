@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bibendo Data Import - Admin</title>
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/admin.css">
+    <style>
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #00C2CB;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .input-group textarea {
+            width: 100%;
+            min-height: 120px;
+            padding: 12px;
+            border: 2px solid #e0e6ed;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            resize: vertical;
+            transition: border-color 0.3s;
+        }
+
+        .input-group textarea:focus {
+            outline: none;
+            border-color: #00C2CB;
+        }
+
+        .btn-import {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #00C2CB 0%, #00a8b0 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn-import:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 194, 203, 0.3);
+        }
+
+        .btn-import:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .feedback-section {
+            margin-top: 30px;
+            display: none;
+        }
+
+        .feedback-section.active {
+            display: block;
+        }
+
+        .status-list {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .status-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .status-item.active {
+            color: #333;
+            font-weight: 600;
+        }
+
+        .status-item.success {
+            color: #28a745;
+        }
+
+        .status-item.error {
+            color: #dc3545;
+        }
+
+        .status-icon {
+            margin-right: 10px;
+            font-size: 18px;
+        }
+
+        .result-card {
+            background: linear-gradient(135deg, #e8f5f5 0%, #d0f0f0 100%);
+            border: 2px solid #00C2CB;
+            border-radius: 12px;
+            padding: 25px;
+            display: none;
+        }
+
+        .result-card.active {
+            display: block;
+        }
+
+        .result-card h3 {
+            color: #00a8b0;
+            margin-bottom: 15px;
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .result-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .import-stat-item {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 5px;
+        }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: #00C2CB;
+        }
+
+        .result-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .btn-secondary {
+            flex: 1;
+            padding: 12px;
+            background: white;
+            color: #00C2CB;
+            border: 2px solid #00C2CB;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-secondary:hover {
+            background: #00C2CB;
+            color: white;
+        }
+
+        .error-card {
+            background: #ffebee;
+            border: 2px solid #ffcdd2;
+            border-radius: 12px;
+            padding: 25px;
+            display: none;
+        }
+
+        .error-card.active {
+            display: block;
+        }
+
+        .error-card h3 {
+            color: #c62828;
+            margin-bottom: 10px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .import-error-message {
+            color: #c62828;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e0e6ed;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00C2CB 0%, #00a8b0 100%);
+            transition: width 0.3s ease;
+            width: 0%;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <a href="dashboard.html" class="back-link">← Terug naar Dashboard</a>
+
+        <header class="admin-header">
+            <h1 class="admin-title">🎮 Bibendo Data Import</h1>
+            <p class="admin-subtitle">Importeer spelersdata uit de Bibendo database</p>
+        </header>
+
+        <section class="users-section">
+            <div class="input-group">
+                <label for="bearerToken">Bearer Token</label>
+                <textarea
+                    id="bearerToken"
+                    placeholder="Plak hier de Bearer token van de speler..."
+                    spellcheck="false"
+                ></textarea>
+            </div>
+
+            <button id="importBtn" class="btn-import">
+                🔄 Import Starten
+            </button>
+
+            <div id="feedbackSection" class="feedback-section">
+                <div class="progress-bar">
+                    <div id="progressFill" class="progress-fill"></div>
+                </div>
+
+                <div class="status-list" id="statusList">
+                    <!-- Status items will be added here dynamically -->
+                </div>
+
+                <div id="resultCard" class="result-card">
+                    <h3>✅ Import Succesvol!</h3>
+                    <div class="result-stats" id="resultStats">
+                        <!-- Stats will be added here -->
+                    </div>
+                    <div class="result-actions">
+                        <button id="viewTimelineBtn" class="btn-secondary">
+                            📊 Bekijk Timeline
+                        </button>
+                        <button id="newImportBtn" class="btn-secondary">
+                            🔄 Nieuwe Import
+                        </button>
+                    </div>
+                </div>
+
+                <div id="errorCard" class="error-card">
+                    <h3>❌ Import Mislukt</h3>
+                    <p class="import-error-message" id="errorMessage"></p>
+                    <div class="result-actions">
+                        <button id="retryBtn" class="btn-secondary">
+                            🔄 Opnieuw Proberen
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="../assets/js/bibendo-import.js"></script>
+</body>
+</html>

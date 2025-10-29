@@ -533,8 +533,10 @@ class AdminTimelineDashboard {
         }
 
         const config = this.getEventConfig(event.event_type);
-        // Parse as UTC and convert to NL timezone
-        const timestamp = event.timestamp + (event.timestamp.includes('Z') ? '' : 'Z');
+        // Parse timestamp - handle both number (Unix ms) and string (ISO)
+        const timestamp = typeof event.timestamp === 'number'
+            ? event.timestamp
+            : event.timestamp + (event.timestamp.includes('Z') ? '' : 'Z');
         const time = new Date(timestamp).toLocaleTimeString('nl-NL', {
             hour: '2-digit',
             minute: '2-digit',
@@ -589,8 +591,10 @@ class AdminTimelineDashboard {
     }
 
     createGameChoiceEvent(event) {
-        // Parse timestamp
-        const timestamp = event.timestamp + (event.timestamp.includes('Z') ? '' : 'Z');
+        // Parse timestamp - handle both number (Unix ms) and string (ISO)
+        const timestamp = typeof event.timestamp === 'number'
+            ? event.timestamp
+            : event.timestamp + (event.timestamp.includes('Z') ? '' : 'Z');
         const time = new Date(timestamp).toLocaleTimeString('nl-NL', {
             hour: '2-digit',
             minute: '2-digit',
@@ -658,8 +662,10 @@ class AdminTimelineDashboard {
         const grouped = {};
 
         events.forEach(event => {
-            // Parse as UTC and convert to NL date
-            const timestamp = event.timestamp + (event.timestamp.includes('Z') ? '' : 'Z');
+            // Parse timestamp - handle both number (Unix ms) and string (ISO)
+            const timestamp = typeof event.timestamp === 'number'
+                ? event.timestamp
+                : event.timestamp + (event.timestamp.includes('Z') ? '' : 'Z');
             const date = new Date(timestamp).toLocaleDateString('en-CA', {
                 timeZone: 'Europe/Amsterdam'
             }); // en-CA gives YYYY-MM-DD format
@@ -673,8 +679,12 @@ class AdminTimelineDashboard {
         // Sort events within each day
         Object.keys(grouped).forEach(date => {
             grouped[date].sort((a, b) => {
-                const aTime = a.timestamp + (a.timestamp.includes('Z') ? '' : 'Z');
-                const bTime = b.timestamp + (b.timestamp.includes('Z') ? '' : 'Z');
+                const aTime = typeof a.timestamp === 'number'
+                    ? a.timestamp
+                    : a.timestamp + (a.timestamp.includes('Z') ? '' : 'Z');
+                const bTime = typeof b.timestamp === 'number'
+                    ? b.timestamp
+                    : b.timestamp + (b.timestamp.includes('Z') ? '' : 'Z');
                 return new Date(aTime) - new Date(bTime);
             });
         });

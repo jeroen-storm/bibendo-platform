@@ -3,7 +3,58 @@
 ## Project Overview
 Bibendo Platform - Interactive educational platform about SneakSpot sneaker store targeting youth audience.
 
-## Recent Major Updates (October 26, 2025)
+## Recent Major Updates (October 29, 2025)
+
+### 🎮 Bibendo Data Import Tool - Production Ready
+
+#### **Overview**
+Created a user-friendly admin tool for importing Bibendo game data using only a bearer token. The tool automatically extracts the userId, syncs all game data, and displays it in the timeline alongside platform events.
+
+#### **Key Features**
+- **One-click import** - Only requires bearer token (no manual userId entry)
+- **Automatic userId extraction** - Extracts from Bibendo `/api/account/accountDetails` endpoint
+- **Real-time feedback** - Progress bar and status updates during 1-2 minute import
+- **Duplicate prevention** - UNIQUE index ensures no duplicates on re-import
+- **Timeline integration** - Game choices appear with purple styling in user timeline
+- **Long-running request handling** - 5-minute timeout with AbortController
+
+#### **Technical Implementation**
+- **Frontend**: `/frontend/admin/bibendo-import.html` + `/frontend/assets/js/bibendo-import.js`
+- **Backend**: New endpoint `POST /api/bibendo/import` in `server.js`
+- **Database**: UNIQUE index on `(user_id, run_id, question_id)` prevents duplicates
+- **Sync logic**: Uses existing `bibendo-sync.js` with `INSERT OR REPLACE` pattern
+
+#### **User Flow**
+1. Admin navigates to **🎮 Bibendo Data Import** from dashboard
+2. Pastes bearer token (from Bibendo browser console)
+3. Clicks "🔄 Import Starten"
+4. Sees real-time progress: validating → fetching games → syncing runs → saving responses
+5. Success screen shows: games count, runs count, responses count, time range
+6. Click "📊 Bekijk Timeline" to view imported data
+
+#### **Files Created/Modified**
+- `frontend/admin/bibendo-import.html` - Import UI with turquoise theme
+- `frontend/assets/js/bibendo-import.js` - Import logic with timeout handling
+- `frontend/admin/dashboard.html` - Added purple "Bibendo Data Import" button
+- `frontend/admin/user-timeline.html` - Removed old conflicting script
+- `frontend/assets/js/admin-timeline.js` - Fixed timestamp handling (number vs string)
+- `backend/database/schema-v2.sql` - Added UNIQUE index documentation
+- `backend/server.js:784-900` - New import endpoint
+
+#### **Bug Fixes**
+- Fixed timeline timestamp errors (handled both Unix ms and ISO string formats)
+- Removed conflicting `bibendo-timeline-frontend.js` script
+- Added UNIQUE index to prevent duplicates from multiple imports
+- Cleaned up 42 duplicate entries to 10 unique responses
+
+#### **Database Changes**
+```sql
+-- Added UNIQUE index to prevent duplicate imports
+CREATE UNIQUE INDEX IF NOT EXISTS idx_game_choices_unique
+ON bibendo_game_choices(user_id, run_id, question_id);
+```
+
+## Previous Major Updates (October 26, 2025)
 
 ### 🎮 Bibendo Game Integration - Complete Response Sync
 

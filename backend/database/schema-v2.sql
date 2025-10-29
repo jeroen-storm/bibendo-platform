@@ -173,6 +173,10 @@ CREATE INDEX IF NOT EXISTS idx_bibendo_choices_user ON bibendo_game_choices(user
 CREATE INDEX IF NOT EXISTS idx_bibendo_choices_run ON bibendo_game_choices(run_id);
 CREATE INDEX IF NOT EXISTS idx_bibendo_choices_timestamp ON bibendo_game_choices(timestamp);
 
+-- UNIQUE index om duplicaten te voorkomen bij herhaalde imports
+CREATE UNIQUE INDEX IF NOT EXISTS idx_game_choices_unique
+ON bibendo_game_choices(user_id, run_id, question_id);
+
 -- View voor gecombineerde timeline events
 -- Dit combineert bestaande timeline_events met Bibendo game choices
 CREATE VIEW IF NOT EXISTS combined_timeline AS

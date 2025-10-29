@@ -781,6 +781,131 @@ app.get('/api/bibendo/test/:userId', async (req, res) => {
     }
 });
 
+// NEW ENDPOINT: One-step Bibendo Import
+// Accepts only bearer token, extracts userId, and performs full sync
+app.post('/api/bibendo/import', async (req, res) => {
+    const { bearerToken } = req.body;
+
+    if (!bearerToken) {
+        return res.status(400).json({ error: 'Bearer token is required' });
+    }
+
+    try {
+        // Step 1: Get userId from Bibendo API using the token
+        console.log('🔍 Validating token and fetching user ID...');
+        const fetch = require('node-fetch');
+        const accountResponse = await fetch('https://serious-gaming-platform.appspot.com/api/account/accountDetails', {
+            headers: {
+                'Authorization': `Bearer ${bearerToken}`,
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (!accountResponse.ok) {
+            return res.status(401).json({ error: 'Invalid bearer token' });
+        }
+
+        const accountData = await accountResponse.json();
+        console.log('📋 Account data received:', JSON.stringify(accountData, null, 2));
+
+        // Bibendo API uses firebaseId or localId as the user identifier
+        const userId = accountData.firebaseId || accountData.localId || accountData.fullId || accountData.userId;
+
+        if (!userId) {
+            console.log('❌ Could not find userId. Available fields:', Object.keys(accountData));
+            return res.status(400).json({
+                error: 'Could not extract userId from token',
+                availableFields: Object.keys(accountData)
+            });
+        }
+
+        console.log(`✅ User ID: ${userId}`);
+
+        // Step 2: Save token
+        console.log('💾 Saving token...');
+        tokenManager.setToken(userId, bearerToken);
+
+        // Step 3: Perform full sync
+        console.log('🔄 Starting full sync...');
+        const syncSuccess = await bibendoSync.fullSync(userId);
+
+        if (!syncSuccess) {
+            return res.status(500).json({ error: 'Sync failed' });
+        }
+
+        // Step 4: Get sync statistics
+        console.log('📊 Gathering statistics...');
+
+        // Get games count
+        const gamesCount = await new Promise((resolve, reject) => {
+            db.get('SELECT COUNT(DISTINCT game_id) as count FROM bibendo_game_runs WHERE user_id = ?',
+                [userId],
+                (err, row) => {
+                    if (err) reject(err);
+                    else resolve(row ? row.count : 0);
+                }
+            );
+        });
+
+        // Get runs count
+        const runsCount = await new Promise((resolve, reject) => {
+            db.get('SELECT COUNT(*) as count FROM bibendo_game_runs WHERE user_id = ?',
+                [userId],
+                (err, row) => {
+                    if (err) reject(err);
+                    else resolve(row ? row.count : 0);
+                }
+            );
+        });
+
+        // Get choices count
+        const choicesCount = await new Promise((resolve, reject) => {
+            db.get('SELECT COUNT(*) as count FROM bibendo_game_choices WHERE user_id = ?',
+                [userId],
+                (err, row) => {
+                    if (err) reject(err);
+                    else resolve(row ? row.count : 0);
+                }
+            );
+        });
+
+        // Get time range
+        const timeRange = await new Promise((resolve, reject) => {
+            db.get(`
+                SELECT
+                    MIN(timestamp) as oldest,
+                    MAX(timestamp) as newest
+                FROM bibendo_game_choices
+                WHERE user_id = ?
+            `,
+                [userId],
+                (err, row) => {
+                    if (err) reject(err);
+                    else resolve(row);
+                }
+            );
+        });
+
+        console.log('✅ Import completed successfully!');
+
+        res.json({
+            success: true,
+            userId,
+            gamesCount,
+            runsCount,
+            choicesCount,
+            timeRange: timeRange ? {
+                oldest: timeRange.oldest ? new Date(timeRange.oldest).toLocaleDateString('nl-NL') : 'N/A',
+                newest: timeRange.newest ? new Date(timeRange.newest).toLocaleDateString('nl-NL') : 'N/A'
+            } : null
+        });
+
+    } catch (error) {
+        console.error('Import error:', error);
+        res.status(500).json({ error: error.message || 'Import failed' });
+    }
+});
+
 // Error handling middleware
 app.use((err, req, res, next) => {
     console.error(err.stack);
